@@ -9,6 +9,7 @@
     <description>Recent content on Erik&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <copyright>&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;&lt;div&gt;© {{ now.Year }} Erik Jenner&lt;/div&gt;&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;</copyright>
     <lastBuildDate>Sat, 20 Jun 2020 12:25:00 +0200</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -55,6 +56,31 @@
           I&amp;rsquo;m trying to have a positive impact on the world by making sure that artificial intelligence will be aligned with humanity&amp;rsquo;s interests.
 Currently, I&amp;rsquo;m a BSc students in physics at Heidelberg university. I&amp;rsquo;ll begin an AI Master&amp;rsquo;s in Amsterdam this September.
 Among other things, I&amp;rsquo;m interested in causality, foundational questions in physics, information theory, paradoxa, Emacs, chess and personal productivity. Only time will tell which of those things I will blog about here.
+          
+        
+        </description>
+    </item>
+    
+    <item>
+      <title>Impressum</title>
+      <link>https://ejnnr.github.io/legal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://ejnnr.github.io/legal/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+          Erik Jenner
+Im Neuenheimer Feld 689
+69120 Heidelberg
+Contact me at erik.jenner99@gmail.com
+Privacy I don&amp;rsquo;t use cookies, track your visits or collect any personal information about you.
+Because this blog is hosted with Github Pages, Github may log visits, including IP adresses as per their privacy policy.
           
         
         </description>
