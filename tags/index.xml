@@ -9,7 +9,7 @@
     <description>Recent content in Tags on Erik&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;&lt;div&gt;© {{ now.Year }} Erik Jenner&lt;/div&gt;&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;</copyright>
+    <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
     
 	<atom:link href="https://ejnnr.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
