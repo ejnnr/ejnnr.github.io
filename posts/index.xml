@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Erik&#39;s blog</title>
+    
+    
+    
+    <link>https://ejnnr.github.io/posts/</link>
+    <description>Recent content in Posts on Erik&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Jun 2020 12:25:00 +0200</lastBuildDate>
+    
+	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Discounting in a relativistic universe</title>
+      <link>https://ejnnr.github.io/posts/discounting-relativistic-universe/</link>
+      <pubDate>Sat, 20 Jun 2020 12:25:00 +0200</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/discounting-relativistic-universe/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            For people who want to discount the future, special relativity creates
+  some challenges. There are different ways to handle those but none
+  seem completely satisfactory which may be yet another argument against
+  discounting pure utilities.
+  
+          
+        
+        </description>
+    </item>
+    
+  </channel>
+</rss>
