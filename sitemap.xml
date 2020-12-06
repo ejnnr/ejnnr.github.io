@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://ejnnr.github.io/posts/discounting-relativistic-universe/</loc>
-    <lastmod>2020-06-20T12:25:00+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://ejnnr.github.io/</loc>
-    <lastmod>2020-06-20T12:25:00+02:00</lastmod>
+    <lastmod>2020-12-06T18:00:00+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://ejnnr.github.io/posts/</loc>
+    <lastmod>2020-12-06T18:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ejnnr.github.io/posts/karger-stein/</loc>
+    <lastmod>2020-12-06T18:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ejnnr.github.io/posts/discounting-relativistic-universe/</loc>
     <lastmod>2020-06-20T12:25:00+02:00</lastmod>
   </url>
   
