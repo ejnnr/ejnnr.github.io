@@ -10,10 +10,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Sun, 06 Dec 2020 18:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 29 Dec 2020 14:03:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ways to think about structure in mathematics</title>
+      <link>https://ejnnr.github.io/posts/perspectives-on-structure/</link>
+      <pubDate>Tue, 29 Dec 2020 14:03:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/perspectives-on-structure/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            &#34;Structure&#34; is a concept that keeps popping up when thinking about mathematics
+  but it&#39;s hard to pin down what it is exactly. I discuss several different perspectives
+  for thinking about it.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Trading off speed against the probability of success in the Karger-Stein Algorithm</title>
