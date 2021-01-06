@@ -10,10 +10,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Tue, 29 Dec 2020 14:03:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 06 Jan 2021 14:45:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>VAEs from a generative perspective</title>
+      <link>https://ejnnr.github.io/posts/vae-generative/</link>
+      <pubDate>Wed, 06 Jan 2021 14:45:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/vae-generative/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            Variational autoencoders are usually introduced as a probabilistic extension of autoencoders
+  with regularization. An alternative view is that the encoder arises naturally as a tool
+  for efficiently training the decoder. This is the perspective I take in this post, deriving
+  VAEs without assuming an autoencoder architecture a priori.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Ways to think about structure in mathematics</title>
