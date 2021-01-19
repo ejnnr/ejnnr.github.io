@@ -10,10 +10,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 13 Jan 2021 16:58:00 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 19 Jan 2021 10:52:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Asymmetry between position and momentum in physics</title>
+      <link>https://ejnnr.github.io/posts/position-momentum-asymmetry/</link>
+      <pubDate>Tue, 19 Jan 2021 10:52:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/position-momentum-asymmetry/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            In both classical mechanics and QM, there are transformations between position-based
+  and momentum-based representations that preserve the dynamical laws. So from
+  a mathematical perspective, position and momentum seem to play equivalent roles
+  in physics. But they don&#39;t play equivalent roles in our cognition, which is part of
+  the physical universe -- seemingly a paradox.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Building Blocks of RL Part I: Value-based methods</title>
