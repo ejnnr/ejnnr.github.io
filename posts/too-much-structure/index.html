@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>Too much structure :: Erik Jenner</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="When proving simple statements in point set topology, there is often only one obvious next step that can be done given the objects and statements you already have1. You don&amp;rsquo;t need to think about what you eventually want to prove because there is only one step that will lead to a proof of anything.
+An example: continuous images of compact spaces are compact As an example, let&amp;rsquo;s go through the proof that the image of a compact space under a continuous map is again compact: we start with a compact space \(X\) and a map \(f: X \to Y\)."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://ejnnr.github.io/posts/too-much-structure/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://ejnnr.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://ejnnr.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://ejnnr.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://ejnnr.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Too much structure"/>
+<meta name="twitter:description" content="  Proving things for object that have a lot of structure can be harder
+  than for object with less structure, simply because the tree of possible
+  proofs is much wider. This is probably why trying to prove a more general
+  case is sometimes a helpful strategy.
+  "/>
+
+
+
+<meta property="og:title" content="Too much structure" />
+<meta property="og:description" content="  Proving things for object that have a lot of structure can be harder
+  than for object with less structure, simply because the tree of possible
+  proofs is much wider. This is probably why trying to prove a more general
+  case is sometimes a helpful strategy.
+  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ejnnr.github.io/posts/too-much-structure/" />
+<meta property="article:published_time" content="2021-01-27T08:53:00+01:00" />
+<meta property="article:modified_time" content="2021-01-27T08:53:00+01:00" /><meta property="og:site_name" content="Erik Jenner" />
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">Erik Jenner</span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title"><a href="https://ejnnr.github.io/posts/too-much-structure/">Too much structure</a></h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-01-27
+        </span>
+
+        
+          
+        
+      
+
+      
+      
+        <span class="post-read-time">— 6 min read</span>
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://ejnnr.github.io/tags/structure/">structure</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>When proving simple statements in point set topology, there is often only
+one obvious next step that can be done given the objects and statements you
+already have<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. You don&rsquo;t need to think about what you eventually want to prove
+because there is only one step that will lead to a proof of <em>anything</em>.</p>
+<h2 id="an-example-continuous-images-of-compact-spaces-are-compact">An example: continuous images of compact spaces are compact</h2>
+<p>As an example, let&rsquo;s go through the proof that the image of a compact space
+under a continuous map is again compact: we start with a compact space \(X\)
+and a map \(f: X \to Y\). To make the notation less unwieldy, we&rsquo;ll assume that \(f\) is surjective,
+so we&rsquo;ll show that \(Y\) is compact, but the proof works exactly the same without this assumption
+(just replace every occurence of \(Y\) with \(f(X)\)).
+Because we want to show that \(Y\) is compact,
+i.e. that every open cover of \(Y\) has a finite subcover, we also start with
+a given open cover \(Y = \bigcup_i U_i\).</p>
+<p>With only these objects available, there isn&rsquo;t a lot we can do. For example,
+if \(X\) were a normed vector space, we would have access to its zero vector
+and then could construct \(f(0)\) from that. That wouldn&rsquo;t lead anywhere but it&rsquo;s a branch in the
+tree of possible proofs that might distract us. Because \(X\) and \(Y\) have
+so little structure, these kinds of options simply don&rsquo;t exist.</p>
+<p>The only thing I can come up with is that we can look at the preimage of
+each of the \(U_i\) under \(f\). This gives us a collection \(f^{-1}(U_i), i \in I\)
+of subsets of \(X\). Such a collection in itself still doesn&rsquo;t allow us to do anything
+interesting, but because preimages preserve unions, we have
+\[\bigcup_i f^{-1}(U_i) = f^{-1}\left(\bigcup_i U_i\right) = f^{-1}(Y) = X\]
+so this collection is in fact a cover of \(X\). Because \(f\) is continuous, it is also
+an <em>open</em> cover.</p>
+<p>Again, there isn&rsquo;t much we can do with this newly constructed open cover. We could
+map it back to \(Y\) with \(f\) immediately but that just gives us back the open cover
+of \(Y\) we started with.
+The other thing we can do with an open cover of \(X\) is pick a finite subcover:
+\(X\) is compact, and we can think of that procedurally as a way of turning any
+open cover into a finite subcover.</p>
+<p>So now we have a new object: a finite open subcover \(X = U_{i_1} \cup \ldots \cup U_{i_k}\).
+Inside \(X\), there isn&rsquo;t anything else we can do with a (finite) cover, so the only
+option is to now apply \(f\) again, which gives us sets \(f(f^{-1}(U_{i_1})), \ldots, f(f^{-1}(U_{i_k})) \subset Y\).
+Because \(f\left(f^{-1}(U_i)\right) = U_i\), this is a finite subset of the open cover we
+started with.</p>
+<p>An then we&rsquo;re done because it is also a cover:
+\[\bigcup_{j = 1}^k f\left(U_{i_j}\right) = f\left(\bigcup_{j = 1}^k U_{i_j}\right) = f(X) = Y\]</p>
+<p>The thing that I hope you took away from this walkthrough is how few choices
+there were at each step. Apart from some steps that obviously didn&rsquo;t add anything new,
+there was always only one thing to do next.</p>
+<p>We didn&rsquo;t even specifically aim to construct a finite subcover of \(\bigcup_i U_i\)
+for most of the proof, we just &ldquo;went with the flow&rdquo;.</p>
+<p>This is a feeling that is much more rare in e.g. real analysis, even for proofs that
+are similarly easy as the one above. With some experience, you might get enough
+intuition to discard all the wrong options immediately but they&rsquo;ll still be there.
+You typically have to keep in mind what you want to prove and deliberately
+steer your proof in that direction, otherwise the number of possible paths you
+could take just explodes and you never get anywhere.</p>
+<h2 id="the-importance-of--lack-of--structure">The importance of (lack of) structure</h2>
+<p>The decisive difference between the point set topology example and real analysis is,
+I think, how much structure the spaces and objects
+we are working with have. By &ldquo;structure&rdquo;, I mean the same somewhat
+elusive concept I&rsquo;ve previously talked about <a href="/posts/perspectives-on-structure/">here</a>. In short, a group is
+a set with some additional structure and a field adds even more structure.
+The way I use the word, a manifold also has more structure than a topological
+space (even though it doesn&rsquo;t require any new choices).</p>
+<p>One of the aspects of structure I talked about in the post I just linked is
+that objects with less structure admit fewer definitions and theorems.
+Applying theorems to the objects we&rsquo;ve already constructed is how we
+make progress in our proofs. So having fewer theorems to work with
+leads to a proof tree with a lower branching factor: at each step of
+the proof, there are only a few things we can do. In an extreme case,
+we have a branching factor of one and can do the proof on autopilot,
+as in the topology example above.</p>
+<p>If you are working on \(\mathbb{R}^n\) on the other hand, you can use all the topological
+properties you had before, but you can also view \(\mathbb{R}^n\) as a vector space, you
+can talk about lengths and angles and even about the Lebesgue measure of sets. This is possible
+because \(\mathbb{R}^n\) has a lot of canonical structure,
+so you suddenly have many more tools at your disposal.</p>
+<p>This explains why it can help to generalize a statement you are trying to prove:
+afterwards, you have less structure to work with. Assuming the statement is still
+true in its more general form, the tree of possible proofs has a much smaller
+branching factor and becomes easier to explore.</p>
+<h2 id="propositions-as-types">Propositions as types</h2>
+<p>One last thing to mention is that all of this is closely connected to the &ldquo;propositions as types&rdquo;
+interpretation: mathematical propositions can be interpreted as types, with proving a proposition
+corresponding to constructing a term of that type. I already talked about constructing new objects
+using the available objects and theorems and this is exactly the same idea but the language of
+type theory formalizes this. If you want to see an example like the topology proof I gave but explicitly
+using the propositions as types view, check out section II. in <a href="https://www.lesswrong.com/posts/Xfw2d5horPunP2MSK/dependent-type-theory-and-zero-shot-reasoning">this post</a>. If you haven&rsquo;t seen
+the correspondence between propositions and types before and want to learn more,
+<a href="https://www.youtube.com/watch?v=IOiZatlZtGU">this talk</a> is very fun to watch.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Note the &ldquo;simple&rdquo; &ndash; there are obviously really hard to prove statements in point set topology, as in any discipline <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://ejnnr.github.io/posts/position-momentum-asymmetry/">
+                  <span class="button__text">Asymmetry between position and momentum in physics</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+
+    
+      
+        
+
+      
+    
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user"><div><a href='/legal'>Legal</a></div><div>Powered by Hugo. Theme: Hello Friend by panr</div></div>
+    
+  </div>
+</footer>
+
+<script src="https://ejnnr.github.io/assets/main.js"></script>
+<script src="https://ejnnr.github.io/assets/prism.js"></script><script>
+window.MathJax = {
+  tex: {
+    tags: 'ams'
+  }
+};
+</script>
+<script async src="/mathjax/tex-chtml.js"></script>
+
+
+
+
+      
+    </div>
+
+    
+  </body>
+</html>
