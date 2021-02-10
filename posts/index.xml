@@ -10,10 +10,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 03 Feb 2021 07:39:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 10 Feb 2021 16:27:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Boring numbers, complexity and Chaitin&#39;s incompleteness theorem</title>
+      <link>https://ejnnr.github.io/posts/boring-numbers/</link>
+      <pubDate>Wed, 10 Feb 2021 16:27:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/boring-numbers/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            There is a &#34;complexity barrier&#34;: a number such that we can&#39;t prove
+  the Kolmogorov complexity of any specific string to be larger than
+  that. The proof of this astonishing fact is closely related to some
+  famous paradoxa and we&#39;ll use this connection to get a better intuition
+  for why the complexity barrier exists.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Building Blocks of RL Part II: Policy Optimization</title>
