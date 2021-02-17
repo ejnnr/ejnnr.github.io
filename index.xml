@@ -10,10 +10,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 10 Feb 2021 16:27:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 17 Feb 2021 09:33:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>L1 regularization: sparsity through singularities</title>
+      <link>https://ejnnr.github.io/posts/sparsity-singularities/</link>
+      <pubDate>Wed, 17 Feb 2021 09:33:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/sparsity-singularities/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            L1 regularization is famous for leading to sparse optima, in contrast to
+  L2 regularization. There are several ways of understanding this but I&#39;ll
+  argue that it&#39;s really all about one fact: the L1 norm has a singularity
+  at the origin, while the L2 norm does not. And this is not just true
+  for L1 and L2 regularization: singularities are always necessary to get sparse weights.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Boring numbers, complexity and Chaitin&#39;s incompleteness theorem</title>
