@@ -10,10 +10,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 17 Feb 2021 09:33:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 24 Feb 2021 10:41:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Building Blocks of RL Part III: Model-based RL</title>
+      <link>https://ejnnr.github.io/posts/rl-building-blocks-3/</link>
+      <pubDate>Wed, 24 Feb 2021 10:41:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/rl-building-blocks-3/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            Reinforcement Learning consists of a few key building blocks that can be combined to create
+  many of the well-known algorithms. Framing RL in terms of these building blocks
+  can give a good overview and better understanding of these algorithms. This is
+  the conclusion of a series with such an overview, covering model-based RL.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>L1 regularization: sparsity through singularities</title>
