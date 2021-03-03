@@ -10,10 +10,36 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 24 Feb 2021 10:41:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 03 Mar 2021 14:48:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Deep Implicit layers</title>
+      <link>https://ejnnr.github.io/posts/implicit-layers/</link>
+      <pubDate>Wed, 03 Mar 2021 14:48:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/implicit-layers/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            Several new architectures for neural networks, such as Neural ODEs and
+  deep equlibirum models can be understood as replacing classical layers
+  that explicitly specify how to compute the output with implicit layers.
+  These layers describe which conditions the output should specify but
+  leave the actual computation up to some solver that can be chosen arbitrarily.
+  This post contains a brief introduction to the main ideas behind implicit layers.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Building Blocks of RL Part III: Model-based RL</title>
