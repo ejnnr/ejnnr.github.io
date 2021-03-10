@@ -10,10 +10,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 03 Mar 2021 14:48:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 10 Mar 2021 17:07:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Perspectives on spherical harmonics</title>
+      <link>https://ejnnr.github.io/posts/spherical-harmonics/</link>
+      <pubDate>Wed, 10 Mar 2021 17:07:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/spherical-harmonics/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            Spherical harmonics are ubiquitous in math and physics, in part because
+  they naturally appear as solutions to several problems; in particular they
+  are the eigenfunctions of the spherical Laplacian and the irreducible
+  representations of SO(3). But why should the solutions to these problems
+  be the same? And why are they called spherical harmonics?
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Deep Implicit layers</title>
