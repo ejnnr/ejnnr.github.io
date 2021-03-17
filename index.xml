@@ -10,10 +10,34 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 10 Mar 2021 17:07:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 17 Mar 2021 14:14:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Emacs as an amazing LaTeX editor</title>
+      <link>https://ejnnr.github.io/posts/latex-emacs/</link>
+      <pubDate>Wed, 17 Mar 2021 14:14:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/latex-emacs/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            Emacs has some really amazing features for writing LaTeX; this post gives
+  an overview of some of them, either to convince you to give Emacs a try,
+  or to make you aware that these features exist if you&#39;re already using
+  Emacs but didn&#39;t know about them.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Perspectives on spherical harmonics</title>
