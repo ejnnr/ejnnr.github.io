@@ -10,10 +10,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 17 Mar 2021 14:14:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 24 Mar 2021 11:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>State formally, reason informally</title>
+      <link>https://ejnnr.github.io/posts/state-formally-reason-informally/</link>
+      <pubDate>Wed, 24 Mar 2021 11:00:00 +0100</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/state-formally-reason-informally/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            There&#39;s a style of teaching mathematics that I really like: stating definitions
+  and theorems as formally as in any textbook, but focusing on informal arguments
+  for why they should be true.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Emacs as an amazing LaTeX editor</title>
