@@ -10,10 +10,36 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 24 Mar 2021 11:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 31 Mar 2021 14:49:00 +0200</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Collection of quick computer tips</title>
+      <link>https://ejnnr.github.io/posts/computer-tips/</link>
+      <pubDate>Wed, 31 Mar 2021 14:49:00 +0200</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/computer-tips/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            Many of us spend a lot of time working with our computer, so it&#39;s worth
+  spending some time to make that experience as pleasent and productive
+  as possible. This is a collection of tips that are relatively quick
+  to implement and still very valuable in the long run in my opinion.
+  Mainly geared towards developers and others who work with the shell
+  a lot.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>State formally, reason informally</title>

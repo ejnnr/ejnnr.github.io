@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>Collection of quick computer tips :: Erik Jenner</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="This is a list of tips for improving your experience working with your computer. I focus on things that are quick to implement (say, 5 minutes to half an hour). Spending 5 minutes on something becomes worthwhile as soon as it saves you 5 seconds per month over 5 years, and I think all the tips here easily clear that bar. I&amp;rsquo;m not mentioning some things that are extremely valuable but take more time to do, stuff like &amp;ldquo;learn vim keybindings&amp;rdquo;."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://ejnnr.github.io/posts/computer-tips/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://ejnnr.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://ejnnr.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://ejnnr.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://ejnnr.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Collection of quick computer tips"/>
+<meta name="twitter:description" content="  Many of us spend a lot of time working with our computer, so it&#39;s worth
+  spending some time to make that experience as pleasent and productive
+  as possible. This is a collection of tips that are relatively quick
+  to implement and still very valuable in the long run in my opinion.
+  Mainly geared towards developers and others who work with the shell
+  a lot.
+  "/>
+
+
+
+<meta property="og:title" content="Collection of quick computer tips" />
+<meta property="og:description" content="  Many of us spend a lot of time working with our computer, so it&#39;s worth
+  spending some time to make that experience as pleasent and productive
+  as possible. This is a collection of tips that are relatively quick
+  to implement and still very valuable in the long run in my opinion.
+  Mainly geared towards developers and others who work with the shell
+  a lot.
+  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ejnnr.github.io/posts/computer-tips/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-31T14:49:00&#43;02:00" />
+<meta property="article:modified_time" content="2021-03-31T14:49:00&#43;02:00" /><meta property="og:site_name" content="Erik Jenner" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">Erik Jenner</span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title"><a href="https://ejnnr.github.io/posts/computer-tips/">Collection of quick computer tips</a></h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-03-31
+        </span>
+
+        
+          
+        
+      
+
+      
+      
+        <span class="post-read-time">— 7 min read</span>
+      
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>This is a list of tips for improving your experience working
+with your computer. I focus on things that are quick to implement
+(say, 5 minutes to half an hour). Spending 5 minutes on something becomes
+worthwhile as soon as it saves you <a href="https://xkcd.com/1205/">5 seconds per month over 5 years</a>,
+and I think all the tips here easily clear that bar.
+I&rsquo;m not mentioning some things that are extremely
+valuable but take more time to do, stuff like &ldquo;learn vim keybindings&rdquo;.
+That&rsquo;s not because those aren&rsquo;t important &ndash; they might even be more important
+than these quick hacks. But they don&rsquo;t fit well into this format because
+I would need to give a lot more context: who they are useful for, why it&rsquo;s
+worth investing time in them etc.</p>
+<p>I&rsquo;ve grouped these tips and tried to sort them by descending usefulness
+inside each category, but that&rsquo;s of course quite subjective.
+As a final caveat, I don&rsquo;t explain in detail how to set all of this up.
+If you&rsquo;ve played around with configuration files before, the pointers I give are hopefully
+enough. If you haven&rsquo;t, this might not be the easiest place to start.</p>
+<h2 id="general">General</h2>
+<dl>
+<dt>Make use of your Caps Lock key</dt>
+<dd>The Caps Lock key takes up extremely
+valuable keyboard real estate, even though most people never use it.
+I suggest mapping it to Control for non-vim users. If you use vim keybindings,
+you&rsquo;ve probably already remapped it to Escape; in that case I would suggest
+using it as an Escape key when pressed and as Control when held down while
+pressing another key. How that works depends on your OS (I&rsquo;m using <a href="https://gitlab.com/interception/linux/plugins/caps2esc">caps2esc</a> on Archlinux).</dd>
+<dt>Fuzzy finder for opening files</dt>
+<dd>Opening files using a file browser or by first opening
+an application and then using the &ldquo;Open file&rdquo; dialog is really slow. Instead, you can
+use a launcher  that you can invoke with a keyboard
+shortcut. You then type in part of the path or filename and once you confirm your selection,
+the file is opened. On Linux, you can install for example <a href="https://albertlauncher.github.io/">Alfred</a> or <a href="https://ulauncher.io/">ULauncher</a> (which also have additional
+functionality rather than just opening files). Or you can use <a href="https://github.com/davatorium/rofi">rofi</a>, which is extremely
+flexible but will require a bit more setup.</dd>
+<dt>Adjust your typematic delay and rate</dt>
+<dd>If you hold a key down, this simulates
+pressing that key a bunch of times at a high frequency. The typematic rate
+is this frequency and the typematic delay is the time delay before this effect kicks
+in. You can adjust these values to your liking, how that works depends on your OS/Desktop environment.
+On Linux with X, you can use <code>xset r rate &lt;delay in ms&gt; &lt;rate in Hz&gt;</code> (this is temporary, so put this
+in a script that will be executed on startup).</dd>
+<dt>Redshift</dt>
+<dd>Use <a href="http://jonls.dk/redshift/">redshift</a> or <a href="https://justgetflux.com/">f.lux</a> to automatically adjust the color temperature of your screen according
+to the time of day. This will gradually make your screen look warmer during the evening.</dd>
+<dt>Dotfiles</dt>
+<dd>Put your dotfiles in a git repository. <a href="http://dotfiles.github.io/">This page</a> contains a few ideas as inspiration on
+how to best set this up. Personally, I use <a href="https://github.com/anishathalye/dotbot">Dotbot</a>, which means I can put all my configuration
+files into one directory and they will be symlinked to the right places. You can also do something
+similar for your <code>/etc</code> files using <a href="http://etckeeper.branchable.com/">etckeeper</a>.</dd>
+<dt>sshfs</dt>
+<dd>This lets you mount a remote directory inside your local file system,
+after which you can edit, create, move and delete files there using whichever
+tools you like to use for that on your local machine. It&rsquo;s in the package repositories
+of most Linux distributions and using it is as simple as
+<pre><code class="language-nil" data-lang="nil">       $ sshfs [user@]hostname:[directory] mountpoint
+</code></pre></dd>
+</dl>
+<h2 id="shell">Shell</h2>
+<dl>
+<dt>Use vim keybindings everywhere</dt>
+<dd>There are extensions for most browsers
+that let you browse web pages with vim keybindings.
+You can also use them in <code>zsh</code> (add <code>bindkey -v</code> to you <code>~/.zshrc</code> or use <a href="https://github.com/jeffreytse/zsh-vi-mode">this extension</a>
+for some improved features). In <code>fish</code>, you can use <code>fish_vi_key_bindings</code> inside your config,
+and for <code>bash</code> it&rsquo;s <code>set -o vi</code>. You can even enable them for all readline programs,
+such as the Python REPL, by adding
+<pre><code class="language-nil" data-lang="nil">     set editing-mode vi
+     set keymap vi
+</code></pre><p>to your <code>~/.inputrc</code>.</p>
+</dd>
+<dt>Ctrl-R history search</dt>
+<dd>Pressing Ctrl-R inside your terminal will let you search
+through your history of commands and paste the one you select to your prompt,
+after which you can edit it.</dd>
+<dt>Aliases</dt>
+<dd>Pay attention to commands you&rsquo;re using frequently and create aliases for them.
+Using <a href="https://linux.byexamples.com/archives/332/what-is-your-10-common-linux-commands/">this command</a>, you can also show your most common commands, maybe that gives some
+ideas (though what we really care about is closer to &ldquo;most common long prefixes of commands&rdquo;;
+might be worth it to write a script for that instead).</dd>
+<dt>fzf</dt>
+<dd><a href="https://github.com/junegunn/fzf">fzf</a> is a general purpose fuzzy finder and you can use it for all kinds of
+things. But more importantly, for this list, it comes with three pre-defined
+shell-keybindings: Ctrl-R is replaced with an improved history search, and Alt-C lets
+you fuzzy search the directories on your machine and will <code>cd</code> to the chosen one.
+Finally, Ctrl-T lets you search files inside the current directory (recursively)
+and pastes the selected path into the prompt, which is much faster for typing long
+paths than the usual TAB completion.</dd>
+<dt>Autosuggestions</dt>
+<dd>Autosuggestions in your shell mean
+that the shell always tries to guess which command you&rsquo;re entering, typically
+based on the TAB completions as well as your history. It shows this guess and
+you can hit a keybinding to complete it. Make sure to remap this
+to something sensible (for example, zsh uses the right arrow key, which is way too far
+away, I use Ctrl-Space insted). <code>fish</code> has these built in, and there is an <a href="https://github.com/zsh-users/zsh-autosuggestions">extension</a>
+for <code>zsh</code>. As far as I know, <code>bash</code> doesn&rsquo;t have autosuggestions at the moment.</dd>
+<dt>autojump</dt>
+<dd><a href="https://github.com/wting/autojump">autojump</a> watches the directories you visit in your shell and maintains
+a database of which ones you use the most. Then you can type <code>$ j &lt;part of directory path&gt;</code>
+and <code>autojump</code> will try to guess which directory you want to go to and <code>cd</code> there.
+A couple of letters from the directory name are usually enough for that.
+This is a good alternative to <code>fzf</code>&rsquo;s Alt-C search.</dd>
+<dt>Syntax highlighting</dt>
+<dd>this just means different parts of your command are colored
+differently, much more pleasant to work with. Again, <code>fish</code> has this built in, for
+<code>zsh</code> you can use another <a href="https://github.com/zsh-users/zsh-syntax-highlighting">extension</a>, and I don&rsquo;t think there&rsquo;s an easy way to do this
+in bash.</dd>
+<dt>!!</dt>
+<dd><code>!!</code> expands to the previous command. So for example, <code>$ sudo !!</code> reruns your previous
+command as a super user.</dd>
+<dt>Output coloring</dt>
+<dd>Many shell commands can color their output but have this disabled by default. In particular:
+<ul>
+<li><code>alias ls='ls --color=auto'</code> to always have colored <code>ls</code> output</li>
+<li><a href="https://github.com/sharkdp/bat">bat</a> is a <code>cat</code> replacement with syntax highlighting among other things.
+It can also be used to <a href="https://github.com/sharkdp/bat#man">color man pages</a></li>
+<li>The <a href="https://wiki.archlinux.org/index.php/Color%5Foutput%5Fin%5Fconsole">ArchWiki</a> contains many more cases (most of them not specific to Arch)</li>
+</ul>
+</dd>
+<dt>Color theme</dt>
+<dd>most terminal emulators allow choosing your own color theme,
+and there are configurations online for most pairs of terminal emulator and
+popular color theme. So you can for example use the same theme you use inside
+your editor for your terminal as well.</dd>
+</dl>
+<h2 id="zathura">Zathura</h2>
+<p>Zathura is a lightweight PDF viewer with vim keybindings. I&rsquo;m a big fan; in case
+you are as well, here are two tips to make it even better:</p>
+<ul>
+<li>
+<p>When you&rsquo;re on e.g. page 10 of a PDF but the page number in the footer is 1
+(because of title pages etc.), type <code>:offset 9</code> to tell Zathura about this mismatch.
+Whenever you type <code>&lt;page number&gt; G</code> later, Zathura will subtract this offset and
+you will be on the page with <code>&lt;page number&gt;</code> in the footer. Extremely useful if
+the PDF has no hyperlinked table of contents. Zathura remembers this setting for each file.</p>
+</li>
+<li>
+<p>Recoloring allows you to give PDFs a custom foreground and background color. For example,
+you could display PDFs as light text on a dark background. Or use the following in your <code>zathurarc</code>,
+which displays PDFs in a Solarized light color scheme:</p>
+<pre><code class="language-nil" data-lang="nil">  set recolor
+  set recolor-darkcolor &quot;#586e75&quot;
+  set recolor-lightcolor &quot;#fdf6e3&quot;
+  set recolor-keephue
+</code></pre><p>The last line means that the colors of images should be preserved (though they&rsquo;ll be
+less vibrant). This works for <em>all</em> pdfs, even scanned images! Ctrl-R will toggle recolorization
+on and off, in case you want to switch back to the original.
+For the ideal visual experience, you can also set the color of all the GUI elements,
+see <a href="https://github.com/lennonwoo/zathura-solarized">https://github.com/lennonwoo/zathura-solarized</a> for a Solarized version.</p>
+</li>
+</ul>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://ejnnr.github.io/posts/state-formally-reason-informally/">
+                  <span class="button__text">State formally, reason informally</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+
+    
+      
+        
+
+      
+    
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user"><div><a href='/legal'>Legal</a></div><div>Powered by Hugo. Theme: Hello Friend by panr</div></div>
+    
+  </div>
+</footer>
+
+<script src="https://ejnnr.github.io/assets/main.js"></script>
+<script src="https://ejnnr.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+  </body>
+</html>
