@@ -10,10 +10,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 31 Mar 2021 14:49:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 07 Apr 2021 18:19:00 +0200</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Troubles with the Bias-Variance tradeoff</title>
+      <link>https://ejnnr.github.io/posts/bias-variance-tradeoff/</link>
+      <pubDate>Wed, 07 Apr 2021 18:19:00 +0200</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/bias-variance-tradeoff/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            The bias-variance tradeoff is a key idea in machine learning. While
+  the double descent phenomenon casts doubt on its validity for highly over-parameterized
+  models, it&#39;s still supposed to be true in the &#34;classical&#34; regime of smaller
+  models. But even in that regime, it is a pretty vague concept. When
+  exactly does it hold, and why?
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Collection of quick computer tips</title>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>Troubles with the Bias-Variance tradeoff :: Erik Jenner</title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="The classical picture of under- and overfitting in machine learning goes something like this: if your model is too simplistic, you won&amp;rsquo;t be able to fit the data very well and get a larger error. When you increase the model complexity, you reach a sweet spot at some point, after which the test error increases again because the model is overfitting.
+The observation of the double descent phenomenon has extended this picture: if you take a model past the sweet point and increase its complexity even more, the test error starts decreasing again after a while."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://ejnnr.github.io/posts/bias-variance-tradeoff/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://ejnnr.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://ejnnr.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://ejnnr.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://ejnnr.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Troubles with the Bias-Variance tradeoff"/>
+<meta name="twitter:description" content="  The bias-variance tradeoff is a key idea in machine learning. While
+  the double descent phenomenon casts doubt on its validity for highly over-parameterized
+  models, it&#39;s still supposed to be true in the &#34;classical&#34; regime of smaller
+  models. But even in that regime, it is a pretty vague concept. When
+  exactly does it hold, and why?
+  "/>
+
+
+
+<meta property="og:title" content="Troubles with the Bias-Variance tradeoff" />
+<meta property="og:description" content="  The bias-variance tradeoff is a key idea in machine learning. While
+  the double descent phenomenon casts doubt on its validity for highly over-parameterized
+  models, it&#39;s still supposed to be true in the &#34;classical&#34; regime of smaller
+  models. But even in that regime, it is a pretty vague concept. When
+  exactly does it hold, and why?
+  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ejnnr.github.io/posts/bias-variance-tradeoff/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-04-07T18:19:00&#43;02:00" />
+<meta property="article:modified_time" content="2021-04-07T18:19:00&#43;02:00" /><meta property="og:site_name" content="Erik Jenner" />
+
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">Erik Jenner</span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <div class="post">
+    <h1 class="post-title"><a href="https://ejnnr.github.io/posts/bias-variance-tradeoff/">Troubles with the Bias-Variance tradeoff</a></h1>
+    <div class="post-meta">
+      
+        <span class="post-date">
+          2021-04-07
+        </span>
+
+        
+          
+        
+      
+
+      
+      
+        <span class="post-read-time">— 10 min read</span>
+      
+    </div>
+
+    
+
+    
+
+    <div class="post-content">
+      
+      <p>The classical picture of under- and overfitting in machine learning goes something
+like this: if your model is too simplistic, you won&rsquo;t be able to fit the data
+very well and get a larger error. When you increase the model complexity, you reach
+a sweet spot at some point, after which the test error increases again because
+the model is overfitting.</p>
+<p>The observation of the <a href="https://arxiv.org/abs/1812.11118">double descent</a> phenomenon has extended this picture: if you
+take a model past the sweet point and increase its complexity <em>even more</em>, the test
+error starts decreasing again after a while. While trying to understand why this
+happens, I thought it would be good to first get a firm grasp on where the classical
+picture is coming from. But that turned out to be surprisingly difficult.</p>
+<h2 id="primer-bias-and-variance">Primer: Bias and variance</h2>
+<p>Under- and overfitting can be explained in terms of bias and variance.
+I&rsquo;m going to discuss everything in a supervised learning setting. So the setup
+is the following:</p>
+<ul>
+<li>There is a true (unknown) function \(f(x)\), which we want to approximate</li>
+<li>We have a dataset \(D = \{(x_1, y_1), \ldots, (x_n, y_n)\}\) of datapoints
+that we use to learn an approximation, where \(y_i = f(x_i)\)</li>
+<li>We have some training process that takes in this dataset \(D\) and produces
+a function \(\hat{f}(x; D)\) that approximates \(f(x)\)</li>
+<li>Finally, we imagine there is some distribution over datasets \(D\). This
+distribution is unknown an it&rsquo;s a somewhat elusive concept, but think of it
+like this: we created our dataset with some process, e.g. by taking lots of
+photos and then having people label them. The distribution over datasets
+describes how likely this process is to produce any particular dataset.</li>
+</ul>
+<p>Now we can define precisely what we mean by bias and variance:</p>
+<ul>
+<li>The bias is the difference between the expected value of \(\hat{f}(x; D)\)
+and the true value \(f(x)\), i.e.
+\[\mathbb{E}_D[\hat{f}(x; D)] - f(x)\]</li>
+<li>By &ldquo;variance&rdquo; we mean the variance of \(\hat{f}(x; D)\) with respect to \(D\), i.e.
+\[\mathbb{E}_D \left(\mathbb{E}_D[\hat{f}(x; D)] - \hat{f}(x; D)\right)^2\]</li>
+</ul>
+<p>Ideally, we want both bias and variance to be small. The reason is the <em>bias-variance decomposition</em>
+of the expected squared error<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>:
+\[\mathbb{E}_D (\hat{f}(x; D) - f(x))^2 = \text{bias}^2 + \text{variance}\]
+Assuming we ultimately want to minimize this expected squared error, it&rsquo;s clear
+that all else being equal, we prefer training procedures with low bias and variance.</p>
+<p>As a sidenote: when I say &ldquo;training procedure&rdquo;, I mean the entire process that leads
+from a dataset to the function \(\hat{f}(\cdot; D)\), following the terminology
+from the <a href="https://arxiv.org/abs/1912.02292">deep double descent</a> paper. In particular, this includes the model. People
+also sometimes just talk about the bias or variance of a model, but that&rsquo;s a bit
+misleading because things such as regularization terms in the loss function also
+play an important role.</p>
+<p>Ok, now what about the tradeoff between bias and variance? The idea is that training
+procedures with low bias tend to have high variance, and those with low variance
+tend to have high bias. So we can&rsquo;t get both low bias and low variance, instead we
+need to find a tradeoff between the two, such that the expected squared error is minimized.
+This is illustrated by the following figure (from <a href="http://scott.fortmann-roe.com/docs/BiasVariance.html">this essay</a>, which I recommend if you want
+to gain more intuition about bias, variance, and their tradeoff):
+<img src="/ox-hugo/tradeoff.png" alt=""></p>
+<p>If we have a very simplistic model/training procedure, we have a high bias because
+our model just can&rsquo;t get close to the true function \(f\), no matter what we feed
+in as training data. With a more complex model, we can fit the true function better,
+but the trained model \(\hat{f}\) also depends a lot more on the training data \(D\),
+so the variance increases.</p>
+<p>This explanation sounds sort of intuitive, but I find it a bit unsatisfying. Why exactly
+do complex models vary more depending on the training data? When does this hold? Can I have
+a theorem, please? And what is this &ldquo;model complexity&rdquo; anyways?</p>
+<h2 id="a-non-answer">A non-answer</h2>
+<p>Unfortunately, the bias-variance <em>decomposition</em> and the bias-variance <em>tradeoff</em> are often conflated somewhat,
+so let&rsquo;s get one thing out of the way: the bias-variance decomposition is not
+an explanation for the tradeoff (even though some handy-wavy explanations
+suggest this with varying degrees of explicitness). The only way this could
+work is if the total error was constant; this would indeed imply a tradeoff between
+bias and variance. But it clearly isn&rsquo;t constant (neither in the figure
+above, nor in practice). If the total error <em>was</em> constant for all training procedures,
+then we wouldn&rsquo;t care about the tradeoff between bias and variance: it wouldn&rsquo;t even
+matter which model we chose.</p>
+<p>Instead, the bias-variance decomposition just motivates why we care about bias
+and variance at all. So it explains why the bias-variance tradeoff is important, but it can&rsquo;t
+explain why it&rsquo;s a thing in the first place.</p>
+<h2 id="some-counterexamples">Some counterexamples</h2>
+<p>As mentioned, in I ideal world I would like some general theorem about
+the bias-variance tradeoff. But is that realistic? Just how universal is this tradeoff?
+We can immediately rule out the most general kinds of theorems through a few
+counterexamples.</p>
+<p>The strongest form of bias-variance tradeoff would be the claim
+&ldquo;any decrease in variance leads to an increase in bias&rdquo; (and vice versa).
+This is clearly false. For example, let&rsquo;s say we start with a traing procedure that chooses
+\(\hat{f}(x; D) = \operatorname{sha1}(D)\), i.e. which uses a hash of (some serialization of)
+the training data for its prediction (there&rsquo;s nothing special about this example,
+just think &ldquo;a really ridiculous training procedure&rdquo;).
+This procedure has high variance, but also high bias. Switching
+to any reasonable training procedure will decrease both considerably.</p>
+<p>But let&rsquo;s consider a more reasonable statement of the bias-variance-tradeoff:
+assume we have a class of models, and the training procedure picks the model from that
+class that has the lowest training error. We now want to know how the choice of
+model class influences bias and variance. Furthermore, we only consider a nested
+set of model classes. So we have an ordering of model classes from simple to complex,
+where successively more complex classes contain the simpler ones.</p>
+<p>Note that this is a rather typical example of what we mean when
+we talk about &ldquo;model complexity&rdquo; and the bias-variance tradeoff in practical
+contexts. For example, a wider neural network can always instantiate any function
+that a more narrow one can, by having some weights be zero.</p>
+<p>In this setting, the bias-variance tradeoff can be formulated as two separate claims:
+the bias decreases with increasing complexity, while the variance increases.
+Unfortunately, neither one is true in general.</p>
+<p>A case where bias increases is easy to construct: Let&rsquo;s say the inputs \(x\) and
+the targets \(y\) are both real numbers, and there is some noise, i.e. \(y = f(x) + \varepsilon\),
+with \(\mathbb{E} \varepsilon = 0\). One very simple model class is \(\{f\}\), and
+this class of course leads to a bias of zero. Then there is a more complex model
+class \(\{f, f + 1\}\), where we have added a model that always predicts one more
+than \(f\). Because of the noise, we might get unlucky with the training data and
+pick this second model. So this more complex model class has non-zero bias.</p>
+<p>A slight modification leads to an example where variance decreases with model
+complexity: we take \(\{f - 1, f + 1\}\) as the simple model class and \(\{f - 1, f, f + 1\}\)
+as a larger class. Assuming that we have a very large amount of training data,
+we will almost always pick \(f\) in the second case, so the variance will be very
+low. In contrast, in the first case, we pick each of \(f - 1\) and \(f + 1\) half the
+time, so we have a constant variance, no matter how much training data we have.</p>
+<p>If you are familiar with double descent, note that this decrease in variance
+happens in the classical regime, in the sense that in either case, there is
+at most one model that fits the data perfectly. So we haven&rsquo;t crossed the
+interpolation threshold yet, and still the variance went down when we increased
+model complexity.</p>
+<p>If you think that these examples are silly and not representative of real-world scenarios,
+I completely agree with you. They do not constitute a strong argument that
+there is no bias-variance tradeoff in practice, but they do put some limits
+on what kinds of bias-variance tradeoffs we can <em>prove</em>. There may well be some
+rather general theoretical result that formalizes the bias-variance tradeoff,
+but hopefully I&rsquo;ve convinced you that the most naive statements don&rsquo;t work.
+So before proving any general theorems becomes realistic, we first need to
+formalize what we mean when we say &ldquo;bias-variance tradeoff&rdquo;,
+and in particular when this tradeoff is supposed to hold. As far as I&rsquo;m aware,
+such a formalization does not exist yet<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<h2 id="model-complexity">Model complexity</h2>
+<p>I&rsquo;ve mentioned model complexity a few times now, and it is a key ingredient
+for the intuition behind the bias-variance tradeoff. But it is a rather elusive
+concept, with many different aspects of the training procedure falling under
+its umbrella. The prototypical example of model complexity is the size of the
+class of models we use. For example, increasing the width of a neural network,
+or using a larger basis of features for linear regression, both increase
+the size of the model class under consideration.</p>
+<p>But the size of the model class is not the everything. For example,
+regularization terms in the loss function don&rsquo;t change the model class but instead affect which model
+is selected from that class. The same is true for the number of trainings steps,
+or more generally the optimization procedure.</p>
+<p>Nakkiran et al.<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> define <em>effective model complexity</em>
+of a training procedure as the maximum number of training points for which the
+expected training error remains below some threshold \(\varepsilon\).
+That definition captures a lot of my intuition about what we mean by &ldquo;complexity&rdquo;
+in the context of the bias-variance tradeoff. On the other hand, it seems slightly
+ad-hoc and I&rsquo;m still hoping for an even better notion of model complexity.</p>
+<p>Of course one approach would be to use Kolmogorov complexity. Note that
+we don&rsquo;t want the (expected) Kolmogorov complexity of the learned model.
+For example, a randomly initialized neural network has high Kolmogorov complexity,
+but its model complexity should be zero (it&rsquo;s all the way at
+&ldquo;high bias, low variance<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>&quot;). What we might be able
+to use instead is the algorithmic mutual information between the learned
+model and the dataset. Another approach would be the (information-theoretic)
+mutual information of dataset and model with respect to the distribution over datasets.
+Both of these would probably be hard to estimate in practice (and I haven&rsquo;t
+thought very long about whether they make sense theoretically and intuitively).
+But they illustrate the type of more fundamental definition that I&rsquo;m hoping exists.</p>
+<p>Whether a good definition of model complexity would lead to a formalization
+of the bias-variance tradeoff is not clear. For example, just
+saying &ldquo;bias/variance decreases/increases with increasing effective model
+complexity&rdquo; doesn&rsquo;t work (the examples from the previous sections are still
+counterexamples). But at least I suspect that having the right notion
+of model comlexity is <em>necessary</em> for finding a general formal statement
+about the bias-variance tradeoff, even if we then need additional conditions,
+under which it holds (for example that it is only true in the classical regime,
+i.e. when the model isn&rsquo;t overparameterized).</p>
+<h2 id="further-reading">Further reading</h2>
+<p>I highly recommend <a href="https://www.bradyneal.com/bias-variance-tradeoff-textbooks-update">this essay</a>, which makes some similar points.
+But it also focuses a lot more on the empirical side of things: in particular
+in neural networks, it seems that the bias-variance tradeoff simply doesn&rsquo;t
+hold. Of course, this would explain why it is so difficult to find any general formalizations
+of it.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>I&rsquo;m ignoring label noise here. More generally, if the labels are sampled from \(y = f(x) + \varepsilon\) with \(\mathbb{E}[\varepsilon] = 0\), there would be an additional \(\varepsilon^2\)-term, the <em>irreducible error</em>. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>There are some theorems for specific cases such as linear regression and K-nearest neighbors, see Section 3.4.1.2 <a href="https://arxiv.org/pdf/1912.08286.pdf">here</a>. But the bias-variance tradeoff is invoked in much more generality than that, so it would be nice to also have more general theoretical results <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>in the <a href="https://arxiv.org/abs/1912.02292">deep double descent</a> paper <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>To forestall potential confusion: the variance <em>with respect to the training data</em> is low. Of course there is high variance with respect to the random initialization itself, but that&rsquo;s not what we&rsquo;re interested in. <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+    
+      
+        <div class="pagination">
+          <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+          </div>
+          <div class="pagination__buttons">
+            
+            
+              <span class="button next">
+                <a href="https://ejnnr.github.io/posts/computer-tips/">
+                  <span class="button__text">Collection of quick computer tips</span>
+                  <span class="button__icon">→</span>
+                </a>
+              </span>
+            
+          </div>
+        </div>
+      
+    
+
+
+    
+      
+        
+
+      
+    
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user"><div><a href='/legal'>Legal</a></div><div>Powered by Hugo. Theme: Hello Friend by panr</div></div>
+    
+  </div>
+</footer>
+
+<script src="https://ejnnr.github.io/assets/main.js"></script>
+<script src="https://ejnnr.github.io/assets/prism.js"></script><script>
+window.MathJax = {
+  tex: {
+    tags: 'ams'
+  }
+};
+</script>
+<script async src="/mathjax/tex-chtml.js"></script>
+
+
+
+
+      
+    </div>
+
+    
+  </body>
+</html>
