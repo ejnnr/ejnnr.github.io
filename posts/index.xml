@@ -10,10 +10,32 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 07 Apr 2021 18:19:00 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 14 Apr 2021 19:42:00 +0200</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Scripting for personal productivity</title>
+      <link>https://ejnnr.github.io/posts/automation-productivity/</link>
+      <pubDate>Wed, 14 Apr 2021 19:42:00 +0200</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/automation-productivity/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            If you can program, you can use that to support your habits and automate
+  some routines. This post gives a few examples.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Troubles with the Bias-Variance tradeoff</title>
