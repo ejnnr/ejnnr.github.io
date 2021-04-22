@@ -51,11 +51,10 @@
         
         
         
-            The bias-variance tradeoff is a key idea in machine learning. While
-  the double descent phenomenon casts doubt on its validity for highly over-parameterized
-  models, it&#39;s still supposed to be true in the &#34;classical&#34; regime of smaller
-  models. But even in that regime, it is a pretty vague concept. When
-  exactly does it hold, and why?
+            The bias-variance tradeoff is a key idea in machine learning. But I&#39;ll
+  argue that we know surprisingly little about it: when does it hold?
+  How does it relate to the Double Descent phenomenon? And what do we
+  even formally mean when we talk about it?
   
           
         
