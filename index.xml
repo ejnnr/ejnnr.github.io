@@ -10,10 +10,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
-    <lastBuildDate>Wed, 14 Apr 2021 19:42:00 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 06 Jul 2021 14:15:00 +0200</lastBuildDate>
     
 	<atom:link href="https://ejnnr.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Distributions Part I: the Delta distribution</title>
+      <link>https://ejnnr.github.io/posts/distributions-intro/</link>
+      <pubDate>Tue, 06 Jul 2021 14:15:00 +0200</pubDate>
+      
+      <guid>https://ejnnr.github.io/posts/distributions-intro/</guid>
+      <description>
+        
+          
+          
+          
+        
+        
+        
+            Did you always want to know kind of object this weird Dirac delta &#34;function&#34;
+  actually is? Well, it&#39;s a Schwartz distribution. If that doesn&#39;t help much,
+  then keep reading.
+  
+          
+        
+        </description>
+    </item>
     
     <item>
       <title>Scripting for personal productivity</title>

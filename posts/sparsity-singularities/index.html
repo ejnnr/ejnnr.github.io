@@ -132,7 +132,7 @@
 
       
       
-        <span class="post-read-time">— 7 min read</span>
+        <span class="post-read-time">— 6 min read</span>
       
     </div>
 
@@ -271,13 +271,13 @@ range of values. This is what makes sparse weights likely.</p>
 <hr>
 <ol>
 <li id="fn:1" role="doc-endnote">
-<p>This is a restriction, for example a model containign ReLUs will typically only be differentiable almost everywhere, and as we&rsquo;ll see, individual non-differentiable points will play a big role. It might be possible to argue that the types of non-differentiable points created by ReLUs don&rsquo;t change the conclusions of following discussion but we&rsquo;ll just assume a differentiable loss so we can focus on the conceptual insights. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>This is a restriction, for example a model containign ReLUs will typically only be differentiable almost everywhere, and as we&rsquo;ll see, individual non-differentiable points will play a big role. It might be possible to argue that the types of non-differentiable points created by ReLUs don&rsquo;t change the conclusions of following discussion but we&rsquo;ll just assume a differentiable loss so we can focus on the conceptual insights.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2" role="doc-endnote">
-<p>meaning that the error \(f(x) - (f(0) + f'(0)x)\) doesn&rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f'(0)x)}{x} \to 0\] This is enough to make the rest of argument work out. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>meaning that the error \(f(x) - (f(0) + f'(0)x)\) doesn&rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f'(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3" role="doc-endnote">
-<p>Of course this is not guaranteed for complex loss functions: there might be another local optimum somewhere else. This is just the condition for 0 to be one of the local optima at which we might end up. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Of course this is not guaranteed for complex loss functions: there might be another local optimum somewhere else. This is just the condition for 0 to be one of the local optima at which we might end up.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </section>
