@@ -5,22 +5,22 @@
     
     
     
-    <link>https://ejnnr.github.io/posts/</link>
+    <link>https://ejenner.com/posts/</link>
     <description>Recent content in Posts on Erik Jenner</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&lt;div&gt;&lt;a href=&#39;https://ejnnr.github.io/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
+    <copyright>&lt;div&gt;&lt;a href=&#39;https://ejenner.com/legal&#39;&gt;Legal&lt;/a&gt;&lt;/div&gt;&lt;div&gt;Powered by Hugo. Theme: Hello Friend by panr&lt;/div&gt;</copyright>
     <lastBuildDate>Tue, 06 Jul 2021 14:15:00 +0200</lastBuildDate>
     
-	<atom:link href="https://ejnnr.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ejenner.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Distributions Part I: the Delta distribution</title>
-      <link>https://ejnnr.github.io/posts/distributions-intro/</link>
+      <link>https://ejenner.com/posts/distributions-intro/</link>
       <pubDate>Tue, 06 Jul 2021 14:15:00 +0200</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/distributions-intro/</guid>
+      <guid>https://ejenner.com/posts/distributions-intro/</guid>
       <description>
         
           
@@ -40,10 +40,10 @@
     
     <item>
       <title>Scripting for personal productivity</title>
-      <link>https://ejnnr.github.io/posts/automation-productivity/</link>
+      <link>https://ejenner.com/posts/automation-productivity/</link>
       <pubDate>Wed, 14 Apr 2021 19:42:00 +0200</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/automation-productivity/</guid>
+      <guid>https://ejenner.com/posts/automation-productivity/</guid>
       <description>
         
           
@@ -62,10 +62,10 @@
     
     <item>
       <title>Troubles with the Bias-Variance tradeoff</title>
-      <link>https://ejnnr.github.io/posts/bias-variance-tradeoff/</link>
+      <link>https://ejenner.com/posts/bias-variance-tradeoff/</link>
       <pubDate>Wed, 07 Apr 2021 18:19:00 +0200</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/bias-variance-tradeoff/</guid>
+      <guid>https://ejenner.com/posts/bias-variance-tradeoff/</guid>
       <description>
         
           
@@ -86,10 +86,10 @@
     
     <item>
       <title>Collection of quick computer tips</title>
-      <link>https://ejnnr.github.io/posts/computer-tips/</link>
+      <link>https://ejenner.com/posts/computer-tips/</link>
       <pubDate>Wed, 31 Mar 2021 14:49:00 +0200</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/computer-tips/</guid>
+      <guid>https://ejenner.com/posts/computer-tips/</guid>
       <description>
         
           
@@ -112,10 +112,10 @@
     
     <item>
       <title>State formally, reason informally</title>
-      <link>https://ejnnr.github.io/posts/state-formally-reason-informally/</link>
+      <link>https://ejenner.com/posts/state-formally-reason-informally/</link>
       <pubDate>Wed, 24 Mar 2021 11:00:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/state-formally-reason-informally/</guid>
+      <guid>https://ejenner.com/posts/state-formally-reason-informally/</guid>
       <description>
         
           
@@ -135,10 +135,10 @@
     
     <item>
       <title>Emacs as an amazing LaTeX editor</title>
-      <link>https://ejnnr.github.io/posts/latex-emacs/</link>
+      <link>https://ejenner.com/posts/latex-emacs/</link>
       <pubDate>Wed, 17 Mar 2021 14:14:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/latex-emacs/</guid>
+      <guid>https://ejenner.com/posts/latex-emacs/</guid>
       <description>
         
           
@@ -159,10 +159,10 @@
     
     <item>
       <title>Perspectives on spherical harmonics</title>
-      <link>https://ejnnr.github.io/posts/spherical-harmonics/</link>
+      <link>https://ejenner.com/posts/spherical-harmonics/</link>
       <pubDate>Wed, 10 Mar 2021 17:07:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/spherical-harmonics/</guid>
+      <guid>https://ejenner.com/posts/spherical-harmonics/</guid>
       <description>
         
           
@@ -184,10 +184,10 @@
     
     <item>
       <title>Deep Implicit layers</title>
-      <link>https://ejnnr.github.io/posts/implicit-layers/</link>
+      <link>https://ejenner.com/posts/implicit-layers/</link>
       <pubDate>Wed, 03 Mar 2021 14:48:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/implicit-layers/</guid>
+      <guid>https://ejenner.com/posts/implicit-layers/</guid>
       <description>
         
           
@@ -210,10 +210,10 @@
     
     <item>
       <title>Building Blocks of RL Part III: Model-based RL</title>
-      <link>https://ejnnr.github.io/posts/rl-building-blocks-3/</link>
+      <link>https://ejenner.com/posts/rl-building-blocks-3/</link>
       <pubDate>Wed, 24 Feb 2021 10:41:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/rl-building-blocks-3/</guid>
+      <guid>https://ejenner.com/posts/rl-building-blocks-3/</guid>
       <description>
         
           
@@ -234,10 +234,10 @@
     
     <item>
       <title>L1 regularization: sparsity through singularities</title>
-      <link>https://ejnnr.github.io/posts/sparsity-singularities/</link>
+      <link>https://ejenner.com/posts/sparsity-singularities/</link>
       <pubDate>Wed, 17 Feb 2021 09:33:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/sparsity-singularities/</guid>
+      <guid>https://ejenner.com/posts/sparsity-singularities/</guid>
       <description>
         
           
@@ -259,10 +259,10 @@
     
     <item>
       <title>Boring numbers, complexity and Chaitin&#39;s incompleteness theorem</title>
-      <link>https://ejnnr.github.io/posts/boring-numbers/</link>
+      <link>https://ejenner.com/posts/boring-numbers/</link>
       <pubDate>Wed, 10 Feb 2021 16:27:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/boring-numbers/</guid>
+      <guid>https://ejenner.com/posts/boring-numbers/</guid>
       <description>
         
           
@@ -284,10 +284,10 @@
     
     <item>
       <title>Building Blocks of RL Part II: Policy Optimization</title>
-      <link>https://ejnnr.github.io/posts/rl-building-blocks-2/</link>
+      <link>https://ejenner.com/posts/rl-building-blocks-2/</link>
       <pubDate>Wed, 03 Feb 2021 07:39:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/rl-building-blocks-2/</guid>
+      <guid>https://ejenner.com/posts/rl-building-blocks-2/</guid>
       <description>
         
           
@@ -308,10 +308,10 @@
     
     <item>
       <title>Too much structure</title>
-      <link>https://ejnnr.github.io/posts/too-much-structure/</link>
+      <link>https://ejenner.com/posts/too-much-structure/</link>
       <pubDate>Wed, 27 Jan 2021 08:53:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/too-much-structure/</guid>
+      <guid>https://ejenner.com/posts/too-much-structure/</guid>
       <description>
         
           
@@ -332,10 +332,10 @@
     
     <item>
       <title>Asymmetry between position and momentum in physics</title>
-      <link>https://ejnnr.github.io/posts/position-momentum-asymmetry/</link>
+      <link>https://ejenner.com/posts/position-momentum-asymmetry/</link>
       <pubDate>Tue, 19 Jan 2021 10:52:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/position-momentum-asymmetry/</guid>
+      <guid>https://ejenner.com/posts/position-momentum-asymmetry/</guid>
       <description>
         
           
@@ -357,10 +357,10 @@
     
     <item>
       <title>Building Blocks of RL Part I: Value-based methods</title>
-      <link>https://ejnnr.github.io/posts/rl-building-blocks-1/</link>
+      <link>https://ejenner.com/posts/rl-building-blocks-1/</link>
       <pubDate>Wed, 13 Jan 2021 16:58:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/rl-building-blocks-1/</guid>
+      <guid>https://ejenner.com/posts/rl-building-blocks-1/</guid>
       <description>
         
           
@@ -382,10 +382,10 @@
     
     <item>
       <title>VAEs from a generative perspective</title>
-      <link>https://ejnnr.github.io/posts/vae-generative/</link>
+      <link>https://ejenner.com/posts/vae-generative/</link>
       <pubDate>Wed, 06 Jan 2021 14:45:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/vae-generative/</guid>
+      <guid>https://ejenner.com/posts/vae-generative/</guid>
       <description>
         
           
@@ -406,10 +406,10 @@
     
     <item>
       <title>Ways to think about structure in mathematics</title>
-      <link>https://ejnnr.github.io/posts/perspectives-on-structure/</link>
+      <link>https://ejenner.com/posts/perspectives-on-structure/</link>
       <pubDate>Tue, 29 Dec 2020 14:03:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/perspectives-on-structure/</guid>
+      <guid>https://ejenner.com/posts/perspectives-on-structure/</guid>
       <description>
         
           
@@ -429,10 +429,10 @@
     
     <item>
       <title>Trading off speed against the probability of success in the Karger-Stein Algorithm</title>
-      <link>https://ejnnr.github.io/posts/karger-stein/</link>
+      <link>https://ejenner.com/posts/karger-stein/</link>
       <pubDate>Sun, 06 Dec 2020 18:00:00 +0100</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/karger-stein/</guid>
+      <guid>https://ejenner.com/posts/karger-stein/</guid>
       <description>
         
           
@@ -454,10 +454,10 @@
     
     <item>
       <title>Discounting in a relativistic universe</title>
-      <link>https://ejnnr.github.io/posts/discounting-relativistic-universe/</link>
+      <link>https://ejenner.com/posts/discounting-relativistic-universe/</link>
       <pubDate>Sat, 20 Jun 2020 12:25:00 +0200</pubDate>
       
-      <guid>https://ejnnr.github.io/posts/discounting-relativistic-universe/</guid>
+      <guid>https://ejenner.com/posts/discounting-relativistic-universe/</guid>
       <description>
         
           
