@@ -1,0 +1,10 @@
+# IDEs
+.idea/
+.vscode/
+.auctex-auto/
+
+# Hugo
+/resources/
+public/
+jsconfig.json
+node_modules/

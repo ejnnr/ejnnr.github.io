@@ -1,0 +1,24 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/erik/Documents/site/blog.org
+
+
+* CANCELLED REINFORCE is (optimal?) importance sampling :ml_insights:
+CLOSED: [2021-02-19 Fri 15:02]
+:PROPERTIES:
+:ARCHIVE_TIME: 2021-03-24 Wed 11:25
+:ARCHIVE_FILE: ~/Documents/site/blog.org
+:ARCHIVE_CATEGORY: blog
+:ARCHIVE_TODO: CANCELLED
+:END:
+Weiß nicht, was hier meine Idee war, meine Notiz dazu macht
+keinen Sinn mehr. Vermute mal, dass ich mich da irgendwie
+verdacht habe.
+
+Original:
+
+Usually, REINFORCE (for MC estimation of stochastic gradients) is derived with
+the log probability trick or whatever it's called. This can be interpreted as importance
+sampling (sampling from the distribution p_phi instead of a uniform "distribution").
+Maybe p_phi is the optimal distribution to use to minimize variance?
