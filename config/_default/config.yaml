@@ -36,6 +36,7 @@ enableEmoji: true
 enableRobotsTXT: true
 footnotereturnlinkcontents: <sup>^</sup>
 ignoreFiles: [\.ipynb$, .ipynb_checkpoints$, \.Rmd$, \.Rmarkdown$, _cache$]
+publishDir: docs
 permalinks:
   event: '/talk/:slug/'
   tags: '/tag/:slug/'
