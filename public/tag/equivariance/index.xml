@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Equivariance | Erik Jenner</title>
+    <link>https://ejenner.com/tag/equivariance/</link>
+      <atom:link href="https://ejenner.com/tag/equivariance/index.xml" rel="self" type="application/rss+xml" />
+    <description>Equivariance</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Equivariance</title>
+      <link>https://ejenner.com/tag/equivariance/</link>
+    </image>
+    
+    <item>
+      <title>Steerable PDOs</title>
+      <link>https://ejenner.com/project/steerable-pdos/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/project/steerable-pdos/</guid>
+      <description>&lt;p&gt;Equivariant deep learning has many similarities to theoretical physics,
+which have already lead to ideas from physics being applied to the field.
+But they typically use convolutions, whereas physics uses differential
+operators. In an internship at &lt;a href=&#34;https://ivi.fnwi.uva.nl/quva/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;QUVA Lab&lt;/a&gt;,
+I developed the theory of equivariant differential operators &amp;ndash; &lt;em&gt;Steerable PDOs&lt;/em&gt;
+&amp;ndash; in order to close this gap. I also implemented steerable PDOs as
+an extension of the &lt;a href=&#34;https://github.com/QUVA-Lab/e2cnn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;e2cnn&lt;/em&gt; library&lt;/a&gt;
+to allow others to easily apply them in their own work.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Steerable Partial Differential Operators for Equivariant Neural Networks</title>
+      <link>https://ejenner.com/publication/steerable-pdos/</link>
+      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/publication/steerable-pdos/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

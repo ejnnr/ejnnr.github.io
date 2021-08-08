@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1 | Erik Jenner</title>
+    <link>https://ejenner.com/publication-type/1/</link>
+      <atom:link href="https://ejenner.com/publication-type/1/index.xml" rel="self" type="application/rss+xml" />
+    <description>1</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>1</title>
+      <link>https://ejenner.com/publication-type/1/</link>
+    </image>
+    
+    <item>
+      <title>Extensions of Karger&#39;s Algorithm: Why They Fail in Theory and How They Are Useful in Practice</title>
+      <link>https://ejenner.com/publication/karger/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/publication/karger/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,1285 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  Emacs has some really amazing features for writing LaTeX; this post gives
+  an overview of some of them, either to convince you to give Emacs a try,
+  or to make you aware that these features exist if you&#39;re already using
+  Emacs but didn&#39;t know about them.
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/latex-emacs/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/latex-emacs/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/latex-emacs/" />
+  <meta property="og:title" content="Emacs as an amazing LaTeX editor | Erik Jenner" />
+  <meta property="og:description" content="  Emacs has some really amazing features for writing LaTeX; this post gives
+  an overview of some of them, either to convince you to give Emacs a try,
+  or to make you aware that these features exist if you&#39;re already using
+  Emacs but didn&#39;t know about them.
+  " /><meta property="og:image" content="https://ejenner.com/post/latex-emacs/featured.png" />
+    <meta property="twitter:image" content="https://ejenner.com/post/latex-emacs/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-03-17T14:14:00&#43;01:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-03-17T14:14:00&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/latex-emacs/"
+  },
+  "headline": "Emacs as an amazing LaTeX editor",
+  
+  "image": [
+    "https://ejenner.com/post/latex-emacs/featured.png"
+  ],
+  
+  "datePublished": "2021-03-17T14:14:00+01:00",
+  "dateModified": "2021-03-17T14:14:00+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  Emacs has some really amazing features for writing LaTeX; this post gives\n  an overview of some of them, either to convince you to give Emacs a try,\n  or to make you aware that these features exist if you're already using\n  Emacs but didn't know about them.\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Emacs as an amazing LaTeX editor | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="f3eb33525f848a2903798bff9fa23b61" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Emacs as an amazing LaTeX editor</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Mar 17, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    6 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>The purpose of this post is to point you towards some great features
+and packages if you&rsquo;re already using Emacs to edit LaTeX, and to
+make you jealous if you&rsquo;re using some other editor<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>This isn&rsquo;t a tutorial for Emacs or even a tutorial on how to write LaTeX inside
+Emacs. Rather, it&rsquo;s supposed to give an idea of what&rsquo;s possible, either
+as inspiration or to convince you to give Emacs a try. One problem is
+that setting all of this up can be a huge time sink, so you might want
+to use a framework such as <a href="https://github.com/hlissner/doom-emacs" target="_blank" rel="noopener">Doom</a>, where you just need to enable the LaTeX
+module and get almost everything I describe here.</p>
+<h2 id="the-basics">The basics</h2>
+<p>Of course you get all the basics you would expect from a LaTeX editor.
+Synctex is supported (meaning you can jump from a certain line in the
+LaTeX code to the corresponding place inside your PDF viewer and the other
+way around), you can compile files from inside emacs, you can jump to
+compilation errors if there are any, there is auto-completion and so on.</p>
+<h2 id="visuals">Visuals</h2>
+<p>LaTeX can produce beautiful documents, but the source code isn&rsquo;t very
+readable when writing mathematical expressions:</p>
+<pre><code class="language-latex">  \alpha \mapsto \int_{\R}e^{-\alpha x^2}\,dx
+</code></pre>
+<p>Emacs and AUCTeX (which is the de-facto standard package for using LaTeX inside
+Emacs) have several features that improve this situation:</p>
+<ul>
+<li><code>preview-latex</code> replaces equations (and other parts of the LaTeX document)
+with images by compiling them. This means they look exactly the same inside
+the editor as they will in the compiled document. When the cursor is on
+an equation, this image preview is automatically replaced by the underlying text so you can
+still easily edit equations. However, this method of course has a noticeable
+delay because it requires a call to the LaTeX compiler.</li>
+<li>LaTeX superscripts and subscripts are displayed as super-/subscripts inside the editor.
+This is a purely visual feature, editing them doesn&rsquo;t require &ldquo;entering&rdquo; or &ldquo;exiting&rdquo;
+the subscript or anything like that.</li>
+<li><code>prettify-symbols-mode</code> allows you to replace any string with any unicode symbol.
+AUCTeX comes with a fairly comprehensive predefined list, which replaces LaTeX commands
+such as greek letters, arrows and others with symbolic representations. But you
+can also add your own. For example, the example above uses <code>\R</code>, which my custom style
+file defines as <code>\mathbb{R}</code>, and it&rsquo;s possible to add replacement rules for such custom
+commands (as long as there is a fitting Unicode symbol). This makes the line above
+look like this in my editor:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1ac1a653e1e944496505b731d26697b4.png 400w,
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_7bb49c13616a0ab182dae2332666fec5.png 760w,
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1200x1200_fit_lanczos_3.png 1200w"
+               src="/post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1ac1a653e1e944496505b731d26697b4.png"
+               width="457"
+               height="162"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+
+When the cursor moves over one of those Unicode symbols, it is expanded to the underlying
+text. And the nice thing about this is that it&rsquo;s essentially instantaneous because nothing
+needs to be compiled.</li>
+<li><em>Folding</em> is something similar but more general (though unlike <code>prettify-symbols-mode</code> it&rsquo;s specific to LaTeX).
+It doesn&rsquo;t just allow replacing fixed strings but also more complicated
+expressions. By default, this is used for example to display <code>\label{some_label}</code> as <code>[l]</code>
+(which as always expands when the cursor moves over it). The reasoning here is that
+some elements such as labels are just distractions when reading LaTeX source code.
+But you can also use this to further improve how math is displayed, see
+<a href="https://tecosaur.github.io/emacs-config/config.html#editor-visuals" target="_blank" rel="noopener">this config</a> for some ideas (and in general for more ideas on how to
+beautify LaTeX inside Emacs).</li>
+</ul>
+<h2 id="editing">Editing</h2>
+<p>AUCTeX has a couple of nice features that make typing LaTeX a bit easier.
+For example, you can let it automatically insert braces <code>{}</code> when typing <code>_</code> or <code>^</code>
+inside a math environment, you can let it insert <code>\(\)</code> when typing a dollar sign,
+and even <code>\enquote{}</code> when typing <code>&quot;</code> <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<p>But things get even better with the <a href="https://github.com/iyefrat/evil-tex" target="_blank" rel="noopener"><code>evil-tex</code></a> package. As the name suggests,
+this is only relevant if you&rsquo;re using <code>evil-mode</code> (vim keybindings inside emacs),
+but if so, it&rsquo;s definitely worth trying. Just a few examples of what this allows
+you to do:</p>
+<ul>
+<li>
+<p>Say you&rsquo;ve typed</p>
+<pre><code class="language-latex">    \(ax^{2} + b\)
+</code></pre>
+<p>and suddenly realize that this is supposed to go into an exponent. With your cursor
+anywhere on this math environment, type <code>ysim^</code> (&ldquo;surround everything inside the math
+environment as an exponent&rdquo;) and you&rsquo;ll get</p>
+<pre><code class="language-latex">    \(^{ax^{2} + b}\)
+</code></pre>
+<p>with the cursor at the <code>^</code>. Now you just need to enter the base.</p>
+</li>
+<li>
+<p>Your equations is now</p>
+<pre><code class="language-latex">    \(e^{ax^{2} + b}\)
+</code></pre>
+<p>and you decide that this merits its own displayed rather than
+inline equation. So you type <code>csmee</code> (&ldquo;change the surrounding math environment
+to <code>equation</code>&quot;) and get</p>
+<pre><code class="language-latex">    \begin{equation}
+    e^{ax^{2} + b}
+    \end{equation}
+</code></pre>
+</li>
+<li>
+<p>After a bit more editing, you have (for some reason)</p>
+<pre><code class="language-latex">    \begin{equation}
+    \beta(e^{ax^{2} + b} + \frac{1}{x})
+    \end{equation}
+</code></pre>
+<p>Of course this looks ugly in the compiled document, you need to use <code>\left(</code> and <code>\right)</code>.
+With <code>evil-tex</code>, you can just type <code>mtd</code> (&ldquo;toggle delimiter&rdquo;) with the cursor anywhere
+inside the parantheses, and it will add <code>\left</code> and <code>\right</code> for you. Type <code>mtd</code> again to
+go back to just the parantheses.</p>
+</li>
+</ul>
+<h2 id="emacs-calc-s-embedded-mode">Emacs calc&rsquo;s embedded mode</h2>
+<p><code>calc</code> is the built-in calculator for Emacs; though saying &ldquo;calculator&rdquo;
+is a bit misleading because it can do symbolic differentiation, unit conversion,
+linear algebra and more. If your press <code>C-x * e</code> with your cursor on any LaTeX equation,
+you will start <code>calc</code> in &ldquo;embedded mode&rdquo;. This means that <code>calc</code> will parse the LaTeX
+code and then let you do any calculations you want involving the expression.
+The result will automatically be converted back to LaTeX and written into the
+buffer.</p>
+<p>For example, say you have</p>
+<pre><code class="language-latex">\[\sin\left( x^2 + \sqrt{x} \right)\]
+</code></pre>
+<p>and want to know the derivative. You can enter embedded mode and type <code>ad</code> to differentiate,
+then type <code>x</code> when prompted for the variable with respect to which to differentiate.
+And just like that, you will have</p>
+<pre><code class="language-latex">\[\left( 2 x + \frac{0.5}{\sqrt{x}} \right) \cos\left( x^2 + \sqrt{x} \right)\]
+</code></pre>
+<p>inside your buffer. <code>calc</code> can even parse and output things like <code>\begin{pmatrix}...\end{pmatrix}</code>,
+so you can multiply matrices as well.</p>
+<h2 id="and-more">And more</h2>
+<p>I&rsquo;ve only covered some of my personal favorite features when it comes to
+writing LaTeX inside Emacs, there&rsquo;s much more. For example, <code>LaTeX-math-mode</code> allows
+you to very quickly enter mathematical symbols and RefTeX as well as other packages
+make handling references, labels and citations very efficient.
+And of course there are a gazillion other packages that can make writing LaTeX
+easier &ndash; this is Emacs after all.</p>
+<p>The downside is of course that there is a pretty steep learning curve.
+But for people who need to write LaTeX documents all the time, I&rsquo;d argue
+it&rsquo;s worth it.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Though mostly the first part &ndash; I haven&rsquo;t actually tried many others and they may be just as amazing.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Using <code>TeX-electric-sub-and-superscript</code>, <code>TeX-electric-math</code>, and <code>LaTeX-csquotes-open-quote</code> / <code>LaTeX-csquotes-close-quote</code>&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/productivity/">Productivity</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/automation-productivity/">Scripting for personal productivity</a></li>
+      
+      <li><a href="/post/computer-tips/">Collection of quick computer tips</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reinforcement learning | Erik Jenner</title>
+    <link>https://ejenner.com/tag/reinforcement-learning/</link>
+      <atom:link href="https://ejenner.com/tag/reinforcement-learning/index.xml" rel="self" type="application/rss+xml" />
+    <description>Reinforcement learning</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 24 Feb 2021 10:41:00 +0100</lastBuildDate>
+    <image>
+      <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Reinforcement learning</title>
+      <link>https://ejenner.com/tag/reinforcement-learning/</link>
+    </image>
+    
+    <item>
+      <title>Building Blocks of RL Part III: Model-based RL</title>
+      <link>https://ejenner.com/post/rl-building-blocks-3/</link>
+      <pubDate>Wed, 24 Feb 2021 10:41:00 +0100</pubDate>
+      <guid>https://ejenner.com/post/rl-building-blocks-3/</guid>
+      <description>&lt;p&gt;In &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-1&#34;&gt;Part 1&lt;/a&gt; and &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-2&#34;&gt;Part 2&lt;/a&gt;, we&amp;rsquo;ve seen different methods for learning
+good policies. One thing that all of them had in common was that
+they only used trajectories sampled from the environment to do so.
+This is what&amp;rsquo;s called &lt;em&gt;model-free&lt;/em&gt; RL. In this final post, we will
+generalize to &lt;em&gt;model-based&lt;/em&gt; RL, where we make use of a learned
+model of the environment to improve the training process.&lt;/p&gt;
+&lt;h2 id=&#34;the-10-000-mile-satellite-s-eye-view-on-rl&#34;&gt;The 10,000-mile satellite&amp;rsquo;s-eye view on RL&lt;/h2&gt;
+&lt;p&gt;From very far away, we can treat all the methods we&amp;rsquo;ve previously seen as
+functions that map a trajectory and a current parameter to an update for that
+parameter. The parameter could describe a value function or a policy.
+Training an agent means repeatedly sampling a trajectory, calculating
+that update, and updating the parameter.&lt;/p&gt;
+&lt;p&gt;It will be useful to think about this from the lense of types: an
+update method is a function that takes in an object of type &amp;ldquo;trajectory&amp;rdquo;
+and one of type &amp;ldquo;parameters&amp;rdquo; and returns an update of type
+\(\Delta\text{parameters}\)&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+\[\text{trajectory} \times \text{parameters} \to \Delta\text{parameters}\]
+Often, we can decompose this function. For example, a 1-step method
+such as Sarsa calculates update based on individual \((s, a, r, s, a)\)
+tuples, which we&amp;rsquo;ll call &amp;ldquo;experience&amp;rdquo;. So Sarsa really defines a function
+with signature
+\[\text{experience} \times \text{parameters} \to \Delta\text{parameters}\]
+We then get the function signature from above by splitting up a trajectory
+into its underlying experience tuples, applying the Sarsa update to each
+one, and summing the results. This is a simple example but it illustrates the main idea of this post:
+to compose small functions in different ways in order to get complete
+RL algorithms.&lt;/p&gt;
+&lt;p&gt;As a slightly more complex example, consider Actor-Critic methods.
+We use a policy optimization method (the &lt;em&gt;actor&lt;/em&gt;) with a signature such as
+\[A: \text{trajectory} \times \text{actor-param} \times \text{V-function} \to \Delta\text{actor-param}\]
+At the same time, we use some method for learning value functions,
+which has the signature
+\[C: \text{trajectory} \times \text{critic-param} \to \Delta\text{critic-param}\]
+And finally the model for the critic, which can be written as
+\[V: \text{critic-param} \to \text{V-function}\]
+We can combine these functions using some pretty simple boilerplate code,
+to get a function with the
+\(\text{trajectory} \times \text{params} \to \Delta\text{params}\)
+signature that we want, where \(\text{params} := \text{actor-param} \times \text{critic-param}\)
+is the type of the complete collection of parameters.
+In Python, this might look as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def train(trajectory, params):
+    actor_param, critic_param = params
+    v_function = V(critic_param)
+    actor_update = A(trajectory, actor_param, v_function)
+    critic_update = C(trajectory, critic_param)
+    return (actor_update, critic_update)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;None
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You should read this more as pseudo-code: the point is not that we would
+actually implement an agent exactly like this, but just to show how these
+individual functions come together to define an update for the entire
+agent.&lt;/p&gt;
+&lt;p&gt;The code above is completely agnostic to the choice of \(A, C\) and \(V\),
+which is an important point throughout this post: we only care about the function
+signatures of the methods we use as building blocks, not about how they
+work internally.&lt;/p&gt;
+&lt;h2 id=&#34;a-complete-training-loop&#34;&gt;A complete training loop&lt;/h2&gt;
+&lt;p&gt;Our ultimate goal is not to compute updates but to find a good policy. For that
+we need two more components. First, a function
+\[\text{parameters} \to \text{policy}\]
+In the case of policy optimization methods, this is simply the parameterization
+of the policy, i.e. the model of the actor. If we use value-based methods,
+this can instead be decomposed into the value model
+\[\text{parameters} \to \text{Q-function}\]
+and a function that determines the policy based on the Q-estimate, e.g. an \(\varepsilon\)-greedy
+policy,
+\[\text{Q-function} \to \text{policy}\]&lt;/p&gt;
+&lt;p&gt;The second thing we need is a function that samples trajectories &amp;ndash; this is
+the role of the environment:
+\[\text{policy} \to \text{trajectory}\]
+Then we can combine all of these into one function with the signature&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
+\[\text{parameters} \to \text{policy}\]
+which takes initial parameter values and then trains a policy (until convergence
+or some stopping criterion).&lt;/p&gt;
+&lt;h2 id=&#34;modeling-the-environment&#34;&gt;Modeling the environment&lt;/h2&gt;
+&lt;p&gt;The only role played by the environment in our training algorithm is
+to provide a function
+\[\text{policy} \to \text{trajectory}\]
+for sampling trajectories. But remember our motto: we only care about
+function signatures, not the internals of the functions themselves.
+So if we can define a function like that in some other way, we can plug
+it into our training algorithm without changing anything else.&lt;/p&gt;
+&lt;p&gt;Before we discuss how to define such a function, let&amp;rsquo;s first take a step
+back and consider how this signature is actually implemented by the
+environment. An environment is defined by its transition probabilities
+\[p(s&#39;, r|s, a)\]
+i.e. the probability that the next state will be \(s&#39;\) and the reward \(r\)
+if action \(a\) is taken in state \(s\). So this defines a function
+\[\text{state} \times \text{action} \to D(\text{state} \times \text{reward})\]
+where \(D(\cdot)\) denotes distributions with values of a given type.
+We can call this the &lt;em&gt;distributional&lt;/em&gt; function defined by the environment.&lt;/p&gt;
+&lt;p&gt;We can sample from distributions, meaning we have a function \(D(x) \to x\)
+for any type \(x\). By composing this with the environment function, we get
+the signature
+\[\text{state} \times \text{action} \to \text{state} \times \text{reward}\]
+which we&amp;rsquo;ll call the &lt;em&gt;sample&lt;/em&gt; function induced by the distributional function
+from above.&lt;/p&gt;
+&lt;p&gt;The policy type is not an atomic type, it can itself be written as
+\[\text{state} \to D(\text{action})\]
+and by composing with the sampling map, defines a function \(\text{state} \to \text{action}\).
+That makes it clear how we can get the desired signature \(\text{policy} \to \text{trajectory}\)
+from the sample function. We start with some initial state (perhaps also
+sampled from a distribution), then apply the policy to get an action, then
+apply the environment function to get a reward and a new state. Repeat until
+the episode ends.&lt;/p&gt;
+&lt;p&gt;So an environment defines three different functions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Distributional function: \(\text{state} \times \text{action} \to D(\text{state} \times \text{reward})\)&lt;/li&gt;
+&lt;li&gt;Sample function: \(\text{state} \times \text{action} \to \text{state} \times \text{reward}\)&lt;/li&gt;
+&lt;li&gt;Trajectory function: \(\text{policy} \to \text{trajectory}\)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;where each one is induced by the one above it in a natural way.&lt;/p&gt;
+&lt;p&gt;This gives us three different levels on which our environment model
+could work: we could model any of these three functions and will at
+the end get out a trajectory model \(\text{policy} \to \text{trajectory}\)
+to plug into our training algorithm. That said, if we have a distributional
+or sample model, we can do somewhat more clever things
+with that, which we&amp;rsquo;ll talk about in a moment.&lt;/p&gt;
+&lt;h2 id=&#34;where-do-models-come-from&#34;&gt;Where do models come from?&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ve seen how we can plug in models into the training loop to replace
+the role of the environment. This will always give us a valid method (in the
+sense that it doesn&amp;rsquo;t have type errors) but that method will only be useful
+to the extent to which the model matches the environment.&lt;/p&gt;
+&lt;p&gt;So how do we get a good model? In some cases it might be feasible to
+hard-code one. More generally, we can treat this as a supervised learning
+problem. In that case, we use the real environment to gather trajectories
+and then use those trajectories to train our model. We can then either
+use only the model to train the agent, or use both real and simulated
+trajectories for that.&lt;/p&gt;
+&lt;p&gt;This means we need to extend the training loop, which now also
+has to train the model. This is where we make choices such as how
+many trajectories to simulate per real trajectory that trains the model
+etc.&lt;/p&gt;
+&lt;h2 id=&#34;what-else-can-we-do-with-models&#34;&gt;What else can we do with models?&lt;/h2&gt;
+&lt;p&gt;As hinted before, using a model to replace the environment
+(by simulating trajectories) is only one of many applications.&lt;/p&gt;
+&lt;p&gt;First, let&amp;rsquo;s consider sample models (i.e. models that can
+generate \((s&#39;, r)\) tuples for any state-action input). As we saw
+at the beginning of this post, many RL methods don&amp;rsquo;t need entire
+trajectories to learn, they instead work on smaller sequences of
+experience tuples. For example, 1-step methods compute
+updates based on single \((s, a, r, s, a)\) tuples. One immediate consequence
+is that we don&amp;rsquo;t need to simulate an entire trajectory before updating
+the policy or value function, we can do so after however many
+experience tuples we want.&lt;/p&gt;
+&lt;p&gt;A more interesting advantage of such methods is that we can
+use &lt;em&gt;prioritized sweeping&lt;/em&gt;. We saw that a sample model can create
+trajectories by using its output state as the next input.
+But no one is forcing us to use that state
+as the input! Instead of sampling cohesive trajectories,
+we can at each step sample experience tuples for those states or state-action
+pairs where we&amp;rsquo;re most uncertain (e.g. as measured by the size
+of the last update for those states).&lt;/p&gt;
+&lt;p&gt;Distributional models allow us to do even more. In particular, we
+can apply dynamic programming techniques (value or policy iteration),
+which we briefly mentioned in Part 1. You may also recall that for
+control, we usually need to learn Q-functions, because a V-function
+on its own doesn&amp;rsquo;t tell us which actions are good. But if we have
+a distributional model of the environment, then we can turn
+a V-function into a Q-function by taking the expectation over next
+states and rewards for any given action. So this is one of the rare
+cases where learning a V-function is enough to find a good policy.
+And of course since a distributional
+model induces a sample model, the ideas we saw above still work.&lt;/p&gt;
+&lt;p&gt;Finally, we can use models during decision time. That means we don&amp;rsquo;t
+(just) use a model to &lt;em&gt;learn&lt;/em&gt; the policy &amp;ndash; instead, the policy itself
+makes use of the model. Concretely, we can do a search over possible
+actions, use the model to predict what would happen in each case, and
+then use that to improve our estimate of how good an action is.
+Monte Carlo Tree Search is one instance of that and works with any
+sample model.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ve seen three different types of environment models: distributional
+models, sample models and trajectory models. Each of those can
+create trajectories for a given policy and thus replace the role of the environment
+in any RL algorithm. But distributional and sample models allow
+us to do additional things that are not possible otherwise.&lt;/p&gt;
+&lt;p&gt;This post also marks the end of the &lt;em&gt;Building Blocks&lt;/em&gt; series. The framework
+of composing functions based on their signatures hopefully sheds
+some light onto how all of these building blocks fit together.
+It also demonstrates that the perspective of atomic building blocks
+can be applied on multiple levels: the previous posts showed how
+building blocks such as certain update targets can be combined
+to define different functions for mapping experience or trajectories
+to updates for value functions or policies. This post showed
+that these functions are themselves building blocks for complete
+training loops and can be composed in different ways with models
+and sampling procedures.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Since parameters in deep learning are usually vectors, there isn&amp;rsquo;t any formal difference between a parameter and a change of a parameter. But we&amp;rsquo;ll still distinguish them because there is a big &lt;em&gt;conceptual&lt;/em&gt; difference and because it&amp;rsquo;s more general that way.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Usually, the type \(A \to B\) refers to &lt;em&gt;pure&lt;/em&gt; functions that map objects with type \(A\) to type \(B\). I use it slightly differently to also include stochastic functions, which have a random output of type \(B\). For example, the sampled trajectory is not a deterministic function of the policy, it will instead be different each time the sampling function is applied.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Building Blocks of RL Part II: Policy Optimization</title>
+      <link>https://ejenner.com/post/rl-building-blocks-2/</link>
+      <pubDate>Wed, 03 Feb 2021 07:39:00 +0100</pubDate>
+      <guid>https://ejenner.com/post/rl-building-blocks-2/</guid>
+      <description>&lt;p&gt;&lt;em&gt;This is part 2 of a three-part series. &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-1&#34;&gt;Part 1&lt;/a&gt; covered value-based methods and
+also gave some introduction and defined some notation. &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-3&#34;&gt;Part 3&lt;/a&gt; will cover model-based RL.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So far, we have looked at the building blocks necessary to learn value functions
+for a given policy, called policy evaluation. We have also seen that with GPI, we can use policy evaluation
+for control, i.e. to find optimal value functions. The policy was always derived
+from the value function, by picking actions (\(\varepsilon\)-)greedily.&lt;/p&gt;
+&lt;p&gt;In this post, we take a more direct approach to control: what we really
+want to learn is a good policy, so why not optimize the policy directly, without
+the detour of learning a value function?&lt;/p&gt;
+&lt;h2 id=&#34;policy-optimization-and-policy-gradient-methods&#34;&gt;Policy optimization and policy gradient methods&lt;/h2&gt;
+&lt;p&gt;Policy optimization in general means that we have a parameterized
+family of policies \(\pi_\theta(a|s)\) and want to maximize the expected
+return with respect to the parameters \(\theta\):
+\[\operatorname*{argmax}_{\theta} J(\theta)\]
+where \(J\) is the expected return:
+\[J(\theta) := \mathbb{E}_{\tau \sim \pi_\theta, \mu} R(\tau)\]
+Here \(\tau\) is a trajectory which is sampled using the initial state distribution
+\(\mu\) and policy \(\pi_\theta\). \(R(\tau)\) is the return of that trajectory.&lt;/p&gt;
+&lt;p&gt;In principle, there are many ways we could solve this optimization problem.
+For example, we could perform a grid search over parameters \(\theta\) and evaluate
+the expected return for each parameter by sampling lots of episodes. But this
+wouldn&amp;rsquo;t scale well (\(\theta\) might very well be a vector with millions of dimensions
+if we use Deep RL). In practice, most methods instead use stochastic gradient
+ascent or variations thereof and that is all we will cover in this post.&lt;/p&gt;
+&lt;p&gt;One sidenote before we dive in: why do we use a parameterized policy at
+all? For value-based methods, we started in a tabular setting, where we
+could directly assign values to each state. The difference is that even
+in a tabular setting, the policy is not an arbitrary function
+&amp;ndash; it has to be normalized over actions. So we can&amp;rsquo;t just update a single
+probability \(\pi(a|s)\) without also adjusting others.&lt;/p&gt;
+&lt;h2 id=&#34;some-theory-the-policy-gradient-theorem&#34;&gt;Some theory: the policy gradient theorem&lt;/h2&gt;
+&lt;p&gt;If you&amp;rsquo;re only interested in a description of some policy optimization methods, you can
+skip this and the next section. But it sheds some light onto why these methods are designed
+the way they are and why they work.&lt;/p&gt;
+&lt;p&gt;We want to optimize the expected return \(J(\theta)\). To see what that entails, we can
+write it out explicitly as
+\[J(\theta) := \sum_{s \in \mathcal{S}} \mu^{\pi_\theta}(s) \sum_{a \in \mathcal{A}} q^{\pi_\theta}(s, a) \pi_\theta(a|s)\]
+where \(\mu^\pi\) is the on-policy state distribution of \(\pi\). To optimize
+this function using gradient ascent, we need to find \(\nabla_\theta J(\theta)\).
+But finding the gradient of \(\mu^{\pi_\theta}\) with respect to \(\theta\) is not really possible
+if we don&amp;rsquo;t know the dynamics of the environment.&lt;/p&gt;
+&lt;p&gt;Fortunately, the policy gradient theorem comes to the rescue. It states
+that
+\[\nabla_\theta J(\theta) \propto \sum_{s \in \mathcal{S}} \mu^{\pi_\theta}(s) \sum_{a \in \mathcal{A}} q^{\pi_\theta}(s, a) \nabla_\theta \pi_\theta(a|s) \]
+i.e. we can just apply the gradient to the policy itself and don&amp;rsquo;t need to know
+how the state distribution depends on the policy. Section 13.2 of
+&lt;a href=&#34;http://incompleteideas.net/book/the-book.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sutton and Barto&amp;rsquo;s textbook&lt;/a&gt; contains more details and a proof.&lt;/p&gt;
+&lt;p&gt;Another very useful fact is that we can subtract a baseline from the state value:
+\[\nabla_\theta J(\theta) \propto \sum_{s \in \mathcal{S}} \mu^{\pi_\theta}(s) \sum_{a \in \mathcal{A}} \left(q^{\pi_\theta}(s, a) - b(s)\right) \nabla_\theta \pi_\theta(a|s) \]
+(the only difference to the previous equation is the \(- b(s)\) term).
+This fact is also sometimes called the policy gradient theorem. \(b(s)\) may be any function
+or random variable, as long as it doesn&amp;rsquo;t depend on \(a\).&lt;/p&gt;
+&lt;h2 id=&#34;more-theory-score-function-estimators&#34;&gt;More theory: score function estimators&lt;/h2&gt;
+&lt;p&gt;Typically, we will still be unable to evaluate the gradient
+\[\nabla_\theta J(\theta) \propto \sum_{s \in \mathcal{S}} \mu^{\pi_\theta}(s) \sum_{a \in \mathcal{A}} q^{\pi_\theta}(s, a) \nabla_\theta \pi_\theta(a|s) \]
+analytically. Some types of gradients of an expected value
+can be estimated by sampling:
+\[\nabla_x \mathbb{E}_{x \sim p} f(x) = \mathbb{E}_{x \sim p} \nabla_x f(x)\]
+so if we can sample from \(p\) and can calculate \(\nabla f(x)\), we can
+estimate this gradient. But our case is different: ignoring the expectation
+over states (which doesn&amp;rsquo;t pose a problem), we want to evaluate a gradient
+of the form
+\[\nabla_\theta \mathbb{E}_{a \sim \pi_\theta(a)} f(a)\]
+The variable \(\theta\), with respect to which we differentiate, appears in the
+distribution, so we can&amp;rsquo;t just approximate this gradient by sampling as
+we did in the other case.&lt;/p&gt;
+&lt;p&gt;Gradients of this form (called &lt;em&gt;stochastic gradients&lt;/em&gt;) appear often in machine
+learning, not just in RL. One method to calculate them is the reparameterization
+trick, which you might know from variational autoencoders, but that requires
+assumptions that often aren&amp;rsquo;t met in RL. What we will use instead is
+the REINFORCE method or &lt;em&gt;score function estimation&lt;/em&gt;.
+We can use the fact that \(\nabla g(x) = g(x) \nabla \log g(x)\) for any \(g\) and write
+\[\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) = \int_a f(a)\nabla \pi_\theta(a) da
+= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da = \mathbb{E}_{a \sim \pi_\theta} \left[f(a)\nabla \log \pi_\theta(a)\right]\]
+The right hand side has the form we can deal with: an expectation over
+some term, with a probability distribution we can sample from.
+As long as we can evaluate \(\nabla \log \pi_\theta\), we can now estimate
+the gradient we need.&lt;/p&gt;
+&lt;p&gt;Recall that \(f(s, a) = q^{\pi_\theta}(s, a) - b(s)\) where \(b\) is an arbitrary
+baseline. But more generally, we can use any function \(f(s, a)\) which has
+\(q^{\pi_\theta}(s, a) - b(s)\) as its expected value, and we will get an unbiased
+estimator for the gradient \(\nabla J(\theta)\). Keep this in mind and the various
+update targets we will soon see should make sense.&lt;/p&gt;
+&lt;h2 id=&#34;the-general-formula&#34;&gt;The general formula&lt;/h2&gt;
+&lt;p&gt;Similar to value-based methods, we can generate many algorithms
+for policy optimization using a single update equation.&lt;/p&gt;
+&lt;p&gt;Using the estimator for the gradient \(\nabla J\), we can learn
+the parameter \(\theta\) of the policy with stochastic gradient ascent.
+We will use samples \(s_1, a_1, r_2, s_2, a_2, \ldots\) and then
+update according to
+\[\theta \gets \theta + \alpha \sum_t \Psi_t \nabla \log p_\theta(a_t|s_t)\]
+where \(\Psi_t\) is some estimate of \(q^{\pi_\theta}(s_t, a_t)\) and \(\alpha\) is a learning rate.&lt;/p&gt;
+&lt;p&gt;Later, we will generalize this to
+\[\theta \gets \theta + \alpha \sum_t \Psi_t g_t\]
+where the gradient \(\nabla \log \pi_\theta\) is replaced by a more
+general vector \(g_t\) that determines the direction of the update.&lt;/p&gt;
+&lt;p&gt;In the next section, we cover possible choices for \(\Psi_t\), and in the
+section after that we will look at choices for \(g_t\).&lt;/p&gt;
+&lt;h2 id=&#34;targets&#34;&gt;Targets&lt;/h2&gt;
+&lt;p&gt;Recall from the section on score function estimators that \(\Psi_t\)
+should be an estimate of \(q^{\pi_\theta}(s_t, a_t)\).
+This means that we can use many of the targets we&amp;rsquo;ve already seen in part 1.
+In addition, we can subtract a &lt;em&gt;baseline&lt;/em&gt; \(b(s_t)\) without changing
+the expected value of the update. In principle, \(b(s_t\)) can be any function
+of the state, but to reduce variance as much as possible, we usually use a learned
+state-value function, leading to so-called Actor-Critic methods. The baseline
+can be learned using any of the methods for learning \(v_\pi\) from part 1 (or other policy evaluation
+methods).&lt;/p&gt;
+&lt;p&gt;Here then are typical targets we can use:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Monte Carlo&lt;/dt&gt;
+&lt;dd&gt;\(\Psi_t = G_0\) or \(\Psi_t = G_t\) i.e. total or future return&lt;/dd&gt;
+&lt;dt&gt;MC with baseline&lt;/dt&gt;
+&lt;dd&gt;\(\Psi_t = G_0 - V(s_t)\) or \(\Psi_t = G_t - V(s_t)\)&lt;/dd&gt;
+&lt;dt&gt;n-step TD with baseline&lt;/dt&gt;
+&lt;dd&gt;\(\Psi_t = G_{t:t+n} - V(s_t)\) (of course the baseline is optional)&lt;/dd&gt;
+&lt;dt&gt;Generalized Advantage Estimation&lt;/dt&gt;
+&lt;dd&gt;\(\Psi_t = G_t^{\lambda} - V(s_t)\) where
+\[G_t^{\lambda} := (1 - \lambda) \sum_{n = 1}^\infty \lambda^{n - 1} G_{t:t + n}\]
+is the \(\lambda\)-return. This is the TD(\(\lambda\)) target with a baseline (which again
+is in principle optional but helps to reduce variance)&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;This is where the &amp;ldquo;building blocks&amp;rdquo; perspective really starts paying off: value-based
+methods and policy optimization are very different approaches in terms of their
+large-scale design, but on a smaller level, they are composed of some of the same
+parts.&lt;/p&gt;
+&lt;h2 id=&#34;updating-methods-vpg-npg-trpo&#34;&gt;Updating methods: VPG, NPG, TRPO&lt;/h2&gt;
+&lt;p&gt;As promised, we can not only choose the target \(\Psi_t\) but also
+have some freedom when it comes to the vector \(g_t\) in whose
+direction we update the parameter \(\theta\).&lt;/p&gt;
+&lt;p&gt;The simplest option is Vanilla policy gradient (VPG), which uses
+\(g_t = \nabla \log \pi_\theta(a_t|s_t)\). This is what we&amp;rsquo;ve already seen,
+it corresponds to stochastic gradient ascent on \(J(\theta)\).&lt;/p&gt;
+&lt;p&gt;But this simple method has its drawbacks: gradient descent leads
+to small changes in the parameter \(\theta\), but it doesn&amp;rsquo;t make
+any guarantees about the changes in the policy \(\pi\) itself. If the
+policy is very sensitive to the parameter around some value \(\theta_0\),
+then taking a gradient step from there might change the policy a lot
+and actually make it worse. To avoid that, we&amp;rsquo;ll need to use a small
+learning rate, which slows down convergence.&lt;/p&gt;
+&lt;p&gt;The solution is to use the Natural Policy Gradient (NPG&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;) instead of
+the usual gradient. Instead of limiting the size of the step in parameter
+space, it directly limits the change of the policy at each step (well, not
+really&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
+but that&amp;rsquo;s the intuition).
+Natural gradients are a general method for finding optimal probability distributions,
+not specific to Reinforcement Learning,
+but NPG is probably their most well-known application.&lt;/p&gt;
+&lt;p&gt;Computationally, the natural gradient is just the normal gradient multiplied by
+the inverse Fisher matrix \(F^{-1}\) of the policy. If you want to know
+more, &lt;a href=&#34;http://www.scholarpedia.org/article/Policy%5Fgradient%5Fmethods#Natural%5FPolicy%5FGradients&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the Scholarpedia article&lt;/a&gt; has some details.&lt;/p&gt;
+&lt;p&gt;For both of these methods, we use a constant learning rate \(\alpha\)
+(or one that is adapted using a fixed schedule, \(\alpha = \alpha(t)\)).
+The update vector \(g_t\) is given by:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;VPG&lt;/dt&gt;
+&lt;dd&gt;\(g_t = \nabla \log \pi_\theta(a_t|s_t)\)&lt;/dd&gt;
+&lt;dt&gt;NPG&lt;/dt&gt;
+&lt;dd&gt;\(g_t = F^{-1} \nabla \log \pi_\theta(a_t|s_t)\)
+where \(F\) is the Fisher matrix of the policy&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;A third option is Trust-Region Policy Optimization (TRPO)&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;.
+The motivation is similar to that of NPG: limit how much the policy changes (in terms of the
+KL divergence). But it takes that idea further and actually guarantees
+an upper bound on how much the policy will change.&lt;/p&gt;
+&lt;p&gt;We can fit TRPO into our framework by using the same update vector as NPG
+with a learning rate that adapts at each step:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;TRPO&lt;/dt&gt;
+&lt;dd&gt;\(g_t = F^{-1} \nabla \log \pi_\theta(a_t|s_t)\) and the adaptive learning rate
+\(\alpha = \beta^j \sqrt{\frac{2\delta}{\tilde{g} F^{-1} \tilde{g}}}\)
+where \(\tilde{g} := \Psi_t g_t\)
+&lt;p&gt;\(\beta \in (0, 1)\) and \(\delta\) are hyperparameters and \(j \in \mathbb{N}_0\)
+is chosen minimally such that a constraint on the KL divergence between old and
+new policy is satisfied&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Each of these updating methods can be combined with any of the targets,
+yielding a 2D grid of algorithms. In practice, some combinations are of course
+preferred, for example TRPO is typically used together with GAE. But these
+two aren&amp;rsquo;t connected in a fundamental way, it&amp;rsquo;s simply a choice that works
+well.&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ve seen that just like for value-based methods, we can get many different
+policy optimization methods by plugging in different terms into a single
+update equation. Moreover, the targets we can plug in aren&amp;rsquo;t new: we&amp;rsquo;ve
+used them for value-based methods too.&lt;/p&gt;
+&lt;p&gt;On the other hand, we&amp;rsquo;ve of course only scratched the surface when it comes
+to policy optimization methods. For example, we didn&amp;rsquo;t look at deterministic policy
+gradients or at PPO. And admittedly these methods don&amp;rsquo;t fit into the framework
+presented here as neatly as the ones we did consider. Furthermore, as I already discussed
+in Part 1, there are many details that determine whether a method will actually
+work in practice that we didn&amp;rsquo;t consider at all.&lt;/p&gt;
+&lt;p&gt;So I don&amp;rsquo;t want to create the false impression that all of policy optimization can
+be reduced to picking a target and an update vector. My goal is rather to convince
+you that thinking of RL methods as a combination of several composable building
+blocks is a better mental model than thinking about each method individually.
+The methods presented here simply fit this mental model especially well: you can combine
+any of the targets with any of the updating methods, so the building blocks are
+in some sense independent pieces.&lt;/p&gt;
+&lt;p&gt;Next up: &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-3&#34;&gt;Part 3&lt;/a&gt; which discusses model-based RL and concludes this series.&lt;/p&gt;
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://spinningup.openai.com/en/latest/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Spinning Up&lt;/a&gt; by OpenAI has explanations and implementations for several policy optimization
+algorithms. If you&amp;rsquo;d like a more practical perspective, this is a good place to start&lt;/li&gt;
+&lt;li&gt;Lilian Weng has a long &lt;a href=&#34;https://lilianweng.github.io/lil-log/2018/04/08/policy-gradient-algorithms.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;list of many policy gradient methods&lt;/a&gt; that might serve as an overview
+or as a quick reference for how a given method works&lt;/li&gt;
+&lt;li&gt;More on score function estimators: &lt;a href=&#34;http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/&lt;/a&gt;
+and &lt;a href=&#34;http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Sham Kakade, 2001. &lt;a href=&#34;https://proceedings.neurips.cc/paper/2001/file/4b86abe48d358ecf194c56c69108433e-Paper.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(pdf link)&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Vanilla gradient descent can be interpreted as follows: we want to find \(\Delta \theta\) such that \(J(\theta + \Delta \theta)\) is maximized, but under the constraint that the update isn&amp;rsquo;t too large, \(\Vert\Delta \theta\Vert_2 \leq c\). As \(c\) gets smaller, the optimal update \(\Delta \theta\) aligns more and more with the gradient \(\nabla J(\theta)\). NPG does the same using the Kullback-Leibler divergence between \(\pi_\theta\) and \(\pi_{\theta + \Delta \theta}\) instead of the \(L^2\) distance between the parameters. So &lt;em&gt;infinitesimally&lt;/em&gt; (i.e. as the learning rate approaches zero), it limits the change in the policy, but it doesn&amp;rsquo;t actually give any guarantees in the finite regime.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;John Schulman et al., 2015. &lt;a href=&#34;https://arxiv.org/abs/1502.05477&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(arxiv link)&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Building Blocks of RL Part I: Value-based methods</title>
+      <link>https://ejenner.com/post/rl-building-blocks-1/</link>
+      <pubDate>Wed, 13 Jan 2021 16:58:00 +0100</pubDate>
+      <guid>https://ejenner.com/post/rl-building-blocks-1/</guid>
+      <description>&lt;p&gt;Reinforcement Learning consists of atomic building blocks that can be combined to create
+many of the well-known algorithms. This is not a secret but it can sometimes be
+obscured when learning about different methods one after another, never getting
+the big picture view. So this is my attempt at the kind of overview I would have like
+when I first got into RL. How helpful it is to you probably depends a lot on how similar
+your learning style is to mine.&lt;/p&gt;
+&lt;p&gt;This is part 1 of of a planned three-part series. &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-2&#34;&gt;Part 2&lt;/a&gt; will be about policy optimization and
+&lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-3&#34;&gt;part 3&lt;/a&gt; about model-based RL.&lt;/p&gt;
+&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
+&lt;p&gt;Why consider the building blocks of RL individually at all? There are at least two good
+reasons:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It makes RL methods easier to memorize. This is for two reasons: first, memorization
+becomes easier when the material is split into small chunks. Second, many of the building
+blocks are shared by several methods, so we can avoid duplicate effort more effectively
+by explicitly considering these building blocks.&lt;/li&gt;
+&lt;li&gt;More importantly, it gives a better understanding of the landscape of RL methods. A very naive view of
+RL methods would just consider them as a very long list of possibilities. But in reality,
+they are more of a very high-dimensional table, with different options to choose from
+for different aspects of the algorithm.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;target-audience-and-what-this-is-not&#34;&gt;Target audience and what this is not&lt;/h2&gt;
+&lt;p&gt;On its own, this is not an introduction to Reinforcement Learning; I assume that you already
+know most of the definitions and algorithms and mainly describe how they fit into one common framework.
+That said, it might be helpful to read this series in parallel to learning about the algorithms
+it covers. Or you can use it as a review, or to deepen your big picture of RL. If you&amp;rsquo;re already
+very familiar with RL theory, you probably won&amp;rsquo;t find anything new.&lt;/p&gt;
+&lt;p&gt;This is also not a guide on which method to choose for which problem. It might
+&lt;em&gt;help&lt;/em&gt; with that but I don&amp;rsquo;t focus on the various advantages and disadvantages.&lt;/p&gt;
+&lt;p&gt;Finally, this overview is far from exhaustive. My main goal is to present the framework
+and give enough examples to provide intuition for how concrete algorithms fit in.
+In particular, I focus on a tabular setting
+(for Part 1) and cover Deep RL only briefly towards the end. All of the things I discuss
+for a tabular setting are still relevant for Deep RL, so it should still be useful even
+if you&amp;rsquo;re not interested in tabular RL for its own sake. But if you&amp;rsquo;re looking for an overview
+of the parts that are specific to Deep RL, this is not it.&lt;/p&gt;
+&lt;h2 id=&#34;notation&#34;&gt;Notation&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;\(A_t\) is the action taken at time \(t\) while the agent is in state \(S_t\). Afterwards,
+the environment returns a reward \(R_{t + 1}\) and a new state \(S_{t + 1}\)&lt;/li&gt;
+&lt;li&gt;The return \(G_t\) is the discounted sum of rewards from time \(t\) onwards
+\[G_t = \sum_{k = 1}^\infty \gamma^{k - 1} R_{t + k}\]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;value-functions&#34;&gt;Value functions&lt;/h2&gt;
+&lt;p&gt;This post is about value-based methods, which means the model explicitly learns and represents
+a value function and uses that value function to compute the policy (I will cover actor-critic methods
+when we talk about policy optimization in part 2).&lt;/p&gt;
+&lt;p&gt;There are two types of value functions: state-value functions or V-functions assign a value to
+every state \(s\). We write \(v_\pi(s)\) for such a value function. Q-functions assign a value
+to every state-action pair \((s, a)\), i.e. to taking action \(a\) in state \(s\), and we write them
+as \(q_\pi(s, a)\). Many algorithms work essentially the same for both kinds of functions but there will be
+a few cases where we need to make a distinction.&lt;/p&gt;
+&lt;p&gt;Finding these value functions \(v_\pi\) or \(q_\pi\) for a given policy \(\pi\) is called &lt;em&gt;policy evaluation&lt;/em&gt;.
+Of course just evaluating a policy is not that useful by itself. After all, the goal of reinforcement
+learning is to find a good policy. We do this using generalized policy iteration (GPI), which we will talk about more
+later. For now you only need to know that GPI is a method (or rather collection of methods) for finding an optimal policy,
+which needs to evaluate a policy as one of its substeps. So we will start by only discussing policy
+evaluation, keeping in mind that this will later help us with finding good policies as well.&lt;/p&gt;
+&lt;h2 id=&#34;general-shape-of-the-update&#34;&gt;General shape of the update&lt;/h2&gt;
+&lt;p&gt;We will start in a tabular setting meaning there are only finitely many states and the value function
+is a simple lookup table. All the value-based methods in this setting have the same general shape:
+we have some observations \(S_t, A_t, R_{t + 1}, S_{t + 1}, A_{t + 1}, \ldots\), which we got from
+running policy \(\pi\) on the environment (or on an environment model, more on that in part 3).
+We keep an estimate \(V\) of the true value function \(v_\pi\), which is
+updated for each observed state \(S_t\) as follows:
+\[V(S_t) \gets V(S_t) + \alpha(\text{target} - V(S_t))\]
+or analogously
+\[Q(S_t, A_t) \gets Q(S_t, A_t) + \alpha(\text{target} - Q(S_t, A_t))\]
+for an estimate \(Q\) of \(q_\pi\).
+\(\alpha\) is a learning rate which may or may not be constant. \(\text{target}\)
+is the key piece that distinguishes all the algorithms we&amp;rsquo;ll look at from one another.
+It should be something that is, in expectation, a better value estimate than the old \(V(S_t)\).
+In some cases it will depend on \(V\), those are called &lt;em&gt;bootstrapping&lt;/em&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;targets-for-policy-evaluation&#34;&gt;Targets for policy evaluation&lt;/h2&gt;
+&lt;p&gt;Now that we have described the general shape of the update, we can define all the most
+popular methods in the tabular setting by just giving the target:&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Monte Carlo&lt;/dt&gt;
+&lt;dd&gt;the target is simply the return \(G_t\). The way we described the general method
+in the previous section, we get every-visit MC. There is also first-visit MC, which updates the estimate
+for each state only once per episode (the first time it occurs).&lt;/dd&gt;
+&lt;dt&gt;TD(0)&lt;/dt&gt;
+&lt;dd&gt;the target is \(R_{t + 1} + \gamma V(S_t)\) or \(R_{t + 1} + \gamma Q(S_t, A_t)\)
+This is also the 1-step return \(G_{t:t+1}\). If we&amp;rsquo;re learning the Q-function,
+this is called &lt;em&gt;Sarsa&lt;/em&gt;.&lt;/dd&gt;
+&lt;dt&gt;Expected Sarsa&lt;/dt&gt;
+&lt;dd&gt;Like Sarsa, but with an expectation over the next action, rather than
+the actually sampled action: \(R_{t + 1} + \gamma \mathbb{E}_{a \sim \pi} Q(S_t, a)\)
+This only works for Q-functions, since for V-functions, we would need to know the environment dynamics
+to calculate the expected value.&lt;/dd&gt;
+&lt;dt&gt;n-step TD&lt;/dt&gt;
+&lt;dd&gt;The target is the \(n\)-step return \(G_{t:t+n}\).
+This generalizes MC and TD(0): with \(n = 1\), we get TD(0) and with \(n = \infty\), we get MC.&lt;/dd&gt;
+&lt;dt&gt;n-step expected Sarsa&lt;/dt&gt;
+&lt;dd&gt;Uses a variation of the n-step return as the target, where the value of the \(n\)-th
+state is estimated not by the value function but by an expected value over actions:
+\[G_{t:t+n} - \gamma^n Q(S_{t + n}, A_{t + n}) + \gamma^n \mathbb{E}_{a \sim \pi} Q(S_{t + n}, a)\]
+This generalizes expected Sarsa and again only works for Q-functions.&lt;/dd&gt;
+&lt;dt&gt;TD(\(\lambda\))&lt;/dt&gt;
+&lt;dd&gt;uses \(\lambda\)-returns as the target (an exponentially weighted average for \(n\)-step returns for all values
+of \(n\)&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;For a complete algorithm, we also need to specify a learning rate. If we decay the learning rate at the
+right pace, all these methods are guaranteed to converge to the true \(v_\pi\) (and this decay schedule
+is the same for all methods). But of course a constant learning rate can also work well.&lt;/p&gt;
+&lt;p&gt;There is also dynamic programming, though it is a bit of a degenerate case: if we know the true
+environment transition probabilities, there is no need to sample episodes. Instead, we can use
+\[\text{target} = \mathbb{E}_{A_t \sim \pi, S_{t + 1}, R_{t + 1} \sim \text{env}} \left[R_{t + 1} + \gamma V(S_{t + 1})\right]\]&lt;/p&gt;
+&lt;h2 id=&#34;gpi-control-and-q-learning&#34;&gt;GPI, control and Q-learning&lt;/h2&gt;
+&lt;p&gt;All the methods from the previous section are policy evaluation methods:
+if the policy \(\pi\) from which we sample trajectories is fixed, they converge
+to \(v_\pi\) or \(q_\pi\), not to the optimal value functions.&lt;/p&gt;
+&lt;p&gt;As promised, we can use a policy evaluation inside a larger algorithm to
+find optimal policies. This works as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Start with a random policy \(\pi\) and value function \(V\) or \(Q\)&lt;/li&gt;
+&lt;li&gt;Iterate until convergence:
+&lt;ol&gt;
+&lt;li&gt;Run one of the policy evaluation algorithms above for one or several steps
+to make the value estimate closer to the true \(v_\pi\) or \(q_\pi\)&lt;/li&gt;
+&lt;li&gt;Improve the policy \(\pi\), for example by making it \(\varepsilon\)-greedy
+with respect to the current value estimate&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;This is called generalized policy iteration or GPI.&lt;/p&gt;
+&lt;p&gt;The second step in the loop, where we improve the policy, is easy for
+Q-functions. The greedy policy is then simply given by
+\[\pi&#39;(s) = \operatorname*{argmax}_a Q(s, a)\]
+and the \(\varepsilon\)-greedy policy just means following \(\pi&#39;\) with probability
+\(1 - \varepsilon\) and choosing randomly with probability \(\varepsilon\).&lt;/p&gt;
+&lt;p&gt;With V-functions on the other hand, we would need access to the environment dynamics
+to compute the greedy policy. Because we usually don&amp;rsquo;t have that,
+we use Q-functions if we want to do value-based control. Nevertheless,
+V-functions have other important uses (we&amp;rsquo;ll see them again for Actor-Critic methods
+in Part 2).&lt;/p&gt;
+&lt;p&gt;We now add one more target to our growing collection:
+\[\text{target} = R_{t + 1} + \gamma \max_{a} Q(S_t, a)\]
+This results in Q-learning, which in contrast to all the previous targets learns the optimal
+policy directly. So it solves a different problem than policy evaluation and doesn&amp;rsquo;t need
+to be combined with GPI.&lt;/p&gt;
+&lt;p&gt;However, we can also fit Q-learning into the GPI framework: it is equivalent to using
+Sarsa&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;
+and making the policy greedy after each Q-update. Combining this into a single
+target that directly learns the optimal Q-function just simplifies things.&lt;/p&gt;
+&lt;h2 id=&#34;off-policy-learning&#34;&gt;Off-policy learning&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;(Here and in the next section, I will write the equations only for V-functions
+to make it more readable but they all work exactly the same for Q-functions)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;So far, we have used policy evaluation only to learn the policy \(\pi\) that was used to
+sample actions. Off-policy learning means that actions are sampled by the behavior policy
+\(b\) but we still want to learn the value function for some other specified policy \(\pi\).&lt;/p&gt;
+&lt;p&gt;Consider our general update rule:
+\[V(S_t) \gets V(S_t) + \alpha(\text{target} - V(S_t))\]
+The &lt;em&gt;expected update&lt;/em&gt; at each step is
+\[\mathbb{E}_{A_t \sim \pi} \left[\alpha(\text{target} - V(S_t))\right]\]
+i.e. the amount by which \(V(S_t)\) changes on average on one update.
+We want to tweak the update rule in such a way that we get this expected update
+even though we are using samples from \(b\) rather than \(\pi\).&lt;/p&gt;
+&lt;p&gt;There is a general method for estimating an expected value with respect to
+one probability distribution \(p\) using samples from a different distribution \(q\).
+It&amp;rsquo;s called importance sampling and is simply the observation that
+\[\mathbb{E}_{x \sim p} f(x) = \mathbb{E}_{x \sim q} \frac{p(x)}{q(x)} f(x)\]
+So when we can only sample from \(q\), we multiply each outcome by the importance
+sampling ratio \(\frac{p(x)}{q(x)}\) to adjust. This has nothing to do with reinforcement
+learning, it&amp;rsquo;s a much more general method.&lt;/p&gt;
+&lt;p&gt;So we can use importance sampling for off-policy learning. For a 1-step method such as
+TD(0), our new update rule becomes
+\[V(S_t) \gets V(S_t) + \alpha\frac{\pi(A_t|S_t)}{b(A_t|S_t)}(\text{target} - V(S_t))\]
+Note that this is a strict generalization: if \(b = \pi\), which is the on-policy case we had before,
+the importance sampling ratio is one. Also note that we didn&amp;rsquo;t have to modify the target,
+so this can be applied the same way to all 1-step methods.&lt;/p&gt;
+&lt;p&gt;Why did I say &amp;ldquo;for a 1-step method&amp;rdquo;? If the target (even implicitly) depends on more future
+actions, i.e. \(A_{t + 1}, A_{t + 2}, \ldots\), then these need to be included in the importance
+sampling ratio. So in general, we can define
+\[\rho_{t:t+n} := \prod_{\tau = t}^{t + n} \frac{\pi(A_\tau|S_\tau)}{b(A_\tau|S_\tau)}\]
+and then use the update rule
+\[V(S_t) \gets V(S_t) + \alpha\rho_{t:t+n}{b(A_t|S_t)}(\text{target} - V(S_t))\]
+where \(k\) is the number of future actions the target depends on. For example, Monte Carlo
+has \(n = \infty\) (meaning until the end of the episode) and Sarsa has \(n = 1\).&lt;/p&gt;
+&lt;p&gt;This means that there is a slight dependency between the target and the importance
+sampling ratio, namely the number \(n\) of future steps that are considered. But other than
+that, importance sampling works the same for all of our targets.&lt;/p&gt;
+&lt;p&gt;Now you may have heard that some methods like expected Sarsa are &amp;ldquo;off-policy
+methods&amp;rdquo; while others are on-policy. This seems to clash with our observation that
+importance sampling has almost nothing to do with the update target, so what&amp;rsquo;s going on?&lt;/p&gt;
+&lt;p&gt;First, we can &lt;em&gt;always&lt;/em&gt; use importance sampling and get a method that works in an off-policy
+setting. So when we say that Sarsa is on-policy, that just means that we need importance
+sampling to use it for off-policy learning.&lt;/p&gt;
+&lt;p&gt;Second, some methods are off-policy methods in the sense that they already work in
+an off-policy setting without importance sampling. This is typically the case because
+the target doesn&amp;rsquo;t depend on the sampled action at all. For example in the target for
+expected Sarsa, we already take an expectation over the action, so the target itself
+is independent of the sampled action. Therefore, it doesn&amp;rsquo;t matter which policy we use for sampling,
+only which one we use for taking the expectation inside the target.&lt;/p&gt;
+&lt;p&gt;For such off-policy methods, the expected update is the correct one no matter which
+behavior policy we use. If we use importance sampling, we still get the same expected
+value, since the importance sampling ratio has an expected value of one. But for those
+methods, there is no reason to use it, and since it increases the variance, it would even hurt.&lt;/p&gt;
+&lt;p&gt;As a final note, what I described is more specifically called &lt;em&gt;ordinary&lt;/em&gt; importance sampling.
+There is also &lt;em&gt;weighted&lt;/em&gt; importance sampling which lowers the variance at the cost of introducing
+some bias. Which of those you use is in principle an orthogonal choice to your update
+target.&lt;/p&gt;
+&lt;h2 id=&#34;what-about-function-approximation&#34;&gt;What about function approximation?&lt;/h2&gt;
+&lt;p&gt;So far, we only considered a tabular setting, meaning that the value function estimate
+is a lookup table that assigns a value to each state. Our update equation reflects this:
+the \(\gets\) in
+\[V(S_t) \gets V(S_t) + \alpha(\text{target} - V(S_t))\]
+only makes sense if we can assign any value to any state.&lt;/p&gt;
+&lt;p&gt;If the state space is too large or even infinite, this won&amp;rsquo;t work. Instead, we need to
+limit ourselves to some family of functions and want to pick one among those that approximates the
+true \(v_\pi\) as well as possible. We can then write the value estimate as a function
+\(\hat{v}(s, w)\) of the state \(s\) and a parameter \(w\). We can&amp;rsquo;t set \(\hat{v}\) itself anymore, only \(w\).
+I&amp;rsquo;m switching from \(V\) to \(\hat{v}\) only to avoid confusion between tabular and non-tabular
+value functions, there&amp;rsquo;s no other difference.&lt;/p&gt;
+&lt;p&gt;I won&amp;rsquo;t cover many of the theoretical aspects that arise in this setting, such as convergence
+guarantees, because that&amp;rsquo;s a big topic in itself. But as long as we focus on just describing
+the various methods, rather than on their theoretical properties, function approximation
+doesn&amp;rsquo;t require many changes to our framework.&lt;/p&gt;
+&lt;p&gt;The ideal update would still be
+\[\hat{v}(s, w) \gets \hat{v}(s, w) + \alpha(\text{target} - \hat{v}(s, w))\]
+but that doesn&amp;rsquo;t work anymore because we can only choose \(w\) directly.
+Instead, we introduce a new update rule that works on \(w\) instead of
+on the value function itself:
+\[w \gets w + \alpha(\text{target} - \hat{v}(s, w))\nabla_w \hat{v}(s, w)\]
+It contains the gradient of the value function, which we can think of
+as being needed for converting between the thing we want to change
+(\(\hat{v}\)) and the thing we can directly change (\(w\)). But other than
+that, the update is very similar. In particular, we have the same choices
+to make: a learning rate (and how it changes) and the update target.
+If we want to use importance sampling, we simply multiply the update
+by \(\rho_{t:t+n}\) just as before.
+So we only need to change the update rule and can then plug in all the same targets as before.
+For example, if we use the Q-learning target with this update rule,
+we get the basic algorithm underlying DQN.&lt;/p&gt;
+&lt;p&gt;That isn&amp;rsquo;t to say that there aren&amp;rsquo;t any other choices that need to be made
+when using function approximation. To name just a few important ones:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We need to choose the parameterized family of functions that we use
+for \(\hat{v}\). In Deep RL, this is a neural network, which means that
+there are many, many options to choose from.&lt;/li&gt;
+&lt;li&gt;The update rule for \(w\) above isn&amp;rsquo;t the only one we can use. Chapter 11
+of Sutton&amp;rsquo;s and Barto&amp;rsquo;s &lt;a href=&#34;http://incompleteideas.net/book/the-book.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;book on RL&lt;/a&gt; contains details on the various choices
+and the issues associated with them but that&amp;rsquo;s beyond the scope of this post.
+Besides what&amp;rsquo;s listed there, we can also choose more complex optimizers.
+Our update rule can be interpreted as SGD on the squared value error,
+so you could instead use SGD with momentum, Adam, or whatever your
+favorite optimizer is.&lt;/li&gt;
+&lt;li&gt;We haven&amp;rsquo;t really talked about where the samples that we&amp;rsquo;re using to update
+are coming from. The theoretically simplest case is to always
+sample new actions after the policy is updated. But in practice, you might
+for example want to use a replay buffer instead.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These are the kinds of things that get us from an update rule plus a target
+to a full practical method such as DQN. We could try to incorporate as many
+of them as possible into our framework but I&amp;rsquo;m not sure how useful that
+would be. In any case, they are arguably not really building blocks of
+reinforcement learning in particular; most of them are more generally
+about designing and optimizing deep neural networks.&lt;/p&gt;
+&lt;p&gt;So when we go from tabular RL to function approximation, we get many new choices
+on top of the ones we already need to make in a tabular setting. But the building
+blocks we&amp;rsquo;ve seen for tabular methods, such as update targets or importance
+sampling, persist essentially unchanged.&lt;/p&gt;
+&lt;h2 id=&#34;summary-building-blocks-for-value-based-methods&#34;&gt;Summary: building blocks for value-based methods&lt;/h2&gt;
+&lt;p&gt;To summarize, these are the main building blocks for (tabular) value-based methods:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The target for the update: this is something that should be a better estimate
+of the true value function \(v_\pi\) than the current estimate. Examples include TD(0)
+(including Sarsa), Monte Carlo, expected Sarsa, Q-learning and n-step TD targets&lt;/li&gt;
+&lt;li&gt;Importance sampling: there isn&amp;rsquo;t too much choice here. If the target depends on the taken action(s)
+and the behavior policy differs from the target policy, you need importance sampling. Otherwise
+there&amp;rsquo;s no reason to use it. But as mentioned, you can at least choose between ordinary
+and weighted importance sampling.&lt;/li&gt;
+&lt;li&gt;The learning rate: could just be a fixed learning rate but might also decay over time&lt;/li&gt;
+&lt;li&gt;How to improve the policy: remember that GPI consists of a policy evaluation step where we
+try to find \(q_\pi\), and a policy improvement step where we use our estimate of the value
+function to update the policy. This improved policy might for example be \(\varepsilon\)-greedy
+with respect to our estimate but there are other options&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All of these are in principle independent choices: some combinations might work together
+better than others but choosing one option in each of these dimensions does give a valid
+RL algorithm.&lt;/p&gt;
+&lt;p&gt;In a function approximation setting, and in Deep RL in particular, we also need to make
+many &amp;ldquo;engineering choices&amp;rdquo;. These are certainly important and can determine whether
+an algorithm works really well or doesn&amp;rsquo;t even converge. But what I have hopefully convinced
+you of is that all the core building blocks from tabular RL appear in essentially the same
+way in deep RL and really are fundamental &amp;ldquo;building blocks&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Next up: &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-2&#34;&gt;Part 2&lt;/a&gt;, where we will apply a similar breakdown to policy optimization methods.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;or expected Sarsa, they are the same for a deterministic policy&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Physics | Erik Jenner</title>
+    <link>https://ejenner.com/tag/physics/</link>
+      <atom:link href="https://ejenner.com/tag/physics/index.xml" rel="self" type="application/rss+xml" />
+    <description>Physics</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 19 Jan 2021 10:52:00 +0100</lastBuildDate>
+    <image>
+      <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Physics</title>
+      <link>https://ejenner.com/tag/physics/</link>
+    </image>
+    
+    <item>
+      <title>Asymmetry between position and momentum in physics</title>
+      <link>https://ejenner.com/post/position-momentum-asymmetry/</link>
+      <pubDate>Tue, 19 Jan 2021 10:52:00 +0100</pubDate>
+      <guid>https://ejenner.com/post/position-momentum-asymmetry/</guid>
+      <description>&lt;p&gt;&lt;em&gt;Epistemic status: thinking out loud, not an expert on physics&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;In physics, there appears to be a deep duality between position and momentum,
+in the sense that they are largely equivalent perspectives on viewing the same system.
+In classical mechanics, \(x \mapsto p\) and \(p \mapsto -x\) is a canonical transformation,
+which means that treating momentum as position and position as negative momentum
+results in unchanged dynamics.
+In quantum mechanics, the roles of position and momentum can be similarly switched
+with a change of basis.&lt;/p&gt;
+&lt;p&gt;So mathematically speaking, it would appear that there is nothing special about either
+position or momentum, both yield similar and equally good descriptions. And yet, human
+cognition treats position and momentum very differently, they don&amp;rsquo;t &lt;em&gt;feel&lt;/em&gt; like dual descriptions
+of reality. To us, there is a big difference between a car that is close to us and moving with a
+high relative velocity (distant in momentum space) and one that is far away and more or less
+stationary with respect to us.&lt;/p&gt;
+&lt;p&gt;But human cognition runs on brains, which run on physics, which seems to treat
+position and momentum equivalently. So how can this be? How does the
+cognitive asymmetry arise from what seems to be symmetry on the fundamental physical
+level?&lt;/p&gt;
+&lt;p&gt;The motivation for this post is mostly to point out the question. I&amp;rsquo;m not sure myself what the answer is
+but I&amp;rsquo;ll at least give my guesses below.&lt;/p&gt;
+&lt;h2 id=&#34;false-assumptions&#34;&gt;False assumptions&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;ve said that human cognition &amp;ldquo;runs on brains&amp;rdquo;, which &amp;ldquo;run on physics&amp;rdquo; and the argument
+loses a lot of its punch if this assumption is false. Cognition not running
+on physics could mean something like a fundamental Cartesian distinction between body and
+mind. That doesn&amp;rsquo;t answer why humans perceive two things differently that appear to be
+equivalent in physics but at least that fact doesn&amp;rsquo;t seem as paradoxical anymore.&lt;/p&gt;
+&lt;p&gt;There&amp;rsquo;s also the possibility that cognition does run on physics but uses physics we don&amp;rsquo;t
+know of yet, and in which there is a fundamental difference between position and momentum
+that our cognition exploits.&lt;/p&gt;
+&lt;p&gt;I think that neither of these cases is very likely. If we didn&amp;rsquo;t find any other explanations
+for the cognitive difference between position and momentum, then this difference
+might be strong evidence for a Cartesian view or for new physics playing a role
+in our cognition. But I think there are other, more promising explanations, based
+on the observation that while the fundamental physical laws treat position and momentum
+the same, the Hamiltonian that happens to govern our universe does not. That&amp;rsquo;s what I&amp;rsquo;ll get to
+next.&lt;/p&gt;
+&lt;h2 id=&#34;hamiltonian-part-i-locality&#34;&gt;Hamiltonian part I: Locality&lt;/h2&gt;
+&lt;p&gt;This explanation is specific for quantum mechanics. So if it turns out to be the
+reason for the asymmetry between position and momentum, this would mean
+that this feature of our cognition is inherently quantum mechanical and would not
+appear in a classical universe.&lt;/p&gt;
+&lt;p&gt;The Schrödinger equation, which determines the time evolution of a system,
+can be written in terms of position as follows:
+\[i\hbar \frac{\partial}{\partial t}\psi(x, t) = \left(-\frac{\hbar^2}{2m}\frac{\partial^2}{\partial x^2} + V(x)\right)\psi(x, t)\]
+This time evolution is local in the following sense: to calculate \(\frac{\partial}{\partial t} \psi(x, t)\),
+we only need to know the wave function \(\psi\) in an arbitrarily small neighborhood of \(x\) (so that
+we can calculate its second spatial derivative).&lt;/p&gt;
+&lt;p&gt;We can also write the Schrödinger equation in terms of momentum:
+\[i\hbar \frac{\partial}{\partial t}\psi(p, t) = \left(\frac{p^2}{2m} + V\left(i\hbar\frac{\partial}{\partial p}\right)\right)\psi(p, t)\]
+What does it mean to plug a derivative into the potential \(V\)? We&amp;rsquo;ll assume that \(V\) is analytic,
+which means that it can locally be written as a power series. Then \(V\left(i\hbar \frac{\partial}{\partial p}\right)\)
+is defined by plugging in \(i \hbar \frac{\partial}{\partial p}\) into that power series.&lt;/p&gt;
+&lt;p&gt;If \(V\) happens to be a polynomial, this is just a sum of normal differential operators and the time evolution
+is local in exactly the same sense as for position. But in general, \(V\) can be an infinite power series,
+and we will take arbitrarily high derivatives of \(\psi\). This means that locality can be violated &amp;ndash; this power
+series of derivatives may depend on points that are far away in momentum space&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. The most famous example for a power series of differential operators being non-local
+is probably the fact that \(\exp\left(a \frac{\partial}{\partial x}\right) f(x) = f(x - a)\) (see e.g. &lt;a href=&#34;https://math.stackexchange.com/questions/1341495/exponential-of-powers-of-the-derivative-operator/1495596&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this stackexchange post&lt;/a&gt;). \(f(x - a)\) depends
+on the value of \(f\) outside a small enough neighborhood (if \(a \neq 0\)), so in such cases, the time
+evolution in terms of position is &lt;em&gt;not&lt;/em&gt; local in the sense described above.&lt;/p&gt;
+&lt;p&gt;This raises the question: where does the asymmetry between these two formulations of the Schrödinger
+equation come from? The answer is that it&amp;rsquo;s all the Hamiltonian&amp;rsquo;s fault. The Schrödinger equation can
+be written in basis independent form as
+\[i \hbar \frac{\partial}{\partial t} \psi = \hat{H}\psi\]
+where \(\hat{H}\) is the Hamiltonian operator. This Hamiltonian usually has the form
+\[\hat{H} = \frac{\hat{p}^2}{2m} + V(\hat{x})\]
+So the asymmetry on the level of the Hamiltonian is that the momentum operator appears as
+a second power, whereas the position operator is plugged into the potential, which may be
+an infinite power series.&lt;/p&gt;
+&lt;p&gt;In the position basis, \(\hat{p}\) turns into a derivative whereas in the momentum basis, \(\hat{x}\)
+becomes a derivative. This leads our observation that time evolution is local in the position
+formulation in a sense that does not hold for momentum.&lt;/p&gt;
+&lt;h2 id=&#34;hamiltonian-part-ii-weak-locality&#34;&gt;Hamiltonian part II: &amp;ldquo;Weak&amp;rdquo; locality&lt;/h2&gt;
+&lt;p&gt;In the previous section, we considered only a single particle (though the same asymmetry
+applies to multiple particles &amp;ndash; having only a single particle is the weaker assumption). If we have multiple
+interacting particles, we get a different sense of locality that doesn&amp;rsquo;t require QM anymore.&lt;/p&gt;
+&lt;p&gt;At the beginning I mentioned the difference in our cognition between a distant stationary
+car and a nearby car that&amp;rsquo;s moving fast. It&amp;rsquo;s very reasonable that we think about these
+situations differently: if a car is very far away, it can&amp;rsquo;t interact with us, i.e. hit us.
+The same is not true for momentum: if a car is moving very fast, it can still hit us,
+even though it is far away in momentum space.&lt;/p&gt;
+&lt;p&gt;We might call the fact that spatially distant objects tend to interact less &amp;ldquo;weak locality&amp;rdquo;.
+&amp;ldquo;Weak&amp;rdquo; because they can still interact, just typically not as much. So position satisfies
+weak locality while momentum apparently doesn&amp;rsquo;t.&lt;/p&gt;
+&lt;p&gt;The reason for that can again be found in the Hamiltonian. For multiple particles \(i = 1, \ldots, n\),
+the Hamiltonian usually has the form
+\[H = \sum_{i = 1}^n H_i(x_i, p_i) + \sum_{i \neq j} V(|x_i - x_j|)\]
+Here, \(x_i, p_i\) are the position and momentum of particle \(i\). \(H_i\) is the Hamiltonian for
+a single particle, which only depends on the position and momentum of that particle. This includes
+the kinetic energy and any potentials that are not caused by particle interactions.&lt;/p&gt;
+&lt;p&gt;The second sum in the Hamiltonian describes the interactions between particles. The way I wrote
+it, it can model any pairwise interaction that depends only on the distance between particles.
+It so happens that for the forces that actually occur in our universe, the interaction potential \(V\)
+diminishes as the distance between the interacting particles increases. This is what leads to
+the weak locality in position space. Since the interaction does not depend on the momenta
+of the particles, there is no analogous weak locality for momentum.&lt;/p&gt;
+&lt;p&gt;As in the previous section, the asymmetry again boils down to the Hamiltonian being
+asymmetric in position and momentum. This fits rather well with my own intuition.
+For example, in a harmonic oscillator, both position and momentum appear as a second
+power in the Hamiltonian, and they really do seem much &amp;ldquo;more equivalent&amp;rdquo; there
+than in other systems.&lt;/p&gt;
+&lt;p&gt;But it raises the question why the Hamiltonian has such a form. Classical mechanics
+or QM themselves don&amp;rsquo;t have an answer; after all, symmetric Hamiltonians such
+as the harmonic oscillator work completely fine in principle, it&amp;rsquo;s just that our universe
+isn&amp;rsquo;t a harmonic oscillator. I&amp;rsquo;m not sure whether QFT can shed light onto this question,
+otherwise maybe theories of quantum gravity can. This would likely mean a more
+fundamental difference between position and momentum, which in turn leads to
+the asymmetry in the Hamiltonian.&lt;/p&gt;
+&lt;p&gt;Another approach is to say that most possible Hamiltonians aren&amp;rsquo;t symmetric in position and momentum,
+so it&amp;rsquo;s not surprising at all that ours isn&amp;rsquo;t. This doesn&amp;rsquo;t feel quite as satisfying and whether
+you buy into that argument at all depends on how you think about the &amp;ldquo;probability&amp;rdquo; of
+physical laws being a certain way. In a similar vein, one could appeal to the anthropic
+principle: we can only observe Hamiltonians that permit observers to exist in the
+universe they describe. A harmonic oscillator is presumably too simple for that and maybe
+the same is true for any Hamiltonian which treats position and momentum exactly
+equivalently.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;I saw this point made in &lt;a href=&#34;https://www.lesswrong.com/posts/XDkeuJTFjM9Y2x6v6/which-basis-is-more-fundamental?commentId=A5Pux22d5QKj58fXi&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this comment&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Discounting in a relativistic universe</title>
+      <link>https://ejenner.com/post/discounting-relativistic-universe/</link>
+      <pubDate>Sat, 20 Jun 2020 12:25:00 +0200</pubDate>
+      <guid>https://ejenner.com/post/discounting-relativistic-universe/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;ve heard that when starting a new sketchbook, you should begin by
+drawing some silly doodles on the first page to break the paralysis
+that a fresh book full of beautiful blank pages can induce.
+So for my first blog post I chose the silliest
+topic that came to mind, namely the intersection of ethics, economics
+and special relativity.&lt;/p&gt;
+&lt;p&gt;Discounting is the idea that obtaining value \(V\) some time \(\Delta t\) into the future
+is worth only \(f(\Delta t)V\) now where \(f(\Delta t) &amp;lt; 1\) is the discount factor.
+What exactly &amp;ldquo;value&amp;rdquo; means depends on the context. For now we will talk about money
+as an example but we will get back to this point later.&lt;/p&gt;
+&lt;p&gt;This definition of discounting raises an obvious problem: the distance in time to future events is not
+invariant under Lorentz boosts, so by discounting like this, your value assignments
+become dependent on your frame of reference. Now, as long as you never accelerate,
+your frame of reference will stay the same and this isn&amp;rsquo;t a practical problem
+(though you may still have objections on aesthetic grounds). But as soon as you change your
+state of motion, you&amp;rsquo;ll run into problems.&lt;/p&gt;
+&lt;p&gt;Imagine that you&amp;rsquo;re about to leave for your vacation in the Alpha Centauri system,
+taking the new &lt;em&gt;Starline 90C&lt;/em&gt; moving at 90% the speed of light.
+Suddenly, Omega comes along and offers you a deal: it will pay you $90 right now
+but in return you will have to pay $100 once you arrive on Alpha Centauri in
+&lt;code&gt;(format &amp;quot;%0.2f&amp;quot; (/ 4.34 0.9))&lt;/code&gt; 4.82 years (as seen from your current
+frame of reference on earth). This sounds like a great deal to you: you discount
+at 3% per year, so the $100 you&amp;rsquo;ll have to pay are only worth
+&lt;code&gt;(format &amp;quot;$%0.2f&amp;quot; (* (expt 0.97 4.82) 100))&lt;/code&gt; $86.35 to you now.&lt;/p&gt;
+&lt;p&gt;So you accept the deal, board your spaceship and begin accelerating towards
+Alpha Centauri. But as you do, you feel your value assignments shifting
+&amp;ndash; or rather you realize that you will be on Alpha Centauri in only
+&lt;code&gt;(format &amp;quot;%0.2f&amp;quot; (* 4.82 (sqrt (- 1 0.81))))&lt;/code&gt; 2.10 years
+in your new reference frame because of time dilation.
+This means that you suddenly value the $100 you will have to pay on arrival
+at &lt;code&gt;(format &amp;quot;$%0.2f&amp;quot; (* (expt 0.97 2.1) 100))&lt;/code&gt; $93.80,
+just because you stepped into a spaceship and took off.&lt;/p&gt;
+&lt;p&gt;So clearly, improper discounting is an important financial hazard for
+space tourists. But what should you do instead, if you want to keep
+your normal discounting procedures while on earth?&lt;/p&gt;
+&lt;p&gt;Now we need to get back to what we meant by &amp;ldquo;value&amp;rdquo;. If value refers to money,
+then discounting is closely related to the fact that you can invest money you
+already have now, so getting money at a later point in time is less valuable.
+The amount of time used for discounting calculations should then be the proper time
+of the money, so it depends on whether you were going to leave most of your
+money invested on earth (in which case you should discount with the 4.82 years
+in earth&amp;rsquo;s frame of reference) or whether you were going to invest it aboard
+the &lt;em&gt;Starline 90C&lt;/em&gt; (in which case you should discount with the travel time
+of 2.10 years).&lt;/p&gt;
+&lt;p&gt;But what if you want to discount pure utilities? In that case the question
+is no longer one of economics but of ethics. We are looking for a discount
+function \(f\) that satisfies the following criteria:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;\(f\) assigns some discount factor to each point in your future light cone
+&amp;ndash; all of those are events that you might be able to influence and
+therefore need to take into account for utility calculations.&lt;/li&gt;
+&lt;li&gt;On the world line of your current frame of reference, these factors coincide
+with the old discounting factor \(f(t)\) &amp;ndash; &amp;ldquo;It all adds up
+to normality&amp;rdquo;.&lt;/li&gt;
+&lt;li&gt;\(f\) is invariant under Lorentz boosts in the sense that if your
+velocity suddenly changed and you recalculated all discount factors,
+they would remain the same. Essentially, your ethical judgements
+don&amp;rsquo;t change just because you take a flight to Alpha Centauri at
+relativistic speeds.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I think there is only one way of discountig that satisfies all of these
+desiderata&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+use the spacetime interval instead of the time as measured in your current
+reference frame.&lt;/p&gt;
+&lt;p&gt;The spacetime interval between two points is&lt;/p&gt;
+&lt;p&gt;\begin{equation}\label{eq:spacetime_interval}
+\Delta s = \sqrt{\left(c\Delta t\right)^2 - \left(\Delta x\right)^2 -
+\left(\Delta y\right)^2 - \left(\Delta z\right)^2}
+\end{equation}&lt;/p&gt;
+&lt;p&gt;where \(\Delta t\) is their time difference (what we used for discounting before)
+and \(\Delta x, \Delta y, \Delta z\) are the spatial distances. The nice
+thing about \(\Delta s\) is that it is invariant under Lorentz transformations,
+so if instead of discounting with \(f(\Delta t)\), you discount with \(f(\Delta s)\),
+then your value assignments won&amp;rsquo;t change when you change frames of reference.&lt;/p&gt;
+&lt;p&gt;What consequences does this have? For small spatial distances, not much changes.
+The \(c\) in equation \eqref{eq:spacetime_interval} means that as long as you could reach
+an event while travelling much slower than the speed of light, \(\Delta s \approx \Delta t\).
+On the other hand, events that are close to the edges of your future light cone
+have \(\Delta s\) close to 0, meaning they are discounted only very weakly.
+So you&amp;rsquo;d care about things that happen in 4.3 years (earth frame) on Alpha Centauri
+almost as much as about what happens on earth right now &amp;ndash; and much more than
+about things that happen on on earth 4.3 years into the future.&lt;/p&gt;
+&lt;p&gt;If you think this is absurd, I completely agree. One way to get around this is
+to give up desideratum 3 above. Maybe if your velocity changes very suddenly,
+it&amp;rsquo;s justified for your value judgements to also change very suddenly?
+But there is of course another way to avoid these consequences: if \(f(\Delta s)\)
+is independent of \(\Delta s\), then there is no weird bias towards things that
+happen close to the edge of your light cone either. In other words: don&amp;rsquo;t discount
+pure utilities at all.&lt;/p&gt;
+&lt;p&gt;For me, the second option is much more appealing. There are already good
+reasons against discounting utilities, this simply adds yet another one.
+It&amp;rsquo;s by no means an argument showing that you &lt;em&gt;can&amp;rsquo;t&lt;/em&gt; consistently discount
+events in the far future in a relativistic universe. But if you do, there will
+be &lt;em&gt;some&lt;/em&gt; consequences that I find rather unintuitive. Either you care a lot
+about what happens on faraway star systems in the far future, or how much
+you value different things changes whenever you change your velocity.
+Take your pick.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;because every point in your future light cone lies on the world line of some reference frame that you can reach by a Lorentz boost&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

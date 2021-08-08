@@ -1,0 +1,1277 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  Did you always want to know kind of object this weird Dirac delta &#34;function&#34;
+  actually is? Well, it&#39;s a Schwartz distribution. If that doesn&#39;t help much,
+  then keep reading.
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/distributions-intro/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/distributions-intro/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/distributions-intro/" />
+  <meta property="og:title" content="Distributions Part I: the Delta distribution | Erik Jenner" />
+  <meta property="og:description" content="  Did you always want to know kind of object this weird Dirac delta &#34;function&#34;
+  actually is? Well, it&#39;s a Schwartz distribution. If that doesn&#39;t help much,
+  then keep reading.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-07-06T14:15:00&#43;02:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-07-06T14:15:00&#43;02:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/distributions-intro/"
+  },
+  "headline": "Distributions Part I: the Delta distribution",
+  
+  "datePublished": "2021-07-06T14:15:00+02:00",
+  "dateModified": "2021-07-06T14:15:00+02:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  Did you always want to know kind of object this weird Dirac delta \"function\"\n  actually is? Well, it's a Schwartz distribution. If that doesn't help much,\n  then keep reading.\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Distributions Part I: the Delta distribution | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="d4559bf76103b76afb837e21099513a8" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Distributions Part I: the Delta distribution</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jul 6, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    9 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Schwartz distributions are a generalization of functions from \(\mathbb{R}^n\) to \(\mathbb{R}\):
+strictly speaking, they aren&rsquo;t such functions themselves, but you can do a lot of the same
+stuff with them that you can do with normal functions, such as taking derivatives, computing convolutions,
+and even Fourier transforms (at least in certain cases).
+And in some ways, they even make life easier compared to functions. For example, every distribution
+is infinitely differentiable! But of course, we do have to give up some things: distributions
+can&rsquo;t be evaluated at a single point and it&rsquo;s in general impossible to multiply two distributions.</p>
+<p>In this series, we&rsquo;ll try to understand all of these properties of distributions and more.
+I will focus on intuition but still <a href="/post/state-formally-reason-informally">give formal definitions</a> of all the concepts we look at.
+As a secondary purpose, studying distributions will also be an excellent opportunity to
+practice finding good definitions. We will introduce many different operations on distributions
+and in each case, we will try to understand how one could come up with the definition
+in a natural way.</p>
+<h2 id="motivation">Motivation</h2>
+<p>In electrostatics, <em>charge densities</em> are used to model the amount
+of electric charge in different places. Such a charge density is a function
+\(\rho: \mathbb{R}^3 \to \mathbb{R}\) that assigns an amount of charge per volume
+to every point \(x \in \mathbb{R}^3\). From an experimental standpoint,
+these densities are only useful abstractions; what we can measure is at best
+the <em>total charge in some volume</em>. This charge \(Q\) is given by the integral
+of the density over the volume:
+\[Q(V) = \int_V \rho(x) dx\]
+for any subset \(V \subseteq \mathbb{R}^3\). You can even think of this as
+the <em>definition</em> of the density \(\rho\): the only thing we care about is that
+when we measure the charge \(Q(V)\) in any volume \(V\), we get \(\int_V \rho(x) dx\).</p>
+<p>Now assume we observe the following: \(Q(V) = 1\) for any volume \(V\) that contains
+the origin but \(Q(V) = 0\) if \(V\) does not contain the origin. Intuitively, we
+conclude that there is a point charge with value 1 in the origin and no charge anywhere else.
+But how can we model this using a density \(\rho\)? If \(\rho\) is any (integrable)
+function, as we originally assumed, then we must have \(\rho(x) = 0\) for \(x \neq 0\).<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>
+But in that case, \(\int_V \rho(x) dx = 0\) for all volumes \(V\), which contradicts
+our first observation.</p>
+<p>For now, let&rsquo;s just &ldquo;define this problem away&rdquo;: we&rsquo;ll say that \(\rho(x) = \delta(x)\),
+where \(\delta(x)\) is an object such that
+\[\int_V \delta(x) dx := 1 \text{ if } 0 \in V, \text{ otherwise } 0.\]
+The word &ldquo;object&rdquo; here is code for &ldquo;we&rsquo;re pretty confused and don&rsquo;t know what this thing
+is but we&rsquo;d like to have something that behaves this way&rdquo;.</p>
+<p>We&rsquo;ll develop a formal definition of \(\delta\) soon. But first, let&rsquo;s extend
+the original example a bit: suppose instead of being interested only in the charge inside
+some volume, we now introduce a charged test particle and want to know the potential
+energy it has due to the charge density \(\rho\). This potential is given by
+\[\Phi \propto \int_{\mathbb{R}^3} \frac{1}{|x_0 - x|} \rho(x) dx\]
+for a test particle at position \(x_0\). So what is the potential energy if we have the point charge from
+before, \(\rho(x) = \delta(x)\)? So far, we have only defined \(\int_V \delta(x) dx\),
+and if \(\delta(x)\) appears anywhere else, we don&rsquo;t really know what to
+do with it. Remember, \(\int_V \delta(x) dx\) is just a notation we introduced to mean
+&ldquo;1 if \(0 \in V\) and 0 otherwise&rdquo;, it&rsquo;s not actually an integral in any usual sense.</p>
+<p>So we will apply a powerful technique &ndash; wishful thinking. We just assume that
+\(\delta(x)\) behaves the way we would intuitively like it to, and then worry later
+about constructing something that actually does behave that way. Since for \(\rho(x) = \delta(x)\),
+there is no charge outside the origin, all parts of the integral above except for \(x = 0\)
+ought to vanish. So let&rsquo;s just write
+\[\int_{\mathbb{R}^3} \frac{1}{|x_0 - x|}\delta(x) dx = \int_{\{0\}}\frac{1}{|x_0 - x|}\delta(x)dx.\]
+Since we&rsquo;re only integrating over \(\{0\}\) now, we can set \(x = 0\) in \(|x_0 - x|\). Then
+this part doesn&rsquo;t depend on \(x\) anymore and we get
+\[\int_{\{0\}}\frac{1}{|x_0 - x|}\delta(x)dx = \frac{1}{|x_0|}\int_{\{0\}}\delta(x)dx.\]
+But we know what to do with that last part, its' 1! So the potential should be \(\Phi \propto \frac{1}{|x_0|}\).</p>
+<p>We can apply the same argument more generally to \(\int \varphi(x) \delta(x)dx\) for other functions \(\varphi\).
+So let&rsquo;s &ldquo;wish&rdquo; that
+\[\int_{\mathbb{R}^3} \varphi(x) \delta(x) dx := \varphi(0)\]
+hold for all functions \(\varphi\). This contains our original definition of \(\delta(x)\) as a special
+case, namely for the indicator function \(\varphi = 1_V\).</p>
+<h2 id="schwartz-distributions">Schwartz distributions</h2>
+<p>The defining property of \(\delta(x)\) that we would like to have is
+\[\int_{\mathbb{R}^3} \delta(x) \varphi(x) dx := \varphi(0)\]
+for arbitrary functions \(\varphi\). We have already noted that this cannot
+be an actual (Lebesgue) integral, so it makes sense to get rid of that
+notation. Instead, we will write
+\[\langle \delta, \varphi\rangle := \varphi(0).\]
+This hightlights the important part: \(\delta\) lets us take
+any function \(\varphi\) and maps it to its value \(\varphi(0)\) at the origin. So \(\delta\)
+is a function after all; just not from \(\mathbb{R}^3\) to \(\mathbb{R}\) but from
+the space of <em>functions on</em> \(\mathbb{R}^3\) to \(\mathbb{R}\)!</p>
+<p>\(\delta\) is one example of <em>Schwartz distributions</em> or <em>distributions</em> for short,
+which are all maps from a space of functions to the real numbers. Let&rsquo;s make this
+more precise:</p>
+<p><strong>Definition:</strong> Let \(U \subseteq \mathbb{R}^n\) be an open subset. A <em>test function</em> on \(U\)
+is a smooth, compactly supported function \(\varphi: U \to \mathbb{R}\) and we write
+\(\mathcal{D}(U)\) for the space of all such test functions. A <em>Schwartz distribution</em>
+on \(U\) is then a <em>continuous linear function</em> \(T: \mathcal{D}(U) \to \mathbb{R}\).
+We write \(\mathcal{D}'(U)\) for the space of all such distributions on \(U\).</p>
+<p>This definition requires some clarifications. First, Schwartz distributions are not
+at all the same thing as probability distributions, and when I say &ldquo;distribution&rdquo;
+in this series, I will always mean a Schwartz distribution. Second, if we want to
+talk about continuity, we of course need to define a topology on the space \(\mathcal{D}(U)\)
+of test functions. The topology we use here is called the <em>canonical LF topology</em> but
+we won&rsquo;t discuss that any further in this post.</p>
+<p>The name <em>test function</em> comes from the fact that these are the functions on which
+we can &ldquo;test&rdquo;, i.e. evaluate distributions. In our first example about the total
+charge in some volume, we used indicator functions \(1_V\) as test functions.
+The \(\delta\) distribution would in principle work on <em>any</em> space of test functions.
+But it turns out that a good choice for the general definition are smooth
+compactly supported functions because this makes a lot of the theory very nice.</p>
+<p>We will write \(\langle T, \varphi \rangle\) for the distribution \(T\) applied to
+the test function \(\varphi\). But why did we write \(\int \delta(x) \varphi(x) dx\) before?
+What does all of this have to do with integrals? The reason is the following:
+let \(f : U \to \mathbb{R}\) be any locally integrable (read &ldquo;somewhat reasonable&rdquo;) function. Then the map
+\[\varphi \mapsto \int_U f(x) \varphi(x) dx\]
+defines a distribution on \(U\), which we denote by \(T_f\). This is the sense in which
+distributions are <em>generalized</em> functions; each classical function induces a distribution.
+So when we write \(\int \delta(x) \varphi(x) dx\), we are essentially pretending that
+the delta distribution is induced by a function \(\delta(x)\). There is no such function,
+but the notation is used very often anyway; probably in part for historical reasons
+and in part because it turns out to work surprisingly well, as we&rsquo;ll see next.</p>
+<p>We will revisit distributions in general in the next post but for now, we focus on the
+\(\delta\) distribution again.</p>
+<h2 id="variations-of-the--delta--distribution">Variations of the \(\delta\) distribution</h2>
+<p>We now have a formal understanding of terms of the form \(\int \delta(x) \varphi(x)dx\).
+But in practice, the \(\delta\) distribution often appears in modified versions,
+such as in terms like
+\[\int \delta(x - x_0)\varphi(x) dx\]
+or
+\[\int \delta(ax)\varphi(x)dx.\]
+So far, we haven&rsquo;t formally defined these terms. That means it&rsquo;s time to apply
+the Power of Wishful Thinking again, in order to find good definitions for them.</p>
+<p>It&rsquo;s pretty clear what \(\delta(x - x_0)\) should mean: it&rsquo;s just a shifted version
+of \(\delta(x)\), with its &ldquo;peak&rdquo; at \(x_0\) instead of \(0\). More explicitly, it
+makes sense to demand that
+\[\int \delta(x - x_0)\varphi(x) dx = \int \delta(x) \varphi(x + x_0) dx\]
+as would be the case if \(\delta\) was a regular function (all integrations are assumed
+to be over all of \(\mathbb{R}^n\)). Then we can see that
+\[\int \delta(x - x_0)\varphi(x) dx = \varphi(x_0).\]</p>
+<p>Let&rsquo;s consider \(\int \delta(ax)\varphi(x)dx\) instead. You might argue as follows:
+&ldquo;\(\delta(ax) = 0\) for \(x \neq 0\), so we only need to consider \(x = 0\). In that case,
+\(ax = 0 = x\), so \(\delta(ax)\) should be the same as \(\delta(x)\)&rdquo;.
+But this is a misunderstanding caused by the (admittedly very confusing) notation
+often used for the \(\delta\) distribution: \(\delta(x)\) doesn&rsquo;t mean that anything
+is actually being evaluated at \(x\), it&rsquo;s just a notational convention <em>that only makes sense inside integrals</em>.
+We don&rsquo;t want to demand that \(\delta(\cdot)\) behaves like functions when we plug in different things because
+we never have \(\delta(x)\) appearing on its own anyway.</p>
+<p>What we do want is that \(\delta(x)\) behaves like functions <em>inside an integral</em>.
+In particular, for functions \(f\) and \(\varphi\) and a scalar \(a \neq 0\), we have
+\[\int f(ax)\varphi(x)dx = \frac{1}{|a|^n}\int f(x)\varphi\left(\frac{x}{a}\right)dx.\]
+So since we want \(\delta(x)\) to behave the way that functions behave inside integrals,
+we define
+\[\int \delta(ax)\varphi(x)dx := \frac{1}{|a|^n}\int\delta(x)\varphi\left(\frac{x}{a}\right)dx = \frac{1}{|a|^n}\varphi(0).\]</p>
+<p>In fact, we can generalize this argument: for any diffeomorphism \(g\) of \(\mathbb{R}^n\), we have
+\[\int f(g(x))\varphi(x)dx = \int |\operatorname{det} Dg(x)|^{-1} f(x)\varphi(g^{-1}(x))dx\]
+where \(Dg\) is the derivative (Jacobian) of \(g\).
+So in analogy, we can define \(\delta(g(x))\) for any diffeomorphism \(g\) by
+\[\int \delta(g(x))\varphi(x)dx := \int |\operatorname{det} Dg(x)|^{-1} \delta(x)\varphi(g^{-1}(x))dx
+= |\operatorname{det} Dg(0)|^{-1}\varphi(g^{-1}(0)).\]</p>
+<p>I want to stress again that none of these arguments are &ldquo;proofs&rdquo; or &ldquo;derivations&rdquo; &ndash; in the end, we have
+to choose how to define all of these terms. But clearly some definitions make more sense than others
+and in the examples here there is clearly one &ldquo;right&rdquo; way to define what \(\delta(g(x))\) etc. should
+mean. This will become even more clear in the next post: we will continue the theme of finding
+good definitions via &ldquo;wishful thinking&rdquo;, only this time for arbitrary distributions and for many
+more types of operations.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Actually, only for almost all \(x\) but that doesn&rsquo;t change anything.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/math/">Math</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/state-formally-reason-informally/">State formally, reason informally</a></li>
+      
+      <li><a href="/post/spherical-harmonics/">Perspectives on spherical harmonics</a></li>
+      
+      <li><a href="/post/too-much-structure/">Too much structure</a></li>
+      
+      <li><a href="/post/perspectives-on-structure/">Ways to think about structure in mathematics</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

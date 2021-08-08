@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fairness | Erik Jenner</title>
+    <link>https://ejenner.com/tag/fairness/</link>
+      <atom:link href="https://ejenner.com/tag/fairness/index.xml" rel="self" type="application/rss+xml" />
+    <description>Fairness</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 01 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Fairness</title>
+      <link>https://ejenner.com/tag/fairness/</link>
+    </image>
+    
+    <item>
+      <title>ML Reproducibility Challenge</title>
+      <link>https://ejenner.com/project/fact-ai/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/project/fact-ai/</guid>
+      <description>&lt;p&gt;As part of the course &lt;em&gt;Fairness, Accountability, Confidentiality and Transparency in AI&lt;/em&gt;
+at the University of Amsterdam, I replicated the paper
+&lt;a href=&#34;https://arxiv.org/abs/2006.13114&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Fairness without Demographics through Adversarially Reweighted Learning&lt;/a&gt;
+(Lahoti et al., 2020) together with three other Master&amp;rsquo;s students.
+We also performed additional experiments to test whether the method transfers
+from tabular to image data. We wrote a report with our findings for the
+&lt;a href=&#34;https://paperswithcode.com/rc2020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ML Reproducibility Challenge 2020&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

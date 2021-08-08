@@ -1,0 +1,1230 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  There is a &#34;complexity barrier&#34;: a number such that we can&#39;t prove
+  the Kolmogorov complexity of any specific string to be larger than
+  that. The proof of this astonishing fact is closely related to some
+  famous paradoxa and we&#39;ll use this connection to get a better intuition
+  for why the complexity barrier exists.
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/boring-numbers/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/boring-numbers/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/boring-numbers/" />
+  <meta property="og:title" content="Boring numbers, complexity and Chaitin&#39;s incompleteness theorem | Erik Jenner" />
+  <meta property="og:description" content="  There is a &#34;complexity barrier&#34;: a number such that we can&#39;t prove
+  the Kolmogorov complexity of any specific string to be larger than
+  that. The proof of this astonishing fact is closely related to some
+  famous paradoxa and we&#39;ll use this connection to get a better intuition
+  for why the complexity barrier exists.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-02-10T16:27:00&#43;01:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-02-10T16:27:00&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/boring-numbers/"
+  },
+  "headline": "Boring numbers, complexity and Chaitin's incompleteness theorem",
+  
+  "datePublished": "2021-02-10T16:27:00+01:00",
+  "dateModified": "2021-02-10T16:27:00+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  There is a \"complexity barrier\": a number such that we can't prove\n  the Kolmogorov complexity of any specific string to be larger than\n  that. The proof of this astonishing fact is closely related to some\n  famous paradoxa and we'll use this connection to get a better intuition\n  for why the complexity barrier exists.\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Boring numbers, complexity and Chaitin&#39;s incompleteness theorem | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="52ebefb10109c5c62868524ac984663d" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Boring numbers, complexity and Chaitin&#39;s incompleteness theorem</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Feb 10, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Informally, Chaitin&rsquo;s incompleteness theorem states that there is a constant \(L\),
+such that we can&rsquo;t prove the Kolmogorov complexity of any specific bit string to
+be larger than \(L\).
+We <em>can</em> of course prove that there are infinitely many bit strings with higher complexity
+than \(L\) &ndash; but we can&rsquo;t name a single one!</p>
+<p>John Baez calls this constant \(L\) the <a href="https://math.ucr.edu/home/baez/surprises.html" target="_blank" rel="noopener">complexity barrier</a>. And surprisingly,
+he argues that it is probably very low (on the order of a few thousand bits for reasonable
+encoding schemes)!</p>
+<p>At least to me, this is a pretty amazing fact. Consider all the material available on the
+internet for instance: everything ever written online, all the videos and images,
+and binaries for every computer program out there. &ldquo;Obviously&rdquo; we can&rsquo;t just write
+a Python program of a few kilobytes that outputs all of this, &hellip; right?
+Well, I&rsquo;m pretty sure we can&rsquo;t, but somewhat incredibly, there&rsquo;s no proof of that!</p>
+<p>Take a moment to be properly astonished by this result because the aim of this post
+is to make it as obvious as possible. We&rsquo;ll get there soon enough, but first let&rsquo;s
+look at some fun paradoxa.</p>
+<h2 id="there-are-no-boring-numbers-dot-dot-dot">There are no boring numbers &hellip;</h2>
+<p>The follwing &ldquo;paradox&rdquo; is quite famous:</p>
+<blockquote>
+<p>Assume there was an uninteresting natural number. Then the smallest such number
+would be interesting &ndash; because it&rsquo;s the smallest uninteresting number,
+that&rsquo;s quite an interesting property!
+This is a contradiction, so there can be no uninteresting natural numbers.</p>
+</blockquote>
+<p>We can formalize it as follows: we have some boolean &ldquo;boringness&rdquo; property, call it \(P\), defined over
+natural numbers. So \(P(n)\) just means &ldquo;\(n\) is boring&rdquo;.
+Being the lowest boring number is itself interesting:
+\[P\left(\min_{P(n)} n\right)\quad \text{is false}\]
+This is self-contradictory if there are any \(n\) such that \(P(n)\),
+so no natural numbers can have property \(P\).</p>
+<h2 id="dot-dot-dot-and-every-number-can-be-described-in-13-words-or-less">&hellip; and every number can be described in 13 words or less</h2>
+<p>There&rsquo;s a arguably more interesting variation of this paradox: let \(P_k(n)\) mean
+&ldquo;\(n\) cannot be described in fewer than \(k\) words&rdquo;. Consider then the description
+&ldquo;the smallest natural number which cannot be described in fewer than 14 words&rdquo;.
+In our notation, this would be
+\[\min_{P_{14}(n)} n\]
+However, this description is only 13 words long, so
+\[P_{14}\left(\min_{P_{14}(n)} n\right)\quad \text{is false}\]
+which is a contradiction if such a number exists. Therefore, every number can be described
+in at most 13 words.</p>
+<p>This seems suspicious: while there are many 13-word phrases, there&rsquo;s still only
+a finite number of them<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. So there aren&rsquo;t enough short
+descriptions to go around for each natural number to get one.</p>
+<h2 id="there-are-arbitrarily-complex-strings-dot-dot-dot">There are arbitrarily complex strings &hellip;</h2>
+<p>Of course the problem is that &ldquo;cannot be described in fewer than \(k\) words&rdquo; is
+not a well-defined property because there is no unambiguous mapping from English
+descriptions to numbers.</p>
+<p>But what if we replace English by a formal language to circumvent this issue? For example,
+a Turing machine without any input either halts and outputs a number (in the form
+of a bit string), or it runs forever. If we fix an encoding for Turing machines,
+any Turing machine has a length, so we can define
+\(P_k(n)\) as &ldquo;\(n\) is not the output of any halting Turing machine with length less than \(k\)&rdquo;. Or more briefly:
+&ldquo;the <a href="https://en.wikipedia.org/wiki/Kolmogorov%5Fcomplexity" target="_blank" rel="noopener">Kolmogorov complexity</a> of \(n\) is at least \(k\)&rdquo;.</p>
+<p>So let&rsquo;s repeat our argument with Turing machines instead of natural language.
+We need to define a program that outputs \(\min_{P_k(n)} n\) while being itself
+shorter than \(k\). Given a subroutine that checks whether \(P_k(n)\) for arbitrary \(n\),
+we could simply iterate over \(n = 1, 2, \ldots\) until we find one such that
+\(P_k(n)\) and then output that. If such an \(n\) existed, this program would
+output \(\min_{P_k(n)} n\), so by the same argument as before, there can&rsquo;t
+be any \(n\) with complexity higher than \(k\) &hellip;</p>
+<p>&hellip; which can&rsquo;t be right, because just as with natural language descriptions,
+there are only finitely many programs of length \(\leq k\), but infinitely many
+bit strings.</p>
+<p>This time, the issue is the phrase &ldquo;Given a subroutine &hellip;&quot;: \(P_k\) is
+undecidable, so this subroutine unfortunately doesn&rsquo;t exist<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. Or fortunately, if you value the consistency of mathematics.</p>
+<p>In essense, the problem is this: in English, the smallest number with a simple property
+can be described in few words because you only need to describe the property and a few
+additional words. But the same is not true for Kolmogorov complexity <em>if the property isn&rsquo;t decidable</em>.</p>
+<p>For any decidable property, the argument works: the smallest number with that property
+will have low Kolmogorov complexity (where &ldquo;low&rdquo; means &ldquo;not much larger than the
+complexity of the property&rdquo;). Let&rsquo;s see what we can get by applying that insight.</p>
+<h2 id="dot-dot-dot-but-not-provably-complex-ones">&hellip; but not provably complex ones!</h2>
+<p>This post is supposed to be about Chaitin&rsquo;s incompleteness theorem, so we&rsquo;d better
+connect all of this talk about paradoxa and complexity to that.
+The only missing ingredient is to consider <em>provably</em> large
+complexities, rather than just large complexities as before.</p>
+<p>This means \(P_k(n)\) will now be &ldquo;\(n\) encodes a proof that some specific bit
+string has Kolmogorov complexity higher than \(k\)&rdquo;. We need some system of
+logic to make &ldquo;proof&rdquo; well-defined and an encoding scheme of proofs as natural
+numbers but we&rsquo;ll ignore that since our goal is just to gain intuition.</p>
+<p>This new \(P_k\) is clearly decidable: we just need to check whether \(n\) is a valid encoding
+of a proof and whether that proof shows that some specific number has Kolmogorov
+complexity higher than \(k\).</p>
+<p>This program has length \(\log k\) (to encode \(k\))
+plus some constant. As we saw, this means that \(\min_{P_k(n)} n\) also has Kolmogorov
+complexity at most \(\log k\) (up to a constant): we can iterate over \(n\) and return
+the first one for which \(P_k(n)\) holds.</p>
+<p>So far there&rsquo;s no contradiction: \(n\) proves that the Kolmogorov complexity of
+<em>some specific number</em>, call if \(M(n)\), is larger than \(k\). And we&rsquo;ve only seen
+that the Kolmogorov complexity of \(\min_{P_k(n)} n\) is low. But of course
+\(M\) is itself computable and in fact by a pretty short program
+(which just looks at what \(n\) proves). So \(M_k := M\left(\min_{P_k(n)} n\right)\)
+also has a small complexity, more precisely:
+\[K(M_k) \leq \log k + \text{const}\]</p>
+<p>But by construction, \(K(M_k) &gt; k\) (that&rsquo;s what \(\min_{P_k(n)} n\) encodes a proof of). So we get
+\[k &lt; K(M_k) &lt; \log k + \text{const}\]
+which obviously can&rsquo;t hold if \(k\) is sufficiently large. So for \(k\) greater than
+some constant \(L\), we run into a paradox &hellip; if any \(n\) encoding such a proof exists.
+If there is no \(n\) encoding a proof that some specific bit string has complexity higher than
+\(k\), then there is no smallest such \(n\), and we can&rsquo;t define \(M_k\). This proves
+Chaitin&rsquo;s Incompleteness Theorem:</p>
+<blockquote>
+<p>There is some constant \(L\) such that for any given bit string, we can&rsquo;t prove
+it has Kolmogorov complexity higher than \(L\).</p>
+</blockquote>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li>The &ldquo;fact&rdquo; that every number can be described in at most 13 words is known as the <a href="https://en.wikipedia.org/wiki/Berry%5Fparadox" target="_blank" rel="noopener">Berry paradox</a></li>
+<li>You might like <a href="https://math.ucr.edu/home/baez/surprises.html" target="_blank" rel="noopener">John Baez&rsquo;s post</a> that I already linked above. In addition to a discussion
+of Chaitin&rsquo;s incompleteness theorem, he talks about how another famous paradox &ndash; the surprise examination
+paradox &ndash; motivates a proof of Gödel&rsquo;s second incompleteness theorem! Or you could read the
+<a href="http://www.ams.org/notices/201011/rtx101101454p.pdf" target="_blank" rel="noopener">paper by Kritchman and Raz</a> that introduced that proof.</li>
+<li>Chaitin himself briefly points out the similarity of his impossibility result to Berry&rsquo;s paradoxon in
+<em>Gödel&rsquo;s Theorem and Information</em> (1982)</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>At least in languages where you can&rsquo;t just create an arbitrary number of new words by composing existing ones. If you can, then one word is enough to &ldquo;describe&rdquo; any number&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>It might seem like we&rsquo;ve in fact proven that \(P_k\) is undecidable, because if it was decidable, we&rsquo;d get a contradiction. But actuallly, we&rsquo;ve only shown that \(P_k\) can&rsquo;t be computed by any program of length less than \(k\). A longer program doesn&rsquo;t immediately lead to a contradiction.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

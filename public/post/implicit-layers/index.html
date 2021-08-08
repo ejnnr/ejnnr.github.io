@@ -1,0 +1,1236 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  Several new architectures for neural networks, such as Neural ODEs and
+  deep equlibirum models can be understood as replacing classical layers
+  that explicitly specify how to compute the output with implicit layers.
+  These layers describe which conditions the output should specify but
+  leave the actual computation up to some solver that can be chosen arbitrarily.
+  This post contains a brief introduction to the main ideas behind implicit layers.
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/implicit-layers/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/implicit-layers/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/implicit-layers/" />
+  <meta property="og:title" content="Deep Implicit layers | Erik Jenner" />
+  <meta property="og:description" content="  Several new architectures for neural networks, such as Neural ODEs and
+  deep equlibirum models can be understood as replacing classical layers
+  that explicitly specify how to compute the output with implicit layers.
+  These layers describe which conditions the output should specify but
+  leave the actual computation up to some solver that can be chosen arbitrarily.
+  This post contains a brief introduction to the main ideas behind implicit layers.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-03-03T14:48:00&#43;01:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-03-03T14:48:00&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/implicit-layers/"
+  },
+  "headline": "Deep Implicit layers",
+  
+  "datePublished": "2021-03-03T14:48:00+01:00",
+  "dateModified": "2021-03-03T14:48:00+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  Several new architectures for neural networks, such as Neural ODEs and\n  deep equlibirum models can be understood as replacing classical layers\n  that explicitly specify how to compute the output with implicit layers.\n  These layers describe which conditions the output should specify but\n  leave the actual computation up to some solver that can be chosen arbitrarily.\n  This post contains a brief introduction to the main ideas behind implicit layers.\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Deep Implicit layers | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="e1c190c8c312e57a66371180b06dd5d5" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Deep Implicit layers</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Mar 3, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    6 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <h2 id="implicit-layers">Implicit Layers</h2>
+<p>Layers in neural networks are almost exclusively explicitly specified. That
+just means that the output \(y\) is described as a (usually rather simple)
+function of the input \(x\) and some parameters \(\theta\), i.e.
+\[y = f(x; \theta)\thinspace.\]</p>
+<p>The idea behind <em>implicit</em> layers is the following:</p>
+<blockquote>
+<p>Instead of specifying how to compute the layer’s output from the input,
+we specify the conditions that we want the layer’s output to satisfy.</p>
+</blockquote>
+<p>(that quote is from the <a href="http://implicit-layers-tutorial.org/" target="_blank" rel="noopener">Implicit layers tutorial</a> given by Zico Kolter, David Duvenaud
+and Matt Johnson at NeurIPS 2020, on which this post is based.
+I definitely recommend you check it out if you&rsquo;re interested in all the details that I&rsquo;ll skip over)</p>
+<p>&ldquo;Conditions that we want the output to satisfy&rdquo; is a bit vague, what does
+this look like concretely? Well, it&rsquo;s vague on purpose because implicit
+layers are a very general framework. But one simple way to
+specify a condition is with
+\[g(x, y; \theta) = 0\thinspace.\]
+Whereas a forward pass in a neural network classically means applying
+the function \(f\) at each layer, we now need to solve this equation for \(y\)
+&ndash; that solution will be the output of our layer.</p>
+<p>This may sound a bit insane. Isn&rsquo;t solving an equation like that much
+more expensive than just applying an explicit function? Why would you
+want to do this during each forward pass? There&rsquo;s some truth to that
+of course but it&rsquo;s not as bad as it may sound. First, it turns out
+that relatively few or even just one implicit layer are often enough, so
+while each layer is more expensive to compute, you need fewer of them.
+And secondly, it&rsquo;s sometimes possible to ensure that the equation describing
+the layer can be solved reasonably easily. After all, we have control over the
+class of equations that we need to solve by choosing the network architecture.</p>
+<p>So it&rsquo;s not as bad as it could be, but still, what to we gain? One very general
+answer is that implicit layers can be very expressive. Even using a very simple
+function \(g\), for example, the implicit function \(x \mapsto y\) defined by
+solving the equation may be quite complex (this ties into the
+fact that one or a few implicit layers are often enough to do the job).
+On an even more abstract level, implicit layers decouple <em>what</em> properties
+we want the output to have from <em>how</em> to compute the output. The learned parameters
+only need to describe some conditions that the output should satisfy and we can then
+use any method we want to actually find such an output.</p>
+<p>One detail I&rsquo;ve quietly swept under the rug is whether a solution \(y\) even
+exists and whether it is unique. And for the most part, I&rsquo;m going
+to continue ignoring this issue because this is meant to be a relatively
+informal introduction. I&rsquo;ll just mention that in some cases, you actually
+get existence and uniqueness guarantees, and in others, you can still hope
+that it works out empirically.</p>
+<h2 id="but-what-about-my-gradients">But what about my gradients?</h2>
+<p>So you&rsquo;ve specified a model architecture (the function \(g(x, y; \theta)\))
+and you have some method for doing a forward pass (i.e. finding a \(y\) such
+that \(g(x, y; \theta) = 0\) for a given input \(x\)). Now you want to train
+your model with gradient descent. But you don&rsquo;t have any explicit function
+to take the gradient of, so how does that work?</p>
+<p>You could backpropagate through your solver: after all, you computed the output
+\(y\) <em>somehow</em>, in principle you could backpropagate through that calculation.
+But that&rsquo;s inefficient, so let&rsquo;s try to find a better way.</p>
+<p>To simplify the notation, we&rsquo;ll ignore the parameters \(\theta\). You can think
+of them as being a part of the input \(x\) &ndash; for our purposes there&rsquo;s really not
+much difference between the input to the layer and the parameters, since we
+need gradients with respect to both.</p>
+<p>So for a given input \(x\), we now want to find the Jacobian \(\frac{\partial y^*}{\partial x}\),
+where \(y^*\) is the output such that \(g(x, y^*) = 0\). We can think of \(y^*\)
+as a function of \(x\): for each input \(x\), we have some solution \(y^*(x)\).
+To find the Jacobian of \(y^*\), we can use <em>implicit differentiation</em>.
+We know that \(g(x, y^*(x)) = 0\) for all \(x\), so if we read the LHS as a function
+of \(x\), it&rsquo;s just the constant zero function. The derivative of the zero function
+is of course also 0, so \(\frac{d}{dx} g(x, y^*(x)) = 0\). On the other hand, we
+can apply the chain rule,
+\[\frac{d}{dx}g(x, y^*(x)) = \frac{\partial g}{\partial x} + \frac{\partial g}{\partial y}\frac{d y^*}{dx}\thinspace.\]
+Since this expression has to be zero, we can rearrange and get
+\[\frac{\partial g}{\partial y}\frac{d y^*}{dx} = -\frac{\partial g}{\partial x}\thinspace,\]
+which we can further rewrite as<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>
+\[\frac{d y^*}{dx} = -\left(\frac{\partial g}{\partial y}\right)^{-1}\frac{\partial g}{\partial x}\thinspace.\]
+So now we have the Jacobian of \(y^*\) in terms of the Jacobian of \(g\), which
+means we can calculate gradients without backpropagating through the solver.</p>
+<h2 id="matrix-inversion-considered-harmful"><a href="https://www.johndcook.com/blog/2010/01/19/dont-invert-that-matrix/" target="_blank" rel="noopener">Matrix inversion considered harmful</a></h2>
+<p>There&rsquo;s one remaining issue: while we now know how to calculate the Jacobian \(\frac{d y^*}{dx}\),
+doing so requires us to invert a matrix, which is expensive. Luckily, we don&rsquo;t actually
+need to explicitly compute the Jacobian for gradient descent. What we ultimately care about
+is the gradient of the loss, which is a scalar function. For example, if the implicit layer
+described by \(g\) is the last one before the loss function \(L\), we want
+\[\frac{dL}{dx} = \frac{dL}{dy}\frac{dy^*}{dx}\thinspace,\]
+where \(\frac{dL}{dy}\) is the gradient of \(L\) as a row vector. More generally, we only
+need to be able to compute products of the form
+\[w^T \frac{dy^*}{dx} = -w^T\left(\frac{\partial g}{\partial y}\right)^{-1}\frac{\partial g}{\partial x}\thinspace,\]
+not the Jacobian itself. We can do this by first solving
+\[u^T\frac{\partial g}{\partial y} = -w^T\]
+for \(u\), the so called <em>adjoint variable</em>. Crucially, this is possible without
+explicitly computing and storing the inverse (for example using <a href="https://en.wikipedia.org/wiki/Iterative%5Fmethod#Linear%5Fsystems" target="_blank" rel="noopener">iterative methods</a>). Then we can calculate
+\[w^T \frac{dy^*}{dx} = u^T\frac{\partial g}{\partial x}\thinspace.\]</p>
+<h2 id="what-s-next">What&rsquo;s next?</h2>
+<p>We&rsquo;ve seen some of the basic ideas and themes surrounding implicit layers.
+Instead of explicitly describing how to compute the output, they specify
+a condition that the output should satisfy. Using implicit differentiation,
+we can still effectively backpropagate through these layers, independent
+of the solver we use in the forward pass.</p>
+<p>But we haven&rsquo;t talked at all about concrete instantiations of implicit layers.
+What would a network using these actually look like? And can we use contraints
+other than those of the form \(g(x, y; \theta) = 0\)? All of that and more
+is discussed in the <a href="http://implicit-layers-tutorial.org/" target="_blank" rel="noopener">implicit layers tutorial</a> that I already mentioned above.
+It starts with Deep equilbrium models (which essentially use layers defined
+by \(g(x, y) = 0\) as in this post, just framed differently) but then applies
+the same ideas to constraints described by ODEs, leading to Neural ODEs.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>This is assuming that the Jacobian \(\frac{\partial g}{\partial y}\) is invertible. This is exactly the condition under which the <a href="https://en.wikipedia.org/wiki/Implicit%5Ffunction%5Ftheorem" target="_blank" rel="noopener">implicit function theorem</a> holds. In that case, \(y^*\) is indeed differentiable (so we can apply the chain rule as we did). And if we drop the assumption that \(g(x, y) = 0\) is uniquely solvable, then the implicit function theorem at least guarantees that a unique solution \(y*(x)\) exists locally around a point \((x_0, y_0)\). So this theorem is sort of a theoretical backbone, which guarantees that what we do actually works. But if we assume that a solution function \(y^*\) exists and is differentiable, then computing it&rsquo;s Jacobian doesn&rsquo;t require any heavy machinery: as you can see, we just apply the chain rule once and then rearrange a bit.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/deep-learning/">Deep learning</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/vae-generative/">VAEs from a generative perspective</a></li>
+      
+      <li><a href="/project/fact-ai/">ML Reproducibility Challenge</a></li>
+      
+      <li><a href="/project/steerable-pdos/">Steerable PDOs</a></li>
+      
+      <li><a href="/publication/steerable-pdos/">Steerable Partial Differential Operators for Equivariant Neural Networks</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

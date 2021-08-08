@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Machine learning | Erik Jenner</title>
+    <link>https://ejenner.com/tag/machine-learning/</link>
+      <atom:link href="https://ejenner.com/tag/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    <description>Machine learning</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 07 Apr 2021 18:19:00 +0200</lastBuildDate>
+    <image>
+      <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Machine learning</title>
+      <link>https://ejenner.com/tag/machine-learning/</link>
+    </image>
+    
+    <item>
+      <title>Troubles with the Bias-Variance tradeoff</title>
+      <link>https://ejenner.com/post/bias-variance-tradeoff/</link>
+      <pubDate>Wed, 07 Apr 2021 18:19:00 +0200</pubDate>
+      <guid>https://ejenner.com/post/bias-variance-tradeoff/</guid>
+      <description>&lt;p&gt;&lt;em&gt;(Last updated: 2021-04-22)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Arguably one of the most important concepts in machine learning, taught in
+any introductory course, is under- and overfitting. The story goes like this:
+if your model is too simplistic, you won&amp;rsquo;t be able to fit the data
+well and get a large error, you &lt;em&gt;underfit&lt;/em&gt;. On the other hand, if your model is too complex,
+it will fit any noise that is present in the data, i.e. you &lt;em&gt;overfit&lt;/em&gt;.
+Such a model won&amp;rsquo;t generalize to the test set, so you also get a large error.
+Somewhere in between those two is a sweet spot with minimal test error.&lt;/p&gt;
+&lt;p&gt;The choice of words, under- and overfitting, already implies that we believe
+a tradeoff exists: they are two ends of a scale, and we need to find the point
+in the middle where we&amp;rsquo;re neither under- nor overfitting too much.&lt;/p&gt;
+&lt;p&gt;Under- and overfitting can be formalized using the notions of bias and variance
+(there&amp;rsquo;ll be a short recap in the next section). Underfitting means that we have
+a high test error because of high bias, while overfitting means that high variance
+causes a high error. Phrased in those terms, the tradeoff between under- and overfitting
+becomes the &lt;em&gt;bias-variance tradeoff&lt;/em&gt;: methods with low bias tend to have high variance
+and vice versa.&lt;/p&gt;
+&lt;p&gt;This idea is ubiquitous in machine learning. So when I recently wanted to look
+up some details, I expected to find troves of information. Tons of empirical evidence,
+a formal definition of what exactly we mean by &amp;ldquo;tradeoff&amp;rdquo;, and hopefully even
+theorems showing that this tradeoff exists. As you can tell from the setup,
+that&amp;rsquo;s not what happened. So in this post, I&amp;rsquo;m going to describe what I found
+(and what I did not find). My goal is to clear up some potential misconceptions,
+and hopefully convince you that the bias-variance tradeoff is less simple and more
+interesting than you thought.&lt;/p&gt;
+&lt;h2 id=&#34;primer-bias-and-variance&#34;&gt;Primer: Bias and variance&lt;/h2&gt;
+&lt;p&gt;Under- and overfitting can be explained in terms of bias and variance.
+I&amp;rsquo;m going to discuss everything in a supervised learning setting. So the setup
+is the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;There is a true (unknown) function \(f(x)\), which we want to approximate&lt;/li&gt;
+&lt;li&gt;We have a dataset \(D = \{(x_1, y_1), \ldots, (x_n, y_n)\}\) of datapoints
+that we use to learn an approximation, where \(y_i = f(x_i)\)&lt;/li&gt;
+&lt;li&gt;We have some training process that takes in this dataset \(D\) and produces
+a function \(\hat{f}(x; D)\) that approximates \(f(x)\)&lt;/li&gt;
+&lt;li&gt;Finally, we imagine there is some distribution over datasets \(D\). This
+distribution is unknown an it&amp;rsquo;s a somewhat elusive concept, but think of it
+like this: we created our dataset with some process, e.g. by taking lots of
+photos and then having people label them. The distribution over datasets
+describes how likely this process is to produce any particular dataset.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now we can define precisely what we mean by bias and variance:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The bias is the difference between the expected value of \(\hat{f}(x; D)\)
+and the true value \(f(x)\), i.e.
+\[\mathbb{E}_D[\hat{f}(x; D)] - f(x)\]&lt;/li&gt;
+&lt;li&gt;By &amp;ldquo;variance&amp;rdquo; we mean the variance of \(\hat{f}(x; D)\) with respect to \(D\), i.e.
+\[\mathbb{E}_D \left(\mathbb{E}_D[\hat{f}(x; D)] - \hat{f}(x; D)\right)^2\]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ideally, we want both bias and variance to be small. The reason is the &lt;em&gt;bias-variance decomposition&lt;/em&gt;
+of the expected squared error&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;:
+\[\mathbb{E}_D (\hat{f}(x; D) - f(x))^2 = \text{bias}^2 + \text{variance}\]
+Assuming we ultimately want to minimize this expected squared error, it&amp;rsquo;s clear
+that all else being equal, we prefer methods with low bias and variance.&lt;/p&gt;
+&lt;p&gt;Ok, now what about the tradeoff between bias and variance? The idea is that methods
+with low bias tend to have high variance, and those with low variance
+tend to have high bias. So we can&amp;rsquo;t get both low bias and low variance, instead we
+need to find a tradeoff between the two, such that the expected squared error is minimized.
+This is illustrated by the following figure (from &lt;a href=&#34;http://scott.fortmann-roe.com/docs/BiasVariance.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this essay&lt;/a&gt;, which I recommend if you want
+to gain more intuition about bias, variance, and their tradeoff):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png 400w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_2f4bf3a7d769ce34b645317b0185e5da.png 760w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_1200x1200_fit_lanczos_3.png 1200w&#34;
+               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png&#34;
+               width=&#34;650&#34;
+               height=&#34;423&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;If we use an overly simplistic method, we have a high bias because
+our model just can&amp;rsquo;t get close to the true function \(f\), no matter what we feed
+in as training data. With a more complex model, we can fit the true function better,
+but the trained model \(\hat{f}\) also depends a lot more on the training data \(D\),
+so the variance increases.&lt;/p&gt;
+&lt;p&gt;This explanation sounds sort of intuitive, but I find it a bit unsatisfying. Why exactly
+do complex models vary more depending on the training data? When does this hold? Can I have
+a theorem, please? And what is this &amp;ldquo;model complexity&amp;rdquo; anyways?&lt;/p&gt;
+&lt;h2 id=&#34;a-non-answer&#34;&gt;A non-answer&lt;/h2&gt;
+&lt;p&gt;Unfortunately, the bias-variance &lt;em&gt;decomposition&lt;/em&gt; and the bias-variance &lt;em&gt;tradeoff&lt;/em&gt; are often conflated somewhat,
+so let&amp;rsquo;s get one thing out of the way: the bias-variance decomposition is not
+an explanation for the tradeoff (even though some handy-wavy explanations
+suggest this with varying degrees of explicitness). The only way this could
+work is if the total error was constant; this would indeed imply a tradeoff between
+bias and variance. But it clearly isn&amp;rsquo;t constant (neither in the figure
+above, nor in practice). If the total error &lt;em&gt;was&lt;/em&gt; constant,
+then we wouldn&amp;rsquo;t care about the tradeoff between bias and variance: it wouldn&amp;rsquo;t
+matter which model we chose.&lt;/p&gt;
+&lt;p&gt;Instead, the bias-variance decomposition just motivates why we care about bias
+and variance at all. So it explains why the bias-variance tradeoff is important, but it can&amp;rsquo;t
+explain why it&amp;rsquo;s a thing in the first place.&lt;/p&gt;
+&lt;h2 id=&#34;evidence-for-a-tradeoff&#34;&gt;Evidence for a tradeoff&lt;/h2&gt;
+&lt;p&gt;Why do we believe in a tradeoff between bias and variance? Well, I mainly do because
+others have told me about it and it seems pretty intuitive. But those aren&amp;rsquo;t very good
+reasons, so what to we have in terms of hard evidence?&lt;/p&gt;
+&lt;p&gt;As an example, let&amp;rsquo;s look at what &lt;em&gt;Elements of Statistical Learning&lt;/em&gt; by Hastie et al.
+has to say. It considers two cases in Section 7.3: k-NN regression and linear regression.
+For k-NN, it gives a theoretical expression for bias and variance, and at least the variance
+does indeed increase with increasing model complexity (i.e. decreasing \(k\)).
+A caveat is that the formula assumes the input points \(x_i\) are fixed and
+only the targets \(y_i\) vary &amp;ndash; a very strong and usually unrealistic assumption.
+Similarly, there are theoretical expressions in the case of ridge regression,
+and based on those, variance should typically decrease and bias increase with
+stronger regularization. In the same section, there are small toy experiments
+that demonstrate a tradeoff empirically for k-NN and for linear models.&lt;/p&gt;
+&lt;p&gt;This seems to be fairly representative of the kind of evidence we currently
+have in favor of a tradeoff. If you are curious you should look at Section 3.4 in
+&lt;a href=&#34;https://arxiv.org/pdf/1912.08286.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this thesis&lt;/a&gt;, which is more comprehensive than I&amp;rsquo;m going to be in a blog post.
+But in brief, there is empirical evidence for methods such as decision trees,
+fitting polynomials, or kernel regression. Then there are some general theoretical
+results that are weak evidence for a tradeoff if you squint a bit. And that&amp;rsquo;s pretty
+much it.&lt;/p&gt;
+&lt;p&gt;If you are one of the two or three people working with neural networks,
+this doesn&amp;rsquo;t really inspire confidence. After all, the fact that something holds for linear
+regression and polynomials isn&amp;rsquo;t very strong evidence that it&amp;rsquo;s also true
+for a 25 million parameter ResNet. Which brings us to the question: &lt;em&gt;does&lt;/em&gt; the bias-variance
+tradeoff exist outside the simple methods named above?&lt;/p&gt;
+&lt;h2 id=&#34;double-descent&#34;&gt;Double Descent&lt;/h2&gt;
+&lt;p&gt;Over the last few years, the bias-variance tradeoff has ben supplemented by
+a more complicated narrative, dubbed &amp;ldquo;Double descent&amp;rdquo; by &lt;a href=&#34;https://arxiv.org/abs/1812.11118&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Belkin et al.&lt;/a&gt; in 2018.
+The following figure illustrates this concept:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png 400w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_c94c9439b2a33c151e94b625efc06607.png 760w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_1200x1200_fit_lanczos_3.png 1200w&#34;
+               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png&#34;
+               width=&#34;760&#34;
+               height=&#34;295&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;On the left, we have the classical U-shaped curve for the squared error already shown above.
+But the claim is that if you increase the model complexity past the interpolation
+threshold, where the model can perfectly fit the training data, then the error
+decreases again.&lt;/p&gt;
+&lt;p&gt;There is quite a bit of empirical evidence for this double descent curve,
+especially in the context of &lt;a href=&#34;https://arxiv.org/abs/1912.02292&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;neural networks&lt;/a&gt;&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. The reason seems to be
+that the variance curve &lt;a href=&#34;https://arxiv.org/abs/2002.11328&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;is&lt;/a&gt; &lt;a href=&#34;https://arxiv.org/abs/1810.08591&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;unimodal&lt;/a&gt;, i.e. it first increases with model
+complexity, as we&amp;rsquo;d classicaly suspect, but then decreases again. Of course
+that just passes the buck: why does the variance decrease again after the
+interpolation threshold?&lt;/p&gt;
+&lt;p&gt;I think that this is an extremely interesting question, but in this post
+I&amp;rsquo;m not going to speculate on it. Instead, I&amp;rsquo;m still interested in the bias-variance
+tradeoff in the classical regime: as long as the model complexity is below the interpolation
+threshold, does a tradeoff always exist? If so, why? If not, when does it exist?
+Understanding this question better should also help understanding the behavior
+beyond the interpolation threshold: if we really understood why the tradeoff exists
+at all, we would also know how it could potentially be violated.&lt;/p&gt;
+&lt;h2 id=&#34;general-theorems-are-hard&#34;&gt;General theorems are hard&lt;/h2&gt;
+&lt;p&gt;In an ideal world, we could give a formal statement of the bias-variance tradeoff
+and then prove that it occurs under some fairly general circumstances.
+Maybe that is indeed possible, but it&amp;rsquo;s easy to rule out the most general kinds
+of theorems through a few counterexamples.&lt;/p&gt;
+&lt;p&gt;The strongest form of bias-variance tradeoff would be the claim
+&amp;ldquo;any decrease in variance leads to an increase in bias&amp;rdquo; (and vice versa).
+This is clearly false. For example, let&amp;rsquo;s say we start with a traing procedure that chooses
+\(\hat{f}(x; D) = \operatorname{sha1}(D)\), i.e. which uses a hash of (some serialization of)
+the training data for its prediction (there&amp;rsquo;s nothing special about this example,
+just think &amp;ldquo;a really ridiculous training procedure&amp;rdquo;).
+This procedure has high variance, but also high bias. Switching
+to any reasonable training procedure will decrease both considerably.&lt;/p&gt;
+&lt;p&gt;But let&amp;rsquo;s consider a more reasonable statement of the bias-variance-tradeoff:
+assume we have a class of models, and the training procedure picks the model from that
+class that has the lowest training error. We now want to know how the choice of
+model class influences bias and variance. Furthermore, we only consider a nested
+set of model classes. So we have an ordering of model classes from simple to complex,
+where successively more complex classes contain the simpler ones.&lt;/p&gt;
+&lt;p&gt;Note that this is a rather typical example of what we mean when
+we talk about &amp;ldquo;model complexity&amp;rdquo; and the bias-variance tradeoff in practical
+contexts. For example, a wider neural network can always instantiate any function
+that a more narrow one can, by having some weights be zero.&lt;/p&gt;
+&lt;p&gt;In this setting, the bias-variance tradeoff can be formulated as two separate claims:
+the bias decreases with increasing complexity, while the variance increases.
+Unfortunately, neither one is true in general.&lt;/p&gt;
+&lt;p&gt;A case where bias increases is easy to construct: Let&amp;rsquo;s say the inputs \(x\) and
+the targets \(y\) are both real numbers, and there is some noise, i.e. \(y = f(x) + \varepsilon\),
+with \(\mathbb{E} \varepsilon = 0\). One very simple model class is \(\{f\}\), and
+this class of course leads to a bias of zero. Then there is a more complex model
+class \(\{f, f + 1\}\), where we have added a model that always predicts one more
+than \(f\). Because of the noise, we might get unlucky with the training data and
+pick this second model. So this more complex model class has non-zero bias.&lt;/p&gt;
+&lt;p&gt;A slight modification leads to an example where variance decreases with model
+complexity: we take \(\{f - 1, f + 1\}\) as the simple model class and \(\{f - 1, f, f + 1\}\)
+as a larger class. Assuming that we have a very large amount of training data,
+we will almost always pick \(f\) in the second case, so the variance will be very
+low. In contrast, in the first case, we pick each of \(f - 1\) and \(f + 1\) half the
+time, so we have a constant variance, no matter how much training data we have.&lt;/p&gt;
+&lt;p&gt;Note that this decrease in variance
+happens in the classical regime, in the sense that in either case, there is
+at most one model that fits the data perfectly. So we haven&amp;rsquo;t crossed the
+interpolation threshold yet, and still the variance went down when we increased
+model complexity.&lt;/p&gt;
+&lt;p&gt;Obviously, these examples are somewhat silly, and certainly not representative
+of real-world scenarios. They do not constitute a good argument that there is no
+bias-variance tradeoff in practice, but they do put some limits on what kinds of
+bias-variance tradeoffs we can &lt;em&gt;prove&lt;/em&gt;. So we&amp;rsquo;ll have to put in a bit of work into
+finding the right formalization of what we mean by &amp;ldquo;bias-variance tradeoff&amp;rdquo;, and
+in particular when this tradeoff is supposed to hold. As far as I&amp;rsquo;m aware, such
+a formalization does not exist yet.&lt;/p&gt;
+&lt;h2 id=&#34;model-complexity&#34;&gt;Model complexity&lt;/h2&gt;
+&lt;p&gt;Formalizing the bias-variance tradeoff probably also requires formalizing the
+notion of &amp;ldquo;model complexity&amp;rdquo; to some extent. This is a somewhat elusive
+concept, with many different aspects of the training procedure falling under
+its umbrella. The prototypical example of model complexity is the size of the
+class of models we use. For example, increasing the width of a neural network,
+or using a larger basis of features for linear regression, both increase
+the size of the model class under consideration.&lt;/p&gt;
+&lt;p&gt;But the size of the model class is not the entire story. For example,
+regularization terms in the loss function don&amp;rsquo;t change the model class but instead affect which model
+is selected from that class. The same is true for the number of trainings steps,
+or more generally the optimization procedure.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://arxiv.org/abs/1912.02292&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Nakkiran et al.&lt;/a&gt; define the &lt;em&gt;effective model complexity&lt;/em&gt;
+of a training procedure as the maximum number of training points for which the
+expected training error remains below some threshold \(\varepsilon\).
+That definition captures a lot of my intuition about what we mean by &amp;ldquo;complexity&amp;rdquo;
+in the context of the bias-variance tradeoff. On the other hand, it seems slightly
+ad-hoc and I&amp;rsquo;m still hoping for an even better notion of model complexity.&lt;/p&gt;
+&lt;p&gt;One thing that comes to mind when talking about &amp;ldquo;complexity&amp;rdquo; is of course Kolmogorov
+complexity. But note that
+we don&amp;rsquo;t want the (expected) Kolmogorov complexity of the learned model.
+For example, a randomly initialized neural network has high Kolmogorov complexity,
+but its model complexity should be zero (it&amp;rsquo;s all the way at
+&amp;ldquo;high bias, low variance&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&amp;quot;). What we might be able
+to use instead is the algorithmic mutual information between the learned
+model and the dataset. Another approach would be the (information-theoretic)
+mutual information of dataset and model with respect to the distribution over datasets.
+Both of these would probably be hard to estimate in practice (and I haven&amp;rsquo;t
+thought very long about whether they make sense theoretically and intuitively).
+But they illustrate the type of more fundamental definition that I&amp;rsquo;m hoping exists.&lt;/p&gt;
+&lt;p&gt;Whether a good definition of model complexity would lead to a formalization
+of the bias-variance tradeoff is not clear. For example, just
+saying &amp;ldquo;bias/variance decreases/increases with increasing effective model
+complexity&amp;rdquo; doesn&amp;rsquo;t work (the examples from the previous sections are still
+counterexamples). But at least I suspect that having the right notion
+of model comlexity is &lt;em&gt;necessary&lt;/em&gt; for finding a general formal statement
+about the bias-variance tradeoff, even if we then need additional conditions,
+under which it holds (for example that it is only true in the classical regime,
+i.e. when the model isn&amp;rsquo;t overparameterized).&lt;/p&gt;
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;After putting the bias-variance tradeoff under a lot of scrutiny, I also
+want to emphasize the other side of the coin: it&amp;rsquo;s clear that the bias-variance tradeoff
+is real, that it appears in many different settings, and that it&amp;rsquo;s extremely important
+to keep in mind when doing machine learning.&lt;/p&gt;
+&lt;p&gt;But I do think that we don&amp;rsquo;t understand it nearly as well as we could, and that
+the way the tradeoff is often presented doesn&amp;rsquo;t do a good job of hightlighting
+the parts we don&amp;rsquo;t understand. I highly recommend &lt;a href=&#34;https://www.bradyneal.com/bias-variance-tradeoff-textbooks-update&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this essay&lt;/a&gt;, which makes a similar
+point more explicitly.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;I&amp;rsquo;m ignoring label noise here. More generally, if the labels are sampled from \(y = f(x) + \varepsilon\) with \(\mathbb{E}[\varepsilon] = 0\), there would be an additional \(\varepsilon^2\)-term, the &lt;em&gt;irreducible error&lt;/em&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Though just to make things even weirder: this only seems to occur when increasing the &lt;em&gt;width&lt;/em&gt; of networks. Increasing the depth often isn&amp;rsquo;t tested in papers on the topic, and when it is, there&amp;rsquo;s no double descent curve.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;To forestall potential confusion: the variance &lt;em&gt;with respect to the training data&lt;/em&gt; is low. Of course there is high variance with respect to the random initialization itself, but that&amp;rsquo;s not what we&amp;rsquo;re interested in.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>L1 regularization: sparsity through singularities</title>
+      <link>https://ejenner.com/post/sparsity-singularities/</link>
+      <pubDate>Wed, 17 Feb 2021 09:33:00 +0100</pubDate>
+      <guid>https://ejenner.com/post/sparsity-singularities/</guid>
+      <description>&lt;p&gt;Additive \(L_1\) or \(L_2\) penalties are two common regularization methods
+and their most famous difference is probably that \(L_1\) regularization
+leads to sparse weights (i.e. some weights being exactly 0) whereas \(L_2\)
+regularization doesn&amp;rsquo;t. There are many pictures and intuitive explanations
+for this out there but while those are great to build some understanding,
+I think they conceal the arguably deeper reason why \(L_1\) regularization
+leads to sparse weights. But before we discuss that, we need to understand
+why \(L_2\) regularization does &lt;em&gt;not&lt;/em&gt; help to get sparse weights.&lt;/p&gt;
+&lt;h2 id=&#34;l-2--regularization-doesn-t-lead-to-any-sparsity&#34;&gt;\(L_2\) regularization doesn&amp;rsquo;t lead to any sparsity&lt;/h2&gt;
+&lt;p&gt;Let \(w\) be a vector of parameters and \(\mathcal{L}(w)\) be any continuously
+differentiable loss function&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.
+For \(L_2\) regularization, we want to find
+\[\operatorname*{argmax}_w \mathcal{L}(w) + \beta\Vert w\Vert_2^2\]
+This means that the gradient has to be zero:
+\[\nabla \mathcal{L}(w) + 2\beta w = 0\]
+or in components:
+\[\left.\frac{\partial\mathcal{L}}{\partial w_i}\right\rvert_{w_i = 0} + 2\beta w_i = 0\]&lt;/p&gt;
+&lt;p&gt;So we can get \(w_i = 0\) as the optimal solution only if \(\frac{\partial \mathcal{L}}{\partial w_i}\big\rvert_{w_i = 0} = 0\),
+i.e. if \(w_i = 0\) is already optimal without regularization! So \(L_2\) regularization
+doesn&amp;rsquo;t help to get sparsity &lt;em&gt;at all&lt;/em&gt;. The same is true for \(L_p\) regularization for
+any \(p &amp;gt; 1\), because
+\[\left.\frac{\partial}{\partial w_i} \Vert w\Vert_p^p \right\rvert_{w_i = 0} = 0\]&lt;/p&gt;
+&lt;h2 id=&#34;l-1--regularization-non-differentiability-to-the-rescue&#34;&gt;\(L_1\) regularization: non-differentiability to the rescue&lt;/h2&gt;
+&lt;p&gt;\(L_1\) regularization just uses the 1-norm instead of the Euclidean
+norm:
+\[\operatorname*{argmax}_w \mathcal{L}(w) + \beta\Vert w\Vert_1\]
+How does that change things? Well, the 1-norm of a vector is not
+differentiable at 0. More precisely:
+\[\frac{\partial}{\partial w_i} \Vert w\Vert_1 = \begin{cases}
++1, \quad w_i &amp;gt; 0\\\&lt;br&gt;
+-1,\quad w_i &amp;lt; 0\\\&lt;br&gt;
+\text{undefined for } w_i = 0
+\end{cases}
+\]
+So when can \(w_i = 0\) be a local minimum of the regularized loss? We can&amp;rsquo;t just
+set the derivative to zero as before, because the derivative doesn&amp;rsquo;t exist.&lt;/p&gt;
+&lt;p&gt;To understand what we can do instead, let&amp;rsquo;s first recall why setting the derivative
+to zero works for differentiable functions. If \(f(x)\) has a local minimum
+at 0, then this means that \(f(x) \geq f(0)\) for all sufficiently small \(x\).
+Since we assumed \(f\) to be differentiable at \(0\), \(f(x)\) is well approximated&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
+by
+\[f(x) \approx f(0) + f&#39;(0)x\]
+for small \(x\). So if \(f&#39;(0) &amp;gt; 0\), then \(f(x) &amp;lt; f(0)\) for small negative \(x\),
+and if \(f&#39;(0) &amp;lt; 0\) we get the same for positive \(x\). So the derivative at
+the minimum has to be zero, because otherwise taking a small step in the right
+direction would decrease the value.&lt;/p&gt;
+&lt;p&gt;We can apply the same idea to the loss with \(L_1\) regularization: what happens
+if we take a small step \(h\) away from \(w_i = 0\)? The loss is differentiable
+and thus changes approximately linearly:
+\[\mathcal{L}\Big\rvert_{w_i = h} \approx \mathcal{L}\Big\rvert_{w_i = 0} + h\frac{\partial\mathcal{L}}{\partial w_i}\]
+But for the regularization term, the change is always just \(|h|\), instead
+of a linear term:
+\[\Vert w\Vert_1 \bigg\rvert_{w_i = h} = \Vert w \Vert_1\bigg\rvert_{w_i = 0} + |h|\]&lt;/p&gt;
+&lt;p&gt;So if we write \(\tilde{\mathcal{L}}\) for the regularized loss, then we get
+\[\tilde{\mathcal{L}}\Big\rvert_{w_i = h} \approx \tilde{\mathcal{L}}\Big\rvert_{w_i = 0} + h\frac{\partial\mathcal{L}}{\partial w_i} + \beta |h|\]
+As long as \(\left|\frac{\partial\mathcal{L}}{\partial w_i}\right| &amp;lt; \beta\),
+this is larger than the regularized loss at \(w_i = 0\), because
+the \(+ \beta |h|\) term will dominate. That is why \(L_1\) regularization
+leads to sparser weights: it pulls all those weights to zero whose
+partial derivative at 0 has absolute value less than \(\beta\)&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;interlude-priors&#34;&gt;Interlude: Priors&lt;/h2&gt;
+&lt;p&gt;If the loss function \(\mathcal{L}\) models some log-likelihood, then
+regularization can be interpreted as performing maximum a posteriori (MAP) estimation
+rather than maximum likelihood estimation (MLE). This means we start with some
+prior over possible values of the parameter \(w\), update this distribution
+using the evidence from the loss function, and then pick the parameters
+which are the most probable according to the posterior distribution.&lt;/p&gt;
+&lt;p&gt;\(L_2\) regularization corresponds to a Gaussian prior and \(L_1\) regularization
+to a &lt;a href=&#34;https:en.wikipedia.org/wiki/Laplace%5Fdistribution&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Laplace prior&lt;/a&gt; (in both cases centered around 0). So it&amp;rsquo;s natural to
+try to explain the sparsity behavior of these regularization methods
+in terms of the underlying priors.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s what a Gaussian (red) and Laplace (blue) distribution look like, both with
+unit variance and properly normalized:&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-figure-1-gaussian-and-laplace-distribution-with-unit-variance-created-using-&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 1: Gaussian and Laplace distribution with unit variance (created using )&#34; srcset=&#34;
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_948f91e97afa11b33a27693d78698f5a.png 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_1200x1200_fit_lanczos_3.png 1200w&#34;
+               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Figure 1: Gaussian and Laplace distribution with unit variance (created using &lt;a href=&#34;https://www.desmos.com/&#34;&gt;https://www.desmos.com/&lt;/a&gt;)
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;One difference is that the Laplace distribution has a higher density
+at (and around) 0. I&amp;rsquo;ve seen this used as an explanation for sparsity several times:
+the Laplace distribution seems more &amp;ldquo;concentrated&amp;rdquo; around 0, i.e. assigns a higher
+prior to 0, which is why we get sparse solutions.&lt;/p&gt;
+&lt;p&gt;But that is very misleading (and depending on what is meant by &amp;ldquo;concentrated&amp;rdquo; just wrong). Consider the following
+figure:&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  id=&#34;figure-figure-2-narrower-gaussian&#34;&gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 2: Narrower Gaussian&#34; srcset=&#34;
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_f55fb9dccb8e2732aa3500260a17b57c.png 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_1200x1200_fit_lanczos_3.png 1200w&#34;
+               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;figcaption&gt;
+      Figure 2: Narrower Gaussian
+    &lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;These are still a normalized Gaussian and a Laplace distribution, the only difference is that
+I&amp;rsquo;ve chosen a much smaller variance for the Gaussian. This corresponds to
+choosing a higher coefficient \(\beta\) for the \(L_2\) penalty. I&amp;rsquo;d argue that in this case the Gaussian is much more
+&amp;ldquo;concentrated around 0&amp;rdquo;, at least its density is much higher. But even with arbitrarily
+high \(\beta\), \(L_2\) regularization won&amp;rsquo;t lead to sparse solutions: you can make
+the prior as narrow as you like, and you&amp;rsquo;ll get weights that are closer and closer to
+zero but never precisely.&lt;/p&gt;
+&lt;p&gt;The real difference is the singularity (i.e. non-differentiability) of the Laplace distribution
+at 0. Since the logarithm is a diffeomorphism, singularities of the prior correspond
+1-to-1 with singularities of the log prior, i.e. the regularization term.&lt;/p&gt;
+&lt;h2 id=&#34;singularities-are-necessary-for-sparsity&#34;&gt;Singularities are necessary for sparsity&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ve seen that the difference between \(L_1\) and \(L_2\) regularization can be explained
+by the fact that the \(L_1\) norm has a singularity while the \(L_2\) norm doesn&amp;rsquo;t, or equivalently
+that the Laplace prior has one while the Gaussian prior doesn&amp;rsquo;t.&lt;/p&gt;
+&lt;p&gt;But we can say more than that: a singularity is in fact &lt;em&gt;unavoidable&lt;/em&gt; if we want to make sparse weights likely.
+If we choose any continuously differentiable prior \(p\) (or any continuously differentiable
+additive regularization term), then the overall objective \(\tilde{\mathcal{L}}\) is
+continuously differentiable and therefore, the gradient has to be zero at a local minimum.
+So for \(w_i = 0\) to be a local minimum, we&amp;rsquo;d need
+\[\frac{\partial \mathcal{L}}{\partial w_i}\bigg\rvert_{w_i = 0} + \frac{\partial \log p}{\partial w_i}\bigg\rvert_{w_i = 0} = 0\]
+which puts an &lt;em&gt;equality&lt;/em&gt; constrain on \(\frac{\partial \mathcal{L}}{\partial w_i}\): we only
+get sparse weights if the gradient has precisely the right value. Typically, this will
+almost surely not happen (in the mathematical sense, i.e. with probability 0), so non-singular
+regularization won&amp;rsquo;t lead to sparse weights.&lt;/p&gt;
+&lt;p&gt;In contrast, we saw that
+the singularity of the \(L_1\) norm (or the Laplace prior) creates an &lt;em&gt;inequality&lt;/em&gt; constraint
+for the partial derivative: it leads to \(w_i = 0\) as long as the derivative lies in a certain
+range of values. This is what makes sparse weights likely.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;This is a restriction, for example a model containign ReLUs will typically only be differentiable almost everywhere, and as we&amp;rsquo;ll see, individual non-differentiable points will play a big role. It might be possible to argue that the types of non-differentiable points created by ReLUs don&amp;rsquo;t change the conclusions of following discussion but we&amp;rsquo;ll just assume a differentiable loss so we can focus on the conceptual insights.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;meaning that the error \(f(x) - (f(0) + f&#39;(0)x)\) doesn&amp;rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f&#39;(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Of course this is not guaranteed for complex loss functions: there might be another local optimum somewhere else. This is just the condition for 0 to be one of the local optima at which we might end up.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

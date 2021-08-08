@@ -1,0 +1,1294 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  &#34;Structure&#34; is a concept that keeps popping up when thinking about mathematics
+  but it&#39;s hard to pin down what it is exactly. I discuss several different perspectives
+  for thinking about it.
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/perspectives-on-structure/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/perspectives-on-structure/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/perspectives-on-structure/" />
+  <meta property="og:title" content="Ways to think about structure in mathematics | Erik Jenner" />
+  <meta property="og:description" content="  &#34;Structure&#34; is a concept that keeps popping up when thinking about mathematics
+  but it&#39;s hard to pin down what it is exactly. I discuss several different perspectives
+  for thinking about it.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2020-12-29T14:03:00&#43;01:00"
+      />
+    
+    <meta property="article:modified_time" content="2020-12-29T14:03:00&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/perspectives-on-structure/"
+  },
+  "headline": "Ways to think about structure in mathematics",
+  
+  "datePublished": "2020-12-29T14:03:00+01:00",
+  "dateModified": "2020-12-29T14:03:00+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  \"Structure\" is a concept that keeps popping up when thinking about mathematics\n  but it's hard to pin down what it is exactly. I discuss several different perspectives\n  for thinking about it.\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Ways to think about structure in mathematics | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="69ba7c2506c90c124be77a33189948aa" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Ways to think about structure in mathematics</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 29, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    10 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>Most of the objects that appear in mathematics can be thought of as
+sets with additional &ldquo;structure&rdquo;. For example, a group is a set \(G\) with
+an operation \(G \times G \to G\) fulfilling certain axioms. This operation
+is what makes a group feel more &ldquo;structured&rdquo; than a simple set of elements.
+A topological space is a set equipped with a topology
+and there is a myriad of other examples (graphs, ordered sets, vector spaces,
+metric spaces and measure spaces to name a few).</p>
+<p>But &ldquo;structure&rdquo; in this sense is a somewhat elusive concept. We know it when we see it
+but it&rsquo;s hard to describe explicitly &ndash; which is why I just gave some examples and hoped
+you knew what I meant.
+<em>(Sidenote: there is also a more formal notion of structure in mathematical logic but that&rsquo;s not the topic of this post)</em></p>
+<p>The goal of this post is not to give a formal definition of structure &ndash; I&rsquo;m not sure
+how helpful that would even be &ndash; but rather to describe different perspectives
+that may be useful when thinking about it.
+To guide us, we will consider one particular question: what does it mean
+to say that object A has &ldquo;more structure&rdquo; than object B? For example, a vector space
+has more structure than a group, which has more structure than a simple set.
+We will start with more formal (but also more boring) perspectives and then work
+our way towards more speculative and fuzzy ones.</p>
+<h2 id="notation">Notation</h2>
+<p>We&rsquo;ll fix a set \(X\) and consider the different possible structures that can be imposed
+on \(X\). Calligraphy letters like \(\mathcal{A}\) and \(\mathcal{B}\) refer to the set of all possible structures
+of some type, for example the set of all groups on \(X\). Particular instances
+are written as \(A \in \mathcal{A}\) (e.g. a particular group on \(X\)).</p>
+<p>We will write \(\mathcal{A} \prec \mathcal{B}\) for the informal notion that \(\mathcal{A}\)
+has <em>more</em> structure than \(\mathcal{B}\), for example \(\text{fields} \prec \text{groups}\).
+An alternative way to think about this (which hopefully explains why the \(\prec\) sign points the way
+it does) is that fields are a special case of groups (each field is also a group),
+which means that the set of fields is in some sense a subset of the set of groups.
+This leads us right into the first perspective on structure.</p>
+<h2 id="structure-can-be-canonically-removed">Structure can be canonically removed</h2>
+<p>If \(\mathcal{A} \prec \mathcal{B}\) (\(\mathcal{A}\) has more structure than \(\mathcal{B}\)),
+then there is a canonical way to turn any instance
+\(A \in \mathcal{A}\) into an instance \(B \in \mathcal{B}\).
+As an example, a vector space can be canonically turned into a group by just using vector
+addition as the group operation and ignoring scalar multiplication. Or any metric space
+can be treated as just a topological space by using the topology induced by the metric
+and ignoring the metric itself (category theory footnote<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>).</p>
+<h2 id="structure-leads-to-smaller-symmetry-groups">Structure leads to smaller symmetry groups</h2>
+<p>If \(\mathcal{A} \prec \mathcal{B}\), then the automorphism group<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> of \(A \in \mathcal{A}\)
+is smaller than the group of the corresponding \(B \in \mathcal{B}\) (where &ldquo;corresponding&rdquo;
+means that \(B\) is just \(A\) with parts of the structure removed as described in the previous
+section).</p>
+<p>For example, we can treat the real numbers as a metric space or as a topological space.
+For a metric space, the automorphism group consists of only isometries (i.e. maps that
+don&rsquo;t change distances between points), which for the real numbers are only translations.
+If we treat them as a topological space though (which has a lot less structure), then the
+automorphisms are all the homeomorphisms of the real number line, which form a much larger
+group.</p>
+<h2 id="more-structure-leads-to-fewer-structure-preserving-maps">More structure leads to fewer structure-preserving maps</h2>
+<p>If we consider two sets \(X\) and \(Y\), there are \(|Y|^{|X|}\) maps from \(X\) to \(Y\). If we now introduce
+a group structure, most of those maps are typically not homomorphisms, i.e. not structure-preserving.
+If we then turn the groups into rings, even fewer maps will additionally be compatible with
+the ring multiplication. So adding structure reduces the number of maps which preserve
+all of that structure (which is pretty obvious when put like that).</p>
+<p>The previous perspective is a special case of this, where \(Y = X\) and we only consider automorphisms
+rather than any structure-preserving maps, so it shouldn&rsquo;t be surprising that we also got fewer automorphisms
+if we had more structure. But I think it&rsquo;s a very important special case that deserves to be treated seperately
+because the interpretation via symmetries makes it much more intuitive than this general
+version.</p>
+<h2 id="structure-allows-more-definitions-and-theorems">Structure allows more definitions and theorems</h2>
+<p>Now we start getting into slightly more hand-wavy territory. If \(\mathcal{A} \prec \mathcal{B}\), then
+there are more concepts we can define for objects with structure \(\mathcal{A}\) than for
+objects with structure \(\mathcal{B}\). We can also prove more and stronger theorems
+about objects with structure \(\mathcal{A}\) then about objects with structure \(\mathcal{B}\).
+This is related to the previous observation that any object with structure \(\mathcal{A}\)
+can be canonically turned into one with structure \(\mathcal{B}\). The important observation
+here is that this process &ldquo;is compatible with definitions and theorems&rdquo; (I told you it was getting hand-wavy).
+What I mean by that is that if some property holds for \(B\), then it also holds for any object
+\(A\) which can be turned into \(B\) by forgetting parts of its structure.</p>
+<p>Some examples:</p>
+<ul>
+<li>On a Riemannian manifold, we can do things like measure the angle at which two curves intersect,
+which is simply not a concept that makes sense for a manifold without a metric</li>
+<li>Rings allow us to talk about divisibility, which does not have an analogon if only a group structure
+is avaliable</li>
+<li>All vector spaces have a basis but the same is not true for all modules (which have less structure
+than vector spaces)</li>
+</ul>
+<p>While adding structure &ldquo;preserves definitions and theorems&rdquo;, it can sometimes make definitions
+trivial or collapse certain distinct concepts into one. For example, divisibility becomes very boring
+on fields because every element is divisible by every other element (except 0).</p>
+<h2 id="algorithmic-complexity">Algorithmic complexity</h2>
+<p>Now it&rsquo;s getting really hand-wavy, so activate your lack-of-rigor-deflectors.</p>
+<p>Loosely speaking, algorithmic complexity (or Kolmogorov complexity) measures how long the shortest
+possible description of some object is. This can be formally defined for bit sequences
+but I will appeal to your intuition to also apply it to other things like mathematical
+structures, without explicitly specifying how to encode those as bit sequences.</p>
+<p>One connection between structure and complexity is quite obvious: if \(\mathcal{A} \prec \mathcal{B}\),
+then describing \(\mathcal{A}\) is more complex. For example, describing what a field is
+takes slightly longer than just describing what a group is because there are more axioms
+that need to be specified. Similarly, defining a Riemannian manifold is more complex
+than just defining what a topological space is. Note that I switched from talking about
+a description of \(\mathcal{A}\), e.g. the set of all groups, to talking about a definition of what a group is.
+But in terms of descriptive complexity those are essentially the same since the shortest
+description of the set of all groups on \(X\) consists of a definition of what a group
+is and then saying &ldquo;all groups on \(X\)&rdquo;.</p>
+<p>There are some cases where this complexity perspective becomes a bit of a stretch. For example,
+it&rsquo;s not obvious that defining a metric space is more complex than defining a topological space
+(unlike in the case of fields and groups, where the hierarchy is clear). I&rsquo;d argue that it is in fact
+more complex because you need concepts like the real numbers which are pretty complicated
+compared to topological spaces. But there might be other examples where there really is a very
+short description of something which nevertheless has a lot of structure in terms of the other
+perspectives above. This is fine: our goal here is not to give a formal definition of structure
+but rather to list some of the properties that are typically associated with it.</p>
+<p>There is another, more interesting way in which complexity comes into play when talking about
+structure: how long is an average description of a particular element \(A \in \mathcal{A}\) (given
+a description of \(\mathcal{A}\))? Some examples to build intuition about this:</p>
+<ul>
+<li>Specifying a topological space can be extremely complex. Because there is such a large number of
+possible topologies on a fixed set, most of them need to have very long desriptions.
+Also note that those topological spaces with very simple descriptions are often those that have
+a natural additional structure. For example, to define the Euclidean topology on \(\mathbb{R}^n\),
+we usually first define its vector space structure, use that to define a metric and then use that
+to define a topology</li>
+<li>Specifying a field on a finite set is very easy: there is at most one anyways (up to isomorphism)</li>
+<li>If the cardinality of \(X\) is prime, there is also only one group on \(X\). Otherwise, there might be more
+but still far fewer than there are topologies<sup>[I think, citation needed]</sup></li>
+</ul>
+<p>This seems to point towards more structure making it easier to specify a particular instance. But this is
+not always the case. For example, a Riemannian smooth manifold has more structure than just a smooth
+manifold (according to all the previous perspectives). But since every smooth manifold can be equipped
+with a Riemannian metric but that metric is not uniquely determined by the manifold, describing
+a Riemannian manifold usually takes longer than just describing a smooth manifold without a metric,
+because the choice of metric needs to be specified.</p>
+<p>In general, adding structure means that there might be additional choices that need to be specified
+(such as a Riemannian metric) but it can also impose restrictions (for example, many topological spaces
+can&rsquo;t be turned into metric spaces). These two factors pull the descriptive complexity of individual
+instances in opposite directions.</p>
+<h2 id="inherent-structure-of-objects">Inherent structure of objects</h2>
+<p>This is <em>not</em> a new perspective for thinking about structure. Instead, I will give an example for a possible &ldquo;application&rdquo; of the
+complexity-based perspective. Hopefully that will illustrate how these perspectives can be useful
+to have in your mental toolkit.</p>
+<p>There are interesting connections between what we discussed in the previous section and <a href="https://en.wikipedia.org/wiki/Kolmogorov%5Fstructure%5Ffunction#The%5Falgorithmic%5Fsufficient%5Fstatistic" target="_blank" rel="noopener">Kolmogorov sufficient statistics</a>. Intuitively speaking,
+the Kolmogorov sufficient statistic of a bit string is the part of that string that has &ldquo;structure&rdquo; in the
+sense of not being algorithmically random. Any bit string can be efficiently described by first describing
+its Kolmogorov sufficient statistic (which is a list of bit strings with the same &ldquo;structure&rdquo;) and then
+specifying its algorithmically random component (by giving its index in that list).</p>
+<p>This is exactly analogous to describing e.g. a group on \(X\) by first defining what a group is (or rather
+defining an enumeration of all groups on \(X\)) and then saying &ldquo;the 14th object in that enumeration&rdquo;.
+The important property of the Kolmogorov sufficient statistic is that this description in two parts is
+efficient (there is no shorter description using some other scheme, up to an additive constant).
+As an example where this is not the case, we could also specify a group by first defining an enumeration of monoids and then
+saying &ldquo;the 247th object in that enumeration&rdquo;. But because there are many more monoids than group,
+this description would probably be inefficient in most cases: we save ourselves the specification
+of a single axiom but we pay by needing to specify a much higher index.</p>
+<p>Perhaps this idea can be used to define the &ldquo;true inherent structure&rdquo; on an object as its Kolmogorov
+sufficient statistic. But fleshing that out is a topic for another post.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In summary, here are all the perspectives we talked about:
+If an object has more structure, &hellip;</p>
+<ul>
+<li>this structure can always be canonically removed</li>
+<li>it has fewer symmetries</li>
+<li>there are fewer maps between it and other objects that preserve all the structure</li>
+<li>more concepts can be defined and more theorems proven</li>
+<li>specifying the class of objects with that structure tends to be more complex</li>
+<li>specifying that particular object is often easier because the structure
+restricts the space of options, but there are exceptions</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>In category theory these are forgetful functors but I&rsquo;m just interested in intuition here, not formalism. In this example, there is also a natural way to turn any abelian group into a \(k\)-vector space, for a given field \(k\), by tensoring with \(k\). But that vector space won&rsquo;t be over \(X\) anymore and in many other cases there is no canonical way to add structure at all.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>The automorphism group is the set of all isomorphisms from an object to itself (which becomes a group via composition as the group operation)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/structure/">Structure</a>
+  
+  <a class="badge badge-light" href="/tag/math/">Math</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/too-much-structure/">Too much structure</a></li>
+      
+      <li><a href="/post/distributions-intro/">Distributions Part I: the Delta distribution</a></li>
+      
+      <li><a href="/post/state-formally-reason-informally/">State formally, reason informally</a></li>
+      
+      <li><a href="/post/spherical-harmonics/">Perspectives on spherical harmonics</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

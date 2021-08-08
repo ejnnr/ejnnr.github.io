@@ -1,0 +1,1417 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  The bias-variance tradeoff is a key idea in machine learning. But I&#39;ll
+  argue that we know surprisingly little about it: when does it hold?
+  How does it relate to the Double Descent phenomenon? And what do we
+  even formally mean when we talk about it?
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/bias-variance-tradeoff/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/bias-variance-tradeoff/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/bias-variance-tradeoff/" />
+  <meta property="og:title" content="Troubles with the Bias-Variance tradeoff | Erik Jenner" />
+  <meta property="og:description" content="  The bias-variance tradeoff is a key idea in machine learning. But I&#39;ll
+  argue that we know surprisingly little about it: when does it hold?
+  How does it relate to the Double Descent phenomenon? And what do we
+  even formally mean when we talk about it?
+  " /><meta property="og:image" content="https://ejenner.com/post/bias-variance-tradeoff/featured.png" />
+    <meta property="twitter:image" content="https://ejenner.com/post/bias-variance-tradeoff/featured.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-04-07T18:19:00&#43;02:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-04-07T18:19:00&#43;02:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/bias-variance-tradeoff/"
+  },
+  "headline": "Troubles with the Bias-Variance tradeoff",
+  
+  "image": [
+    "https://ejenner.com/post/bias-variance-tradeoff/featured.png"
+  ],
+  
+  "datePublished": "2021-04-07T18:19:00+02:00",
+  "dateModified": "2021-04-07T18:19:00+02:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  The bias-variance tradeoff is a key idea in machine learning. But I'll\n  argue that we know surprisingly little about it: when does it hold?\n  How does it relate to the Double Descent phenomenon? And what do we\n  even formally mean when we talk about it?\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Troubles with the Bias-Variance tradeoff | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="5d061a6cb27d83343f625cf39cd2364f" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Troubles with the Bias-Variance tradeoff</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Apr 7, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    13 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><em>(Last updated: 2021-04-22)</em></p>
+<p>Arguably one of the most important concepts in machine learning, taught in
+any introductory course, is under- and overfitting. The story goes like this:
+if your model is too simplistic, you won&rsquo;t be able to fit the data
+well and get a large error, you <em>underfit</em>. On the other hand, if your model is too complex,
+it will fit any noise that is present in the data, i.e. you <em>overfit</em>.
+Such a model won&rsquo;t generalize to the test set, so you also get a large error.
+Somewhere in between those two is a sweet spot with minimal test error.</p>
+<p>The choice of words, under- and overfitting, already implies that we believe
+a tradeoff exists: they are two ends of a scale, and we need to find the point
+in the middle where we&rsquo;re neither under- nor overfitting too much.</p>
+<p>Under- and overfitting can be formalized using the notions of bias and variance
+(there&rsquo;ll be a short recap in the next section). Underfitting means that we have
+a high test error because of high bias, while overfitting means that high variance
+causes a high error. Phrased in those terms, the tradeoff between under- and overfitting
+becomes the <em>bias-variance tradeoff</em>: methods with low bias tend to have high variance
+and vice versa.</p>
+<p>This idea is ubiquitous in machine learning. So when I recently wanted to look
+up some details, I expected to find troves of information. Tons of empirical evidence,
+a formal definition of what exactly we mean by &ldquo;tradeoff&rdquo;, and hopefully even
+theorems showing that this tradeoff exists. As you can tell from the setup,
+that&rsquo;s not what happened. So in this post, I&rsquo;m going to describe what I found
+(and what I did not find). My goal is to clear up some potential misconceptions,
+and hopefully convince you that the bias-variance tradeoff is less simple and more
+interesting than you thought.</p>
+<h2 id="primer-bias-and-variance">Primer: Bias and variance</h2>
+<p>Under- and overfitting can be explained in terms of bias and variance.
+I&rsquo;m going to discuss everything in a supervised learning setting. So the setup
+is the following:</p>
+<ul>
+<li>There is a true (unknown) function \(f(x)\), which we want to approximate</li>
+<li>We have a dataset \(D = \{(x_1, y_1), \ldots, (x_n, y_n)\}\) of datapoints
+that we use to learn an approximation, where \(y_i = f(x_i)\)</li>
+<li>We have some training process that takes in this dataset \(D\) and produces
+a function \(\hat{f}(x; D)\) that approximates \(f(x)\)</li>
+<li>Finally, we imagine there is some distribution over datasets \(D\). This
+distribution is unknown an it&rsquo;s a somewhat elusive concept, but think of it
+like this: we created our dataset with some process, e.g. by taking lots of
+photos and then having people label them. The distribution over datasets
+describes how likely this process is to produce any particular dataset.</li>
+</ul>
+<p>Now we can define precisely what we mean by bias and variance:</p>
+<ul>
+<li>The bias is the difference between the expected value of \(\hat{f}(x; D)\)
+and the true value \(f(x)\), i.e.
+\[\mathbb{E}_D[\hat{f}(x; D)] - f(x)\]</li>
+<li>By &ldquo;variance&rdquo; we mean the variance of \(\hat{f}(x; D)\) with respect to \(D\), i.e.
+\[\mathbb{E}_D \left(\mathbb{E}_D[\hat{f}(x; D)] - \hat{f}(x; D)\right)^2\]</li>
+</ul>
+<p>Ideally, we want both bias and variance to be small. The reason is the <em>bias-variance decomposition</em>
+of the expected squared error<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>:
+\[\mathbb{E}_D (\hat{f}(x; D) - f(x))^2 = \text{bias}^2 + \text{variance}\]
+Assuming we ultimately want to minimize this expected squared error, it&rsquo;s clear
+that all else being equal, we prefer methods with low bias and variance.</p>
+<p>Ok, now what about the tradeoff between bias and variance? The idea is that methods
+with low bias tend to have high variance, and those with low variance
+tend to have high bias. So we can&rsquo;t get both low bias and low variance, instead we
+need to find a tradeoff between the two, such that the expected squared error is minimized.
+This is illustrated by the following figure (from <a href="http://scott.fortmann-roe.com/docs/BiasVariance.html" target="_blank" rel="noopener">this essay</a>, which I recommend if you want
+to gain more intuition about bias, variance, and their tradeoff):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png 400w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_2f4bf3a7d769ce34b645317b0185e5da.png 760w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_1200x1200_fit_lanczos_3.png 1200w"
+               src="/post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png"
+               width="650"
+               height="423"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>If we use an overly simplistic method, we have a high bias because
+our model just can&rsquo;t get close to the true function \(f\), no matter what we feed
+in as training data. With a more complex model, we can fit the true function better,
+but the trained model \(\hat{f}\) also depends a lot more on the training data \(D\),
+so the variance increases.</p>
+<p>This explanation sounds sort of intuitive, but I find it a bit unsatisfying. Why exactly
+do complex models vary more depending on the training data? When does this hold? Can I have
+a theorem, please? And what is this &ldquo;model complexity&rdquo; anyways?</p>
+<h2 id="a-non-answer">A non-answer</h2>
+<p>Unfortunately, the bias-variance <em>decomposition</em> and the bias-variance <em>tradeoff</em> are often conflated somewhat,
+so let&rsquo;s get one thing out of the way: the bias-variance decomposition is not
+an explanation for the tradeoff (even though some handy-wavy explanations
+suggest this with varying degrees of explicitness). The only way this could
+work is if the total error was constant; this would indeed imply a tradeoff between
+bias and variance. But it clearly isn&rsquo;t constant (neither in the figure
+above, nor in practice). If the total error <em>was</em> constant,
+then we wouldn&rsquo;t care about the tradeoff between bias and variance: it wouldn&rsquo;t
+matter which model we chose.</p>
+<p>Instead, the bias-variance decomposition just motivates why we care about bias
+and variance at all. So it explains why the bias-variance tradeoff is important, but it can&rsquo;t
+explain why it&rsquo;s a thing in the first place.</p>
+<h2 id="evidence-for-a-tradeoff">Evidence for a tradeoff</h2>
+<p>Why do we believe in a tradeoff between bias and variance? Well, I mainly do because
+others have told me about it and it seems pretty intuitive. But those aren&rsquo;t very good
+reasons, so what to we have in terms of hard evidence?</p>
+<p>As an example, let&rsquo;s look at what <em>Elements of Statistical Learning</em> by Hastie et al.
+has to say. It considers two cases in Section 7.3: k-NN regression and linear regression.
+For k-NN, it gives a theoretical expression for bias and variance, and at least the variance
+does indeed increase with increasing model complexity (i.e. decreasing \(k\)).
+A caveat is that the formula assumes the input points \(x_i\) are fixed and
+only the targets \(y_i\) vary &ndash; a very strong and usually unrealistic assumption.
+Similarly, there are theoretical expressions in the case of ridge regression,
+and based on those, variance should typically decrease and bias increase with
+stronger regularization. In the same section, there are small toy experiments
+that demonstrate a tradeoff empirically for k-NN and for linear models.</p>
+<p>This seems to be fairly representative of the kind of evidence we currently
+have in favor of a tradeoff. If you are curious you should look at Section 3.4 in
+<a href="https://arxiv.org/pdf/1912.08286.pdf" target="_blank" rel="noopener">this thesis</a>, which is more comprehensive than I&rsquo;m going to be in a blog post.
+But in brief, there is empirical evidence for methods such as decision trees,
+fitting polynomials, or kernel regression. Then there are some general theoretical
+results that are weak evidence for a tradeoff if you squint a bit. And that&rsquo;s pretty
+much it.</p>
+<p>If you are one of the two or three people working with neural networks,
+this doesn&rsquo;t really inspire confidence. After all, the fact that something holds for linear
+regression and polynomials isn&rsquo;t very strong evidence that it&rsquo;s also true
+for a 25 million parameter ResNet. Which brings us to the question: <em>does</em> the bias-variance
+tradeoff exist outside the simple methods named above?</p>
+<h2 id="double-descent">Double Descent</h2>
+<p>Over the last few years, the bias-variance tradeoff has ben supplemented by
+a more complicated narrative, dubbed &ldquo;Double descent&rdquo; by <a href="https://arxiv.org/abs/1812.11118" target="_blank" rel="noopener">Belkin et al.</a> in 2018.
+The following figure illustrates this concept:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  >
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="" srcset="
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png 400w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_c94c9439b2a33c151e94b625efc06607.png 760w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_1200x1200_fit_lanczos_3.png 1200w"
+               src="/post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png"
+               width="760"
+               height="295"
+               loading="lazy" data-zoomable /></div>
+  </div></figure>
+</p>
+<p>On the left, we have the classical U-shaped curve for the squared error already shown above.
+But the claim is that if you increase the model complexity past the interpolation
+threshold, where the model can perfectly fit the training data, then the error
+decreases again.</p>
+<p>There is quite a bit of empirical evidence for this double descent curve,
+especially in the context of <a href="https://arxiv.org/abs/1912.02292" target="_blank" rel="noopener">neural networks</a><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. The reason seems to be
+that the variance curve <a href="https://arxiv.org/abs/2002.11328" target="_blank" rel="noopener">is</a> <a href="https://arxiv.org/abs/1810.08591" target="_blank" rel="noopener">unimodal</a>, i.e. it first increases with model
+complexity, as we&rsquo;d classicaly suspect, but then decreases again. Of course
+that just passes the buck: why does the variance decrease again after the
+interpolation threshold?</p>
+<p>I think that this is an extremely interesting question, but in this post
+I&rsquo;m not going to speculate on it. Instead, I&rsquo;m still interested in the bias-variance
+tradeoff in the classical regime: as long as the model complexity is below the interpolation
+threshold, does a tradeoff always exist? If so, why? If not, when does it exist?
+Understanding this question better should also help understanding the behavior
+beyond the interpolation threshold: if we really understood why the tradeoff exists
+at all, we would also know how it could potentially be violated.</p>
+<h2 id="general-theorems-are-hard">General theorems are hard</h2>
+<p>In an ideal world, we could give a formal statement of the bias-variance tradeoff
+and then prove that it occurs under some fairly general circumstances.
+Maybe that is indeed possible, but it&rsquo;s easy to rule out the most general kinds
+of theorems through a few counterexamples.</p>
+<p>The strongest form of bias-variance tradeoff would be the claim
+&ldquo;any decrease in variance leads to an increase in bias&rdquo; (and vice versa).
+This is clearly false. For example, let&rsquo;s say we start with a traing procedure that chooses
+\(\hat{f}(x; D) = \operatorname{sha1}(D)\), i.e. which uses a hash of (some serialization of)
+the training data for its prediction (there&rsquo;s nothing special about this example,
+just think &ldquo;a really ridiculous training procedure&rdquo;).
+This procedure has high variance, but also high bias. Switching
+to any reasonable training procedure will decrease both considerably.</p>
+<p>But let&rsquo;s consider a more reasonable statement of the bias-variance-tradeoff:
+assume we have a class of models, and the training procedure picks the model from that
+class that has the lowest training error. We now want to know how the choice of
+model class influences bias and variance. Furthermore, we only consider a nested
+set of model classes. So we have an ordering of model classes from simple to complex,
+where successively more complex classes contain the simpler ones.</p>
+<p>Note that this is a rather typical example of what we mean when
+we talk about &ldquo;model complexity&rdquo; and the bias-variance tradeoff in practical
+contexts. For example, a wider neural network can always instantiate any function
+that a more narrow one can, by having some weights be zero.</p>
+<p>In this setting, the bias-variance tradeoff can be formulated as two separate claims:
+the bias decreases with increasing complexity, while the variance increases.
+Unfortunately, neither one is true in general.</p>
+<p>A case where bias increases is easy to construct: Let&rsquo;s say the inputs \(x\) and
+the targets \(y\) are both real numbers, and there is some noise, i.e. \(y = f(x) + \varepsilon\),
+with \(\mathbb{E} \varepsilon = 0\). One very simple model class is \(\{f\}\), and
+this class of course leads to a bias of zero. Then there is a more complex model
+class \(\{f, f + 1\}\), where we have added a model that always predicts one more
+than \(f\). Because of the noise, we might get unlucky with the training data and
+pick this second model. So this more complex model class has non-zero bias.</p>
+<p>A slight modification leads to an example where variance decreases with model
+complexity: we take \(\{f - 1, f + 1\}\) as the simple model class and \(\{f - 1, f, f + 1\}\)
+as a larger class. Assuming that we have a very large amount of training data,
+we will almost always pick \(f\) in the second case, so the variance will be very
+low. In contrast, in the first case, we pick each of \(f - 1\) and \(f + 1\) half the
+time, so we have a constant variance, no matter how much training data we have.</p>
+<p>Note that this decrease in variance
+happens in the classical regime, in the sense that in either case, there is
+at most one model that fits the data perfectly. So we haven&rsquo;t crossed the
+interpolation threshold yet, and still the variance went down when we increased
+model complexity.</p>
+<p>Obviously, these examples are somewhat silly, and certainly not representative
+of real-world scenarios. They do not constitute a good argument that there is no
+bias-variance tradeoff in practice, but they do put some limits on what kinds of
+bias-variance tradeoffs we can <em>prove</em>. So we&rsquo;ll have to put in a bit of work into
+finding the right formalization of what we mean by &ldquo;bias-variance tradeoff&rdquo;, and
+in particular when this tradeoff is supposed to hold. As far as I&rsquo;m aware, such
+a formalization does not exist yet.</p>
+<h2 id="model-complexity">Model complexity</h2>
+<p>Formalizing the bias-variance tradeoff probably also requires formalizing the
+notion of &ldquo;model complexity&rdquo; to some extent. This is a somewhat elusive
+concept, with many different aspects of the training procedure falling under
+its umbrella. The prototypical example of model complexity is the size of the
+class of models we use. For example, increasing the width of a neural network,
+or using a larger basis of features for linear regression, both increase
+the size of the model class under consideration.</p>
+<p>But the size of the model class is not the entire story. For example,
+regularization terms in the loss function don&rsquo;t change the model class but instead affect which model
+is selected from that class. The same is true for the number of trainings steps,
+or more generally the optimization procedure.</p>
+<p><a href="https://arxiv.org/abs/1912.02292" target="_blank" rel="noopener">Nakkiran et al.</a> define the <em>effective model complexity</em>
+of a training procedure as the maximum number of training points for which the
+expected training error remains below some threshold \(\varepsilon\).
+That definition captures a lot of my intuition about what we mean by &ldquo;complexity&rdquo;
+in the context of the bias-variance tradeoff. On the other hand, it seems slightly
+ad-hoc and I&rsquo;m still hoping for an even better notion of model complexity.</p>
+<p>One thing that comes to mind when talking about &ldquo;complexity&rdquo; is of course Kolmogorov
+complexity. But note that
+we don&rsquo;t want the (expected) Kolmogorov complexity of the learned model.
+For example, a randomly initialized neural network has high Kolmogorov complexity,
+but its model complexity should be zero (it&rsquo;s all the way at
+&ldquo;high bias, low variance<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>&quot;). What we might be able
+to use instead is the algorithmic mutual information between the learned
+model and the dataset. Another approach would be the (information-theoretic)
+mutual information of dataset and model with respect to the distribution over datasets.
+Both of these would probably be hard to estimate in practice (and I haven&rsquo;t
+thought very long about whether they make sense theoretically and intuitively).
+But they illustrate the type of more fundamental definition that I&rsquo;m hoping exists.</p>
+<p>Whether a good definition of model complexity would lead to a formalization
+of the bias-variance tradeoff is not clear. For example, just
+saying &ldquo;bias/variance decreases/increases with increasing effective model
+complexity&rdquo; doesn&rsquo;t work (the examples from the previous sections are still
+counterexamples). But at least I suspect that having the right notion
+of model comlexity is <em>necessary</em> for finding a general formal statement
+about the bias-variance tradeoff, even if we then need additional conditions,
+under which it holds (for example that it is only true in the classical regime,
+i.e. when the model isn&rsquo;t overparameterized).</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>After putting the bias-variance tradeoff under a lot of scrutiny, I also
+want to emphasize the other side of the coin: it&rsquo;s clear that the bias-variance tradeoff
+is real, that it appears in many different settings, and that it&rsquo;s extremely important
+to keep in mind when doing machine learning.</p>
+<p>But I do think that we don&rsquo;t understand it nearly as well as we could, and that
+the way the tradeoff is often presented doesn&rsquo;t do a good job of hightlighting
+the parts we don&rsquo;t understand. I highly recommend <a href="https://www.bradyneal.com/bias-variance-tradeoff-textbooks-update" target="_blank" rel="noopener">this essay</a>, which makes a similar
+point more explicitly.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>I&rsquo;m ignoring label noise here. More generally, if the labels are sampled from \(y = f(x) + \varepsilon\) with \(\mathbb{E}[\varepsilon] = 0\), there would be an additional \(\varepsilon^2\)-term, the <em>irreducible error</em>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>Though just to make things even weirder: this only seems to occur when increasing the <em>width</em> of networks. Increasing the depth often isn&rsquo;t tested in papers on the topic, and when it is, there&rsquo;s no double descent curve.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>To forestall potential confusion: the variance <em>with respect to the training data</em> is low. Of course there is high variance with respect to the random initialization itself, but that&rsquo;s not what we&rsquo;re interested in.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/machine-learning/">Machine learning</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/sparsity-singularities/">L1 regularization: sparsity through singularities</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

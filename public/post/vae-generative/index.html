@@ -1,0 +1,1347 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  Variational autoencoders are usually introduced as a probabilistic extension of autoencoders
+  with regularization. An alternative view is that the encoder arises naturally as a tool
+  for efficiently training the decoder. This is the perspective I take in this post, deriving
+  VAEs without assuming an autoencoder architecture a priori.
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/vae-generative/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/vae-generative/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/vae-generative/" />
+  <meta property="og:title" content="VAEs from a generative perspective | Erik Jenner" />
+  <meta property="og:description" content="  Variational autoencoders are usually introduced as a probabilistic extension of autoencoders
+  with regularization. An alternative view is that the encoder arises naturally as a tool
+  for efficiently training the decoder. This is the perspective I take in this post, deriving
+  VAEs without assuming an autoencoder architecture a priori.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-01-06T14:45:00&#43;01:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-01-06T14:45:00&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/vae-generative/"
+  },
+  "headline": "VAEs from a generative perspective",
+  
+  "datePublished": "2021-01-06T14:45:00+01:00",
+  "dateModified": "2021-01-06T14:45:00+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  Variational autoencoders are usually introduced as a probabilistic extension of autoencoders\n  with regularization. An alternative view is that the encoder arises naturally as a tool\n  for efficiently training the decoder. This is the perspective I take in this post, deriving\n  VAEs without assuming an autoencoder architecture a priori.\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>VAEs from a generative perspective | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="26703bdafec1ddf8497c02555dfdf1ba" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>VAEs from a generative perspective</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Jan 6, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    12 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>\(
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\E}{\mathbb{E}} % expected value
+\newcommand{\R}{\mathbb{R}}
+\)
+This is my attempt to tell a story<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>
+about how you might invent variational autoencoders (VAEs).
+There are already <a href="https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73" target="_blank" rel="noopener">great introductory posts</a> doing this and if you haven&rsquo;t seen VAEs before, I would
+strongly recommend you start with one of those. These introductions often start with
+autoencoders and then extend them to VAEs. In contrast, we will start by asking ourselves
+how to generate new data that matches a training distribution and then motivate VAEs
+from there. We won&rsquo;t assume an autoencoder-like architecture a priori, instead it will arise naturally
+from this motivation.</p>
+<p>Of course just this motivation of generating new samples given a training distribution won&rsquo;t uniquely lead to VAEs
+&ndash; after all, there are other good options for generative models. So at some points we will
+need to make design decisions but hopefully they won&rsquo;t come out of the blue.</p>
+<p>One pedagogical note before we start: if this derivation of VAEs seems unnecessarily
+long and convoluted, that&rsquo;s because it is. The goal is not to arrive at the VAE framework
+as quickly as possible, but rather to make each step seem natural and to avoid any unmotivated
+&ldquo;magical&rdquo; jumps. It&rsquo;s probably best if you forget for a moment what you know about VAEs,
+in particular that they consist of an encoder and a decoder. We will get there at the very end
+but initially this preconception might just be confusing.</p>
+<h2 id="generative-models">Generative models</h2>
+<p>The goal in generative modeling is the following: we have some family of probability
+distributions \(\mathcal{P}\). Given a set of training examples \(\mathcal{D}\) (assumed to be i.i.d.), we now want
+to pick the distribution \(p \in \mathcal{P}\) from our family that maximizes the likelihood \(\prod_{x \in \mathcal{D}} p(x)\).
+Equivalently, we can maximize the log-likelihood:
+\[\argmax_{p \in \mathcal{P}} \sum_{x \in \mathcal{D}} \log p(x)\]
+For now, we will consider the simper special case where we only have a single datapoint \(x\) and want
+to maximize \(\log p(x)\) (we will get back to the general case at the end).</p>
+<p>Optimizing over a family of probability distributions is very abstract. To turn this into a problem
+we can actually solve numerically, we will use a parameterized family \(p_\theta(x)\) and optimize over the
+parameter \(\theta \in \R^p\). \(p_\theta(x)\) should
+be differentiable with respect to \(\theta\), then we can at least find a local optimum for our
+problem using gradient ascent.</p>
+<p>This still leaves the question which parameterized family we should use. This is the largest
+crossroads we&rsquo;ll face in this post: there are many good options to choose from. The challenge we
+face is to find a good trade-off between having a flexible family of distributions and
+keeping the number of parameters manageable. For example, if \(x\) takes on discrete values,
+we could in principle use the full categorical distribution over all possible values of \(x\).
+This would be as flexible as possible but the number of parameters might be huge. If \(x\)
+describes a \(28\times 28\) binary image, there are already \(2^{28 \cdot 28} = 2^{784} \approx 10^{236}\)
+possible values that \(x\) can take, meaning we&rsquo;d need about that many parameters.</p>
+<p>The way we will deal with this problem is to use a continuous mixture of simple distributions.
+We will introduce a new latent variable \(z \in \mathbb{R}^k\) on which we <em>define</em> a very simple distribution \(p(z)\), for
+example a unit normal, \(z \sim \mathcal{N}(0; I)\). Then we parameterize a distribution
+\(p_\theta(x|z)\), which gives us
+\[p_\theta(x) = \int p(z) p_\theta(x|z) dz\]
+The important point is that for a fixed \(z\), \(p_\theta(\cdot|z)\) may be an extremely simple distribution.
+In the example above, we could use an independent Bernoulli for each of the 784 pixels, which
+requires only 784 parameters. But because we additionally have a dependency on \(z\), the marginal
+distribution \(p_\theta\) can be much more complex (in particular, the pixels are typically not independent).
+Of course the dependency on \(z\) will require some additional parameters but this could just be a reasonably
+sized neural network, which gives us far fewer parameters than the \(2^{784}\) that a full categorical
+distribution would require.</p>
+<p>This already describes our model. Sampling from this model is easy: we sample \(z \sim p(z)\) and
+then for this \(z\) sample \(x \sim p_\theta(x|z)\). By assumption, both of those distributions are
+very simple (and we can also choose them to be easy to sample from).</p>
+<p>But evaluating the likelihood \(p_\theta(x)\) of a datapoint is intractable for most models \(p_\theta(x|z)\)
+and \(p(z)\) because it requires calculating a complicated integral. Even if we only care about generating
+samples, this is a problem: to train the model, we want to maximize \(\log p_\theta(x)\), but we can&rsquo;t even
+evaluate it (nor its gradient, for the same reason).</p>
+<p>The cleverness of VAEs lies in using the right approximations to make this optimization problem
+tractable, and that is what the remainder of this post is about.</p>
+<h2 id="variational-inference">Variational inference</h2>
+<p>First, we expand the log-likelihood a bit. For any value of \(z\), we have
+\[\log p(x) = \log p(z) p(x|z) - \log p(z|x)\]
+(not writing our the dependency on \(\theta\) for now).
+The first term is easy to evaluate. So if we could evaluate the second term, our problem
+would be solved (sidenote on motivation<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>).</p>
+<p>This is where variational inference comes into play (<a href="https://ermongroup.github.io/cs228-notes/inference/variational/" target="_blank" rel="noopener">here</a> is a tutorial if you want to dive a bit deeper
+but that&rsquo;s not necessary for this post). The idea of variational inference is that
+you have some distribution \(p\) that you care about, but which is intractable to work with.
+So you define a family \(\mathcal{Q}\) of simpler distributions and then find
+\[q^* := \argmin_{q \in \mathcal{Q}} D(q\Vert p)\]
+where \(D(\cdot \Vert \cdot)\) is the Kullback-Leibler divergence (which measures &ldquo;distances&rdquo;
+between probability distributions, though it is not a metric in the mathematical sense<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>). We
+can then use \(q^*\) in place of \(p\) whenever we need to evaluate it.</p>
+<p>This may sound like an enourmous amount of computational overhead: to just evaluate
+our objective, we will have to solve an entire optimization problem each time! We will later
+find a way to alleviate this issue but for now, let&rsquo;s just ignore it and understand
+how we would solve the problem naively.</p>
+<p>To apply this to our problem, we will approximate \(p(z|x)\) with a simpler distribution \(q_\lambda(z)\),
+parameterized by a new parameter \(\lambda\). For example, \(q_\lambda\) could be a Gaussian
+and \(\lambda\) would be its mean and covariance matrix. Note that while \(q_\lambda(z)\) does not
+explicitly depend on \(x\), the optimal parameter
+\(\lambda^*\) does depend on \(x\) because we minimize the Kullback-Leibler divergence between
+\(q_\lambda\) and \(p(\cdot | x)\).</p>
+<p>The variational inference problem is now minimizing
+\[D(q_\lambda\Vert p(\cdot | x)) = \mathbb{E}_{z \sim q_\lambda}\left[\log q_\lambda(z) - \log p(z|x)\right]\]
+This still contains the \(p(z|x)\) term that we can&rsquo;t evaluate. But we can get rid of that by writing
+\[\mathbb{E}_{z \sim q_\lambda}\left[\log q_\lambda(z) - \log p(z|x)\right]
+= \mathbb{E}_{z \sim q_\lambda}\left[\log q_\lambda(z) - \log p(x, z)\right] + \log p(x)\]
+We have reintroduced \(\log p(x)\), which is intractable, but crucially,
+it doesn&rsquo;t depend on \(\lambda\). So to solve the minimization problem above, we can
+also minimize the expected value on the right. Usually, we instead maximize the
+negative of that:
+\[\argmax_\lambda \E_{z \sim q_\lambda}\left[\log p(x, z) - \log q_\lambda(z)\right]\]
+The objective
+\[\E_{z \sim q_\lambda}\left[\log p(x, z) - \log q_\lambda(z)\right]\]
+is called the <em>evidence lower bound</em> (ELBO) because it is a lower bound on the log evidence \(\log p(x)\):
+\[\E_{z \sim q_\lambda}\left[\log p(x, z) - \log q_\lambda(z)\right] = \log p(x) - D(q_\lambda\Vert p(\cdot|x)) \leq \log p(x)\]
+For now this fact isn&rsquo;t really interesting, but it will become relevant later.</p>
+<p>Maximizing the ELBO is finally a tractable problem: we can write
+\[\log p(x, z) = \log p(z) + \log p_\theta(x|z)\]
+which is something we can easily evaluate. The expectation is over \(q_\lambda\) which
+also doesn&rsquo;t pose a problem<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>.</p>
+<h2 id="combining-the-optimization-problems">Combining the optimization problems</h2>
+<p>Let&rsquo;s briefly recap our progress so far. We originally wanted to find
+\[\argmax_\theta \log p_\theta(x)\]
+which we rewrote as
+\[\argmax_\theta \log p_\theta(x, z) - \log p_\theta(z|x)\]
+for an arbitrarily chosen \(z\).
+We then used variational inference to approximate the intractable term as
+\[\log p_\theta(z|x) \approx \log q_{\lambda^*}(z)\]
+where \(\lambda^*\) is the solution to the variational problem:
+\[\lambda^*(\theta) = \argmax_\lambda \E_{z \sim q_\lambda}\left[\log p_\theta(x, z) - \log q_\lambda(z)\right]\]</p>
+<p>So we could now in principle plug in this approximation and solve
+\[\argmax_\theta \log p_\theta(x) \approx \log p_\theta(x, z) - \log q_{\lambda^*}(z)\]
+but there are problems with this.
+First, note that \(\lambda^*\) depends on \(\theta\). If we for example use gradient
+ascent to optimize over \(\theta\), we would need to find the new
+optimal \(\lambda\) after each gradient step.
+Second, using an arbitrarily chosen \(z\) is kind of silly: we optimized
+\(q_\lambda\) such that the entire distribution approximates \(p(z|x)\) well,
+we should make use of this entire distribution.</p>
+<p>So let&rsquo;s go back. We know that the solution to
+\[\argmax_\theta \log p_\theta(x) = \argmax_\theta \log p_\theta(x, z) - \log p_\theta(z|x)\]
+is the same for any \(z\). So we can also maximize
+\[\E_{z \sim q}\left[\log p_\theta(x, z) - \log p_\theta(z|x)\right]\]
+instead, for an arbitrary distribution \(q\).
+Plugging in our approximation, we get
+\[\E_{z \sim q}\left[\log p_\theta(x, z) - \log q_{\lambda^*}(z)\right]\]</p>
+<p>The question now is which distribution \(q\) to use. But note that by using \(q = q_{\lambda^*}\),
+we again get the ELBO, this time as the objective for our original optimization problem.
+This is a good choice for two reasons:</p>
+<ol>
+<li>The ELBO is a lower bound on the evidence, \(\text{ELBO} \leq \log p(x)\). If we used another
+distribution \(q\), we wouldn&rsquo;t have any guarentee that we&rsquo;re optimizing for the right thing
+if the approximation \(p(z|x) \approx q_{\lambda^*}(z)\) became bad enough. This way, we&rsquo;re
+at least optimizing a lower bound on what we really care about.</li>
+<li>We saw above that we need to find the new \(\lambda^*(\theta)\) after each update to \(\theta\),
+which is very inefficient. But the ELBO is already our objective for \(\lambda\), so now we have
+the same optimization objective for both parameters and can optimize them jointly.</li>
+</ol>
+<p>With this choice of \(q = q_{\lambda^*}\), the joint optimization problem becomes
+\[\argmax_{\theta, \lambda} \E_{z \sim q_\lambda}\left[\log p_\theta(x, z) - \log q_\lambda(z)\right]\]
+We can use the reparameterization trick / pathwise gradients to optimize this
+efficiently with gradient ascent.</p>
+<h2 id="using-an-encoder">Using an encoder</h2>
+<p>For a single datapoint \(x\), we now have an efficiently solvable problem. But now we get
+back to the more interesting setting of an entire dataset \(\mathcal{D}\). We then want to
+optimize the likelihood of the entire dataset:
+\[\sum_{x \in \mathcal{D}} \log p_\theta(x)\]
+The problem is that \(q_\lambda(z)\) is supposed to
+approximate \(p(z|x)\), so the optimal \(\lambda\) is different for each datapoint \(x\).
+Full variational inference would mean using a separate parameter
+\(\lambda\) for each datapoint. The optimization would then be over \(\theta, \lambda_1, \ldots, \lambda_n\),
+where \(\lambda_i\) is the parameter for the \(i\)-th datapoint. This again gets us into the realm
+of a huge number of parameters and computational infeasibility.</p>
+<p>So instead, we use <em><a href="https://gordonjo.github.io/post/amortized%5Fvi/" target="_blank" rel="noopener">amortized variational inference</a></em>. This means that instead of optimizing parameters for
+\(q_\lambda\) for each \(x\), we learn a function \(x \mapsto \lambda\). This function is trained to approximate the optimal solution
+\(\lambda^*(x)\). The downside is that we&rsquo;re introducing yet another approximation, which can only
+worsen how well we maximize the likelihood \(p(x)\). But the big advantage is that evaluating it is
+much cheaper than solving an entire optimization problem.</p>
+<p>In practice, this means we train a neural
+network \(f_\varphi(x)\) to find the best \(\lambda\) (in terms of the objective above) for a given \(x\). We then
+use \(q_{f_\varphi(x)}(z)\) in place of \(q_{\lambda^*}(z)\). To make the notation a bit nicer,
+we write this as
+\[q_\varphi(z|x) := q_{f_\varphi(x)}(z)\]</p>
+<p>Then we finally get the VAE objective:
+\[\argmax_{\theta, \varphi} \E_{z \sim q_\varphi}\left[\log p(z)p_\theta(x|z) - \log q_\varphi(z|x)\right]\]</p>
+<h2 id="connection-to-vaes-in-practice">Connection to VAEs in practice</h2>
+<p>As you&rsquo;ve probably guessed by now, \(p_\theta(x|z)\) is the decoder of a VAE
+and \(q_\varphi(z|x)\) is the encoder. The ELBO can be rewritten as
+\[\begin{aligned}\E_{z \sim q(\cdot | x)} \left[\log p(z)p(x|z) - \log q(z|x)\right]
+&amp;= \E_{z \sim q(\cdot | x)} \log p(x|z) - \E_{z \sim q(\cdot | x)} \log \frac{q(z|x)}{p(z)}\\\<br>
+&amp;= \E_{z \sim q(\cdot | x)}\log p(x | z) - D(q(\cdot|x)\Vert p)\end{aligned}\]
+which gives us the interpretation as &ldquo;reconstruction + regularization loss&rdquo;
+that you may have encountered elsewhere (to treat this as a loss that is minimized,
+you would multiply everything by \(-1\)).</p>
+<p>\(q_\varphi\) is typically chosen as a normal distribution, because that makes the KL divergence
+in the ELBO easy to calculate if \(p(z)\) is chosen as a unit normal. The choice of \(p_\theta\)
+depends on the type of data. As mentioned, for binary images we might use independent
+Bernoulli distributions for each pixel. For continuous output, a normal distribution is a common
+choice.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>We saw how to arrive at VAEs starting from a purely generative motivation, without
+assuming an autoencoder architecture a priori. Interestingly, this gives a very different
+impression than the &ldquo;autoencoder perspective&rdquo;: what we really care about is the
+decoder, whereas the encoder is just a useful trick to be able to train the decoder efficiently.</p>
+<p>This doesn&rsquo;t mean that the autoencoder perspective is wrong of course. Having an encoder
+can be intrinsically useful for some applications, and this is something which is missing
+in this post. But I think the perspective we took here demonstrates that the VAE architecture
+is far less arbitrary than it may seem when starting from autoencoders.</p>
+<h2 id="further-reading">Further reading</h2>
+<ul>
+<li>The <a href="https://ermongroup.github.io/cs228-notes/extras/vae/" target="_blank" rel="noopener">CS 228 lecture notes on VAEs</a> take a somewhat similar approach to this post in terms of emphasizing
+the variational inference perspective. They Also contain details on some points that I basically ignored, for example on the reparameterization
+trick</li>
+<li><a href="https://arxiv.org/abs/1606.05908" target="_blank" rel="noopener">Carl Doersch&rsquo;s tutorial on VAEs</a> contains much more detail and also has a different motivation for why
+we want to approximate \(p(z|x)\) (namely to use that to estimate the integral by sampling values of \(z\)
+that contribute the most)</li>
+<li>There is also a <a href="https://arxiv.org/abs/1906.02691" target="_blank" rel="noopener">tutorial by Kingma and Welling</a>, the authors who introduced VAEs. You could also look
+at their <a href="https://arxiv.org/abs/1312.6114" target="_blank" rel="noopener">original paper</a> but that&rsquo;s a lot terser</li>
+</ul>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>Michael Nielsen calls this &ldquo;discovery fiction&rdquo;, mentioned for example <a href="http://cognitivemedium.com/srs-mathematics" target="_blank" rel="noopener">here</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>If you intrinsically care about \(p(z|x)\), for example because you hope the latent variables will have an interesting meaning, this and parts of the remaining post are unnecessary, you&rsquo;ll get to VAEs more directly. But my point is that you don&rsquo;t <em>need</em> that motivation &ndash; VAEs arise pretty naturally even if you only care about finding a good model \(p_\theta(x)\) of the training data.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>In particular, the Kullback-Leibler divergence is not symmetric, which raises the question why we use \(D(q\Vert p)\) and not \(D(p\Vert q)\). The reason is that the latter would itself lead to an intractable optimization problem and so we wouldn&rsquo;t have made any progress.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>If you&rsquo;ve read the previous footnote: this is the point where using the other KL divergence would mean we&rsquo;re stuck because we have an expectation with respect to \(p(z|x)\)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/deep-learning/">Deep learning</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/implicit-layers/">Deep Implicit layers</a></li>
+      
+      <li><a href="/project/fact-ai/">ML Reproducibility Challenge</a></li>
+      
+      <li><a href="/project/steerable-pdos/">Steerable PDOs</a></li>
+      
+      <li><a href="/publication/steerable-pdos/">Steerable Partial Differential Operators for Equivariant Neural Networks</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

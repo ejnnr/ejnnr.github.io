@@ -1,0 +1,1237 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  Spherical harmonics are ubiquitous in math and physics, in part because
+  they naturally appear as solutions to several problems; in particular they
+  are the eigenfunctions of the spherical Laplacian and the irreducible
+  representations of SO(3). But why should the solutions to these problems
+  be the same? And why are they called spherical harmonics?
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/spherical-harmonics/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/spherical-harmonics/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/spherical-harmonics/" />
+  <meta property="og:title" content="Perspectives on spherical harmonics | Erik Jenner" />
+  <meta property="og:description" content="  Spherical harmonics are ubiquitous in math and physics, in part because
+  they naturally appear as solutions to several problems; in particular they
+  are the eigenfunctions of the spherical Laplacian and the irreducible
+  representations of SO(3). But why should the solutions to these problems
+  be the same? And why are they called spherical harmonics?
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2021-03-10T17:07:00&#43;01:00"
+      />
+    
+    <meta property="article:modified_time" content="2021-03-10T17:07:00&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/spherical-harmonics/"
+  },
+  "headline": "Perspectives on spherical harmonics",
+  
+  "datePublished": "2021-03-10T17:07:00+01:00",
+  "dateModified": "2021-03-10T17:07:00+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  Spherical harmonics are ubiquitous in math and physics, in part because\n  they naturally appear as solutions to several problems; in particular they\n  are the eigenfunctions of the spherical Laplacian and the irreducible\n  representations of SO(3). But why should the solutions to these problems\n  be the same? And why are they called spherical harmonics?\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Perspectives on spherical harmonics | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="78933a14cf291c6fdecf2edf63a600cc" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Perspectives on spherical harmonics</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Mar 10, 2021
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    5 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><a href="https://en.wikipedia.org/wiki/Spherical%5Fharmonics" target="_blank" rel="noopener">Spherical harmonics</a> appear in lots of different places and have different
+interpretations that at first sight don&rsquo;t seem to have anything to do
+with one another. In this post, I&rsquo;ll try to connect three very common ones
+(namely as harmonic polynomials, as eigenfunctions of the Laplacian
+and as irreps of \(\operatorname{SO}(3)\)).</p>
+<p>We&rsquo;re going to define spherical harmonics as homogeneous harmonic polynomials
+\(\mathbb{R}^3 \to \mathbb{C}\). Let&rsquo;s break this down:</p>
+<ul>
+<li>A polynomial of three variables is a finite sum of the form
+\[\sum_{\alpha} a_\alpha x^{\alpha_x}y^{\alpha_y}z^{\alpha_z}\]
+over multi-indices \(\alpha \in \mathbb{N}_0^3\). Some examples are
+\(x^2y + 2z\) or \(xyz + y^2\).</li>
+<li>The coefficients \(a_\alpha\) can be complex numbers, but we will only plug
+in real numbers for \(x\), \(y\) and \(z\). That&rsquo;s why we interpret polynomials
+as functions \(\mathbb{R}^3 \to \mathbb{C}\).</li>
+<li><em>Homogeneous</em> mean that \(\alpha_x + \alpha_y + \alpha_z\) is the same for
+all the \(\alpha\) we sum over, so all the terms in the sum have the same
+degree. For example, \(x^2 + 2yz + xz\) is homogeneous, while \(xy + z\) is not.</li>
+<li><em>Harmonic</em> means that the Laplacian of the polynomial vanishes: \(p\) is harmonic if
+\(\Delta p = 0\). Here, \(\Delta = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} +
+\frac{\partial^2}{\partial z^2}\).</li>
+</ul>
+<p>We will write \(\mathcal{H}_l\) for the space of all homogeneous harmonic polymonials
+of degree \(l\) (meaning \(\alpha_x + \alpha_y + \alpha_z = l\) for all summands).</p>
+<p>If you&rsquo;ve seen spherical harmonics before (and you presumably have, if you&rsquo;re
+reading this post), it&rsquo;s probably been in the form of functions \(Y_l^m(\theta,
+\varphi)\) defined on the sphere. So why are we talking about these polynomials
+on \(\mathbb{R}^3\) instead?</p>
+<p>The answer is that every polynomial \(p \in \mathcal{H}_l\) can be written
+in spherical coordinates as
+\[p(x, y, z) = r^l Y(\theta, \varphi)\]
+for some function \(Y: S^2 \to \mathbb{C}\). To see why, write \(x\), \(y\) and \(z\)
+in spherical coordinates and plug them into the polynomial. They each have
+a factor of \(r\) and then some factors depending on \(\theta\) and \(\varphi\).
+So because \(p\) is homogeneous, each summand consists of a factor \(r^l\) times
+something that depends only on \(\theta\) and \(\varphi\). So we can think of
+homogeneous polynomials as polynomials defined on the sphere &ndash; their continuation
+to \(\mathbb{R}^3\) is automatically determined by their degree \(l\). Therefore,
+we won&rsquo;t really distinguish between homogeneous harmonic polynomials defined
+on \(\mathbb{R}^3\) and their restrictions to \(S^2\), we will refer to both as
+spherical harmonics.</p>
+<p>This should also explain the name: spherical harmonics are <em>harmonic</em> polynomials
+living on the <em>sphere</em>.</p>
+<p>The functions \(Y_l^m\) that you may have seen are just a particular choice of
+basis for the vector space of spherical harmonics. If you multiply them by
+\(r^l\), you get polynomials in \(\mathcal{H}_l\), and
+\[\{r^l Y_l^m| -l \leq m \leq l\}\]
+is a basis for \(\mathcal{H}_l\).</p>
+<h2 id="eigenfunctions-of-the-laplacian">Eigenfunctions of the Laplacian</h2>
+<p>One of the reasons that spherical harmonics are so ubiquitous is that they
+are the eigenfunctions of the spherical Laplacian \(\Delta_{S^2}\). They key
+to that is the following fact (which is just a brief calculation):
+for a function \(Y: S^2 \to \mathbb{C}\),
+\[\Delta (r^l Y) = r^{l - 2}\left(l(l + 1)Y + \Delta_{S^2}Y\right)\thinspace.\]
+So \(r^l Y(\theta, \varphi)\) is harmonic if and only if
+\[\Delta_{S^2}Y = -l(l + 1)Y\thinspace.\]
+This already proves that spherical harmonics are eigenfunctions of the spherical
+Laplacian.</p>
+<p>But we can say more than that: if we take any eigenfunction \(f: S^2 \to
+\mathbb{C}\) of the spherical Laplacian and multiply by \(r^l\) (with \(l\) such
+that \(-l(l + 1)\) gives the eigenvalue<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>), then \(r^l f(\theta, \varphi)\) must be
+harmonic. So the eigenfunctions of the spherical Laplacian are in fact in 1-to-1
+correspondence with harmonic homogeneous functions on \(\mathbb{R}^3\). It then turns
+out &ndash; and this part is far from obvious &ndash; that all such functions are
+polynomials<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>! So the
+spherical harmonics aren&rsquo;t just eigenfunctions of the spherical Laplacian, they
+make up <em>all</em> of its eigenfunctions.</p>
+<h2 id="irreducible-representations-of--operatorname-so-3">Irreducible representations of \(\operatorname{SO}(3)\)</h2>
+<p>Another famous role that spherical harmonics play is as the irreducible
+representations of \(\operatorname{SO}(3)\) (more precisely: the (complex)
+irreducible representations of \(\operatorname{SO}(3)\) are exactly the spaces
+\(\mathcal{H}_l\)). This is connected to the fact that they are the
+eigenfunctions of the spherical Laplacian.</p>
+<p>That the eigenspaces of the spherical Laplacian are representations of \(\operatorname{SO}(3)\)
+follows directly from the fact that the Laplacian commutes with rotations: we have
+a representation \(G \curvearrowright L^2(S^2, \mathbb{C})\) via
+\[(r \cdot f)(x) := f(r^{-1}x)\]
+for any rotation \(r\) and \(f \in L^2(S^2, \mathbb{C})\). For an eigenfunction
+of the Laplacian, we get
+\[\Delta_{S^2}(r \cdot f) = r \cdot \Delta_{S^2} f = r \cdot \lambda f = \lambda (r \cdot f)\thinspace,\]
+so each eigenspace is invariant under the action of \(\operatorname{SO}(3)\).
+Therefore, the representation on \(L^2(S^2)\) can be restricted to each eigenspace,
+so each \(\mathcal{H}_l\) gives a representation of \(\operatorname{SO}(3)\).</p>
+<p>Showing that these representations are in fact irreducible is much more
+difficult (there&rsquo;s a proof <a href="https://www.cis.upenn.edu/~cis610/sharmonics.pdf" target="_blank" rel="noopener">here</a> for example, if you really want to dive into
+that). But if we just take that for granted, it&rsquo;s again easy to show that
+<em>every</em> irreducible subrepresentation of \(L^2(S^2)\) is a space of spherical
+harmonics: because the Laplacian
+is an equivariant map on each such representation, Schur&rsquo;s Lemma implies that
+it must be either the zero map (which it isn&rsquo;t) or multipication by a constant
+\(\lambda \in \mathbb{C}\). Therefore, each irreducible representation is
+contained in an eigenspace of the Laplacian. But these eigenspaces are themselves
+irreducible, so the representation in question must already be equal to the
+eigenspace.</p>
+<p>Finally, it&rsquo;s possible to show that all irreducible representations of \(\operatorname{SO}(3)\)
+are subrepresentations of \(L^2(S^2)\). This is again much more difficult and
+is also a very special fact about \(\operatorname{SO}(3)\) (for example,
+the Laplacian&rsquo;s eigenspaces are still irreducible representations in higher dimensions,
+but they are not the only ones anymore). But combining this with our results
+from above, the spherical harmonics make up all the irreducible representations
+of \(\operatorname{SO}(3)\).</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>I&rsquo;m skipping over some details here, see for example Claim 4.0.1 <a href="http://www-users.math.umn.edu/~garrett/m/mfms/notes%5Fc/spheres%5FI.pdf" target="_blank" rel="noopener">here</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>See Corollary 4.0.6 <a href="http://www-users.math.umn.edu/~garrett/m/mfms/notes%5Fc/spheres%5FI.pdf" target="_blank" rel="noopener">in the same document</a> for a proof&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/math/">Math</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/distributions-intro/">Distributions Part I: the Delta distribution</a></li>
+      
+      <li><a href="/post/state-formally-reason-informally/">State formally, reason informally</a></li>
+      
+      <li><a href="/post/too-much-structure/">Too much structure</a></li>
+      
+      <li><a href="/post/perspectives-on-structure/">Ways to think about structure in mathematics</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

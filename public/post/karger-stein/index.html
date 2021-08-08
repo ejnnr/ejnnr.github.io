@@ -1,0 +1,1287 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  The Karger-Stein algorithm is an improvement over Karger&#39;s beautiful contraction
+  algorithm for minimum graph cuts. In this post, I show how it finds the perfect
+  tradeoff between finding a mincut with high probability and finding it quickly.
+  In the course of doing so, we will also understand where the somewhat opaque
+  factor of sqrt(2) comes from.
+  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/karger-stein/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha256-FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=" crossorigin="anonymous" media="print" onload="this.media='all'">
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.bbc65983a1007a9cbb6ffa65fbe162c0.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/karger-stein/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/karger-stein/" />
+  <meta property="og:title" content="Trading off speed against the probability of success in the Karger-Stein Algorithm | Erik Jenner" />
+  <meta property="og:description" content="  The Karger-Stein algorithm is an improvement over Karger&#39;s beautiful contraction
+  algorithm for minimum graph cuts. In this post, I show how it finds the perfect
+  tradeoff between finding a mincut with high probability and finding it quickly.
+  In the course of doing so, we will also understand where the somewhat opaque
+  factor of sqrt(2) comes from.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2020-12-06T18:00:00&#43;01:00"
+      />
+    
+    <meta property="article:modified_time" content="2020-12-06T18:00:00&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/karger-stein/"
+  },
+  "headline": "Trading off speed against the probability of success in the Karger-Stein Algorithm",
+  
+  "datePublished": "2020-12-06T18:00:00+01:00",
+  "dateModified": "2020-12-06T18:00:00+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  The Karger-Stein algorithm is an improvement over Karger's beautiful contraction\n  algorithm for minimum graph cuts. In this post, I show how it finds the perfect\n  tradeoff between finding a mincut with high probability and finding it quickly.\n  In the course of doing so, we will also understand where the somewhat opaque\n  factor of sqrt(2) comes from.\n  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Trading off speed against the probability of success in the Karger-Stein Algorithm | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="7c59ca9ec8932905795ed1e2dcf7f1c8" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Trading off speed against the probability of success in the Karger-Stein Algorithm</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Dec 6, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    7 min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><em>(Note: this is an analysis of one aspect of the Karger-Stein algorithm, it&rsquo;s not meant to be a beginner-friendly introduction)</em></p>
+<p><a href="https://en.wikipedia.org/wiki/Karger%27s%5Falgorithm" target="_blank" rel="noopener">Karger&rsquo;s algorithm</a> randomly contracts a graph and surprisingly, this can be used
+to find a minimum cut with probability \(\mathcal{O}(n^{-2})\), where \(n\) is
+the number of vertices of the graph.  This is a much, much higher probability
+than sampling a graph cut uniformly at random would give! But it still means we
+need to run the algorithm \(\mathcal{O}(n^2\log n)\) times to get a high success
+probability. Karger&rsquo;s algorithm can be implemented in \(\mathcal{O}(n^2)\)
+time<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, which gives an overall runtime of \(\mathcal{O}(n^4 \log n)\) &ndash; not great,
+there are much faster deterministic algorithms.</p>
+<p>To understand how the Karger-Stein algorithm improves upon that, we need
+the following key result that forms the foundation for Karger&rsquo;s algorithm:</p>
+<p><strong>Theorem</strong><sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>:
+When Karger&rsquo;s algorithm contracts a graph from \(n\) to \(r\) vertices,
+any given mincut survives with probability \(\geq {r \choose 2}/{n \choose 2} = \frac{r (r - 1)}{n (n - 1)}\).</p>
+<p>In particular, for \(r = 2\), we get the \(\mathcal{O}(n^{-2})\) probability mentioned above.</p>
+<p>But note the following: if we make only a few contractions, \(r \lesssim n\), then
+mincuts are almost guaranteed to survive! This is the key insight that allows us
+to improve the runtime of Karger&rsquo;s algorithm, leading to the improved <em>Karger-Stein algorithm</em>.</p>
+<p>The idea is the following: first we contract the graph down to roughly \(\frac{n}{b}\) vertices,
+where \(b\) is small enough that mincuts are very likely to survive. Then we branch: we again
+contract the graph down by a factor of \(b\), but we do so \(a\) times independently
+from one another. \(a\) needs to be chosen high enough that mincuts are very likely
+to survive <em>in at least one of the branches</em>. We repeat this process until we have contracted
+the graph down to just 2 vertices<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.
+If we chose \(a\) and \(b\) right, at least one of the final leaves of our computational
+tree will likely contain a mincut. So we return the best cut we&rsquo;ve found among all
+the leaves.</p>
+<p>The Karger-Stein algorithm as it was originally described and as it is usually presented
+uses \(a = 2\) and \(b = \sqrt{2}\). So we always split the computation into two branches
+and reduce the number of vertices by a factor of \(\sqrt{2}\) before branching again.
+But in this post, I would like to motivate where these numbers come from, as well
+as show that they&rsquo;re not the only ones that work. So in the following, we&rsquo;re going to
+analyze the &ldquo;generalized Karger-Stein algorithm&rdquo; with arbitrary \(a\) and \(b\).</p>
+<h2 id="success-probability">Success probability</h2>
+<p>As mentioned above, any minimum cut survives a contraction from \(n\)
+to \(r\) vertices with probability \(\geq {r \choose 2}/{n \choose 2} = \frac{r (r - 1)}{n (n - 1)}\).
+I said we first contract to &ldquo;roughly&rdquo; \(\frac{n}{b}\) vertices &ndash; to be precise we contract
+until \(\lceil \frac{n}{b} + 1\rceil\) vertices are left, this will give us a nice bound.
+The probability that a mincut survives this contraction is<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>:</p>
+<p>\begin{equation}
+\begin{split}
+p &amp;\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\\<br>
+&amp;\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\\<br>
+&amp;\geq \frac{1}{b^2}
+\end{split}
+\end{equation}</p>
+<p>We can now apply this bound recursively: After we have contracted to \(\lceil \frac{n}{b} + 1 \rceil\)
+vertices, we can forget that this is a partially contracted graph, and just treat
+this number as the &ldquo;new \(n\)&rdquo;.</p>
+<p>We will write \(p_k\) for the survival probability if there are \(k\) levels of recursion
+left before we reach the leaves of the tree. So \(p_0\) will be the probability in the
+leaves of the recursion tree. Depending on when precisely we stop the recursion
+and what method we use to finish the contraction, \(p_0\) might take different values,
+but all that matters for us is that it is some constant.</p>
+<p>Using the bound we found above, we get the following recurrence:
+\[p_{k + 1} \geq 1 - \left( 1 - \frac{p_k}{b^2} \right)^a\]
+What&rsquo;s going on here? \(\frac{p_k}{b^2}\) is a lower bound on the probability
+that any given mincut survives in one particular branch. So \(\left(1 - \frac{p_k}{b^2}\right)^a\)
+is an upper bound on the probability that the mincut survives in none of the
+\(a\) branches, and consequently \(1 - \left( 1 - \frac{p_k}{b^2} \right)^a\) is a lower
+bound on the probability that it survives in at least one.</p>
+<p>This recurrence doesn&rsquo;t have an obious solution we can just read off but with
+some rewriting, we can get something that&rsquo;s good enough for our purposes.
+Substituting \(z_k := \frac{b^2}{p_k} - 1\), we get</p>
+<p>\begin{equation}
+\begin{split}
+z_{k + 1} &amp;= \frac{b^2}{p_{k + 1}} - 1 \\\<br>
+&amp;\leq \frac{b^2}{1 - \left(1 - \frac{1}{z_k + 1}\right)^a} - 1\\\<br>
+&amp;= \frac{b^2 \left(z_k + 1\right)^a}{\left(z_k + 1\right)^a - z_k^a} - 1\\\<br>
+&amp;\leq \frac{b^2 \left(z_k + 1 \right)^a}{a z_k^{a - 1}} - 1\\\<br>
+&amp;\leq \frac{b^2}{a} z_k + \text{const}
+\end{split}
+\end{equation}</p>
+<p>where we used \(z_k \geq 1\) in the last step. The constant term may depend
+on \(a\) and \(b\) but not on \(z_k\).</p>
+<p>If \(a \geq b^2\), then \(z_k \in \mathcal{O}(k)\) which means that \(p_k \in \Omega\left(\frac{1}{k}\right)\).
+The depth of recursion for a graph with \(n\) vertices is \(\Theta(\log n)\),
+so the overall success probability is \(\Omega\left(\frac{1}{\log n}\right)\).</p>
+<p>What this means in words: if we create enough branches (at least \(b^2\)) compared
+to how long we contract before branching again, then we get quite a high success
+probability &ndash; \(\Omega\left(\frac{1}{\log n}\right)\) means that \(\log^2 n\) runs are enough
+to get an overall success probability that approaches 1 as \(n \to \infty\).</p>
+<p>But what if \(a &lt; b^2\), i.e. if we don&rsquo;t have enough branches at each stage?
+Then the inequality derived above only yields
+\(z_k \in \mathcal{O}\left(\left(\frac{b^2}{a}\right)^k\right)\)
+so the success probability \(p_k\) can be exponentially low in \(k\).
+This means we&rsquo;d have to repeat the algorithm a potentially exponential
+number of times, which would make it useless.</p>
+<p>That still leaves the question: why does the Karger-Stein algorithm use \(a = b^2\)
+in particular, when \(a &gt; b^2\) would give a success probability at least as high?
+For that we need to turn to the runtime complexity.</p>
+<h2 id="runtime">Runtime</h2>
+<p>The runtime of the Karger-Stein algorithm can be described with the following
+recurrence:
+\[T(n) = aT\left(\frac{n}{b}\right) + \mathcal{O}(n^2)\]
+The \(\mathcal{O}(n^2)\) term is for contracting down to roughly \(\frac{n}{b}\)
+vertices. At that point, we solve \(a\) smaller version of the original problem,
+each of size \(\frac{n}{b}\). That leads to the \(aT\left(\frac{n}{b}\right)\) term.</p>
+<p>This kind of recurrence is exactly what the <a href="https://en.wikipedia.org/wiki/Master%5Ftheorem%5F%28analysis%5Fof%5Falgorithms%29" target="_blank" rel="noopener">Master theorem</a> is for. In this case, if we
+choose \(a = b^2\), we get a runtime of \(\Theta(n^2 \log n)\) for a single run of
+the Karger-Stein algorithm. We already saw that with \(a &lt; b^2\), we get an exponentially
+low success probability, so that choice isn&rsquo;t interesting anyway. Finally, if \(a &gt; b^2\),
+we get a high success probability, but the runtime becomes \(\Theta(n^c)\),
+where \(c := \frac{\log a}{\log b} &gt; 2\).</p>
+<p>We can summarize all our results (and a few I didn&rsquo;t mention) in one table:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Time for single run</th>
+<th>Success probability</th>
+<th>Total runtime</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(a &lt; b^2\)</td>
+<td>\(\Theta(n^2)\)</td>
+<td>exponentially low in \(n\)</td>
+<td>exponential in \(n\)</td>
+<td>Too little branching</td>
+</tr>
+<tr>
+<td>\(a = b^2\)</td>
+<td>\(\Theta(n^2 \log n)\)</td>
+<td>\(\Omega\left(\frac{1}{\log n}\right)\)</td>
+<td>\(\mathcal{O}(n^2 \log^3 n)\)</td>
+<td>Just right</td>
+</tr>
+<tr>
+<td>\(a &gt; b^2\)</td>
+<td>\(\Theta(n^c)\) with \(c &gt; 2\)</td>
+<td>\(\Omega(1)\)</td>
+<td>\(\Theta(n^c)\) with \(c &gt; 2\)</td>
+<td>Unnecessarily much branching</td>
+</tr>
+</tbody>
+</table>
+<p>The &ldquo;total runtime&rdquo; column contains the runtime that is needed to achieve a high success probability
+by repeating the Karger-Stein algorithm often enough (at least if \(n\) is large enough). This is the complexity
+that we want to minimize in practice.</p>
+<p>We can now see that combining the analysis of the success probability with the runtime analysis
+explains why the Karger-Stein algorithm uses \(a = b^2\): in the other cases, we are either very
+unlikely to succeed and therefore need too many runs, or we are taking unnecessarily long for
+a single run.</p>
+<p>But also note that any choice of a &ldquo;branching factor&rdquo; \(a\) works, as long as we then choose
+\(b = \sqrt{a}\). So splitting the computation up into just two subproblems is a reasonable
+and simple choice, but from a purely asymptotic perspective it is arbitrary.</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>There is also an implementation in \(\mathcal{O}(m)\), where \(m\) is the number of edges, but for the Karger-Stein algorithm that won&rsquo;t make a difference and we&rsquo;ll ignore it.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2" role="doc-endnote">
+<p>David Karger: <em>Global min-cuts in RNC, and other ramifications of a simple min-cut algorithm</em>, SODA 1993&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:3" role="doc-endnote">
+<p>Usually we stop a bit before 2 vertices and just compute the mincut from there using other methods but that doesn&rsquo;t matter here&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:4" role="doc-endnote">
+<p>This and the following analysis is based on the paper by Karger and Stein: <em>A new approach to the minimum cut problem</em>, Journal of the ACM 1996. The difference is just that I consider arbitrary \(a\) and \(b\), rather than just \(a = 2\) and \(b = \sqrt{2}\).&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/graphs/">Graphs</a>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">AI Master&rsquo;s Student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/publication/karger/">Extensions of Karger&#39;s Algorithm: Why They Fail in Theory and How They Are Useful in Practice</a></li>
+      
+      <li><a href="/project/karger/">Extensions of Karger&#39;s algorithm</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.1.0/instantpage.min.js" integrity="sha512-1+qUtKoh9XZW7j+6LhRMAyOrgSQKenQ4mluTR+cvxXjP1Z54RxZuzstR/H9kgPXQsVB8IW7DMDFUJpzLjvhGSQ==" crossorigin="anonymous"></script>
+
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    <script src="/js/bootstrap.bundle.min.6aed84840afc03ab4d5750157f69c120.js"></script>
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.8859d3cf6e5d748215fea2814e2e9c7f.js"></script>
+
+    
+
+
+
+
+
+
+</body>
+</html>

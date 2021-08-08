@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Graphs | Erik Jenner</title>
+    <link>https://ejenner.com/tag/graphs/</link>
+      <atom:link href="https://ejenner.com/tag/graphs/index.xml" rel="self" type="application/rss+xml" />
+    <description>Graphs</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>Graphs</title>
+      <link>https://ejenner.com/tag/graphs/</link>
+    </image>
+    
+    <item>
+      <title>Extensions of Karger&#39;s Algorithm: Why They Fail in Theory and How They Are Useful in Practice</title>
+      <link>https://ejenner.com/publication/karger/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/publication/karger/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Trading off speed against the probability of success in the Karger-Stein Algorithm</title>
+      <link>https://ejenner.com/post/karger-stein/</link>
+      <pubDate>Sun, 06 Dec 2020 18:00:00 +0100</pubDate>
+      <guid>https://ejenner.com/post/karger-stein/</guid>
+      <description>&lt;p&gt;&lt;em&gt;(Note: this is an analysis of one aspect of the Karger-Stein algorithm, it&amp;rsquo;s not meant to be a beginner-friendly introduction)&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Karger%27s%5Falgorithm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Karger&amp;rsquo;s algorithm&lt;/a&gt; randomly contracts a graph and surprisingly, this can be used
+to find a minimum cut with probability \(\mathcal{O}(n^{-2})\), where \(n\) is
+the number of vertices of the graph.  This is a much, much higher probability
+than sampling a graph cut uniformly at random would give! But it still means we
+need to run the algorithm \(\mathcal{O}(n^2\log n)\) times to get a high success
+probability. Karger&amp;rsquo;s algorithm can be implemented in \(\mathcal{O}(n^2)\)
+time&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, which gives an overall runtime of \(\mathcal{O}(n^4 \log n)\) &amp;ndash; not great,
+there are much faster deterministic algorithms.&lt;/p&gt;
+&lt;p&gt;To understand how the Karger-Stein algorithm improves upon that, we need
+the following key result that forms the foundation for Karger&amp;rsquo;s algorithm:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Theorem&lt;/strong&gt;&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;:
+When Karger&amp;rsquo;s algorithm contracts a graph from \(n\) to \(r\) vertices,
+any given mincut survives with probability \(\geq {r \choose 2}/{n \choose 2} = \frac{r (r - 1)}{n (n - 1)}\).&lt;/p&gt;
+&lt;p&gt;In particular, for \(r = 2\), we get the \(\mathcal{O}(n^{-2})\) probability mentioned above.&lt;/p&gt;
+&lt;p&gt;But note the following: if we make only a few contractions, \(r \lesssim n\), then
+mincuts are almost guaranteed to survive! This is the key insight that allows us
+to improve the runtime of Karger&amp;rsquo;s algorithm, leading to the improved &lt;em&gt;Karger-Stein algorithm&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;The idea is the following: first we contract the graph down to roughly \(\frac{n}{b}\) vertices,
+where \(b\) is small enough that mincuts are very likely to survive. Then we branch: we again
+contract the graph down by a factor of \(b\), but we do so \(a\) times independently
+from one another. \(a\) needs to be chosen high enough that mincuts are very likely
+to survive &lt;em&gt;in at least one of the branches&lt;/em&gt;. We repeat this process until we have contracted
+the graph down to just 2 vertices&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;.
+If we chose \(a\) and \(b\) right, at least one of the final leaves of our computational
+tree will likely contain a mincut. So we return the best cut we&amp;rsquo;ve found among all
+the leaves.&lt;/p&gt;
+&lt;p&gt;The Karger-Stein algorithm as it was originally described and as it is usually presented
+uses \(a = 2\) and \(b = \sqrt{2}\). So we always split the computation into two branches
+and reduce the number of vertices by a factor of \(\sqrt{2}\) before branching again.
+But in this post, I would like to motivate where these numbers come from, as well
+as show that they&amp;rsquo;re not the only ones that work. So in the following, we&amp;rsquo;re going to
+analyze the &amp;ldquo;generalized Karger-Stein algorithm&amp;rdquo; with arbitrary \(a\) and \(b\).&lt;/p&gt;
+&lt;h2 id=&#34;success-probability&#34;&gt;Success probability&lt;/h2&gt;
+&lt;p&gt;As mentioned above, any minimum cut survives a contraction from \(n\)
+to \(r\) vertices with probability \(\geq {r \choose 2}/{n \choose 2} = \frac{r (r - 1)}{n (n - 1)}\).
+I said we first contract to &amp;ldquo;roughly&amp;rdquo; \(\frac{n}{b}\) vertices &amp;ndash; to be precise we contract
+until \(\lceil \frac{n}{b} + 1\rceil\) vertices are left, this will give us a nice bound.
+The probability that a mincut survives this contraction is&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
+&lt;p&gt;\begin{equation}
+\begin{split}
+p &amp;amp;\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\\&lt;br&gt;
+&amp;amp;\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\\&lt;br&gt;
+&amp;amp;\geq \frac{1}{b^2}
+\end{split}
+\end{equation}&lt;/p&gt;
+&lt;p&gt;We can now apply this bound recursively: After we have contracted to \(\lceil \frac{n}{b} + 1 \rceil\)
+vertices, we can forget that this is a partially contracted graph, and just treat
+this number as the &amp;ldquo;new \(n\)&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;We will write \(p_k\) for the survival probability if there are \(k\) levels of recursion
+left before we reach the leaves of the tree. So \(p_0\) will be the probability in the
+leaves of the recursion tree. Depending on when precisely we stop the recursion
+and what method we use to finish the contraction, \(p_0\) might take different values,
+but all that matters for us is that it is some constant.&lt;/p&gt;
+&lt;p&gt;Using the bound we found above, we get the following recurrence:
+\[p_{k + 1} \geq 1 - \left( 1 - \frac{p_k}{b^2} \right)^a\]
+What&amp;rsquo;s going on here? \(\frac{p_k}{b^2}\) is a lower bound on the probability
+that any given mincut survives in one particular branch. So \(\left(1 - \frac{p_k}{b^2}\right)^a\)
+is an upper bound on the probability that the mincut survives in none of the
+\(a\) branches, and consequently \(1 - \left( 1 - \frac{p_k}{b^2} \right)^a\) is a lower
+bound on the probability that it survives in at least one.&lt;/p&gt;
+&lt;p&gt;This recurrence doesn&amp;rsquo;t have an obious solution we can just read off but with
+some rewriting, we can get something that&amp;rsquo;s good enough for our purposes.
+Substituting \(z_k := \frac{b^2}{p_k} - 1\), we get&lt;/p&gt;
+&lt;p&gt;\begin{equation}
+\begin{split}
+z_{k + 1} &amp;amp;= \frac{b^2}{p_{k + 1}} - 1 \\\&lt;br&gt;
+&amp;amp;\leq \frac{b^2}{1 - \left(1 - \frac{1}{z_k + 1}\right)^a} - 1\\\&lt;br&gt;
+&amp;amp;= \frac{b^2 \left(z_k + 1\right)^a}{\left(z_k + 1\right)^a - z_k^a} - 1\\\&lt;br&gt;
+&amp;amp;\leq \frac{b^2 \left(z_k + 1 \right)^a}{a z_k^{a - 1}} - 1\\\&lt;br&gt;
+&amp;amp;\leq \frac{b^2}{a} z_k + \text{const}
+\end{split}
+\end{equation}&lt;/p&gt;
+&lt;p&gt;where we used \(z_k \geq 1\) in the last step. The constant term may depend
+on \(a\) and \(b\) but not on \(z_k\).&lt;/p&gt;
+&lt;p&gt;If \(a \geq b^2\), then \(z_k \in \mathcal{O}(k)\) which means that \(p_k \in \Omega\left(\frac{1}{k}\right)\).
+The depth of recursion for a graph with \(n\) vertices is \(\Theta(\log n)\),
+so the overall success probability is \(\Omega\left(\frac{1}{\log n}\right)\).&lt;/p&gt;
+&lt;p&gt;What this means in words: if we create enough branches (at least \(b^2\)) compared
+to how long we contract before branching again, then we get quite a high success
+probability &amp;ndash; \(\Omega\left(\frac{1}{\log n}\right)\) means that \(\log^2 n\) runs are enough
+to get an overall success probability that approaches 1 as \(n \to \infty\).&lt;/p&gt;
+&lt;p&gt;But what if \(a &amp;lt; b^2\), i.e. if we don&amp;rsquo;t have enough branches at each stage?
+Then the inequality derived above only yields
+\(z_k \in \mathcal{O}\left(\left(\frac{b^2}{a}\right)^k\right)\)
+so the success probability \(p_k\) can be exponentially low in \(k\).
+This means we&amp;rsquo;d have to repeat the algorithm a potentially exponential
+number of times, which would make it useless.&lt;/p&gt;
+&lt;p&gt;That still leaves the question: why does the Karger-Stein algorithm use \(a = b^2\)
+in particular, when \(a &amp;gt; b^2\) would give a success probability at least as high?
+For that we need to turn to the runtime complexity.&lt;/p&gt;
+&lt;h2 id=&#34;runtime&#34;&gt;Runtime&lt;/h2&gt;
+&lt;p&gt;The runtime of the Karger-Stein algorithm can be described with the following
+recurrence:
+\[T(n) = aT\left(\frac{n}{b}\right) + \mathcal{O}(n^2)\]
+The \(\mathcal{O}(n^2)\) term is for contracting down to roughly \(\frac{n}{b}\)
+vertices. At that point, we solve \(a\) smaller version of the original problem,
+each of size \(\frac{n}{b}\). That leads to the \(aT\left(\frac{n}{b}\right)\) term.&lt;/p&gt;
+&lt;p&gt;This kind of recurrence is exactly what the &lt;a href=&#34;https://en.wikipedia.org/wiki/Master%5Ftheorem%5F%28analysis%5Fof%5Falgorithms%29&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Master theorem&lt;/a&gt; is for. In this case, if we
+choose \(a = b^2\), we get a runtime of \(\Theta(n^2 \log n)\) for a single run of
+the Karger-Stein algorithm. We already saw that with \(a &amp;lt; b^2\), we get an exponentially
+low success probability, so that choice isn&amp;rsquo;t interesting anyway. Finally, if \(a &amp;gt; b^2\),
+we get a high success probability, but the runtime becomes \(\Theta(n^c)\),
+where \(c := \frac{\log a}{\log b} &amp;gt; 2\).&lt;/p&gt;
+&lt;p&gt;We can summarize all our results (and a few I didn&amp;rsquo;t mention) in one table:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Condition&lt;/th&gt;
+&lt;th&gt;Time for single run&lt;/th&gt;
+&lt;th&gt;Success probability&lt;/th&gt;
+&lt;th&gt;Total runtime&lt;/th&gt;
+&lt;th&gt;Comment&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;\(a &amp;lt; b^2\)&lt;/td&gt;
+&lt;td&gt;\(\Theta(n^2)\)&lt;/td&gt;
+&lt;td&gt;exponentially low in \(n\)&lt;/td&gt;
+&lt;td&gt;exponential in \(n\)&lt;/td&gt;
+&lt;td&gt;Too little branching&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\(a = b^2\)&lt;/td&gt;
+&lt;td&gt;\(\Theta(n^2 \log n)\)&lt;/td&gt;
+&lt;td&gt;\(\Omega\left(\frac{1}{\log n}\right)\)&lt;/td&gt;
+&lt;td&gt;\(\mathcal{O}(n^2 \log^3 n)\)&lt;/td&gt;
+&lt;td&gt;Just right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\(a &amp;gt; b^2\)&lt;/td&gt;
+&lt;td&gt;\(\Theta(n^c)\) with \(c &amp;gt; 2\)&lt;/td&gt;
+&lt;td&gt;\(\Omega(1)\)&lt;/td&gt;
+&lt;td&gt;\(\Theta(n^c)\) with \(c &amp;gt; 2\)&lt;/td&gt;
+&lt;td&gt;Unnecessarily much branching&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The &amp;ldquo;total runtime&amp;rdquo; column contains the runtime that is needed to achieve a high success probability
+by repeating the Karger-Stein algorithm often enough (at least if \(n\) is large enough). This is the complexity
+that we want to minimize in practice.&lt;/p&gt;
+&lt;p&gt;We can now see that combining the analysis of the success probability with the runtime analysis
+explains why the Karger-Stein algorithm uses \(a = b^2\): in the other cases, we are either very
+unlikely to succeed and therefore need too many runs, or we are taking unnecessarily long for
+a single run.&lt;/p&gt;
+&lt;p&gt;But also note that any choice of a &amp;ldquo;branching factor&amp;rdquo; \(a\) works, as long as we then choose
+\(b = \sqrt{a}\). So splitting the computation up into just two subproblems is a reasonable
+and simple choice, but from a purely asymptotic perspective it is arbitrary.&lt;/p&gt;
+&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;There is also an implementation in \(\mathcal{O}(m)\), where \(m\) is the number of edges, but for the Karger-Stein algorithm that won&amp;rsquo;t make a difference and we&amp;rsquo;ll ignore it.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;David Karger: &lt;em&gt;Global min-cuts in RNC, and other ramifications of a simple min-cut algorithm&lt;/em&gt;, SODA 1993&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;Usually we stop a bit before 2 vertices and just compute the mincut from there using other methods but that doesn&amp;rsquo;t matter here&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;This and the following analysis is based on the paper by Karger and Stein: &lt;em&gt;A new approach to the minimum cut problem&lt;/em&gt;, Journal of the ACM 1996. The difference is just that I consider arbitrary \(a\) and \(b\), rather than just \(a = 2\) and \(b = \sqrt{2}\).&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/section&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Extensions of Karger&#39;s algorithm</title>
+      <link>https://ejenner.com/project/karger/</link>
+      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/project/karger/</guid>
+      <description>&lt;p&gt;Karger&amp;rsquo;s algorithm is a randomized algorithm for finding global mincuts
+in graphs. For my Bachelor&amp;rsquo;s thesis, I aimed to find out if and how
+Karger&amp;rsquo;s algorithm can be generalized to other types of problems,
+for example $s$-$t$-mincuts or normalized cuts. It turns out that this
+is &lt;em&gt;provably&lt;/em&gt; impossible in a formal sense. But in addition to this
+impossibility result, my research also led me to a new algorithm
+for seeded segmentation that uses Karger&amp;rsquo;s algorithm to sample many
+different cuts and then takes their &amp;ldquo;average&amp;rdquo;. A paper with these findings
+was accepted as an Oral at ICCV 2021.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
