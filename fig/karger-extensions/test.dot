@@ -1,0 +1,59 @@
+
+graph A {
+    label="Step 1";
+    margin = 0;
+    rankdir = LR;
+    node [ shape=circle, width=0.3, fixedsize=true, fontsize=9 ];
+    edge [ color=darkgray ];
+    a [label="a"];
+    b [label="b"];
+    c [label="c"];
+    d [label="d"];
+    a -- b;
+    b -- d;
+    b -- c [color=black];
+    c -- d;
+    { rank=same; c d }
+}
+
+graph B {
+    margin = 0;
+    rankdir = LR;
+    node [ shape=circle, width=0.3, fixedsize=true, fontsize=9 ];
+    edge [ color=darkgray ];
+    a [label="a"];
+    a -- b;
+    b -- d [penwidth=2];
+    b [label="b, c"];
+    c [style=invis];
+    b -- c [style=invis];
+    d [label="d"];
+    c -- d [style=invis];
+    { rank=same; c d }
+}
+
+graph C {
+    margin = 0;
+    rankdir = LR;
+    node [ shape=circle, width=0.3, fixedsize=true, fontsize=9 ];
+    edge [ color=darkgray ];
+    a [label="a"];
+    a -- b;
+    b -- d [penwidth=2, color=black];
+    b [label="b, c"];
+    c [style=invis];
+    b -- c [style=invis];
+    d [label="d"];
+    c -- d [style=invis];
+    { rank=same; c d }
+}
+
+graph D {
+    margin = 0;
+    rankdir = LR;
+    node [ shape=circle, width=0.4, fixedsize=true, fontsize=9 ];
+    edge [ color=darkgray ];
+    a [label="a"];
+    a -- b;
+    b [label="b, c, d"];
+}

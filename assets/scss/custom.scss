@@ -1,0 +1,15 @@
+details.spoiler {
+    background-color: $sta-menu-primary;
+    padding: 8px;
+}
+
+.figure-block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    figure {
+        flex: 30%;
+        max-width: 30%;
+    }
+}
