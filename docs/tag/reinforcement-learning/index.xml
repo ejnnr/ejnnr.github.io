@@ -65,8 +65,6 @@ In Python, this might look as follows:&lt;/p&gt;
     critic_update = C(trajectory, critic_param)
     return (actor_update, critic_update)
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;None
-&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You should read this more as pseudo-code: the point is not that we would
 actually implement an agent exactly like this, but just to show how these
 individual functions come together to define an update for the entire
@@ -262,15 +260,16 @@ skip this and the next section. But it sheds some light onto why these methods a
 the way they are and why they work.&lt;/p&gt;
 &lt;p&gt;We want to optimize the expected return \(J(\theta)\). To see what that entails, we can
 write it out explicitly as
-\[J(\theta) := \sum_{s \in \mathcal{S}} \mu^{\pi_\theta}(s) \sum_{a \in \mathcal{A}} q^{\pi_\theta}(s, a) \pi_\theta(a|s)\]
-where \(\mu^\pi\) is the on-policy state distribution of \(\pi\). To optimize
-this function using gradient ascent, we need to find \(\nabla_\theta J(\theta)\).
-But finding the gradient of \(\mu^{\pi_\theta}\) with respect to \(\theta\) is not really possible
-if we don&amp;rsquo;t know the dynamics of the environment.&lt;/p&gt;
+\[J(\theta) := \sum_{a \in \mathcal{A}} q^{\pi_\theta}(s_0, a) \pi_\theta(a|s_0)\]
+where \(s_0\) is the initial state of the MDP.
+To optimize this function using gradient ascent, we need to find \(\nabla_\theta J(\theta)\).
+But this seems very difficult at first because while the influence of \(\theta\) on \(\pi_\theta\)
+is easy to find, it also affects the state distribution and thereby \(q^{\pi_\theta}\).&lt;/p&gt;
 &lt;p&gt;Fortunately, the policy gradient theorem comes to the rescue. It states
 that
 \[\nabla_\theta J(\theta) \propto \sum_{s \in \mathcal{S}} \mu^{\pi_\theta}(s) \sum_{a \in \mathcal{A}} q^{\pi_\theta}(s, a) \nabla_\theta \pi_\theta(a|s) \]
-i.e. we can just apply the gradient to the policy itself and don&amp;rsquo;t need to know
+where \(\mu^\pi\) is the on-policy state distribution of \(\pi\).
+Essentially, we can just apply the gradient to the policy itself and don&amp;rsquo;t need to know
 how the state distribution depends on the policy. Section 13.2 of
 &lt;a href=&#34;http://incompleteideas.net/book/the-book.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Sutton and Barto&amp;rsquo;s textbook&lt;/a&gt; contains more details and a proof.&lt;/p&gt;
 &lt;p&gt;Another very useful fact is that we can subtract a baseline from the state value:
@@ -298,8 +297,11 @@ trick, which you might know from variational autoencoders, but that requires
 assumptions that often aren&amp;rsquo;t met in RL. What we will use instead is
 the REINFORCE method or &lt;em&gt;score function estimation&lt;/em&gt;.
 We can use the fact that \(\nabla g(x) = g(x) \nabla \log g(x)\) for any \(g\) and write
-\[\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) = \int_a f(a)\nabla \pi_\theta(a) da
-= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da = \mathbb{E}_{a \sim \pi_\theta} \left[f(a)\nabla \log \pi_\theta(a)\right]\]
+\[\begin{split}
+\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &amp;amp;= \int_a f(a)\nabla \pi_\theta(a) da \\\&lt;br&gt;
+&amp;amp;= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\&lt;br&gt;
+&amp;amp;= \mathbb{E}_{a \sim \pi_\theta} \left[f(a)\nabla \log \pi_\theta(a)\right]
+\end{split}\]
 The right hand side has the form we can deal with: an expectation over
 some term, with a probability distribution we can sample from.
 As long as we can evaluate \(\nabla \log \pi_\theta\), we can now estimate

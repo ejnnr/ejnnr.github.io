@@ -69,10 +69,6 @@ def train(trajectory, params):
     return (actor_update, critic_update)
 ```
 
-```text
-None
-```
-
 You should read this more as pseudo-code: the point is not that we would
 actually implement an agent exactly like this, but just to show how these
 individual functions come together to define an update for the entire

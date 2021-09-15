@@ -60,16 +60,17 @@ the way they are and why they work.
 
 We want to optimize the expected return \\(J(\theta)\\). To see what that entails, we can
 write it out explicitly as
-\\[J(\theta) := \sum\_{s \in \mathcal{S}} \mu^{\pi\_\theta}(s) \sum\_{a \in \mathcal{A}} q^{\pi\_\theta}(s, a) \pi\_\theta(a|s)\\]
-where \\(\mu^\pi\\) is the on-policy state distribution of \\(\pi\\). To optimize
-this function using gradient ascent, we need to find \\(\nabla\_\theta J(\theta)\\).
-But finding the gradient of \\(\mu^{\pi\_\theta}\\) with respect to \\(\theta\\) is not really possible
-if we don't know the dynamics of the environment.
+\\[J(\theta) := \sum\_{a \in \mathcal{A}} q^{\pi\_\theta}(s\_0, a) \pi\_\theta(a|s\_0)\\]
+where \\(s\_0\\) is the initial state of the MDP.
+To optimize this function using gradient ascent, we need to find \\(\nabla\_\theta J(\theta)\\).
+But this seems very difficult at first because while the influence of \\(\theta\\) on \\(\pi\_\theta\\)
+is easy to find, it also affects the state distribution and thereby \\(q^{\pi\_\theta}\\).
 
 Fortunately, the policy gradient theorem comes to the rescue. It states
 that
 \\[\nabla\_\theta J(\theta) \propto \sum\_{s \in \mathcal{S}} \mu^{\pi\_\theta}(s) \sum\_{a \in \mathcal{A}} q^{\pi\_\theta}(s, a) \nabla\_\theta \pi\_\theta(a|s) \\]
-i.e. we can just apply the gradient to the policy itself and don't need to know
+where \\(\mu^\pi\\) is the on-policy state distribution of \\(\pi\\).
+Essentially, we can just apply the gradient to the policy itself and don't need to know
 how the state distribution depends on the policy. Section 13.2 of
 [Sutton and Barto's textbook](http://incompleteideas.net/book/the-book.html) contains more details and a proof.
 
@@ -102,8 +103,11 @@ trick, which you might know from variational autoencoders, but that requires
 assumptions that often aren't met in RL. What we will use instead is
 the REINFORCE method or _score function estimation_.
 We can use the fact that \\(\nabla g(x) = g(x) \nabla \log g(x)\\) for any \\(g\\) and write
-\\[\nabla\_\theta \mathbb{E}\_{a \sim \pi\_\theta} f(a) = \int\_a f(a)\nabla \pi\_\theta(a) da
-= \int\_a \pi\_\theta(a) f(a) \nabla \log \pi\_\theta(a) da = \mathbb{E}\_{a \sim \pi\_\theta} \left[f(a)\nabla \log \pi\_\theta(a)\right]\\]
+\\[\begin{split}
+\nabla\_\theta \mathbb{E}\_{a \sim \pi\_\theta} f(a) &= \int\_a f(a)\nabla \pi\_\theta(a) da \\\\\\
+&= \int\_a \pi\_\theta(a) f(a) \nabla \log \pi\_\theta(a) da \\\\\\
+&= \mathbb{E}\_{a \sim \pi\_\theta} \left[f(a)\nabla \log \pi\_\theta(a)\right]
+\end{split}\\]
 The right hand side has the form we can deal with: an expectation over
 some term, with a probability distribution we can sample from.
 As long as we can evaluate \\(\nabla \log \pi\_\theta\\), we can now estimate
