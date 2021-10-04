@@ -12,8 +12,16 @@ header:
   image: ""
 ---
 
-I don’t use cookies, track your visits or collect any personal information about you. The website does remember whether you use the dark or light theme but this information stays on your computer.
+This website uses [GoatCounter](https://www.goatcounter.com/) to count page views,
+which doesn't collect any personal information. More precisely, only the following information
+is collected:
+- The `Referer` header
+- The name of the country and region (based on the IP address)
+- A hash of IP address, User-Agent, and a random salt (to identify continuous sessions,
+  deleted after 8 hours)
 
-Because this blog is hosted with Github Pages, Github may log visits, including IP adresses as per their [privacy policy](https://help.github.com/en/github/site-policy/github-privacy-statement).
+None of this information is shared with any third parties.
 
-You can contact me at [erik@ejenner.com](mailto:erik@ejenner.com).
+Because this page is hosted with Github Pages, Github may log visits, including IP adresses as per their [privacy policy](https://help.github.com/en/github/site-policy/github-privacy-statement).
+
+Contact me at [erik@ejenner.com](mailto:erik@ejenner.com) for any questions.

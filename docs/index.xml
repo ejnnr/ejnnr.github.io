@@ -3900,9 +3900,18 @@ Take your pick.&lt;/p&gt;
       <link>https://ejenner.com/privacy/</link>
       <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
       <guid>https://ejenner.com/privacy/</guid>
-      <description>&lt;p&gt;I don’t use cookies, track your visits or collect any personal information about you. The website does remember whether you use the dark or light theme but this information stays on your computer.&lt;/p&gt;
-&lt;p&gt;Because this blog is hosted with Github Pages, Github may log visits, including IP adresses as per their &lt;a href=&#34;https://help.github.com/en/github/site-policy/github-privacy-statement&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;privacy policy&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;You can contact me at &lt;a href=&#34;mailto:erik@ejenner.com&#34;&gt;erik@ejenner.com&lt;/a&gt;.&lt;/p&gt;
+      <description>&lt;p&gt;This website uses &lt;a href=&#34;https://www.goatcounter.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GoatCounter&lt;/a&gt; to count page views,
+which doesn&amp;rsquo;t collect any personal information. More precisely, only the following information
+is collected:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;Referer&lt;/code&gt; header&lt;/li&gt;
+&lt;li&gt;The name of the country and region (based on the IP address)&lt;/li&gt;
+&lt;li&gt;A hash of IP address, User-Agent, and a random salt (to identify continuous sessions,
+deleted after 8 hours)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;None of this information is shared with any third parties.&lt;/p&gt;
+&lt;p&gt;Because this page is hosted with Github Pages, Github may log visits, including IP adresses as per their &lt;a href=&#34;https://help.github.com/en/github/site-policy/github-privacy-statement&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;privacy policy&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Contact me at &lt;a href=&#34;mailto:erik@ejenner.com&#34;&gt;erik@ejenner.com&lt;/a&gt; for any questions.&lt;/p&gt;
 </description>
     </item>
     
