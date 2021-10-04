@@ -20,7 +20,7 @@
       <description>&lt;p&gt;Karger&amp;rsquo;s contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
-faster, Karger&amp;rsquo;s algorithm remains important and fascinating in part because of its
+even faster, Karger&amp;rsquo;s algorithm remains important and fascinating in part because of its
 extreme simplicity &amp;ndash; it&amp;rsquo;s description wouldn&amp;rsquo;t even require an entire postcard:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Contract a randomly chosen edge, i.e. merge the two nodes it connects into one
@@ -95,7 +95,7 @@ we first selects an edge at random, in this case
 the one between \(b\) and \(c\) (in red), and then contract the chosen edge.
 We then repeat this process until only two nodes are left (on the very right).
 These nodes define a cut of the original graph into the partitions \(\{a\}\) and \(\{b, c, d\}\).&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;org2fdbaab&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;org5de6b8b&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
 
 
@@ -144,7 +144,7 @@ or see the paper itself for all the gory details.&lt;/p&gt;
   &lt;p&gt;&lt;p&gt;Let&amp;rsquo;s start by understanding why it&amp;rsquo;s not enough to just slightly modify
 Karger&amp;rsquo;s algorithm such that it never merges \(s\) and \(t\). One kind of
 example where this simple algorithm fails is the following:&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;orgdda3c24&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;org26fb305&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;

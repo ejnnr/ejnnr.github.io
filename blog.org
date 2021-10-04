@@ -3351,7 +3351,7 @@ Todos:
 Karger's contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
-faster, Karger's algorithm remains important and fascinating in part because of its
+even faster, Karger's algorithm remains important and fascinating in part because of its
 extreme simplicity -- it's description wouldn't even require an entire postcard:
 #+begin_quote
 Contract a randomly chosen edge, i.e. merge the two nodes it connects into one

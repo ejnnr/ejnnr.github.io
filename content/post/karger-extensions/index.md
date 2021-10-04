@@ -11,7 +11,7 @@ unlisted = true
 Karger's contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
-faster, Karger's algorithm remains important and fascinating in part because of its
+even faster, Karger's algorithm remains important and fascinating in part because of its
 extreme simplicity -- it's description wouldn't even require an entire postcard:
 
 <blockquote>
@@ -91,7 +91,7 @@ the one between \\(b\\) and \\(c\\) (in red), and then contract the chosen edge.
 We then repeat this process until only two nodes are left (on the very right).
 These nodes define a cut of the original graph into the partitions \\(\\{a\\}\\) and \\(\\{b, c, d\\}\\).
 
-<a id="org2fdbaab"></a>
+<a id="org5de6b8b"></a>
 
 {{< figure src="karger_run.svg" width="700px" >}}
 
@@ -130,7 +130,7 @@ Let's start by understanding why it's not enough to just slightly modify
 Karger's algorithm such that it never merges \\(s\\) and \\(t\\). One kind of
 example where this simple algorithm fails is the following:
 
-<a id="orgdda3c24"></a>
+<a id="org26fb305"></a>
 
 {{< figure src="simple_counterexample.svg" width="400px" >}}
 
