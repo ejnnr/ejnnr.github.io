@@ -30,7 +30,7 @@
   
     
   
-  <meta name="description" content="Karger&rsquo;s contraction algorithm is a famous method for finding global minimum graph cuts. First published in 1993, it helped start a wave of other randomized algorithms for graph cut problems. And while many of these are asymptotically faster, Karger&rsquo;s algorithm remains important and fascinating because of its extreme simplicity &ndash; it&rsquo;s description wouldn&rsquo;t even require an entire postcard:" />
+  <meta name="description" content="Karger&rsquo;s contraction algorithm is a fast and very famous method for finding global minimum graph cuts. First published in 1993, it helped start a wave of other randomized algorithms for graph cut problems." />
 
   
   <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/karger-extensions/" />
@@ -301,7 +301,7 @@
   <meta property="og:site_name" content="Erik Jenner" />
   <meta property="og:url" content="https://ejenner.com/post/karger-extensions/" />
   <meta property="og:title" content="Extensions of Karger&#39;s algorithm | Erik Jenner" />
-  <meta property="og:description" content="Karger&rsquo;s contraction algorithm is a famous method for finding global minimum graph cuts. First published in 1993, it helped start a wave of other randomized algorithms for graph cut problems. And while many of these are asymptotically faster, Karger&rsquo;s algorithm remains important and fascinating because of its extreme simplicity &ndash; it&rsquo;s description wouldn&rsquo;t even require an entire postcard:" /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+  <meta property="og:description" content="Karger&rsquo;s contraction algorithm is a fast and very famous method for finding global minimum graph cuts. First published in 1993, it helped start a wave of other randomized algorithms for graph cut problems." /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
     <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
   
     
@@ -354,7 +354,7 @@
       "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "Karger\u0026rsquo;s contraction algorithm is a famous method for finding global minimum graph cuts. First published in 1993, it helped start a wave of other randomized algorithms for graph cut problems. And while many of these are asymptotically faster, Karger\u0026rsquo;s algorithm remains important and fascinating because of its extreme simplicity \u0026ndash; it\u0026rsquo;s description wouldn\u0026rsquo;t even require an entire postcard:"
+  "description": "Karger\u0026rsquo;s contraction algorithm is a fast and very famous method for finding global minimum graph cuts. First published in 1993, it helped start a wave of other randomized algorithms for graph cut problems."
 }
 </script>
 
@@ -708,7 +708,7 @@
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     
-      16
+      8
     
     min read
   </span>
@@ -740,10 +740,10 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>Karger&rsquo;s contraction algorithm is a famous method for finding global minimum
+      <p>Karger&rsquo;s contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
-faster, Karger&rsquo;s algorithm remains important and fascinating because of its
+faster, Karger&rsquo;s algorithm remains important and fascinating in part because of its
 extreme simplicity &ndash; it&rsquo;s description wouldn&rsquo;t even require an entire postcard:</p>
 <blockquote>
 <p>Contract a randomly chosen edge, i.e. merge the two nodes it connects into one
@@ -813,24 +813,12 @@ towards one that doesn&rsquo;t split up homogeneous areas of the image.</p>
 This means that we want to separate a graph into two parts while minimizing the total
 weight of edges that need to be cut &ndash; all <em>without</em> having seeds \(s\) and \(t\)
 that need to be separated.</p>
-<p>There&rsquo;s an easy way of reducing the global mincut problem to the \(s\)-\(t\)-mincut
-problem but it requires solving \(n - 1\) different instances of the \(s\)-\(t\)-mincut,
-which makes it seem as though the global mincut was a harder problem.</p>
-<p>But starting in the 1990s, people found a series of ever faster algorithms for
-global mincuts and nowadays, global mincuts can even be found more efficiently than
-\(s\)-\(t\)-mincuts.</p>
-<p>Of these algorithms, Karger&rsquo;s algorithm is probably the most famous one, in part because
-of its simplicity. Here it is again:</p>
-<blockquote>
-<p>Contract a randomly chosen edge, i.e. merge the two nodes it connects into one
-node. Repeat until only two nodes are left.</p>
-</blockquote>
-<p>The following figure illustrates one possible run of this algorithm: it selects
-the edge between \(b\) and \(c\) (in red) and contracts it. This also merges the
-edges from \(d\) to \(c\) and to \(b\) into one heavier edge. This edge is
-selected next and contracted, after which only two nodes are left. These define
-a cut of the original graph into the partitions \(\{a\}\) and \(\{b, c, d\}\).</p>
-<p><a id="org591ceeb"></a></p>
+<p>The following figure illustrates how Karger&rsquo;s algorithm works on a simple example graph:
+we first selects an edge at random, in this case
+the one between \(b\) and \(c\) (in red), and then contract the chosen edge.
+We then repeat this process until only two nodes are left (on the very right).
+These nodes define a cut of the original graph into the partitions \(\{a\}\) and \(\{b, c, d\}\).</p>
+<p><a id="org2fdbaab"></a></p>
 
 
 
@@ -854,8 +842,7 @@ a cut of the original graph into the partitions \(\{a\}\) and \(\{b, c, d\}\).</
 <p>This works for unweighted graphs and for graphs with positive edge weights (in which case
 edges are selected for contraction with probability proportional to their weight).</p>
 <p>Since Karger&rsquo;s algorithm uses <em>random</em> contractions, it could of course produce a
-different result on the same input graph. For example, if the edge between \(a\)
-and \(b\) is contracted on the first step, the minimum cut will not be found.
+different result on the same input graph, and in particular a non-minimal cut.
 But importantly, Karger&rsquo;s algorithm produces a minimum cut with a reasonably
 high probability: by running it a polynomial number of times, it becomes very
 likely that at least one run will find a minimum cut. This is far from obvious:
@@ -870,24 +857,17 @@ be applied to the \(s\)-\(t\)-mincut problem, rather than the global one?</p>
 (or nodes that \(s\) or \(t\) have been merged into). This will make sure that
 \(s\) and \(t\) are on opposite sides of the final remaining edge that defines
 the cut.</p>
-<p>But unfortunately, there are types of graphs on which this algorithm needs an
-exponential number of runs to find an \(s\)-\(t\)-mincut with high probability.
-One example is the following:</p>
-<p><a id="org65e5642"></a></p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p>But unfortunately, we show that a wide class of extensions of Karger&rsquo;s algorithm
+<em>cannot</em> find \(s\)-\(t\)-mincuts efficiently &ndash; no matter how clever we are in modifying
+Karger&rsquo;s algorithm, there will always be some graphs where the success probability
+is exponentially low. Expand the box below if you want a few more details and intuition,
+or see the paper itself for all the gory details.</p>
+<details class="spoiler "  id="spoiler-2" >
+  <summary>Karger&rsquo;s algorithm can&rsquo;t be extended to s-t-mincuts</summary>
+  <p><p>Let&rsquo;s start by understanding why it&rsquo;s not enough to just slightly modify
+Karger&rsquo;s algorithm such that it never merges \(s\) and \(t\). One kind of
+example where this simple algorithm fails is the following:</p>
+<p><a id="orgdda3c24"></a></p>
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
@@ -943,8 +923,8 @@ exponentially low, meaning they would need to be run an exponential number of
 times.</p>
 <p>For the full proofs (and the formal definitions of local and continuous
 contraction algorithms), see our paper. If you are only interested in the proof
-ideas, you can also expand the box below (though feel free to just skip this).</p>
-<details class="spoiler "  id="spoiler-3" >
+ideas, you can also expand the box below (yes, a box within a box!).</p>
+<details class="spoiler "  id="spoiler-1" >
   <summary>Proof ideas</summary>
   <p><p>For the impossibility result for local contraction algorithms, the idea is
 similar to what we already used to show that the simplest extension of Karger&rsquo;s
@@ -964,63 +944,35 @@ this cut the unique \(s\)-\(t\)-mincut. The probability of finding it will then
 remain extremely low because of the continuity condition.</p>
 </p>
 </details>
-
 <p>By the way, these results also hold for <em>normalized cuts</em> (another important type
 of graph cut problem). We&rsquo;ve chosen to focus on \(s\)-\(t\)-mincuts in this post
 purely because they are a bit simpler to define and more well-known, but the
 impossibility results hold for both cut problems (and even with similar proofs).</p>
-<h2 id="karger-s-algorithm-for-seeded-segmentation">Karger&rsquo;s algorithm for seeded segmentation</h2>
-<p>So far, extending Karger&rsquo;s algorithm doesn&rsquo;t look promising: we&rsquo;ve seen that a
-wide class of similar algorithms can&rsquo;t efficiently find \(s\)-\(t\)-mincuts (or
-normalized cuts) in general. So it&rsquo;s time for a new approach: until now, our
-strategy was to run a contraction algorithm a bunch of times and then take the
-best cut we found that way. This seems wasteful &ndash; can&rsquo;t we do anything useful
-with the entire ensemble of cuts produced this way? There are lots of things one
-could use this ensemble for (and some of them would be interesting to explore)
-but we focus on one simple option: taking the &ldquo;mean&rdquo; of all the sampled cuts.</p>
-<p>This won&rsquo;t help with finding \(s\)-\(t\)-mincuts; if the <em>best</em> cut in the
-ensemble is not a minimum cut, then neither will some kind of ensemble average
-be. But there are important problems where we don&rsquo;t even want a minimum cut,
-just a &ldquo;good partition&rdquo; in some vaguer sense.</p>
-<p>Take seeded image segmentation as an example: we can treat each pixel in the
-image as a node of a graph and include edges between neighboring pixels (so that
-each node has four edges, except at the borders). Each edge is given a weight
-that specifies how different the pixels it connects are; this could just be
-measured by the intensity difference, or the weights could come from some
-fancier edge detector. Given seed pixels with a known class (e.g.
-foreground/background), we then want to assign a class to all unlabeled pixels.</p>
-<details class="spoiler "  id="spoiler-4" >
-  <summary>Note for readers of the \(s\)-\(t\)-mincut refresher above</summary>
-  <p>The difference to the image segmentation example we had before is that now, we
-don&rsquo;t have <em>probabilistic</em> assignments for <em>all</em> pixels; instead, we have <em>hard</em>
-assigments for <em>some</em> pixels. For this reason, we don&rsquo;t introduce the artificial
-nodes \(s\) and \(t\); instead, the seeds can just be some of the pixel nodes
-themselves.</p>
+</p>
 </details>
 
-<p>To keep things simple in this blog post, let&rsquo;s assume that there are only two
-classes, fore- and background, and that there is only one seed in each
-class.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> The setup is then exactly the same as for the
-\(s\)-\(t\)-mincut. But using the \(s\)-\(t\)-mincut in this setting doesn&rsquo;t
-always lead to good segmentations. For example, it can happen that it&rsquo;s
-&ldquo;cheaper&rdquo; to cut out only a very small region around a seed than to make a more
-even segmentation, simply because a smaller boundary leads to fewer edges
-needing to be cut.</p>
-<p>This is where having the ensemble of cuts that Karger&rsquo;s algorithm provides can
-help: we don&rsquo;t have the single best cut, instead we have a lot of cuts with
-relatively low but not quite optimal cost. Any one of these cuts is probably not
-a very good segmentation, e.g. because it is uneven or because this particular
-run just happend to make some bad contractions. But if a particular node is on
-the same side of all or most of these cuts, it seems a lot safer to assume that
-this is the right choice. In a sense, we&rsquo;re hoping that unwanted effects such as
-very small segments cancel out when averaging lots of cuts, leaving only the
-boundaries we&rsquo;re interested in.</p>
-<p>Here&rsquo;s what we can do more precisely: we generate an ensemble of cuts using the
+<h2 id="karger-s-algorithm-for-seeded-segmentation">Karger&rsquo;s algorithm for seeded segmentation</h2>
+<p>So far, extending Karger&rsquo;s algorithm doesn&rsquo;t look promising. But it turns out
+that there <em>are</em> useful extension of Karger&rsquo;s algorithm &ndash; we just have to switch
+problems. Instead of a minimum cut, machine learning often requires a &ldquo;good&rdquo;
+segmentation in a vaguer sense &ndash; something that leads to good downstream
+performance. So that&rsquo;s what we&rsquo;ll tackle next.</p>
+<p>To keep things simple in this blog post, let&rsquo;s assume that our segmentation problem
+has only two classes, fore- and background, and that there is only one seed in each
+class.<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>
+We&rsquo;ll continue to call these seeds \(s\) and \(t\) and still want to separate them,
+we just don&rsquo;t want a minimum cut any longer.</p>
+<p>We could find a segmentation of the graph by just running Karger&rsquo;s algorithm once
+and taking the cut we get that way. But that&rsquo;s a bad idea: it&rsquo;s extremely
+noisy and the individual cuts that Karger&rsquo;s algorithm produces are often not good
+segmentations.</p>
+<p>So instead, we sample a lot of cuts and then take their &ldquo;mean&rdquo;.
+Mre precisely: we generate an ensemble of cuts using the
 variation of Karger&rsquo;s algorithms that never merges the two seeds. Then for each
-node \(v\), we count how often it ended up on the same side of the cut as the
-foreground seed and how often it ended up on the background side. We can define
+node \(v\), we count how often it ended up on the same side of the cut as \(s\)
+and how often on the \(t\) side. We can define
 the probability \(p_{\text{karger}}(v)\) that Karger&rsquo;s algorithm puts \(v\) on
-the foreground side; our finite ensemble thus gives us an estimate of this
+the side of \(s\); our finite ensemble thus gives us an estimate of this
 probability.</p>
 <p>This is illustrated in the following figure: displayed are six cuts that
 Karger&rsquo;s algorithm might produce for different runs on the same graph. \(v\) is
@@ -1149,17 +1101,66 @@ course use more than six runs.</p>
            loading="lazy" data-zoomable /></div>
   </div></figure>
 </div>
+<p>This probability \(p_{karger}(v)\) is a probabilistic segmentation of the input
+graph. The following figure illustrates this and compares it to the potential that
+the random walker algorithm produces:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<figure  id="figure-figure-2-karger-and-random-walker-potentials-in-comparison">
+  <div class="d-flex justify-content-center">
+    <div class="w-100" ><img alt="Figure 2: Karger and random walker potentials in comparison." srcset="
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png 400w,
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_08ea71d396c5535aef6219bdd98d9580.png 760w,
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_1200x1200_fit_lanczos_3.png 1200w"
+               src="/post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png"
+               width="760"
+               height="203"
+               loading="lazy" data-zoomable /></div>
+  </div><figcaption>
+      Figure 2: Karger and random walker potentials in comparison.
+    </figcaption></figure>
+<p>\(\beta\) is a parameter that influences how the edge weights are computed based
+on the image. For large \(\beta\), the edge weights become very extreme and both
+algorithms assign probabilities close to zero or one to each pixel.</p>
 <p>If we need a hard cut, we can simply assign each pixel to the side
-for which this estimate is higher; for example, if a pixel is part of the
-foreground more often than not in our ensemble, we assign it to the foreground.</p>
-<p>This gives an algorithm for seeded graph segmentation. It&rsquo;s very simple, has a
-great asymptotic runtime (linear in the number of edges of the graph) and
-performs well in our experiments (see below and our paper). But we&rsquo;d like to
-understand this algorithm better from a theoretical perspective. And while this
-is in part still an open problem, we can get some insights by comparing it to
-the random walker algorithm.</p>
-<h2 id="the-random-walker">The random walker</h2>
-<p>The random walker algorithm solves the same problem as our Karger-based
+for which this estimate is higher.
+This gives an algorithm for seeded graph segmentation. It&rsquo;s very simple and has a
+great asymptotic runtime (linear in the number of edges of the graph).
+We also empirically compared this Karger-based segmentation method to the random
+walker and other algorithms on image segmentation and semi-supervised
+classification tasks. In both cases we found that it performs at least as well
+as these classical algorithms, see the paper for detailed results.</p>
+<h2 id="karger-s-algorithm-and-the-random-walker">Karger&rsquo;s algorithm and the random walker</h2>
+<p>We didn&rsquo;t compare the Karger-based segmentation algorithm to the random walker
+<em>just</em> because the latter is one of the most influential algorithms for seeded
+segmentation of all time: it turns out that these two very different-seeming
+algorithms are surprisingly similar from a theoretical perspective.</p>
+<p>Explaining these similarities takes some setup, so here&rsquo;s the TL;DR: both algorithms
+can be interpreted as forest-sampling methods, just sampling from different
+distributions. The Karger distributions contains an additional dependency on the
+topology of the graph, which we think makes it more &ldquo;confident&rdquo; (i.e. it assigns
+probabilities closer to zero and one).</p>
+<p>If this summary has whetted your appetite, then we encourage you to expand the box below
+for details.</p>
+<details class="spoiler "  id="spoiler-10" >
+  <summary>The connection between Karger&rsquo;s algorithm and the random walker</summary>
+  <p><p>First, if you&rsquo;re not already familiar with the random walker and spanning forests,
+you can find a brief crash course in the following box-within-a-box:</p>
+<details class="spoiler "  id="spoiler-0" >
+  <summary>Random walker and spanning forests refresher</summary>
+  <p><p>The random walker algorithm solves the same problem as our Karger-based
 algorithm: given a graph with some seeds, assign labels to the remaining nodes.
 Again, we will focus on the case with only one foreground and one background
 seed.</p>
@@ -1178,20 +1179,6 @@ this will all circle back to Karger&rsquo;s algorithm soon). A forest of a graph
 set of disjoint trees (i.e. acyclic connected graphs) that together span the
 entire graph. For example, in the following figure, the red edges define a
 2-forest of the graph, i.e. a forest consisting of two trees:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
@@ -1202,20 +1189,6 @@ entire graph. For example, in the following figure, the red edges define a
 seeds</em>, which in our setting just means 2-forests such that \(s\) and \(t\) are
 in different trees. In the figure below, the forest on the left separates the
 seeds but the forest on the right does not:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
@@ -1225,20 +1198,6 @@ seeds but the forest on the right does not:</p>
 <p>A forest that separates the seeds automatically defines an assigment for each
 node &ndash; exactly what we&rsquo;re after! One of the two trees will be the foreground
 and one will be the background:</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
@@ -1261,7 +1220,8 @@ distribution and then counting how often each node is assigned to each seed.
 Now, implementing the random walker like that would be computationally
 nonsensical &ndash; but it does sound notably similar to our Karger-based algorithm.
 (I promised we&rsquo;d get back there).</p>
-<h2 id="karger-s-algorithm-as-a-forest-sampler">Karger&rsquo;s algorithm as a forest sampler</h2>
+</p>
+</details>
 <p>The key insight to see the connection between the random walker and Karger&rsquo;s
 algorithm is the following:</p>
 <blockquote>
@@ -1272,7 +1232,7 @@ run define a spanning 2-forest of the graph. And if we modify Karger&rsquo;s alg
 such that it never merges \(s\) and \(t\), then this forest will separate \(s\)
 and \(t\). Furthermore, the two trees making up the sampled forest are precisely
 the two sides of the cut produced by Karger&rsquo;s algorithm.</p>
-<details class="spoiler "  id="spoiler-14" >
+<details class="spoiler "  id="spoiler-1" >
   <summary>Details for curious readers</summary>
   <p><p>Some care needs to be taken here: the way we described Karger&rsquo;s algorithm above,
 the edges it contracts may be the product of combining several edges of the
@@ -1290,7 +1250,6 @@ contracted graph and the edge that closes the cycle would have been removed
 before it could be contracted.</p>
 </p>
 </details>
-
 <p>The remaining difference between this Karger-based algorithm and the random
 walker is the distribution over forests that they sample from. Recall that for
 the random walker, the probability of sampling a forest \(f = (e_1, \ldots,
@@ -1305,7 +1264,7 @@ p(f) = w(f) \sum_{\sigma \in S_{n - 2}} \prod_{i = 1}^{n - 2}
 to a forest \(f = (e_1, \ldots, e_{n - 2})\). Understanding this equation is not
 important for the remainder of this post; you can find some details below and
 the full derivation in our paper.</p>
-<details class="spoiler "  id="spoiler-15" >
+<details class="spoiler "  id="spoiler-2" >
   <summary>Details on the Karger distribution</summary>
   <p>This equation is best understood starting from the right. \(E\) is simply the
 set of edges in the graph. \(\mathcal{C}(\hat{E})\) for a subset \(\hat{E}
@@ -1321,48 +1280,13 @@ algorithm. A run corresponds to an <em>ordered</em> sequence of edges, whereas t
 ordering doesn&rsquo;t matter for the forest defined by the run. So we need to sum
 over the set \(S_{n - 2}\) of all possible permutations of \(1, \ldots, n - 2\).</p>
 </details>
-
 <p>As we argue in the paper, this additional term makes the Karger potential more
 &ldquo;confident&rdquo; than the random walker potential, in the sense that it assigns more
-extreme probabilities to each node. This can be seen in the following figure,
-where we show the Karger and random walker probabilities on graphs representing
-an image of a flower:</p>
+extreme probabilities to each node. This can also be seen in the plot of the
+potentials for an image we had above.</p>
+</p>
+</details>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-<figure  id="figure-figure-2-karger-and-random-walker-potentials-in-comparison-the-karger-potential-is-more-confident-if-compared-at-the-same-β-value">
-  <div class="d-flex justify-content-center">
-    <div class="w-100" ><img alt="Figure 2: Karger and random walker potentials in comparison. The Karger potential is more &#34;confident&#34; if compared at the same β value." srcset="
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png 400w,
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_08ea71d396c5535aef6219bdd98d9580.png 760w,
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_1200x1200_fit_lanczos_3.png 1200w"
-               src="/post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png"
-               width="760"
-               height="203"
-               loading="lazy" data-zoomable /></div>
-  </div><figcaption>
-      Figure 2: Karger and random walker potentials in comparison. The Karger potential is more &ldquo;confident&rdquo; if compared at the same β value.
-    </figcaption></figure>
-<p>\(\beta\) is a parameter that influences how the edge weights are computed based
-on the image. For large \(\beta\), the edge weights become very extreme and both
-algorithms assign probabilities close to zero or one to each pixel. But the
-Karger potential does so at much smaller values of \(\beta\) already, confirming
-its higher confidence.</p>
-<p>We also empirically compared the Karger-based segmentation method to the random
-walker and other algorithms on image segmentation and semi-supervised
-classification tasks. In both cases we found that it performs at least as well
-as these classical algorithms, see the paper for detailed results.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Karger&rsquo;s algorithm is a powerful and very influential tool for finding global
 minimum cuts, so it is natural to ask whether this success can be extended to
