@@ -9,8 +9,7 @@ authors:
 - Enrique Fita Sanmartín
 - Fred A. Hamprecht
 
-date: "2021-08-01"
-date_print: "forthcoming"
+date: "2021-10-05"
 doi: ""
 
 # Publication type.
@@ -58,9 +57,13 @@ featured: true
 # links:
 # - name: Custom Link
 #   url: http://example.org
+links:
+- name: Code
+  icon: github
+  icon_pack: fab
+  url: https://github.com/ejnnr/karger_extensions
 
-url_pdf: ''
-url_code: ''
+url_pdf: https://arxiv.org/pdf/2110.02750
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
@@ -83,3 +86,7 @@ projects: [karger]
 #   Otherwise, set `slides: ""`.
 slides: ""
 ---
+
+See [our blog post](/post/karger-extensions) or the
+[ICCV presentation](https://www.youtube.com/watch?v=1sURbgamyvU)
+for a brief and simple overview.

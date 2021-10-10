@@ -8,6 +8,9 @@ unlisted = true
   preview_only = "true"
 +++
 
+_If you prefer videos, check out our [ICCV presentation](https://www.youtube.com/watch?v=1sURbgamyvU), which covers similar content as this blog post.
+For more details, see [our paper](http://arxiv.org/abs/2110.02750)._
+
 Karger's contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
@@ -24,7 +27,7 @@ node. Repeat until only two nodes are left.
 We will discuss Karger's algorithm in a bit more detail shortly. But first, this
 simplicity raises a question: can Karger's algorithm be extended to help with
 other tasks than the global minimum cut problem it was originally meant to
-solve? That is the question we aim to answer in [our new paper](/publication/karger) and which this
+solve? That is the question we aim to answer in [our new paper](http://arxiv.org/abs/2110.02750) and which this
 blog post will focus on.
 
 One extension that immediately suggests itself, and which we will discuss first,
@@ -91,7 +94,7 @@ the one between \\(b\\) and \\(c\\) (in red), and then contract the chosen edge.
 We then repeat this process until only two nodes are left (on the very right).
 These nodes define a cut of the original graph into the partitions \\(\\{a\\}\\) and \\(\\{b, c, d\\}\\).
 
-<a id="org5de6b8b"></a>
+<a id="orgb890aa1"></a>
 
 {{< figure src="karger_run.svg" width="700px" >}}
 
@@ -130,7 +133,7 @@ Let's start by understanding why it's not enough to just slightly modify
 Karger's algorithm such that it never merges \\(s\\) and \\(t\\). One kind of
 example where this simple algorithm fails is the following:
 
-<a id="org26fb305"></a>
+<a id="org70d347b"></a>
 
 {{< figure src="simple_counterexample.svg" width="400px" >}}
 

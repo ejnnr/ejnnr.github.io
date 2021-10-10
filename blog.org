@@ -3348,6 +3348,9 @@ Todos:
   and remove the F. Maybe even color the nodes in the bottom right image?
 #+end_comment
 
+/If you prefer videos, check out our [[https://www.youtube.com/watch?v=1sURbgamyvU][ICCV presentation]], which covers similar content as this blog post.
+For more details, see [[http://arxiv.org/abs/2110.02750][our paper]]./
+
 Karger's contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
@@ -3360,7 +3363,7 @@ node. Repeat until only two nodes are left.
 We will discuss Karger's algorithm in a bit more detail shortly. But first, this
 simplicity raises a question: can Karger's algorithm be extended to help with
 other tasks than the global minimum cut problem it was originally meant to
-solve? That is the question we aim to answer in [[/publication/karger][our new paper]] and which this
+solve? That is the question we aim to answer in [[http://arxiv.org/abs/2110.02750][our new paper]] and which this
 blog post will focus on.
 
 One extension that immediately suggests itself, and which we will discuss first,

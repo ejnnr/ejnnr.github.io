@@ -5,7 +5,7 @@
     <link>https://ejenner.com/tag/graphs/</link>
       <atom:link href="https://ejenner.com/tag/graphs/index.xml" rel="self" type="application/rss+xml" />
     <description>Graphs</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 05 Oct 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>Graphs</title>
@@ -15,9 +15,12 @@
     <item>
       <title>Extensions of Karger&#39;s Algorithm: Why They Fail in Theory and How They Are Useful in Practice</title>
       <link>https://ejenner.com/publication/karger/</link>
-      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 05 Oct 2021 00:00:00 +0000</pubDate>
       <guid>https://ejenner.com/publication/karger/</guid>
-      <description></description>
+      <description>&lt;p&gt;See &lt;a href=&#34;https://ejenner.com/post/karger-extensions&#34;&gt;our blog post&lt;/a&gt; or the
+&lt;a href=&#34;https://www.youtube.com/watch?v=1sURbgamyvU&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ICCV presentation&lt;/a&gt;
+for a brief and simple overview.&lt;/p&gt;
+</description>
     </item>
     
     <item>

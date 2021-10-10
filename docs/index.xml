@@ -5,7 +5,7 @@
     <link>https://ejenner.com/</link>
       <atom:link href="https://ejenner.com/index.xml" rel="self" type="application/rss+xml" />
     <description>Erik Jenner</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 10 Sep 2021 11:41:00 +0200</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Tue, 05 Oct 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>Erik Jenner</title>
@@ -13,11 +13,24 @@
     </image>
     
     <item>
+      <title>Extensions of Karger&#39;s Algorithm: Why They Fail in Theory and How They Are Useful in Practice</title>
+      <link>https://ejenner.com/publication/karger/</link>
+      <pubDate>Tue, 05 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/publication/karger/</guid>
+      <description>&lt;p&gt;See &lt;a href=&#34;https://ejenner.com/post/karger-extensions&#34;&gt;our blog post&lt;/a&gt; or the
+&lt;a href=&#34;https://www.youtube.com/watch?v=1sURbgamyvU&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ICCV presentation&lt;/a&gt;
+for a brief and simple overview.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Extensions of Karger&#39;s algorithm</title>
       <link>https://ejenner.com/post/karger-extensions/</link>
       <pubDate>Fri, 10 Sep 2021 11:41:00 +0200</pubDate>
       <guid>https://ejenner.com/post/karger-extensions/</guid>
-      <description>&lt;p&gt;Karger&amp;rsquo;s contraction algorithm is a fast and very famous method for finding global minimum
+      <description>&lt;p&gt;&lt;em&gt;If you prefer videos, check out our &lt;a href=&#34;https://www.youtube.com/watch?v=1sURbgamyvU&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ICCV presentation&lt;/a&gt;, which covers similar content as this blog post.
+For more details, see &lt;a href=&#34;http://arxiv.org/abs/2110.02750&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;our paper&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Karger&amp;rsquo;s contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
 even faster, Karger&amp;rsquo;s algorithm remains important and fascinating in part because of its
@@ -29,7 +42,7 @@ node. Repeat until only two nodes are left.&lt;/p&gt;
 &lt;p&gt;We will discuss Karger&amp;rsquo;s algorithm in a bit more detail shortly. But first, this
 simplicity raises a question: can Karger&amp;rsquo;s algorithm be extended to help with
 other tasks than the global minimum cut problem it was originally meant to
-solve? That is the question we aim to answer in &lt;a href=&#34;https://ejenner.com/publication/karger&#34;&gt;our new paper&lt;/a&gt; and which this
+solve? That is the question we aim to answer in &lt;a href=&#34;http://arxiv.org/abs/2110.02750&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;our new paper&lt;/a&gt; and which this
 blog post will focus on.&lt;/p&gt;
 &lt;p&gt;One extension that immediately suggests itself, and which we will discuss first,
 is that to \(s\)-\(t\)-mincuts. If you already know what \(s\)-\(t\)-mincuts are
@@ -95,7 +108,7 @@ we first selects an edge at random, in this case
 the one between \(b\) and \(c\) (in red), and then contract the chosen edge.
 We then repeat this process until only two nodes are left (on the very right).
 These nodes define a cut of the original graph into the partitions \(\{a\}\) and \(\{b, c, d\}\).&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;org5de6b8b&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;orgb890aa1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
 
 
@@ -144,7 +157,7 @@ or see the paper itself for all the gory details.&lt;/p&gt;
   &lt;p&gt;&lt;p&gt;Let&amp;rsquo;s start by understanding why it&amp;rsquo;s not enough to just slightly modify
 Karger&amp;rsquo;s algorithm such that it never merges \(s\) and \(t\). One kind of
 example where this simple algorithm fails is the following:&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;org26fb305&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;org70d347b&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;
@@ -589,14 +602,6 @@ to use it for other purposes than the one we presented.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Extensions of Karger&#39;s Algorithm: Why They Fail in Theory and How They Are Useful in Practice</title>
-      <link>https://ejenner.com/publication/karger/</link>
-      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
-      <guid>https://ejenner.com/publication/karger/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Distributions Part I: the Delta distribution</title>
       <link>https://ejenner.com/post/distributions-intro/</link>
       <pubDate>Tue, 06 Jul 2021 14:15:00 +0200</pubDate>
@@ -758,6 +763,14 @@ more types of operations.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;/section&gt;
 </description>
+    </item>
+    
+    <item>
+      <title>Steerable Partial Differential Operators for Equivariant Neural Networks</title>
+      <link>https://ejenner.com/publication/steerable-pdos/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/publication/steerable-pdos/</guid>
+      <description></description>
     </item>
     
     <item>
@@ -3885,14 +3898,6 @@ Take your pick.&lt;/p&gt;
 &lt;/ol&gt;
 &lt;/section&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Steerable Partial Differential Operators for Equivariant Neural Networks</title>
-      <link>https://ejenner.com/publication/steerable-pdos/</link>
-      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>https://ejenner.com/publication/steerable-pdos/</guid>
-      <description></description>
     </item>
     
     <item>

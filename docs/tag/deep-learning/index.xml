@@ -5,12 +5,20 @@
     <link>https://ejenner.com/tag/deep-learning/</link>
       <atom:link href="https://ejenner.com/tag/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>Deep learning</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 03 Mar 2021 14:48:00 +0100</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>Deep learning</title>
       <link>https://ejenner.com/tag/deep-learning/</link>
     </image>
+    
+    <item>
+      <title>Steerable Partial Differential Operators for Equivariant Neural Networks</title>
+      <link>https://ejenner.com/publication/steerable-pdos/</link>
+      <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/publication/steerable-pdos/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Deep Implicit layers</title>
@@ -390,14 +398,6 @@ I developed the theory of equivariant differential operators &amp;ndash; &lt;em&
 an extension of the &lt;a href=&#34;https://github.com/QUVA-Lab/e2cnn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;e2cnn&lt;/em&gt; library&lt;/a&gt;
 to allow others to easily apply them in their own work.&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Steerable Partial Differential Operators for Equivariant Neural Networks</title>
-      <link>https://ejenner.com/publication/steerable-pdos/</link>
-      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
-      <guid>https://ejenner.com/publication/steerable-pdos/</guid>
-      <description></description>
     </item>
     
   </channel>

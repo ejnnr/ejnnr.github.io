@@ -17,7 +17,9 @@
       <link>https://ejenner.com/post/karger-extensions/</link>
       <pubDate>Fri, 10 Sep 2021 11:41:00 +0200</pubDate>
       <guid>https://ejenner.com/post/karger-extensions/</guid>
-      <description>&lt;p&gt;Karger&amp;rsquo;s contraction algorithm is a fast and very famous method for finding global minimum
+      <description>&lt;p&gt;&lt;em&gt;If you prefer videos, check out our &lt;a href=&#34;https://www.youtube.com/watch?v=1sURbgamyvU&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ICCV presentation&lt;/a&gt;, which covers similar content as this blog post.
+For more details, see &lt;a href=&#34;http://arxiv.org/abs/2110.02750&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;our paper&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Karger&amp;rsquo;s contraction algorithm is a fast and very famous method for finding global minimum
 graph cuts. First published in 1993, it helped start a wave of other randomized
 algorithms for graph cut problems. And while many of these are asymptotically
 even faster, Karger&amp;rsquo;s algorithm remains important and fascinating in part because of its
@@ -29,7 +31,7 @@ node. Repeat until only two nodes are left.&lt;/p&gt;
 &lt;p&gt;We will discuss Karger&amp;rsquo;s algorithm in a bit more detail shortly. But first, this
 simplicity raises a question: can Karger&amp;rsquo;s algorithm be extended to help with
 other tasks than the global minimum cut problem it was originally meant to
-solve? That is the question we aim to answer in &lt;a href=&#34;https://ejenner.com/publication/karger&#34;&gt;our new paper&lt;/a&gt; and which this
+solve? That is the question we aim to answer in &lt;a href=&#34;http://arxiv.org/abs/2110.02750&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;our new paper&lt;/a&gt; and which this
 blog post will focus on.&lt;/p&gt;
 &lt;p&gt;One extension that immediately suggests itself, and which we will discuss first,
 is that to \(s\)-\(t\)-mincuts. If you already know what \(s\)-\(t\)-mincuts are
@@ -95,7 +97,7 @@ we first selects an edge at random, in this case
 the one between \(b\) and \(c\) (in red), and then contract the chosen edge.
 We then repeat this process until only two nodes are left (on the very right).
 These nodes define a cut of the original graph into the partitions \(\{a\}\) and \(\{b, c, d\}\).&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;org5de6b8b&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;orgb890aa1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
 
 
@@ -144,7 +146,7 @@ or see the paper itself for all the gory details.&lt;/p&gt;
   &lt;p&gt;&lt;p&gt;Let&amp;rsquo;s start by understanding why it&amp;rsquo;s not enough to just slightly modify
 Karger&amp;rsquo;s algorithm such that it never merges \(s\) and \(t\). One kind of
 example where this simple algorithm fails is the following:&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;org26fb305&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;org70d347b&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;

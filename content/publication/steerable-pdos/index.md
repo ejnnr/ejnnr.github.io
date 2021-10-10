@@ -8,7 +8,7 @@ authors:
 - erik
 - Maurice Weiler
 
-date: "2020-06-18T00:00:00Z"
+date: "2021-06-18"
 doi: ""
 
 # Publication type.

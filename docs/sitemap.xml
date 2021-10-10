@@ -2,8 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ejenner.com/publication-type/1/</loc>
+    <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://ejenner.com/</loc>
-    <lastmod>2021-09-10T11:41:00+02:00</lastmod>
+    <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/publication/karger/</loc>
+    <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/tag/graphs/</loc>
+    <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/publication_types/</loc>
+    <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/publication/</loc>
+    <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/tags/</loc>
+    <lastmod>2021-10-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/post/karger-extensions/</loc>
     <lastmod>2021-09-10T11:41:00+02:00</lastmod>
@@ -11,29 +29,23 @@
     <loc>https://ejenner.com/post/</loc>
     <lastmod>2021-09-10T11:41:00+02:00</lastmod>
   </url><url>
-    <loc>https://ejenner.com/publication-type/1/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/publication/karger/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/tag/graphs/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/publication_types/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/publication/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/tags/</loc>
-    <lastmod>2021-08-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://ejenner.com/post/distributions-intro/</loc>
     <lastmod>2021-07-06T14:15:00+02:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/tag/math/</loc>
     <lastmod>2021-07-06T14:15:00+02:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/publication-type/3/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/tag/deep-learning/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/tag/equivariance/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/publication/steerable-pdos/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/tag/productivity/</loc>
     <lastmod>2021-04-14T19:42:00+02:00</lastmod>
@@ -60,9 +72,6 @@
     <lastmod>2021-03-10T17:07:00+01:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/post/implicit-layers/</loc>
-    <lastmod>2021-03-03T14:48:00+01:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/tag/deep-learning/</loc>
     <lastmod>2021-03-03T14:48:00+01:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/post/rl-building-blocks-3/</loc>
@@ -104,9 +113,6 @@
     <loc>https://ejenner.com/post/karger-stein/</loc>
     <lastmod>2020-12-06T18:00:00+01:00</lastmod>
   </url><url>
-    <loc>https://ejenner.com/tag/equivariance/</loc>
-    <lastmod>2020-07-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://ejenner.com/project/karger/</loc>
     <lastmod>2020-07-01T00:00:00+00:00</lastmod>
   </url><url>
@@ -124,12 +130,6 @@
   </url><url>
     <loc>https://ejenner.com/post/discounting-relativistic-universe/</loc>
     <lastmod>2020-06-20T12:25:00+02:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/publication-type/3/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/publication/steerable-pdos/</loc>
-    <lastmod>2020-06-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/privacy/</loc>
     <lastmod>2018-06-28T00:00:00+01:00</lastmod>
