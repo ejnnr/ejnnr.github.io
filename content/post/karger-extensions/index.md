@@ -3,7 +3,6 @@ title = "Extensions of Karger's algorithm"
 date = 2021-09-10T11:41:00+02:00
 draft = false
 reading_time = 8
-unlisted = true
 [image]
   preview_only = "true"
 +++
@@ -94,7 +93,7 @@ the one between \\(b\\) and \\(c\\) (in red), and then contract the chosen edge.
 We then repeat this process until only two nodes are left (on the very right).
 These nodes define a cut of the original graph into the partitions \\(\\{a\\}\\) and \\(\\{b, c, d\\}\\).
 
-<a id="orgb890aa1"></a>
+<a id="org8880eac"></a>
 
 {{< figure src="karger_run.svg" width="700px" >}}
 
@@ -133,7 +132,7 @@ Let's start by understanding why it's not enough to just slightly modify
 Karger's algorithm such that it never merges \\(s\\) and \\(t\\). One kind of
 example where this simple algorithm fails is the following:
 
-<a id="org70d347b"></a>
+<a id="orgadd7873"></a>
 
 {{< figure src="simple_counterexample.svg" width="400px" >}}
 

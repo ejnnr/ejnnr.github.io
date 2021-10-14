@@ -3336,7 +3336,7 @@ CLOSED: [2021-09-10 Fri 11:41]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: karger-extensions
 :EXPORT_FILE_NAME: index
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image '((preview_only . true)) :reading_time 8 :unlisted true
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image '((preview_only . true)) :reading_time 8
 :END:
 
 #+begin_comment

@@ -108,7 +108,7 @@ we first selects an edge at random, in this case
 the one between \(b\) and \(c\) (in red), and then contract the chosen edge.
 We then repeat this process until only two nodes are left (on the very right).
 These nodes define a cut of the original graph into the partitions \(\{a\}\) and \(\{b, c, d\}\).&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;orgb890aa1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;org8880eac&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 
 
 
@@ -157,7 +157,7 @@ or see the paper itself for all the gory details.&lt;/p&gt;
   &lt;p&gt;&lt;p&gt;Let&amp;rsquo;s start by understanding why it&amp;rsquo;s not enough to just slightly modify
 Karger&amp;rsquo;s algorithm such that it never merges \(s\) and \(t\). One kind of
 example where this simple algorithm fails is the following:&lt;/p&gt;
-&lt;p&gt;&lt;a id=&#34;org70d347b&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a id=&#34;orgadd7873&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;
