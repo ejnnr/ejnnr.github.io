@@ -925,7 +925,7 @@ we write this as
 <p>As you&rsquo;ve probably guessed by now, \(p_\theta(x|z)\) is the decoder of a VAE
 and \(q_\varphi(z|x)\) is the encoder. The ELBO can be rewritten as
 \[\begin{aligned}\E_{z \sim q(\cdot | x)} \left[\log p(z)p(x|z) - \log q(z|x)\right]
-&amp;= \E_{z \sim q(\cdot | x)} \log p(x|z) - \E_{z \sim q(\cdot | x)} \log \frac{q(z|x)}{p(z)}\\\<br>
+&amp;= \E_{z \sim q(\cdot | x)} \log p(x|z) - \E_{z \sim q(\cdot | x)} \log \frac{q(z|x)}{p(z)}\\\
 &amp;= \E_{z \sim q(\cdot | x)}\log p(x | z) - D(q(\cdot|x)\Vert p)\end{aligned}\]
 which gives us the interpretation as &ldquo;reconstruction + regularization loss&rdquo;
 that you may have encountered elsewhere (to treat this as a loss that is minimized,

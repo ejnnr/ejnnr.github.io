@@ -28,10 +28,13 @@ experience:
     company_logo: chai
     location: Berkeley
     date_start: '2021-07-01'
-    date_end:
+    date_end: '2021-09-30'
     description: |2-
-      Working on interpretability of reward models together with Adam Gleave
-        
+      - Worked on interpretability of reward models together with Adam Gleave
+      - Developed a method to simplify a given reward model while keeping it equivalent
+        to the original
+      - [Published](/publication/reward-preprocessing) results at the NeurIPS Cooperative AI workshop
+      - Implemented preference comparisons for the [`imitation` library](https://github.com/HumanCompatibleAI/imitation)
   - title: Research Intern
     company: QUVA Lab
     company_url: 'https://ivi.fnwi.uva.nl/quva/'
@@ -53,7 +56,7 @@ experience:
     description: |2-
       - Supervised by Prof. Fred Hamprecht
       - Analyzed the extensibility of Karger's contraction algorithm
-      - [Paper](/publication/karger) I wrote based on my thesis was accepted as an Oral at ICCV 2021
+      - [Paper](/publication/karger) based on my thesis was accepted as an Oral at ICCV 2021
 
 design:
   columns: '2'

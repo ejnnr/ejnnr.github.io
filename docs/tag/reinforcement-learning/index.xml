@@ -5,12 +5,20 @@
     <link>https://ejenner.com/tag/reinforcement-learning/</link>
       <atom:link href="https://ejenner.com/tag/reinforcement-learning/index.xml" rel="self" type="application/rss+xml" />
     <description>Reinforcement learning</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 24 Feb 2021 10:41:00 +0100</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 25 Sep 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>Reinforcement learning</title>
       <link>https://ejenner.com/tag/reinforcement-learning/</link>
     </image>
+    
+    <item>
+      <title>Preprocessing Reward Functions for Interpretability</title>
+      <link>https://ejenner.com/publication/reward-preprocessing/</link>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/publication/reward-preprocessing/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Building Blocks of RL Part III: Model-based RL</title>
@@ -298,8 +306,8 @@ assumptions that often aren&amp;rsquo;t met in RL. What we will use instead is
 the REINFORCE method or &lt;em&gt;score function estimation&lt;/em&gt;.
 We can use the fact that \(\nabla g(x) = g(x) \nabla \log g(x)\) for any \(g\) and write
 \[\begin{split}
-\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &amp;amp;= \int_a f(a)\nabla \pi_\theta(a) da \\\&lt;br&gt;
-&amp;amp;= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\&lt;br&gt;
+\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &amp;amp;= \int_a f(a)\nabla \pi_\theta(a) da \\\
+&amp;amp;= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\
 &amp;amp;= \mathbb{E}_{a \sim \pi_\theta} \left[f(a)\nabla \log \pi_\theta(a)\right]
 \end{split}\]
 The right hand side has the form we can deal with: an expectation over

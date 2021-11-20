@@ -23,6 +23,15 @@
     <loc>https://ejenner.com/tags/</loc>
     <lastmod>2021-10-05T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://ejenner.com/publication-type/0/</loc>
+    <lastmod>2021-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/publication/reward-preprocessing/</loc>
+    <lastmod>2021-09-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/tag/reinforcement-learning/</loc>
+    <lastmod>2021-09-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://ejenner.com/post/karger-extensions/</loc>
     <lastmod>2021-09-10T11:41:00+02:00</lastmod>
   </url><url>
@@ -75,9 +84,6 @@
     <lastmod>2021-03-03T14:48:00+01:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/post/rl-building-blocks-3/</loc>
-    <lastmod>2021-02-24T10:41:00+01:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/tag/reinforcement-learning/</loc>
     <lastmod>2021-02-24T10:41:00+01:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/post/sparsity-singularities/</loc>

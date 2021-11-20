@@ -2083,8 +2083,8 @@ norm:
 How does that change things? Well, the 1-norm of a vector is not
 differentiable at 0. More precisely:
 \[\frac{\partial}{\partial w_i} \Vert w\Vert_1 = \begin{cases}
-+1, \quad w_i &amp;gt; 0\\\&lt;br&gt;
--1,\quad w_i &amp;lt; 0\\\&lt;br&gt;
++1, \quad w_i &amp;gt; 0\\\
+-1,\quad w_i &amp;lt; 0\\\
 \text{undefined for } w_i = 0
 \end{cases}
 \]
@@ -2445,8 +2445,8 @@ assumptions that often aren&amp;rsquo;t met in RL. What we will use instead is
 the REINFORCE method or &lt;em&gt;score function estimation&lt;/em&gt;.
 We can use the fact that \(\nabla g(x) = g(x) \nabla \log g(x)\) for any \(g\) and write
 \[\begin{split}
-\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &amp;amp;= \int_a f(a)\nabla \pi_\theta(a) da \\\&lt;br&gt;
-&amp;amp;= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\&lt;br&gt;
+\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &amp;amp;= \int_a f(a)\nabla \pi_\theta(a) da \\\
+&amp;amp;= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\
 &amp;amp;= \mathbb{E}_{a \sim \pi_\theta} \left[f(a)\nabla \log \pi_\theta(a)\right]
 \end{split}\]
 The right hand side has the form we can deal with: an expectation over
@@ -3317,7 +3317,7 @@ we write this as
 &lt;p&gt;As you&amp;rsquo;ve probably guessed by now, \(p_\theta(x|z)\) is the decoder of a VAE
 and \(q_\varphi(z|x)\) is the encoder. The ELBO can be rewritten as
 \[\begin{aligned}\E_{z \sim q(\cdot | x)} \left[\log p(z)p(x|z) - \log q(z|x)\right]
-&amp;amp;= \E_{z \sim q(\cdot | x)} \log p(x|z) - \E_{z \sim q(\cdot | x)} \log \frac{q(z|x)}{p(z)}\\\&lt;br&gt;
+&amp;amp;= \E_{z \sim q(\cdot | x)} \log p(x|z) - \E_{z \sim q(\cdot | x)} \log \frac{q(z|x)}{p(z)}\\\
 &amp;amp;= \E_{z \sim q(\cdot | x)}\log p(x | z) - D(q(\cdot|x)\Vert p)\end{aligned}\]
 which gives us the interpretation as &amp;ldquo;reconstruction + regularization loss&amp;rdquo;
 that you may have encountered elsewhere (to treat this as a loss that is minimized,
@@ -3592,8 +3592,8 @@ until \(\lceil \frac{n}{b} + 1\rceil\) vertices are left, this will give us a ni
 The probability that a mincut survives this contraction is&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;:&lt;/p&gt;
 &lt;p&gt;\begin{equation}
 \begin{split}
-p &amp;amp;\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\\&lt;br&gt;
-&amp;amp;\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\\&lt;br&gt;
+p &amp;amp;\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\\
+&amp;amp;\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\\
 &amp;amp;\geq \frac{1}{b^2}
 \end{split}
 \end{equation}&lt;/p&gt;
@@ -3617,10 +3617,10 @@ some rewriting, we can get something that&amp;rsquo;s good enough for our purpos
 Substituting \(z_k := \frac{b^2}{p_k} - 1\), we get&lt;/p&gt;
 &lt;p&gt;\begin{equation}
 \begin{split}
-z_{k + 1} &amp;amp;= \frac{b^2}{p_{k + 1}} - 1 \\\&lt;br&gt;
-&amp;amp;\leq \frac{b^2}{1 - \left(1 - \frac{1}{z_k + 1}\right)^a} - 1\\\&lt;br&gt;
-&amp;amp;= \frac{b^2 \left(z_k + 1\right)^a}{\left(z_k + 1\right)^a - z_k^a} - 1\\\&lt;br&gt;
-&amp;amp;\leq \frac{b^2 \left(z_k + 1 \right)^a}{a z_k^{a - 1}} - 1\\\&lt;br&gt;
+z_{k + 1} &amp;amp;= \frac{b^2}{p_{k + 1}} - 1 \\\
+&amp;amp;\leq \frac{b^2}{1 - \left(1 - \frac{1}{z_k + 1}\right)^a} - 1\\\
+&amp;amp;= \frac{b^2 \left(z_k + 1\right)^a}{\left(z_k + 1\right)^a - z_k^a} - 1\\\
+&amp;amp;\leq \frac{b^2 \left(z_k + 1 \right)^a}{a z_k^{a - 1}} - 1\\\
 &amp;amp;\leq \frac{b^2}{a} z_k + \text{const}
 \end{split}
 \end{equation}&lt;/p&gt;

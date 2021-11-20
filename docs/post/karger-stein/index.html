@@ -791,8 +791,8 @@ until \(\lceil \frac{n}{b} + 1\rceil\) vertices are left, this will give us a ni
 The probability that a mincut survives this contraction is<sup id="fnref:4"><a href="#fn:4" class="footnote-ref" role="doc-noteref">4</a></sup>:</p>
 <p>\begin{equation}
 \begin{split}
-p &amp;\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\\<br>
-&amp;\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\\<br>
+p &amp;\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\\
+&amp;\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\\
 &amp;\geq \frac{1}{b^2}
 \end{split}
 \end{equation}</p>
@@ -816,10 +816,10 @@ some rewriting, we can get something that&rsquo;s good enough for our purposes.
 Substituting \(z_k := \frac{b^2}{p_k} - 1\), we get</p>
 <p>\begin{equation}
 \begin{split}
-z_{k + 1} &amp;= \frac{b^2}{p_{k + 1}} - 1 \\\<br>
-&amp;\leq \frac{b^2}{1 - \left(1 - \frac{1}{z_k + 1}\right)^a} - 1\\\<br>
-&amp;= \frac{b^2 \left(z_k + 1\right)^a}{\left(z_k + 1\right)^a - z_k^a} - 1\\\<br>
-&amp;\leq \frac{b^2 \left(z_k + 1 \right)^a}{a z_k^{a - 1}} - 1\\\<br>
+z_{k + 1} &amp;= \frac{b^2}{p_{k + 1}} - 1 \\\
+&amp;\leq \frac{b^2}{1 - \left(1 - \frac{1}{z_k + 1}\right)^a} - 1\\\
+&amp;= \frac{b^2 \left(z_k + 1\right)^a}{\left(z_k + 1\right)^a - z_k^a} - 1\\\
+&amp;\leq \frac{b^2 \left(z_k + 1 \right)^a}{a z_k^{a - 1}} - 1\\\
 &amp;\leq \frac{b^2}{a} z_k + \text{const}
 \end{split}
 \end{equation}</p>

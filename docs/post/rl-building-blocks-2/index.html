@@ -822,8 +822,8 @@ assumptions that often aren&rsquo;t met in RL. What we will use instead is
 the REINFORCE method or <em>score function estimation</em>.
 We can use the fact that \(\nabla g(x) = g(x) \nabla \log g(x)\) for any \(g\) and write
 \[\begin{split}
-\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &amp;= \int_a f(a)\nabla \pi_\theta(a) da \\\<br>
-&amp;= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\<br>
+\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &amp;= \int_a f(a)\nabla \pi_\theta(a) da \\\
+&amp;= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\
 &amp;= \mathbb{E}_{a \sim \pi_\theta} \left[f(a)\nabla \log \pi_\theta(a)\right]
 \end{split}\]
 The right hand side has the form we can deal with: an expectation over
@@ -1136,6 +1136,8 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
   <div class="article-widget content-widget-hr">
     <h3>Related</h3>
     <ul>
+      
+      <li><a href="/publication/reward-preprocessing/">Preprocessing Reward Functions for Interpretability</a></li>
       
       <li><a href="/post/rl-building-blocks-3/">Building Blocks of RL Part III: Model-based RL</a></li>
       

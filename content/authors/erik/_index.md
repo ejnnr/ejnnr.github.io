@@ -18,10 +18,9 @@ bio:
 
 # Interests to show in About widget
 interests:
-- Reinforcement Learning
-- AI Safety
-- Equivariant Deep Learning
-- Causality
+- Reward Learning
+- Interpretability
+- Robust ML
 
 # Education to show in About widget
 education:
@@ -71,7 +70,10 @@ highlight_name: true
 I'm a Master's student in Artificial Intelligence at the University of Amsterdam.
 My goal is to have a positive impact on the world by making sure that AI will be aligned with humanity’s interests.
 
-I'm currently doing a research internship at the [Center for Human-Compatible AI](https://humancompatible.ai/),
-where I work on interpreting reward models.
-I have also done work on [equivariant deep learning](/publication/steerable-pdos) and
-[graph-based segmentation](/publication/karger).
+I'm currently working on my Master's thesis with the
+[Center for Human-Compatible AI](https://humancompatible.ai/)
+on the sample complexity of reward learning.
+Before that, I have done work on the
+[interpretability of reward models](/publication/reward-preprocessing),
+[equivariant deep learning](/publication/steerable-pdos),
+and on [graph-based segmentation](/publication/karger).
