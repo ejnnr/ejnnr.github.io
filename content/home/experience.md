@@ -22,11 +22,22 @@ date_format: Jan 2006
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
+  - title: Master's thesis
+    company: University of Amsterdam / CHAI Berkeley
+    company_url: 'https://www.uva.nl'
+    company_logo: uva
+    location: Amsterdam
+    date_start: '2021-11-01'
+    date_end: ''
+    description: |2-
+      Working on the sample complexity of reward learning algorithms
+      with Adam Gleave (UC Berkeley) and Prof. Herke van Hoof (UvA)
+
   - title: Research Intern
     company: Center for Human-Compatible AI
     company_url: 'https://humancompatible.ai/'
     company_logo: chai
-    location: Berkeley
+    location: UC Berkeley (virtual)
     date_start: '2021-07-01'
     date_end: '2021-09-30'
     description: |2-
