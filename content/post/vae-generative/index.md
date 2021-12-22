@@ -177,7 +177,7 @@ we again get the ELBO, this time as the objective for our original optimization 
 This is a good choice for two reasons:
 
 1.  The ELBO is a lower bound on the evidence, \\(\text{ELBO} \leq \log p(x)\\). If we used another
-    distribution \\(q\\), we wouldn't have any guarentee that we're optimizing for the right thing
+    distribution \\(q\\), we wouldn't have any guarantee that we're optimizing for the right thing
     if the approximation \\(p(z|x) \approx q\_{\lambda^\*}(z)\\) became bad enough. This way, we're
     at least optimizing a lower bound on what we really care about.
 2.  We saw above that we need to find the new \\(\lambda^\*(\theta)\\) after each update to \\(\theta\\),

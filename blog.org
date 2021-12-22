@@ -4264,7 +4264,7 @@ Adding more layers of oracles for the halting problem leads to
 an infinite hierarchy of computational models (and I think even one
 for every ordinal?)
 
-Discusses this with Christian.
+Discussed this with Christian.
 
 See also
 https://en.wikipedia.org/wiki/Arithmetical_hierarchy#Relation_to_Turing_machines
@@ -4390,9 +4390,6 @@ be a continuous function which describes the time evolution of any initial state
 and let \(B \subset X\) be a set of "boundary condition points", meaning that once the system
 once the system is in \(B\) it doesn't leave it: \(A_t(x) \in B \implies \(A_{t + \tau}(x) \in B \forall \tau \geq 0\).
 * TODO Preference vector fields and the VNM theorem
-* TODO Averages of ensembles of graph cuts
-Frechet mean, why this is much easier with seeds, relation of our and Gdalyahu's method.
-Probably after out paper is out. See Bachelor's thesis for details.
 * TODO Natural Turing machines
 It feels like there should be a notion of "reasonable UTMs" for
 defining Kolmogorov complexity. For example, Python is reasonable,
@@ -4442,7 +4439,6 @@ I'm not really sure yet what the overarching story here is but there
 seem to be interesting and deep connections. This might be a follow-up
 to the Calculus on Graphs series/post, because for convolutions (in the CNN context),
 we use discrete versions of the continuous QM phenomena.
-* TODO Better orgmode LaTeX export
 * TODO Distropy
 * TODO PPO tutorial
 I personally didn't like any of the tutorials I found, which is kind of surprising,
@@ -4469,22 +4465,6 @@ langsam einen guten Überblick.
 - Goodfellow's overview benutzen
 - Zusammenhang zwischen VAEs und variational inference klar machen (vllt. separater post)
 * TODO Lessons learned from replicating ML papers
-* TODO Clarifying transparency in AI alignment
-Probably on LW rather than blog.
-
-Three levels of understanding ML systems:
-- Understanding a learning method/inductive biases (SGD, unreasonable effectiveness of deep learning).
-  This one is a bit separate perhaps, at least not usually called transparency
-- Understanding a trained model (global interpretability)
-- Understanding a particular prediction
-
-These play different roles for AI alignment, clarify those.
-
-The mainstream interpretability field focuses on the third one, I think (though there are some
-global methods). It also focuses on model-agnostic methods, which is usually not at all what
-we want in AI alignment.
-There, we want to do things like detect inner optimizers. That will probably require somewhat
-model-specific transparency tools (and certainly global ones).
 * TODO Towards a Theoretical Understanding of Deep Learning
 The fact that deep neural networks are so successful is often regarded
 as somewhat of a mystery. The pace of practical performance improvements

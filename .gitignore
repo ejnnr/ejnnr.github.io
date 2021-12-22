@@ -8,3 +8,4 @@
 /resources/
 jsconfig.json
 node_modules/
+/.hugo_cache
