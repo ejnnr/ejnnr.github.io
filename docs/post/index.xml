@@ -5,12 +5,188 @@
     <link>https://ejenner.com/post/</link>
       <atom:link href="https://ejenner.com/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Wed, 22 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0100</lastBuildDate>
     <image>
       <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>Posts</title>
       <link>https://ejenner.com/post/</link>
     </image>
+    
+    <item>
+      <title>Distributions Part II: What can we do with distributions?</title>
+      <link>https://ejenner.com/post/distributions-operations/</link>
+      <pubDate>Sun, 06 Mar 2022 00:00:00 +0100</pubDate>
+      <guid>https://ejenner.com/post/distributions-operations/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://ejenner.com/post/distributions-intro&#34;&gt;Last time&lt;/a&gt;, we introduced &lt;em&gt;Schwartz distributions&lt;/em&gt;.
+Let&amp;rsquo;s briefly recap: a distribution is a function that maps certain types
+of functions to real numbers. We write $\mathcal{D}(U)$ for the space of
+(compactly supported, smooth) functions on a space $U \subseteq \mathbb{R}^n$,
+called &lt;em&gt;test functions&lt;/em&gt;. Distributions are continuous linear maps
+$T: \mathcal{D}(U) \to \mathbb{R}$, and we write $\mathcal{D}&#39;(U)$
+for the space of these distributions.&lt;/p&gt;
+&lt;p&gt;An important aspect of distributions is that they generalize functions
+$f: U \to \mathbb{R}$. This is not obvious at first&amp;mdash;distributions have an
+entirely different type signature after all, so how can they be a generalization?
+What we mean by that is that there is a natural way to embed the space of (locally
+integrable) functions on $U$ into the space of distributions $\mathcal{D}&#39;(U)$.
+Namely, each function $f: U \to \mathbb{R}$ induces a distribution $T_f$ defined
+by
+$$\langle T_f, \varphi \rangle := \int_{U} f\varphi d\lambda^n.$$
+Here, $\langle T_f, \varphi \rangle$ is just a commonly used notation for
+$T_f(\varphi)$, i.e. the distribution $T_f$ applied to the function $\varphi$.&lt;/p&gt;
+&lt;p&gt;For &amp;ldquo;classical&amp;rdquo; functions, we can do things like add them, convolve them,
+take their derivative, and many other operations.
+Given that distribution generalize classical functions, it&amp;rsquo;s natural to ask
+whether we can also generalize these operations. It turns out that this
+is possible in a (to me) surprising number of cases, in a surprisingly
+simple way!&lt;/p&gt;
+&lt;h1 id=&#34;addition&#34;&gt;Addition&lt;/h1&gt;
+&lt;p&gt;Let&amp;rsquo;s start with a warm-up: just like we can add classical functions,
+we can add two distributions $S$ and $T$. Specifically, we define $S + T$
+as the distribution given by
+$$\langle S + T, \varphi \rangle := \langle S, \varphi \rangle + \langle T, \varphi\rangle.$$
+In general, this will be how we define distributions: we just say how to
+evaluate them on an arbitrary function $\varphi$. If this were a math textbook,
+we&amp;rsquo;d also have to show that the distributions we define this way are indeed
+continuous and linear in $\varphi$, but since this is a blog post, we&amp;rsquo;ll
+skip that part. The goal here is only to get a good understanding of the definitions.&lt;/p&gt;
+&lt;p&gt;Now we get to an important theme for this post: we&amp;rsquo;ve just defined addition
+of distributions, but does this definition really &lt;em&gt;generalize&lt;/em&gt; the definition
+for classical functions? In other words: say we have two functions $f$ and $g$,
+both from $U$ to $\mathbb{R}$. There are now two things we could do:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Add $f$ and $g$ as functions, then turn the result into a distribution, i.e. $T_{f + g}$.&lt;/li&gt;
+&lt;li&gt;Turn $f$ and $g$ into distributions, then add them as distributions, i.e. $T_f + T_g$.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We really, really want 1. and 2. to be equivalent! This is a good example
+of how definitions in math can be good or bad: in principle, we&amp;rsquo;re free to
+define addition of distributions however we want&amp;mdash;but if our definition
+doesn&amp;rsquo;t generalize the definition we already use for classical functions,
+then it will be really hard to work with and probably just not useful.&lt;/p&gt;
+&lt;p&gt;Luckily, it&amp;rsquo;s easy to check that our definition is a good one: we have
+$$\begin{aligned}
+\langle T_{f + g}, \varphi\rangle &amp;amp;= \int_U (f + g)\varphi d\lambda^n\\
+&amp;amp;= \int_U f\varphi d\lambda^n + \int_U g\varphi d\lambda^n\\
+&amp;amp;= \langle T_f, \varphi \rangle + \langle T_g, \varphi\rangle\\
+&amp;amp;= \langle T_f + T_g, \varphi\rangle.
+\end{aligned}$$
+This implies that $T_{f + g} = T_f + T_g$ (since distributions are themselves
+just functions, and if two functions are equal on all inputs, they&amp;rsquo;re the same).&lt;/p&gt;
+&lt;h1 id=&#34;derivatives&#34;&gt;Derivatives&lt;/h1&gt;
+&lt;p&gt;Addition was pretty easy, but how are we supposed to define derivatives
+of distributions? This seems really hard at first. Do we need some kind of
+limit of finite differences, like for classical functions? But what
+are these finite differences supposed to look like?&lt;/p&gt;
+&lt;p&gt;Recall that in Part I, we used the powerful tool of Wishful Thinking:
+just pretend that distributions behave like classical functions,
+calculate a bit, and then use the result as the definition.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;re now in a better position to understand what is actually going on there.
+Our central demand of any new definition is that it should generalize
+the corresponding definition for classical functions. In the case of
+derivatives, this means we want
+$$\partial_i T_f = T_{\partial_i f}$$
+for all functions $f$. ($\partial_i := \frac{\partial}{\partial x_i}$ is the
+$i$-th partial derivative). So let&amp;rsquo;s just consider the special case
+of distributions that are induced by classical functions for now
+(this is the &amp;ldquo;pretend that distributions behave like functions&amp;rdquo; step).
+We then have
+$$\begin{aligned}
+\langle \partial_i T_f, \varphi\rangle &amp;amp;= \langle T_{\partial_i f}, \varphi\rangle\\
+&amp;amp;= \int_U (\partial_i f) \varphi d\lambda^n\\
+&amp;amp;= -\int_U f (\partial_i \varphi) d\lambda^n\\
+&amp;amp;= -\langle T_f, \partial_i \varphi\rangle.
+\end{aligned}$$
+We used integration by parts here, and made use of the fact that $\varphi$
+is compactly supported and $U \subseteq \mathbb{R}^n$ is open, so the boundary
+term vanishes.&lt;/p&gt;
+&lt;p&gt;And now comes the second part of the Wishful Thinking strategy: let&amp;rsquo;s just
+forget that we restricted ourselves to distributions induced by classical
+functions, and instead &lt;em&gt;define&lt;/em&gt; derivatives this way for all distributions.
+More specifically, we just need to replace $T_f$ by $T$ in the equation above,
+and get our definition:
+$$\langle \partial_i T, \varphi\rangle := -\langle T, \partial_i \varphi\rangle.$$
+Voilà, that&amp;rsquo;s our definition for derivatives of distributions! By construction,
+this definition extends the one for classical functions, that was the entire
+point of our calculation.&lt;/p&gt;
+&lt;p&gt;One cool thing to note here is that since the test function $\varphi$
+is infinitely differentiable (by assumption), &lt;em&gt;so are distributions&lt;/em&gt;!
+Since distributions generalize classical functions, this means we can
+take derivatives of functions that we&amp;rsquo;d normally call non-differentiable.
+But the crux is that this derivative will not necessarily itself be a function.
+For example, the derivative of the following step function is the delta
+distribution that we saw in Part I:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure  &gt;
+  &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
+    &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Step function&#34; srcset=&#34;
+               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_f1f4aafca29b119878148b037e6eb086.png 400w,
+               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_b93c7a98f8edef99f6014e68d68f218b.png 760w,
+               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_1200x1200_fit_lanczos_3.png 1200w&#34;
+               src=&#34;https://ejenner.com/post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_f1f4aafca29b119878148b037e6eb086.png&#34;
+               width=&#34;760&#34;
+               height=&#34;760&#34;
+               loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
+  &lt;/div&gt;&lt;/figure&gt;
+
+The delta distribution is &lt;em&gt;not&lt;/em&gt; induced by any function, as we discussed back then.&lt;/p&gt;
+&lt;h1 id=&#34;convolutions&#34;&gt;Convolutions&lt;/h1&gt;
+&lt;p&gt;We know the recipe now, so let&amp;rsquo;s just run through two more examples,
+starting with convolutions. As a quick reminder, the convolution of two
+functions $f$ and $g$ is defined as the function $f * g$ given by
+$$(f * g)(x) := \int_U f(y)g(x - y)dy.$$&lt;/p&gt;
+&lt;p&gt;In this post, we&amp;rsquo;ll just look at convolving a distribution with a classical
+function (rather than convolving two distributions). To do that, let&amp;rsquo;s introduce
+some notation: write $\check{g}$ for the reflection of a function $g$, i.e.
+$\check{g}(y) := g(-y)$. Furthermore, we write $\tau_x g$ for the function $g$
+shifted by $x \in \mathbb{R}^n$, i.e. $(\tau_x g)(y) := g(y - x)$.
+Then note that we can write the term from the convolution above as
+$$g(x - y) = \check{g}(y - x) = \tau_x\check{g}(y).$$&lt;/p&gt;
+&lt;p&gt;The point of this is that we can now rewrite the definition of a convolution as
+$$(f * g)(x) := \langle f, \tau_x \check{g}\rangle,$$
+without explicitly writing out an integral. And this definition again has a form
+that suggests a straightforward generalization to the case where $f$ is replaced
+by a distribution, namely
+$$(T * g)(x) := \langle T, \tau_x \check{g}\rangle.$$
+So the convolution of a distribution with a function is again a classical function
+(we evaluate it at points $x \in \mathbb{R}^n$, rather than on test functions).&lt;/p&gt;
+&lt;h1 id=&#34;fourier-transforms&#34;&gt;Fourier transforms&lt;/h1&gt;
+&lt;p&gt;We&amp;rsquo;ll finish with a pretty cool operation: even Fourier transforms work for
+distributions. Well, at least for &lt;em&gt;some&lt;/em&gt; distributions, we&amp;rsquo;ll get back to that
+in a moment. First, let&amp;rsquo;s recall the definition of the Fourier transform
+for functions: the Fourier transform of a function $f$ is again a function,
+$\mathcal{F}(f)$, given by
+$$\mathcal{F}(f)(\xi) := (2\pi)^{-n/2}\int_U f(x) \exp(-ix \cdot \xi)dx.$$
+(There are other definitions that differ slightly, but we&amp;rsquo;ll go with this one).&lt;/p&gt;
+&lt;p&gt;We want to define the Fourier transform $\mathcal{F}(T)$ of a distribution $T$,
+so we need to define $\langle \mathcal{F}(T), \varphi\rangle$
+for arbitrary test functions $\varphi$. Let&amp;rsquo;s assume again that our distribution
+is induced by a function, i.e. $T = T_f$ for some function $f$. In this case,
+we want our new definition to extend the old one, i.e. $\mathcal{F}(T_f) = T_{\mathcal{F}(f)}$. That gives us&lt;/p&gt;
+&lt;p&gt;$$\begin{aligned}
+\langle \mathcal{F}(T_f), \varphi\rangle &amp;amp;= \langle \mathcal{F}(f), \varphi\rangle\\
+&amp;amp;= \int_U \left((2\pi)^{-n/2}\int_U f(x)\exp(-ix \cdot \xi)dx\right)\varphi(\xi)d\xi \\
+&amp;amp;= \int_U\left((2\pi)^{-n/2}\int_U \phi(\xi) \exp(-i\xi \cdot x) d\xi\right)f(x)dx\\
+&amp;amp;= \langle f, \mathcal{F}(\varphi)\rangle.
+\end{aligned}$$&lt;/p&gt;
+&lt;p&gt;The final step should be familiar by now: we use this result, which we derived for functions, as the &lt;em&gt;definition&lt;/em&gt; for general distributions:
+$$\langle \mathcal{F}(T), \varphi\rangle := \langle T, \mathcal{F}(\varphi)\rangle.$$&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Visualizing random vs grid search</title>
@@ -791,7 +967,7 @@ ought to vanish. So let&amp;rsquo;s just write
 Since we&amp;rsquo;re only integrating over \(\{0\}\) now, we can set \(x = 0\) in \(|x_0 - x|\). Then
 this part doesn&amp;rsquo;t depend on \(x\) anymore and we get
 \[\int_{\{0\}}\frac{1}{|x_0 - x|}\delta(x)dx = \frac{1}{|x_0|}\int_{\{0\}}\delta(x)dx.\]
-But we know what to do with that last part, its&#39; 1! So the potential should be \(\Phi \propto \frac{1}{|x_0|}\).&lt;/p&gt;
+But we know what to do with that last part, it&amp;rsquo;s 1! So the potential should be \(\Phi \propto \frac{1}{|x_0|}\).&lt;/p&gt;
 &lt;p&gt;We can apply the same argument more generally to \(\int \varphi(x) \delta(x)dx\) for other functions \(\varphi\).
 So let&amp;rsquo;s &amp;ldquo;wish&amp;rdquo; that
 \[\int_{\mathbb{R}^3} \varphi(x) \delta(x) dx := \varphi(0)\]
@@ -875,12 +1051,16 @@ we define
 \[\int f(g(x))\varphi(x)dx = \int |\operatorname{det} Dg(x)|^{-1} f(x)\varphi(g^{-1}(x))dx\]
 where \(Dg\) is the derivative (Jacobian) of \(g\).
 So in analogy, we can define \(\delta(g(x))\) for any diffeomorphism \(g\) by
-\[\int \delta(g(x))\varphi(x)dx := \int |\operatorname{det} Dg(x)|^{-1} \delta(x)\varphi(g^{-1}(x))dx
-= |\operatorname{det} Dg(0)|^{-1}\varphi(g^{-1}(0)).\]&lt;/p&gt;
+\[
+\begin{aligned}
+\int \delta(g(x))\varphi(x)dx :&amp;amp;= \int |\operatorname{det} Dg(x)|^{-1} \delta(x)\varphi(g^{-1}(x))dx \\
+&amp;amp;= |\operatorname{det} Dg(0)|^{-1}\varphi(g^{-1}(0)).
+\end{aligned}
+\]&lt;/p&gt;
 &lt;p&gt;I want to stress again that none of these arguments are &amp;ldquo;proofs&amp;rdquo; or &amp;ldquo;derivations&amp;rdquo; &amp;ndash; in the end, we have
 to choose how to define all of these terms. But clearly some definitions make more sense than others
 and in the examples here there is clearly one &amp;ldquo;right&amp;rdquo; way to define what \(\delta(g(x))\) etc. should
-mean. This will become even more clear in the next post: we will continue the theme of finding
+mean. This will become even more clear in the &lt;a href=&#34;https://ejenner.com/post/distributions-operations&#34;&gt;next post&lt;/a&gt;: we will continue the theme of finding
 good definitions via &amp;ldquo;wishful thinking&amp;rdquo;, only this time for arbitrary distributions and for many
 more types of operations.&lt;/p&gt;
 &lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;

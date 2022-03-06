@@ -4246,7 +4246,7 @@ much further sensibly (e.g. divergence and consequently Laplacian just seem a bi
 weird). Can mention Bellman equation though.
 * TODO Variable horizons considered harmful
 Coordinate with Adam on this
-* TODO Geometric view on random vs grid search
+* DONE Geometric view on random vs grid search
 Idea: we have a hypercube of parameters to search over.
 But it's not really a cube; some parameters are more important,
 so the sides for those should be longer. Then we want to minimize

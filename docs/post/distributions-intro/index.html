@@ -802,7 +802,7 @@ ought to vanish. So let&rsquo;s just write
 Since we&rsquo;re only integrating over \(\{0\}\) now, we can set \(x = 0\) in \(|x_0 - x|\). Then
 this part doesn&rsquo;t depend on \(x\) anymore and we get
 \[\int_{\{0\}}\frac{1}{|x_0 - x|}\delta(x)dx = \frac{1}{|x_0|}\int_{\{0\}}\delta(x)dx.\]
-But we know what to do with that last part, its' 1! So the potential should be \(\Phi \propto \frac{1}{|x_0|}\).</p>
+But we know what to do with that last part, it&rsquo;s 1! So the potential should be \(\Phi \propto \frac{1}{|x_0|}\).</p>
 <p>We can apply the same argument more generally to \(\int \varphi(x) \delta(x)dx\) for other functions \(\varphi\).
 So let&rsquo;s &ldquo;wish&rdquo; that
 \[\int_{\mathbb{R}^3} \varphi(x) \delta(x) dx := \varphi(0)\]
@@ -886,12 +886,16 @@ we define
 \[\int f(g(x))\varphi(x)dx = \int |\operatorname{det} Dg(x)|^{-1} f(x)\varphi(g^{-1}(x))dx\]
 where \(Dg\) is the derivative (Jacobian) of \(g\).
 So in analogy, we can define \(\delta(g(x))\) for any diffeomorphism \(g\) by
-\[\int \delta(g(x))\varphi(x)dx := \int |\operatorname{det} Dg(x)|^{-1} \delta(x)\varphi(g^{-1}(x))dx
-= |\operatorname{det} Dg(0)|^{-1}\varphi(g^{-1}(0)).\]</p>
+\[
+\begin{aligned}
+\int \delta(g(x))\varphi(x)dx :&amp;= \int |\operatorname{det} Dg(x)|^{-1} \delta(x)\varphi(g^{-1}(x))dx \\
+&amp;= |\operatorname{det} Dg(0)|^{-1}\varphi(g^{-1}(0)).
+\end{aligned}
+\]</p>
 <p>I want to stress again that none of these arguments are &ldquo;proofs&rdquo; or &ldquo;derivations&rdquo; &ndash; in the end, we have
 to choose how to define all of these terms. But clearly some definitions make more sense than others
 and in the examples here there is clearly one &ldquo;right&rdquo; way to define what \(\delta(g(x))\) etc. should
-mean. This will become even more clear in the next post: we will continue the theme of finding
+mean. This will become even more clear in the <a href="/post/distributions-operations">next post</a>: we will continue the theme of finding
 good definitions via &ldquo;wishful thinking&rdquo;, only this time for arbitrary distributions and for many
 more types of operations.</p>
 <section class="footnotes" role="doc-endnotes">
@@ -1062,6 +1066,8 @@ more types of operations.</p>
   <div class="article-widget content-widget-hr">
     <h3>Related</h3>
     <ul>
+      
+      <li><a href="/post/distributions-operations/">Distributions Part II: What can we do with distributions?</a></li>
       
       <li><a href="/post/state-formally-reason-informally/">State formally, reason informally</a></li>
       

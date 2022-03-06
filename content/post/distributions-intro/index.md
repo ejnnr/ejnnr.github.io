@@ -76,7 +76,7 @@ ought to vanish. So let's just write
 Since we're only integrating over \\(\\{0\\}\\) now, we can set \\(x = 0\\) in \\(|x\_0 - x|\\). Then
 this part doesn't depend on \\(x\\) anymore and we get
 \\[\int\_{\\{0\\}}\frac{1}{|x\_0 - x|}\delta(x)dx = \frac{1}{|x\_0|}\int\_{\\{0\\}}\delta(x)dx.\\]
-But we know what to do with that last part, its' 1! So the potential should be \\(\Phi \propto \frac{1}{|x\_0|}\\).
+But we know what to do with that last part, it's 1! So the potential should be \\(\Phi \propto \frac{1}{|x\_0|}\\).
 
 We can apply the same argument more generally to \\(\int \varphi(x) \delta(x)dx\\) for other functions \\(\varphi\\).
 So let's "wish" that
@@ -177,13 +177,17 @@ In fact, we can generalize this argument: for any diffeomorphism \\(g\\) of \\(\
 \\[\int f(g(x))\varphi(x)dx = \int |\operatorname{det} Dg(x)|^{-1} f(x)\varphi(g^{-1}(x))dx\\]
 where \\(Dg\\) is the derivative (Jacobian) of \\(g\\).
 So in analogy, we can define \\(\delta(g(x))\\) for any diffeomorphism \\(g\\) by
-\\[\int \delta(g(x))\varphi(x)dx := \int |\operatorname{det} Dg(x)|^{-1} \delta(x)\varphi(g^{-1}(x))dx
-= |\operatorname{det} Dg(0)|^{-1}\varphi(g^{-1}(0)).\\]
+\\[
+  \begin{aligned}
+  \int \delta(g(x))\varphi(x)dx :&= \int |\operatorname{det} Dg(x)|^{-1} \delta(x)\varphi(g^{-1}(x))dx \\\\
+&= |\operatorname{det} Dg(0)|^{-1}\varphi(g^{-1}(0)).
+\end{aligned}
+\\]
 
 I want to stress again that none of these arguments are "proofs" or "derivations" -- in the end, we have
 to choose how to define all of these terms. But clearly some definitions make more sense than others
 and in the examples here there is clearly one "right" way to define what \\(\delta(g(x))\\) etc. should
-mean. This will become even more clear in the next post: we will continue the theme of finding
+mean. This will become even more clear in the [next post](/post/distributions-operations): we will continue the theme of finding
 good definitions via "wishful thinking", only this time for arbitrary distributions and for many
 more types of operations.
 
