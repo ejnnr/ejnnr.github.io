@@ -45,13 +45,13 @@ tags: ['Reinforcement learning']
 # Display this page in the Featured widget?
 featured: true
 
-# links:
-# - name: Code
-#   icon: github
-#   icon_pack: fab
-#   url: https://github.com/ejnnr/karger_extensions
+links:
+- name: Code
+  icon: github
+  icon_pack: fab
+  url: https://github.com/HumanCompatibleAI/reward-preprocessing
 
-# url_pdf: https://arxiv.org/pdf/2110.02750
+url_pdf: https://arxiv.org/pdf/2203.13553
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 

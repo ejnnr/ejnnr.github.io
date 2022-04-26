@@ -72,7 +72,7 @@ My goal is to have a positive impact on the world by making sure that AI will be
 
 I'm currently working on my Master's thesis with the
 [Center for Human-Compatible AI](https://humancompatible.ai/)
-on the sample complexity of reward learning.
+on distance measures between reward functions.
 Before that, I have done work on the
 [interpretability of reward models](/publication/reward-preprocessing),
 [equivariant deep learning](/publication/steerable-pdos),

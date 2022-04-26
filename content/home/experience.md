@@ -23,14 +23,14 @@ date_format: Jan 2006
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 experience:
   - title: Master's thesis
-    company: University of Amsterdam / CHAI Berkeley
+    company: University of Amsterdam / UC Berkeley
     company_url: 'https://www.uva.nl'
     company_logo: uva
     location: Amsterdam
     date_start: '2021-11-01'
     date_end: ''
     description: |2-
-      Working on the sample complexity of reward learning algorithms
+      Working on distance measures between reward functions
       with Adam Gleave (UC Berkeley) and Prof. Herke van Hoof (UvA)
 
   - title: Research Intern
@@ -56,7 +56,7 @@ experience:
     description: |2-
       - Worked with Maurice Weiler (PhD student in Max Welling's group)
       - Developed the theory of equivariant partial differential operators
-      - Wrote a [paper](/publication/steerable-pdos) with my results
+      - Published a [paper](/publication/steerable-pdos) with my results at ICLR 2022
   - title: Bachelor thesis
     company: Heidelberg Collaboratory for Image Processing
     company_url: 'https://hci.iwr.uni-heidelberg.de/'
