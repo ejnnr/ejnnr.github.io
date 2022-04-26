@@ -197,22 +197,5 @@ and simple choice, but from a purely asymptotic perspective it is arbitrary.&lt;
 </description>
     </item>
     
-    <item>
-      <title>Extensions of Karger&#39;s algorithm</title>
-      <link>https://ejenner.com/project/karger/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>https://ejenner.com/project/karger/</guid>
-      <description>&lt;p&gt;Karger&amp;rsquo;s algorithm is a randomized algorithm for finding global mincuts
-in graphs. For my Bachelor&amp;rsquo;s thesis, I aimed to find out if and how
-Karger&amp;rsquo;s algorithm can be generalized to other types of problems,
-for example $s$-$t$-mincuts or normalized cuts. It turns out that this
-is &lt;em&gt;provably&lt;/em&gt; impossible in a formal sense. But in addition to this
-impossibility result, my research also led me to a new algorithm
-for seeded segmentation that uses Karger&amp;rsquo;s algorithm to sample many
-different cuts and then takes their &amp;ldquo;average&amp;rdquo;. A paper with these findings
-was accepted as an Oral at ICCV 2021.&lt;/p&gt;
-</description>
-    </item>
-    
   </channel>
 </rss>

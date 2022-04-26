@@ -369,36 +369,5 @@ at their &lt;a href=&#34;https://arxiv.org/abs/1312.6114&#34; target=&#34;_blank
 </description>
     </item>
     
-    <item>
-      <title>ML Reproducibility Challenge</title>
-      <link>https://ejenner.com/project/fact-ai/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>https://ejenner.com/project/fact-ai/</guid>
-      <description>&lt;p&gt;As part of the course &lt;em&gt;Fairness, Accountability, Confidentiality and Transparency in AI&lt;/em&gt;
-at the University of Amsterdam, I replicated the paper
-&lt;a href=&#34;https://arxiv.org/abs/2006.13114&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Fairness without Demographics through Adversarially Reweighted Learning&lt;/a&gt;
-(Lahoti et al., 2020) together with three other Master&amp;rsquo;s students.
-We also performed additional experiments to test whether the method transfers
-from tabular to image data. We wrote a report with our findings for the
-&lt;a href=&#34;https://paperswithcode.com/rc2020&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ML Reproducibility Challenge 2020&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Steerable PDOs</title>
-      <link>https://ejenner.com/project/steerable-pdos/</link>
-      <pubDate>Wed, 01 Jul 2020 00:00:00 +0000</pubDate>
-      <guid>https://ejenner.com/project/steerable-pdos/</guid>
-      <description>&lt;p&gt;Equivariant deep learning has many similarities to theoretical physics,
-which have already lead to ideas from physics being applied to the field.
-But they typically use convolutions, whereas physics uses differential
-operators. In an internship at &lt;a href=&#34;https://ivi.fnwi.uva.nl/quva/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;QUVA Lab&lt;/a&gt;,
-I developed the theory of equivariant differential operators &amp;ndash; &lt;em&gt;Steerable PDOs&lt;/em&gt;
-&amp;ndash; in order to close this gap. I also implemented steerable PDOs as
-an extension of the &lt;a href=&#34;https://github.com/QUVA-Lab/e2cnn&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;e2cnn&lt;/em&gt; library&lt;/a&gt;
-to allow others to easily apply them in their own work.&lt;/p&gt;
-</description>
-    </item>
-    
   </channel>
 </rss>

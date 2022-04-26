@@ -10,7 +10,7 @@ headless: true
 weight: 120
 
 title: Topics
-subtitle: Recurring themes in my blog posts, papers and projects
+subtitle: Recurring themes in my blog posts and papers
 
 content:
 # Choose the taxonomy from `config.toml` to display (e.g. tags, categories)
