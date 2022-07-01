@@ -22,8 +22,8 @@ and special relativity.
 
 Discounting is the idea that obtaining value \\(V\\) some time \\(\Delta t\\) into the future
 is worth only \\(f(\Delta t)V\\) now where \\(f(\Delta t) < 1\\) is the discount factor.
-What exactly "value" means depends on the context. For now we will talk about money
-as an example but we will get back to this point later.
+What exactly "value" means depends on the context. For now, we will talk about money
+as an example, but we will get back to this point later.
 
 This definition of discounting raises an obvious problem: the distance in time to future events is not
 invariant under Lorentz boosts, so by discounting like this, your value assignments
@@ -34,20 +34,20 @@ state of motion, you'll run into problems.
 
 Imagine that you're about to leave for your vacation in the Alpha Centauri system,
 taking the new _Starline 90C_ moving at 90% the speed of light.
-Suddenly, Omega comes along and offers you a deal: it will pay you $90 right now
-but in return you will have to pay $100 once you arrive on Alpha Centauri in
-`(format "%0.2f" (/ 4.34 0.9))` 4.82 years (as seen from your current
+Suddenly, Omega comes along and offers you a deal: it will pay you $\\$90$ right now
+but in return you will have to pay $\\$100$ once you arrive at Alpha Centauri in
+$4.34 / 0.9 = 4.82$ years (as seen from your current
 frame of reference on earth). This sounds like a great deal to you: you discount
-at 3% per year, so the $100 you'll have to pay are only worth
-`(format "$%0.2f" (* (expt 0.97 4.82) 100))` $86.35 to you now.
+at 3% per year, so the $\\$100$ you'll have to pay are only worth
+$\\$100 \cdot 0.97^{4.34} = \\$86.35$ to you now.
 
 So you accept the deal, board your spaceship and begin accelerating towards
 Alpha Centauri. But as you do, you feel your value assignments shifting
 -- or rather you realize that you will be on Alpha Centauri in only
-`(format "%0.2f" (* 4.82 (sqrt (- 1 0.81))))` 2.10 years
+$4.82 \cdot \sqrt{1 - (0.9)^2} = 2.10$ years
 in your new reference frame because of time dilation.
-This means that you suddenly value the $100 you will have to pay on arrival
-at `(format "$%0.2f" (* (expt 0.97 2.1) 100))` $93.80,
+This means that you suddenly value the $\\$100$ you will have to pay on arrival
+at $\\$100 \cdot 0.97^{2.1} = \\$93.80$,
 just because you stepped into a spaceship and took off.
 
 So clearly, improper discounting is an important financial hazard for
@@ -75,21 +75,21 @@ function \\(f\\) that satisfies the following criteria:
     with the old discounting factor \\(f(t)\\) -- "It all adds up
     to normality".
 3.  \\(f\\) is invariant under Lorentz boosts in the sense that if your
-    velocity suddenly changed and you recalculated all discount factors,
+    velocity suddenly changes, and you recalculate all discount factors,
     they would remain the same. Essentially, your ethical judgements
     don't change just because you take a flight to Alpha Centauri at
     relativistic speeds.
 
-I think there is only one way of discountig that satisfies all of these
+I think there is only one way of discounting that satisfies all of these
 desiderata[^fn:1]:
 use the spacetime interval instead of the time as measured in your current
 reference frame.
 
 The spacetime interval between two points is
 
-\begin{equation}\label{eq:spacetime\_interval}
+\begin{equation}
 \Delta s = \sqrt{\left(c\Delta t\right)^2 - \left(\Delta x\right)^2 -
-\left(\Delta y\right)^2 - \left(\Delta z\right)^2}
+\left(\Delta y\right)^2 - \left(\Delta z\right)^2},
 \end{equation}
 
 where \\(\Delta t\\) is their time difference (what we used for discounting before)
@@ -99,13 +99,13 @@ so if instead of discounting with \\(f(\Delta t)\\), you discount with \\(f(\Del
 then your value assignments won't change when you change frames of reference.
 
 What consequences does this have? For small spatial distances, not much changes.
-The \\(c\\) in equation \eqref{eq:spacetime\_interval} means that as long as you could reach
+The \\(c\\) in the equation above means that as long as you could reach
 an event while travelling much slower than the speed of light, \\(\Delta s \approx \Delta t\\).
 On the other hand, events that are close to the edges of your future light cone
 have \\(\Delta s\\) close to 0, meaning they are discounted only very weakly.
 So you'd care about things that happen in 4.3 years (earth frame) on Alpha Centauri
 almost as much as about what happens on earth right now -- and much more than
-about things that happen on on earth 4.3 years into the future.
+about things that happen on earth 4.3 years into the future.
 
 If you think this is absurd, I completely agree. One way to get around this is
 to give up desideratum 3 above. Maybe if your velocity changes very suddenly,
@@ -122,6 +122,5 @@ events in the far future in a relativistic universe. But if you do, there will
 be _some_ consequences that I find rather unintuitive. Either you care a lot
 about what happens on faraway star systems in the far future, or how much
 you value different things changes whenever you change your velocity.
-Take your pick.
 
 [^fn:1]: because every point in your future light cone lies on the world line of some reference frame that you can reach by a Lorentz boost
