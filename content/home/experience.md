@@ -28,9 +28,10 @@ experience:
     company_logo: uva
     location: Amsterdam
     date_start: '2021-11-01'
-    date_end: ''
+    date_end: '2021-07-15'
     description: |2-
-      Working on distance measures between reward functions
+      Worked on the theory of potential shaping and
+      on distance measures between reward functions
       with Adam Gleave (UC Berkeley) and Prof. Herke van Hoof (UvA)
 
   - title: Research Intern

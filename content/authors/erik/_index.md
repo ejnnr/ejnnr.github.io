@@ -6,28 +6,30 @@ title: Erik Jenner
 superuser: true
 
 # Role/position/tagline
-role: AI Master's Student
+role: CS PhD student
 
 # Organizations/Affiliations to show in About widget
 organizations:
-- name: University of Amsterdam
-  url: https://www.uva.nl/
+- name: UC Berkeley
+  url: https://www.berkeley.edu/
 
 # Short bio (displayed in user profile at end of posts)
 bio:
 
 # Interests to show in About widget
 interests:
-- Reward Learning
-- Interpretability
-- Robust ML
+- AI existential safety
+- Reward learning
 
 # Education to show in About widget
 education:
   courses:
+  - course: PhD in Computer Science
+    institution: UC Berkeley
+    year: since 2022
   - course: MSc in Artificial Intelligence
     institution: University of Amsterdam
-    year: since 2020
+    year: 2022
   - course: BSc in Physics
     institution: Heidelberg University
     year: 2020
@@ -67,13 +69,8 @@ email: ""
 highlight_name: true
 ---
 
-I'm a Master's student in Artificial Intelligence at the University of Amsterdam.
-My goal is to have a positive impact on the world by making sure that AI will be aligned with humanity’s interests.
-
-I'm currently working on my Master's thesis with the
-[Center for Human-Compatible AI](https://humancompatible.ai/)
-on distance measures between reward functions.
-Before that, I have done work on the
-[interpretability of reward models](/publication/reward-preprocessing),
-[equivariant deep learning](/publication/steerable-pdos),
-and on [graph-based segmentation](/publication/karger).
+I'm a Computer Science PhD student at UC Berkeley,
+advised by Prof. Stuart Russell, and part
+of the [Center for Human-Compatible AI](https://humancompatible.ai/).
+I am working on how to align powerful future AI systems with human values,
+to reduce the [existential risk posed by AI](https://futureoflife.org/background/benefits-risks-of-artificial-intelligence/).
