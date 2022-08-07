@@ -69,8 +69,10 @@ email: ""
 highlight_name: true
 ---
 
-I'm a Computer Science PhD student at UC Berkeley,
-advised by Prof. Stuart Russell, and part
-of the [Center for Human-Compatible AI](https://humancompatible.ai/).
-I am working on how to align powerful future AI systems with human values,
+I'm a Computer Science PhD student at UC Berkeley
+working on how to align powerful future AI systems with human values,
 to reduce the [existential risk posed by AI](https://futureoflife.org/background/benefits-risks-of-artificial-intelligence/).
+I am advised by [Stuart Russell](https://people.eecs.berkeley.edu/~russell/)
+and part of the [Center for Human-Compatible AI](https://humancompatible.ai/).
+I am grateful to be supported by fellowships from the [Future of Life Institute](https://futureoflife.org/team/fellowship-winners-2022/)
+and [Open Philanthropy](https://www.openphilanthropy.org/grants/open-phil-ai-fellowship-2022-class/).
