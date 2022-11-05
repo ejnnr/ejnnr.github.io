@@ -2,16 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ejenner.com/post/einsum/</loc>
+    <lastmod>2022-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/</loc>
+    <lastmod>2022-11-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://ejenner.com/post/</loc>
+    <lastmod>2022-11-03T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://ejenner.com/post/distributions-operations/</loc>
     <lastmod>2022-03-06T00:00:00+01:00</lastmod>
   </url><url>
-    <loc>https://ejenner.com/</loc>
-    <lastmod>2022-03-06T00:00:00+01:00</lastmod>
-  </url><url>
     <loc>https://ejenner.com/tag/math/</loc>
-    <lastmod>2022-03-06T00:00:00+01:00</lastmod>
-  </url><url>
-    <loc>https://ejenner.com/post/</loc>
     <lastmod>2022-03-06T00:00:00+01:00</lastmod>
   </url><url>
     <loc>https://ejenner.com/tags/</loc>

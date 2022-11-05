@@ -5,12 +5,111 @@
     <link>https://ejenner.com/post/</link>
       <atom:link href="https://ejenner.com/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sun, 06 Mar 2022 00:00:00 +0100</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Thu, 03 Nov 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>Posts</title>
       <link>https://ejenner.com/post/</link>
     </image>
+    
+    <item>
+      <title>Einsum is easy and useful</title>
+      <link>https://ejenner.com/post/einsum/</link>
+      <pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/post/einsum/</guid>
+      <description>&lt;p&gt;&lt;code&gt;einsum&lt;/code&gt; is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&amp;rsquo;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason &lt;code&gt;einsum&lt;/code&gt; is great is precisely because it is &lt;em&gt;easier&lt;/em&gt; to use and reason about than the alternatives. So this post tries to set the record straight and show how simple &lt;code&gt;einsum&lt;/code&gt; really is.&lt;/p&gt;
+&lt;p&gt;The general syntax for &lt;code&gt;einsum&lt;/code&gt; is&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;einsum(&amp;quot;some string describing an operation&amp;quot;, tensor_1, tensor_2, ...)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;with an arbitrary number of tensors after the string. (I&amp;rsquo;ll be saying &amp;ldquo;tensors&amp;rdquo; but they could just as well be Numpy arrays.)&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s look at an example. Say we have two matrices, &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;B&lt;/code&gt;, with shapes such that we can multiply them as &lt;code&gt;A @ B&lt;/code&gt;. Using &lt;code&gt;einsum&lt;/code&gt;, we can write this matrix product as&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;einsum(&amp;quot;ij,jk-&amp;gt;ik&amp;quot;, A, B)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The interesting part is the string, &lt;code&gt;&amp;quot;ij,jk-&amp;gt;ik&amp;quot;&lt;/code&gt;. These &lt;code&gt;einsum&lt;/code&gt; strings always follow the same structure:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;quot;&amp;lt;input indices&amp;gt; -&amp;gt; &amp;lt;output indices&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this example, the input indices are &lt;code&gt;&amp;quot;ij,jk&amp;quot;&lt;/code&gt;. These &lt;em&gt;define&lt;/em&gt; letters for indices into each input tensor. Different tensors are comma-separated, so &lt;code&gt;ij&lt;/code&gt; refers to &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;jk&lt;/code&gt; refers to &lt;code&gt;B&lt;/code&gt;. &lt;code&gt;ij&lt;/code&gt; means we call the first axis of &lt;code&gt;A&lt;/code&gt; &lt;code&gt;i&lt;/code&gt; and the second axis &lt;code&gt;j&lt;/code&gt;, and similarly, &lt;code&gt;jk&lt;/code&gt; defines names for the axes of &lt;code&gt;B&lt;/code&gt;. The specific letters we use are arbitrary here, we could just as well write &lt;code&gt;&amp;quot;ga,aw-&amp;gt;gw&amp;quot;&lt;/code&gt;. There has to be one index per axis of the input tensor—in our case, both &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;B&lt;/code&gt; have two axes (they&amp;rsquo;re matrices), so both get two indices.&lt;/p&gt;
+&lt;p&gt;What&amp;rsquo;s important is that we&amp;rsquo;re using the same letter, &lt;code&gt;j&lt;/code&gt;, both for the second axis of &lt;code&gt;A&lt;/code&gt; and for the first axis of &lt;code&gt;B&lt;/code&gt;. That&amp;rsquo;s &lt;em&gt;not&lt;/em&gt; just an arbitrary definition, it has an effect on the result! Think of it this way: the entire left-hand side, &lt;code&gt;&amp;quot;ij,jk&amp;quot;&lt;/code&gt; defines a three-dimensional tensor, indexed by &lt;code&gt;i&lt;/code&gt;, &lt;code&gt;j&lt;/code&gt;, and &lt;code&gt;k&lt;/code&gt;. We get its elements by &lt;em&gt;multiplying&lt;/em&gt; the corresponding elements of &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;B&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;product[i, j, k] = A[i, j] * B[j, k]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So it matters that &lt;code&gt;j&lt;/code&gt; appears twice—a string like &lt;code&gt;&amp;quot;ij,lk&amp;quot;&lt;/code&gt; would define a four-dimensional tensor:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;product[i, j, l, k] = A[i, j] * B[l, k]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(Don&amp;rsquo;t worry about the order of these indices into &lt;code&gt;product&lt;/code&gt;—as we&amp;rsquo;ll see in a moment, the right-hand side of our string will explicitly specify the order we want).&lt;/p&gt;
+&lt;p&gt;The right side of the &lt;code&gt;-&amp;gt;&lt;/code&gt; arrow describes how to get our final output from this &lt;code&gt;product&lt;/code&gt; tensor. It&amp;rsquo;s very simple: any index that appears on the left (i.e. in the &lt;code&gt;product&lt;/code&gt; tensor) but doesn&amp;rsquo;t appear on the right is summed over. So in our matrix multiplication example, since our output indices are &lt;code&gt;ik&lt;/code&gt;, we sum over &lt;code&gt;j&lt;/code&gt;. So the final result is&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;out[i, k] = sum_j A[i, j] * B[j, k]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Precisely a matrix multiply, as promised!&lt;/p&gt;
+&lt;p&gt;All of this generalizes in very nice and intuitive ways. On the left side of the &lt;code&gt;-&amp;gt;&lt;/code&gt; arrow, we can have arbitrary patterns, and they&amp;rsquo;ll always describe a scheme for indexing into a product of the inputs. For example, the string &lt;code&gt;&amp;quot;iij,kji,l&amp;quot;&lt;/code&gt; would define a four-dimensional tensor, given by&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;product[i, j, k, l] = A[i, i, j] * B[k, j, i] * C[l]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(for input tensors &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt;, &lt;code&gt;C&lt;/code&gt;).
+Note how much easier this is compared to a version without &lt;code&gt;einsum&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;n = A.shape[0]
+product = A[t.arange(n), t.arange(n), :, None, None] \
+        * B.permute(2, 1, 0)[:, :, :, None] \
+        * C[None, None, None, :]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our output can now be any permutation of any subset of &lt;code&gt;ijkl&lt;/code&gt;. For example, &lt;code&gt;&amp;quot;iij,kji,l-&amp;gt;ki&amp;quot;&lt;/code&gt; would implicitly compute the product tensor above, then sum over &lt;code&gt;j&lt;/code&gt; and &lt;code&gt;l&lt;/code&gt;, and finally permute the result so the order of axes was &lt;code&gt;ki&lt;/code&gt;. Contrast with how messy this would be without &lt;code&gt;einsum&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# With broadcasting and array indexing:
+n = A.shape[0]
+out = (
+    A[t.arange(n), t.arange(n), :, None, None]
+  * B.permute(2, 1, 0)[:, :, :, None]
+  * C[None, None, None, :]
+).sum(1,3).T
+
+# With einsum:
+out = t.einsum(&amp;quot;iij,kji,l-&amp;gt;ki&amp;quot;, A, B, C)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The main point is not that the &lt;code&gt;einsum&lt;/code&gt; version is shorter—the point is that the other version took me 10 minutes to write and I&amp;rsquo;m still not sure it&amp;rsquo;s correct.&lt;/p&gt;
+&lt;p&gt;That concludes the description of &lt;code&gt;einsum&lt;/code&gt;, but let&amp;rsquo;s look at some more examples to get a better intuition:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Say you want to compute the &lt;em&gt;transpose&lt;/em&gt; of the matrix product, &lt;code&gt;(A @ B).T&lt;/code&gt;. What that means is just that you want the indices in the output flipped, so the string now becomes &lt;code&gt;&amp;quot;ij,jk-&amp;gt;ki&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Sometimes you want to sum over &lt;em&gt;all&lt;/em&gt; axes; in that case, you can just leave the right hand side empty. For example, &lt;code&gt;&amp;quot;i,i-&amp;gt;&amp;quot;&lt;/code&gt; will compute the inner product of two input vectors.&lt;/li&gt;
+&lt;li&gt;Just like you can have repeated indices in different input tensors, you can repeat indices within the same tensor. For example, &lt;code&gt;&amp;quot;ii-&amp;gt;&amp;quot;&lt;/code&gt; computes the trace of a matrix. Or you could do &lt;code&gt;&amp;quot;ii-&amp;gt;i&amp;quot;&lt;/code&gt; to get the diagonal as a vector.&lt;/li&gt;
+&lt;li&gt;You can trivially add batch dimensions to any operation. For example, a batched inner product would be &lt;code&gt;&amp;quot;bi,bi-&amp;gt;b&amp;quot;&lt;/code&gt;. A batched matrix multiply would be &lt;code&gt;&amp;quot;bij,bjk-&amp;gt;bik&amp;quot;&lt;/code&gt;. If for some reason, your batch dimension is in the last position for the second batch of matrices, that&amp;rsquo;s no problem: &lt;code&gt;&amp;quot;bij,jkb-&amp;gt;bik&amp;quot;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Batching also lets you take arbitrary diagonals of a tensor easily. For example, &lt;code&gt;&amp;quot;ibi-&amp;gt;bi&amp;quot;&lt;/code&gt; will give you the diagonal along the first and third axis, batched over the middle axis.&lt;/li&gt;
+&lt;li&gt;A neat trick is that you can have a &lt;em&gt;variable&lt;/em&gt; number of batch dimensions using a &lt;code&gt;...&lt;/code&gt; syntax: &lt;code&gt;&amp;quot;...ij,...jk-&amp;gt;...ik&amp;quot;&lt;/code&gt; is a batched matrix multiply that works for any number of batch dimensions. The &lt;code&gt;...&lt;/code&gt; can be anywhere, not just at the front. For example, &lt;code&gt;&amp;quot;...ij,j...k-&amp;gt;ik...&amp;quot;&lt;/code&gt; will work just fine, for any number of dimensions as the &lt;code&gt;...&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;einops&#34;&gt;Einops&lt;/h1&gt;
+&lt;p&gt;The main problem with &lt;code&gt;einsum&lt;/code&gt; is that it doesn&amp;rsquo;t support enough operations. For example, say you have an image tensor &lt;code&gt;x&lt;/code&gt; with shape &lt;code&gt;(batch, channels, height, width)&lt;/code&gt;. If all you want to do is move the channel axis, you can just do&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;einsum(&amp;quot;bchw-&amp;gt;bhwc&amp;quot;, x)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But what if you also want to flatten the height and width dimension into a single axis? That&amp;rsquo;s where the &lt;a href=&#34;http://einops.rocks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;einops&lt;/code&gt;&lt;/a&gt; library comes into play:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;rearrange(x, &amp;quot;b c h w -&amp;gt; b (h w) c&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;rearrange&lt;/code&gt; function takes a tensor followed by a string similar to &lt;code&gt;einsum&lt;/code&gt; strings. The only new aspect are the parentheses—here, they tell &lt;code&gt;einops&lt;/code&gt; to combine the height and width dimension into one axis. Just like &lt;code&gt;einsum&lt;/code&gt;, &lt;code&gt;rearrange&lt;/code&gt; is extremely flexible, so you can for example transpose these axes before flattening them just by doing&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;rearrange(x, &amp;quot;b c h w -&amp;gt; b (w h) c&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also have parentheses on the left side, to split one axis into multiple. So for example, we can invert the operation above using&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;rearrange(x, &amp;quot;b (w h) c -&amp;gt; b c h w&amp;quot;, h=32)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;h=32&lt;/code&gt; tells &lt;code&gt;einops&lt;/code&gt; that the &lt;code&gt;h&lt;/code&gt; axis should have length 32 (without this information, it would be unclear how to split up the single input axis).&lt;/p&gt;
+&lt;p&gt;Note how &lt;em&gt;obvious&lt;/em&gt; it is that &lt;code&gt;&amp;quot;b (w h) c -&amp;gt; b c h w&amp;quot;&lt;/code&gt; is the inverse of &lt;code&gt;&amp;quot;b c h w -&amp;gt; b (w h) c&amp;quot;&lt;/code&gt;. We just switched the left and right-hand side! In general, you can &lt;em&gt;compose&lt;/em&gt; &lt;code&gt;rearrange&lt;/code&gt; operations: doing &lt;code&gt;&amp;quot;string_1 -&amp;gt; string_2&amp;quot;&lt;/code&gt; followed by &lt;code&gt;&amp;quot;string_2 -&amp;gt; string_3&amp;quot;&lt;/code&gt; is the same as doing &lt;code&gt;&amp;quot;string_1 -&amp;gt; string_3&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;There&amp;rsquo;s more to say about &lt;code&gt;rearrange&lt;/code&gt;, and its cousin &lt;code&gt;repeat&lt;/code&gt;, but the &lt;code&gt;einops&lt;/code&gt; documentation does a good job explaining them, so I&amp;rsquo;ll leave it at that.&lt;/p&gt;
+&lt;h1 id=&#34;a-more-complex-example&#34;&gt;A more complex example&lt;/h1&gt;
+&lt;p&gt;As a final example, let&amp;rsquo;s consider a multi-head attention mechanism. Say we have our &lt;code&gt;Q&lt;/code&gt;, &lt;code&gt;K&lt;/code&gt; and &lt;code&gt;V&lt;/code&gt; tensors,
+each of shape &lt;code&gt;(batch, seq_length, n_heads * head_dim)&lt;/code&gt; (the &lt;code&gt;n_heads&lt;/code&gt; and &lt;code&gt;head_dim&lt;/code&gt; dimensions are flattened into one because we did a single matrix multiply for all heads to obtain these tensors). We want to compute the attention pattern &lt;code&gt;A&lt;/code&gt; of shape &lt;code&gt;(batch, n_heads, seq_length, seq_length)&lt;/code&gt;. We can use &lt;code&gt;einops&lt;/code&gt; and &lt;code&gt;einsum&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;Q = rearrange(Q, &amp;quot;b q (h d) -&amp;gt; b q h d&amp;quot;, h=n_heads)
+K = rearrange(K, &amp;quot;b k (h d) -&amp;gt; b k h d&amp;quot;, h=n_heads)
+A = einsum(&amp;quot;b q h d, b k h d -&amp;gt; b h q k&amp;quot;, Q, K)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Note how simple this is: the output of our rearranged tensors, &lt;code&gt;bqhd&lt;/code&gt; and &lt;code&gt;bkhd&lt;/code&gt;, already tell us what the inputs for the &lt;code&gt;einsum&lt;/code&gt; have to be. The output indices for the &lt;code&gt;einsum&lt;/code&gt; are almost determined by the desired output shape. Implicitly, this is a batched matrix multiply over the &lt;code&gt;d&lt;/code&gt; dimensions (batched over all other axes), but we don&amp;rsquo;t have to think about that to write down the &lt;code&gt;einsum&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Contrast with this alternative, where we have to carefully think about the position of each axis:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;batch, seq_length, _ = Q.shape
+Q = Q.view(batch, seq_length, 1, n_heads, -1)
+K = K.view(batch, 1, seq_length, n_heads, -1)
+A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;einsum&lt;/code&gt; isn&amp;rsquo;t just easier to read and write, it&amp;rsquo;s also easier to refactor. Imagine we suddenly have to deal with multiple batch dimensions. In the &lt;code&gt;einsum&lt;/code&gt; version, we just replace the &lt;code&gt;b&lt;/code&gt; with &lt;code&gt;...&lt;/code&gt; and everything works, whereas the second version becomes even messier. Or imagine the format of our tensors changes so that the &lt;code&gt;h&lt;/code&gt; and &lt;code&gt;d&lt;/code&gt; axes are now swapped. In the &lt;code&gt;einsum&lt;/code&gt; version, we just swap all occurrences of &lt;code&gt;h&lt;/code&gt; and &lt;code&gt;d&lt;/code&gt;. The other version requires us to carefully check all the magic numbers to see which ones need to be changed.&lt;/p&gt;
+&lt;h1 id=&#34;einsum-could-be-even-better&#34;&gt;&lt;code&gt;einsum&lt;/code&gt; could be even better&lt;/h1&gt;
+&lt;p&gt;I&amp;rsquo;d love to see an &lt;code&gt;einsum&lt;/code&gt; wrapper that combines the capabilities of &lt;code&gt;einsum&lt;/code&gt; and &lt;code&gt;rearrange&lt;/code&gt;. For example, we could write the attention mechanism above as a simple one-liner:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;A = einsum(&amp;quot;b q (h d), b k (h d) -&amp;gt; b h q k&amp;quot;, Q, K, h=n_heads)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If anyone ends up implementing this, please &lt;a href=&#34;mailto:erik@ejenner.com&#34;&gt;let me know&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Distributions Part II: What can we do with distributions?</title>

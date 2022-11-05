@@ -1,0 +1,1136 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  
+  
+    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+  
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Erik Jenner" />
+
+  
+  
+  
+    
+  
+  <meta name="description" content="  " />
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/einsum/" />
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
+  
+  
+  
+    <meta name="theme-color" content="#707070" />
+  
+
+  
+  
+    
+    <script src="/js/mathjax-config.js"></script>
+  
+
+  
+
+  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+
+  
+  
+  
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+    
+
+    
+    
+    
+    
+      
+      
+    
+    
+    
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
+        
+      
+    
+
+    
+    
+    
+
+    
+
+    
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+      
+      
+
+      
+      
+
+      
+    
+  
+
+  
+  
+  
+    
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
+    
+  
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/wowchemy.fd9b978ceb8f3cb70c65357f0dc17c1c.css" />
+
+  
+
+
+
+  
+
+  
+
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+    <link rel="manifest" href="/manifest.webmanifest" />
+  
+
+  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+  <link rel="canonical" href="https://ejenner.com/post/einsum/" />
+
+  
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary" />
+  
+    <meta property="twitter:site" content="@jenner_erik" />
+    <meta property="twitter:creator" content="@jenner_erik" />
+  
+  <meta property="og:site_name" content="Erik Jenner" />
+  <meta property="og:url" content="https://ejenner.com/post/einsum/" />
+  <meta property="og:title" content="Einsum is easy and useful | Erik Jenner" />
+  <meta property="og:description" content="  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  
+    
+      <meta
+        property="article:published_time"
+        content="2022-11-03T00:00:00&#43;00:00"
+      />
+    
+    <meta property="article:modified_time" content="2022-11-03T00:00:00&#43;00:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ejenner.com/post/einsum/"
+  },
+  "headline": "Einsum is easy and useful",
+  
+  "datePublished": "2022-11-03T00:00:00Z",
+  "dateModified": "2022-11-03T00:00:00Z",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Erik Jenner"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Erik Jenner",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"
+    }
+  },
+  "description": "  "
+}
+</script>
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  <title>Einsum is easy and useful | Erik Jenner</title>
+</head>
+
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="page-wrapper   " data-wc-page-id="0759702101df40b7da24fd834752c620" >
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+
+  
+
+
+<aside class="search-modal" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#" aria-label="Close"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search" class="form-control"
+        aria-label="Search...">
+        
+      </div>
+
+      
+      
+
+      
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+
+  <div class="page-header">
+    
+
+
+
+
+
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container-xl">
+
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/post"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+      
+      
+        
+      
+
+      
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  </div>
+
+  <div class="page-body">
+    <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>Einsum is easy and useful</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Nov 3, 2022
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    
+      8
+    
+    min read
+  </span>
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p><code>einsum</code> is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&rsquo;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason <code>einsum</code> is great is precisely because it is <em>easier</em> to use and reason about than the alternatives. So this post tries to set the record straight and show how simple <code>einsum</code> really is.</p>
+<p>The general syntax for <code>einsum</code> is</p>
+<pre><code class="language-python">einsum(&quot;some string describing an operation&quot;, tensor_1, tensor_2, ...)
+</code></pre>
+<p>with an arbitrary number of tensors after the string. (I&rsquo;ll be saying &ldquo;tensors&rdquo; but they could just as well be Numpy arrays.)</p>
+<p>Let&rsquo;s look at an example. Say we have two matrices, <code>A</code> and <code>B</code>, with shapes such that we can multiply them as <code>A @ B</code>. Using <code>einsum</code>, we can write this matrix product as</p>
+<pre><code class="language-python">einsum(&quot;ij,jk-&gt;ik&quot;, A, B)
+</code></pre>
+<p>The interesting part is the string, <code>&quot;ij,jk-&gt;ik&quot;</code>. These <code>einsum</code> strings always follow the same structure:</p>
+<pre><code class="language-python">&quot;&lt;input indices&gt; -&gt; &lt;output indices&gt;&quot;
+</code></pre>
+<p>In this example, the input indices are <code>&quot;ij,jk&quot;</code>. These <em>define</em> letters for indices into each input tensor. Different tensors are comma-separated, so <code>ij</code> refers to <code>A</code> and <code>jk</code> refers to <code>B</code>. <code>ij</code> means we call the first axis of <code>A</code> <code>i</code> and the second axis <code>j</code>, and similarly, <code>jk</code> defines names for the axes of <code>B</code>. The specific letters we use are arbitrary here, we could just as well write <code>&quot;ga,aw-&gt;gw&quot;</code>. There has to be one index per axis of the input tensor—in our case, both <code>A</code> and <code>B</code> have two axes (they&rsquo;re matrices), so both get two indices.</p>
+<p>What&rsquo;s important is that we&rsquo;re using the same letter, <code>j</code>, both for the second axis of <code>A</code> and for the first axis of <code>B</code>. That&rsquo;s <em>not</em> just an arbitrary definition, it has an effect on the result! Think of it this way: the entire left-hand side, <code>&quot;ij,jk&quot;</code> defines a three-dimensional tensor, indexed by <code>i</code>, <code>j</code>, and <code>k</code>. We get its elements by <em>multiplying</em> the corresponding elements of <code>A</code> and <code>B</code>:</p>
+<pre><code class="language-python">product[i, j, k] = A[i, j] * B[j, k]
+</code></pre>
+<p>So it matters that <code>j</code> appears twice—a string like <code>&quot;ij,lk&quot;</code> would define a four-dimensional tensor:</p>
+<pre><code class="language-python">product[i, j, l, k] = A[i, j] * B[l, k]
+</code></pre>
+<p>(Don&rsquo;t worry about the order of these indices into <code>product</code>—as we&rsquo;ll see in a moment, the right-hand side of our string will explicitly specify the order we want).</p>
+<p>The right side of the <code>-&gt;</code> arrow describes how to get our final output from this <code>product</code> tensor. It&rsquo;s very simple: any index that appears on the left (i.e. in the <code>product</code> tensor) but doesn&rsquo;t appear on the right is summed over. So in our matrix multiplication example, since our output indices are <code>ik</code>, we sum over <code>j</code>. So the final result is</p>
+<pre><code class="language-python">out[i, k] = sum_j A[i, j] * B[j, k]
+</code></pre>
+<p>Precisely a matrix multiply, as promised!</p>
+<p>All of this generalizes in very nice and intuitive ways. On the left side of the <code>-&gt;</code> arrow, we can have arbitrary patterns, and they&rsquo;ll always describe a scheme for indexing into a product of the inputs. For example, the string <code>&quot;iij,kji,l&quot;</code> would define a four-dimensional tensor, given by</p>
+<pre><code class="language-python">product[i, j, k, l] = A[i, i, j] * B[k, j, i] * C[l]
+</code></pre>
+<p>(for input tensors <code>A</code>, <code>B</code>, <code>C</code>).
+Note how much easier this is compared to a version without <code>einsum</code>:</p>
+<pre><code class="language-python">n = A.shape[0]
+product = A[t.arange(n), t.arange(n), :, None, None] \
+        * B.permute(2, 1, 0)[:, :, :, None] \
+        * C[None, None, None, :]
+</code></pre>
+<p>Our output can now be any permutation of any subset of <code>ijkl</code>. For example, <code>&quot;iij,kji,l-&gt;ki&quot;</code> would implicitly compute the product tensor above, then sum over <code>j</code> and <code>l</code>, and finally permute the result so the order of axes was <code>ki</code>. Contrast with how messy this would be without <code>einsum</code>:</p>
+<pre><code class="language-python"># With broadcasting and array indexing:
+n = A.shape[0]
+out = (
+    A[t.arange(n), t.arange(n), :, None, None]
+  * B.permute(2, 1, 0)[:, :, :, None]
+  * C[None, None, None, :]
+).sum(1,3).T
+
+# With einsum:
+out = t.einsum(&quot;iij,kji,l-&gt;ki&quot;, A, B, C)
+</code></pre>
+<p>The main point is not that the <code>einsum</code> version is shorter—the point is that the other version took me 10 minutes to write and I&rsquo;m still not sure it&rsquo;s correct.</p>
+<p>That concludes the description of <code>einsum</code>, but let&rsquo;s look at some more examples to get a better intuition:</p>
+<ul>
+<li>Say you want to compute the <em>transpose</em> of the matrix product, <code>(A @ B).T</code>. What that means is just that you want the indices in the output flipped, so the string now becomes <code>&quot;ij,jk-&gt;ki&quot;</code>.</li>
+<li>Sometimes you want to sum over <em>all</em> axes; in that case, you can just leave the right hand side empty. For example, <code>&quot;i,i-&gt;&quot;</code> will compute the inner product of two input vectors.</li>
+<li>Just like you can have repeated indices in different input tensors, you can repeat indices within the same tensor. For example, <code>&quot;ii-&gt;&quot;</code> computes the trace of a matrix. Or you could do <code>&quot;ii-&gt;i&quot;</code> to get the diagonal as a vector.</li>
+<li>You can trivially add batch dimensions to any operation. For example, a batched inner product would be <code>&quot;bi,bi-&gt;b&quot;</code>. A batched matrix multiply would be <code>&quot;bij,bjk-&gt;bik&quot;</code>. If for some reason, your batch dimension is in the last position for the second batch of matrices, that&rsquo;s no problem: <code>&quot;bij,jkb-&gt;bik&quot;</code>.</li>
+<li>Batching also lets you take arbitrary diagonals of a tensor easily. For example, <code>&quot;ibi-&gt;bi&quot;</code> will give you the diagonal along the first and third axis, batched over the middle axis.</li>
+<li>A neat trick is that you can have a <em>variable</em> number of batch dimensions using a <code>...</code> syntax: <code>&quot;...ij,...jk-&gt;...ik&quot;</code> is a batched matrix multiply that works for any number of batch dimensions. The <code>...</code> can be anywhere, not just at the front. For example, <code>&quot;...ij,j...k-&gt;ik...&quot;</code> will work just fine, for any number of dimensions as the <code>...</code></li>
+</ul>
+<h1 id="einops">Einops</h1>
+<p>The main problem with <code>einsum</code> is that it doesn&rsquo;t support enough operations. For example, say you have an image tensor <code>x</code> with shape <code>(batch, channels, height, width)</code>. If all you want to do is move the channel axis, you can just do</p>
+<pre><code class="language-python">einsum(&quot;bchw-&gt;bhwc&quot;, x)
+</code></pre>
+<p>But what if you also want to flatten the height and width dimension into a single axis? That&rsquo;s where the <a href="http://einops.rocks" target="_blank" rel="noopener"><code>einops</code></a> library comes into play:</p>
+<pre><code class="language-python">rearrange(x, &quot;b c h w -&gt; b (h w) c&quot;)
+</code></pre>
+<p>The <code>rearrange</code> function takes a tensor followed by a string similar to <code>einsum</code> strings. The only new aspect are the parentheses—here, they tell <code>einops</code> to combine the height and width dimension into one axis. Just like <code>einsum</code>, <code>rearrange</code> is extremely flexible, so you can for example transpose these axes before flattening them just by doing</p>
+<pre><code class="language-python">rearrange(x, &quot;b c h w -&gt; b (w h) c&quot;)
+</code></pre>
+<p>You can also have parentheses on the left side, to split one axis into multiple. So for example, we can invert the operation above using</p>
+<pre><code class="language-python">rearrange(x, &quot;b (w h) c -&gt; b c h w&quot;, h=32)
+</code></pre>
+<p>The <code>h=32</code> tells <code>einops</code> that the <code>h</code> axis should have length 32 (without this information, it would be unclear how to split up the single input axis).</p>
+<p>Note how <em>obvious</em> it is that <code>&quot;b (w h) c -&gt; b c h w&quot;</code> is the inverse of <code>&quot;b c h w -&gt; b (w h) c&quot;</code>. We just switched the left and right-hand side! In general, you can <em>compose</em> <code>rearrange</code> operations: doing <code>&quot;string_1 -&gt; string_2&quot;</code> followed by <code>&quot;string_2 -&gt; string_3&quot;</code> is the same as doing <code>&quot;string_1 -&gt; string_3&quot;</code>.</p>
+<p>There&rsquo;s more to say about <code>rearrange</code>, and its cousin <code>repeat</code>, but the <code>einops</code> documentation does a good job explaining them, so I&rsquo;ll leave it at that.</p>
+<h1 id="a-more-complex-example">A more complex example</h1>
+<p>As a final example, let&rsquo;s consider a multi-head attention mechanism. Say we have our <code>Q</code>, <code>K</code> and <code>V</code> tensors,
+each of shape <code>(batch, seq_length, n_heads * head_dim)</code> (the <code>n_heads</code> and <code>head_dim</code> dimensions are flattened into one because we did a single matrix multiply for all heads to obtain these tensors). We want to compute the attention pattern <code>A</code> of shape <code>(batch, n_heads, seq_length, seq_length)</code>. We can use <code>einops</code> and <code>einsum</code>:</p>
+<pre><code class="language-python">Q = rearrange(Q, &quot;b q (h d) -&gt; b q h d&quot;, h=n_heads)
+K = rearrange(K, &quot;b k (h d) -&gt; b k h d&quot;, h=n_heads)
+A = einsum(&quot;b q h d, b k h d -&gt; b h q k&quot;, Q, K)
+</code></pre>
+<p>Note how simple this is: the output of our rearranged tensors, <code>bqhd</code> and <code>bkhd</code>, already tell us what the inputs for the <code>einsum</code> have to be. The output indices for the <code>einsum</code> are almost determined by the desired output shape. Implicitly, this is a batched matrix multiply over the <code>d</code> dimensions (batched over all other axes), but we don&rsquo;t have to think about that to write down the <code>einsum</code>.</p>
+<p>Contrast with this alternative, where we have to carefully think about the position of each axis:</p>
+<pre><code class="language-python">batch, seq_length, _ = Q.shape
+Q = Q.view(batch, seq_length, 1, n_heads, -1)
+K = K.view(batch, 1, seq_length, n_heads, -1)
+A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
+</code></pre>
+<p><code>einsum</code> isn&rsquo;t just easier to read and write, it&rsquo;s also easier to refactor. Imagine we suddenly have to deal with multiple batch dimensions. In the <code>einsum</code> version, we just replace the <code>b</code> with <code>...</code> and everything works, whereas the second version becomes even messier. Or imagine the format of our tensors changes so that the <code>h</code> and <code>d</code> axes are now swapped. In the <code>einsum</code> version, we just swap all occurrences of <code>h</code> and <code>d</code>. The other version requires us to carefully check all the magic numbers to see which ones need to be changed.</p>
+<h1 id="einsum-could-be-even-better"><code>einsum</code> could be even better</h1>
+<p>I&rsquo;d love to see an <code>einsum</code> wrapper that combines the capabilities of <code>einsum</code> and <code>rearrange</code>. For example, we could write the attention mechanism above as a simple one-liner:</p>
+<pre><code class="language-python">A = einsum(&quot;b q (h d), b k (h d) -&gt; b h q k&quot;, Q, K, h=n_heads)
+</code></pre>
+<p>If anyone ends up implementing this, please <a href="mailto:erik@ejenner.com">let me know</a>!</p>
+
+    </div>
+
+    
+
+
+
+
+
+
+<div class="article-tags">
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  
+    
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+      
+      <a href="https://ejenner.com/"><img class="avatar mr-3 avatar-circle" src="/authors/erik/avatar_hub109d6f6def8deb616a16db0d971c7d0_285493_270x270_fill_q75_lanczos_center.jpg" alt="Erik Jenner"></a>
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="https://ejenner.com/">Erik Jenner</a></h5>
+      <h6 class="card-subtitle">CS PhD student</h6>
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:erik@ejenner.com" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/jenner_erik" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://scholar.google.com/citations?user=8DgF8HcAAAAJ" target="_blank" rel="noopener">
+        <i class="fas fa-graduation-cap"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/ejnnr" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://www.linkedin.com/in/erik-jenner" target="_blank" rel="noopener">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </li>
+  
+</ul>
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  </div>
+</article>
+  </div>
+
+  <div class="page-footer">
+    
+    
+    <div class="container">
+      <footer class="site-footer">
+
+  
+
+
+
+  
+
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy</a>
+    
+    
+  </p>
+  
+
+  
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    
+    
+    
+      
+      
+      
+      
+      
+      
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+    
+  </p>
+</footer>
+
+    </div>
+    
+  </div>
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+
+    
+    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+
+    
+    
+    
+      
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      
+
+      
+      
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
+        
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
+        
+      
+
+    
+
+    
+    
+    
+
+    
+    
+
+    
+    
+    
+      
+      <script id="search-hit-fuse-template" type="text/x-template">
+        <div class="search-hit" id="summary-{{key}}">
+          <div class="search-hit-content">
+            <div class="search-hit-name">
+              <a href="{{relpermalink}}">{{title}}</a>
+              <div class="article-metadata search-hit-type">{{type}}</div>
+              <p class="search-hit-description">{{snippet}}</p>
+            </div>
+          </div>
+        </div>
+      </script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+      
+    
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+      
+      
+      
+      
+      
+      
+      
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+      
+      
+    
+    
+    <script src="/en/js/wowchemy.min.d68ecd57c0ec1f1f61d65fd568f1c3a0.js"></script>
+
+    <script data-goatcounter="https://ejnnr.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+
+
+</body>
+</html>
