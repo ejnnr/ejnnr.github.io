@@ -2,7 +2,7 @@
 title = "Einsum is easy and useful"
 summary = """`einsum` is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don't use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason `einsum` is great is precisely because it is *easier* to use and reason about than the alternatives. So this post tries to set the record straight and show how simple `einsum` really is.
   """
-date = 2022-11-03T00:00:00+00:00
+date = 2022-11-05T00:00:00+00:00
 tags = [""]
 draft = false
 [image]
