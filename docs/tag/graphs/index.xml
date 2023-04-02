@@ -177,23 +177,23 @@ a single run.&lt;/p&gt;
 &lt;p&gt;But also note that any choice of a &amp;ldquo;branching factor&amp;rdquo; \(a\) works, as long as we then choose
 \(b = \sqrt{a}\). So splitting the computation up into just two subproblems is a reasonable
 and simple choice, but from a purely asymptotic perspective it is arbitrary.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;There is also an implementation in \(\mathcal{O}(m)\), where \(m\) is the number of edges, but for the Karger-Stein algorithm that won&amp;rsquo;t make a difference and we&amp;rsquo;ll ignore it.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;David Karger: &lt;em&gt;Global min-cuts in RNC, and other ramifications of a simple min-cut algorithm&lt;/em&gt;, SODA 1993&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;Usually we stop a bit before 2 vertices and just compute the mincut from there using other methods but that doesn&amp;rsquo;t matter here&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
 &lt;p&gt;This and the following analysis is based on the paper by Karger and Stein: &lt;em&gt;A new approach to the minimum cut problem&lt;/em&gt;, Journal of the ACM 1996. The difference is just that I consider arbitrary \(a\) and \(b\), rather than just \(a = 2\) and \(b = \sqrt{2}\).&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     

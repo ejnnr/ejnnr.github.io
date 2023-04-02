@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en-us" >
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: April 1, 2023 --><html lang="en-us" >
+
 
 <head>
   <meta charset="utf-8" />
@@ -7,63 +10,59 @@
   
   
   
-    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
   
 
   
+  
+
+
+
+
+
+
+
+
+
+
+
 
   
   
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
   
   
   
     
-    
-    
-  
-  
-
-  <meta name="author" content="Erik Jenner" />
-
-  
-  
-  
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
     
   
-  <meta name="description" content="  L1 regularization is famous for leading to sparse optima, in contrast to
-  L2 regularization. There are several ways of understanding this but I&#39;ll
-  argue that it&#39;s really all about one fact: the L1 norm has a singularity
-  at the origin, while the L2 norm does not. And this is not just true
-  for L1 and L2 regularization: singularities are always necessary to get sparse weights.
-  " />
 
   
-  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/sparsity-singularities/" />
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-
-  
-  
-  
-    <meta name="theme-color" content="#707070" />
   
 
   
@@ -74,14 +73,14 @@
 
   
 
-  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
 
   
   
   
     
     
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
     
 
     
@@ -97,41 +96,10 @@
     
     
     
-      
-    
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
-        
-      
-    
-
-    
-    
-    
 
     
 
     
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
     
       
       
@@ -244,49 +212,15 @@
   
   
   
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
-    
-  
-
   
   
   
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.fd9b978ceb8f3cb70c65357f0dc17c1c.css" />
-
-  
-
-
-
-  
-
-  
-
-  
-
-
-
+  <link rel="stylesheet" href="/css/wowchemy.87843d66b22de2ef388a7e23cc79fac1.css" />
 
   
   
   
 
-  
-
-  
-    <link rel="manifest" href="/manifest.webmanifest" />
-  
-
-  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
-
-  <link rel="canonical" href="https://ejenner.com/post/sparsity-singularities/" />
-
-  
   
   
   
@@ -295,34 +229,123 @@
   
   
     
+    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
   
   
-  <meta property="twitter:card" content="summary_large_image" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-    <meta property="twitter:site" content="@jenner_erik" />
-    <meta property="twitter:creator" content="@jenner_erik" />
   
-  <meta property="og:site_name" content="Erik Jenner" />
-  <meta property="og:url" content="https://ejenner.com/post/sparsity-singularities/" />
-  <meta property="og:title" content="L1 regularization: sparsity through singularities | Erik Jenner" />
-  <meta property="og:description" content="  L1 regularization is famous for leading to sparse optima, in contrast to
+  
+
+
+
+
+
+
+  <meta name="author" content="Erik Jenner" />
+
+
+
+
+
+  
+
+<meta name="description" content="  L1 regularization is famous for leading to sparse optima, in contrast to
   L2 regularization. There are several ways of understanding this but I&#39;ll
   argue that it&#39;s really all about one fact: the L1 norm has a singularity
   at the origin, while the L2 norm does not. And this is not just true
   for L1 and L2 regularization: singularities are always necessary to get sparse weights.
-  " /><meta property="og:image" content="https://ejenner.com/post/sparsity-singularities/featured.png" />
-    <meta property="twitter:image" content="https://ejenner.com/post/sparsity-singularities/featured.png" /><meta property="og:locale" content="en-us" />
+  " />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/sparsity-singularities/" />
+<link rel="canonical" href="https://ejenner.com/post/sparsity-singularities/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#707070" />
+
+
+
+
+
+
+
+
+
+
   
-    
-      <meta
-        property="article:published_time"
-        content="2021-02-17T09:33:00&#43;01:00"
-      />
-    
+
+
+
+
+
+
+<meta property="twitter:card" content="summary_large_image" />
+
+  <meta property="twitter:site" content="@jenner_erik" />
+  <meta property="twitter:creator" content="@jenner_erik" />
+<meta property="twitter:image" content="https://ejenner.com/post/sparsity-singularities/featured.png" />
+<meta property="og:site_name" content="Erik Jenner" />
+<meta property="og:url" content="https://ejenner.com/post/sparsity-singularities/" />
+<meta property="og:title" content="L1 regularization: sparsity through singularities | Erik Jenner" />
+<meta property="og:description" content="  L1 regularization is famous for leading to sparse optima, in contrast to
+  L2 regularization. There are several ways of understanding this but I&#39;ll
+  argue that it&#39;s really all about one fact: the L1 norm has a singularity
+  at the origin, while the L2 norm does not. And this is not just true
+  for L1 and L2 regularization: singularities are always necessary to get sparse weights.
+  " /><meta property="og:image" content="https://ejenner.com/post/sparsity-singularities/featured.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2021-02-17T09:33:00&#43;01:00"
+    />
+  
+  
     <meta property="article:modified_time" content="2021-02-17T09:33:00&#43;01:00">
   
 
-  
+
+
+
 
 
     
@@ -375,15 +398,37 @@
 
   
 
+
+
+
+  
+  
+  
+
+  
   
 
   
 
 
-
-
-
+  
   <title>L1 regularization: sparsity through singularities | Erik Jenner</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
 
@@ -398,7 +443,7 @@
   
   
   
-  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+  <script src="/js/wowchemy-init.min.ec9d49ca50e4b80bdb08f0417a28ed84.js"></script>
 
   
 
@@ -442,8 +487,12 @@
 
 
 
-  <div class="page-header">
-    
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
 
 
 
@@ -456,187 +505,196 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
-  <div class="container-xl">
-
-    
-
-    
-    <button type="button" class="navbar-toggler" data-toggle="collapse"
-            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-    <span><i class="fas fa-bars"></i></span>
-    </button>
-    
-
-    
-
-    
-    
-    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
 
       
-      <ul class="navbar-nav d-md-inline-flex">
-        
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
 
         
-
-        
-        
-        
+        <ul class="navbar-nav d-md-inline-flex">
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
+
           
           
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
             
             
+              
+              
+              
+                
+              
+              
             
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
               
             
             
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link " href="/#about"><span>Home</span></a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post"><span>Blog</span></a>
+          </li>
 
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-
-        
-        
-        
-        
-
-        
-          
-            
-            
           
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link  active" href="/post"><span>Blog</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
           
           
             
+          
+
+          
+
+          
+          
+          
+          
+
+          
             
-            
+              
               
             
             
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
           
         
 
+        
+        
+        
         <li class="nav-item">
-          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
 
         
         
 
-      
-
-        
       </ul>
+
     </div>
-
-    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-
-      
-      
-        
-      
-
-      
-      
-      <li class="nav-item">
-        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
-      </li>
-      
-
-      
-      
-      <li class="nav-item dropdown theme-dropdown">
-        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#" class="dropdown-item js-set-theme-light">
-            <span>Light</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-dark">
-            <span>Dark</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-auto">
-            <span>Automatic</span>
-          </a>
-        </div>
-      </li>
-      
-
-      
-      
-
-    </ul>
-
-  </div>
-</nav>
+  </nav>
+</header>
 
 
   </div>
 
   <div class="page-body">
+    
+    
+    
+
     <article class="article">
 
   
+
 
 
 
@@ -672,7 +730,7 @@
   <span class="article-date">
     
     
-      
+    
     
     Feb 17, 2021
   </span>
@@ -684,7 +742,7 @@
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     
-      6
+    6
     
     min read
   </span>
@@ -694,14 +752,11 @@
   
   
   
-  
-  
 
   
   
 
 </div>
-
     
 
 
@@ -757,9 +812,9 @@ to zero works for differentiable functions. If \(f(x)\) has a local minimum
 at 0, then this means that \(f(x) \geq f(0)\) for all sufficiently small \(x\).
 Since we assumed \(f\) to be differentiable at \(0\), \(f(x)\) is well approximated<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
 by
-\[f(x) \approx f(0) + f'(0)x\]
-for small \(x\). So if \(f'(0) &gt; 0\), then \(f(x) &lt; f(0)\) for small negative \(x\),
-and if \(f'(0) &lt; 0\) we get the same for positive \(x\). So the derivative at
+\[f(x) \approx f(0) + f&rsquo;(0)x\]
+for small \(x\). So if \(f&rsquo;(0) &gt; 0\), then \(f(x) &lt; f(0)\) for small negative \(x\),
+and if \(f&rsquo;(0) &lt; 0\) we get the same for positive \(x\). So the derivative at
 the minimum has to be zero, because otherwise taking a small step in the right
 direction would decrease the value.</p>
 <p>We can apply the same idea to the loss with \(L_1\) regularization: what happens
@@ -803,19 +858,24 @@ unit variance and properly normalized:</p>
 
 
 
+
+
+
+
 <figure  id="figure-figure-1-gaussian-and-laplace-distribution-with-unit-variance-created-using-">
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt="Figure 1: Gaussian and Laplace distribution with unit variance (created using )" srcset="
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png 400w,
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_948f91e97afa11b33a27693d78698f5a.png 760w,
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_1200x1200_fit_lanczos_3.png 1200w"
-               src="/post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png"
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_576eee5558af5f10c82e7b70f778f071.webp 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_9ee58174ad35853213fb24038c96e01c.webp 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_576eee5558af5f10c82e7b70f778f071.webp"
                width="760"
                height="760"
                loading="lazy" data-zoomable /></div>
   </div><figcaption>
-      Figure 1: Gaussian and Laplace distribution with unit variance (created using <a href="https://www.desmos.com/">https://www.desmos.com/</a>)
+      Figure 1: Gaussian and Laplace distribution with unit variance (created using <a href="https://www.desmos.com/" target="_blank" rel="noopener">https://www.desmos.com/</a>)
     </figcaption></figure>
+
 <p>One difference is that the Laplace distribution has a higher density
 at (and around) 0. I&rsquo;ve seen this used as an explanation for sparsity several times:
 the Laplace distribution seems more &ldquo;concentrated&rdquo; around 0, i.e. assigns a higher
@@ -836,19 +896,24 @@ figure:</p>
 
 
 
+
+
+
+
 <figure  id="figure-figure-2-narrower-gaussian">
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt="Figure 2: Narrower Gaussian" srcset="
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png 400w,
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_f55fb9dccb8e2732aa3500260a17b57c.png 760w,
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_1200x1200_fit_lanczos_3.png 1200w"
-               src="/post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png"
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_d7e1a82396385f818f8f80bf538fcfdf.webp 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_781c384a8a3cac3785e7df787bc3eeca.webp 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_d7e1a82396385f818f8f80bf538fcfdf.webp"
                width="760"
                height="760"
                loading="lazy" data-zoomable /></div>
   </div><figcaption>
       Figure 2: Narrower Gaussian
     </figcaption></figure>
+
 <p>These are still a normalized Gaussian and a Laplace distribution, the only difference is that
 I&rsquo;ve chosen a much smaller variance for the Gaussian. This corresponds to
 choosing a higher coefficient \(\beta\) for the \(L_2\) penalty. I&rsquo;d argue that in this case the Gaussian is much more
@@ -877,25 +942,24 @@ regularization won&rsquo;t lead to sparse weights.</p>
 the singularity of the \(L_1\) norm (or the Laplace prior) creates an <em>inequality</em> constraint
 for the partial derivative: it leads to \(w_i = 0\) as long as the derivative lies in a certain
 range of values. This is what makes sparse weights likely.</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>This is a restriction, for example a model containign ReLUs will typically only be differentiable almost everywhere, and as we&rsquo;ll see, individual non-differentiable points will play a big role. It might be possible to argue that the types of non-differentiable points created by ReLUs don&rsquo;t change the conclusions of following discussion but we&rsquo;ll just assume a differentiable loss so we can focus on the conceptual insights.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p>meaning that the error \(f(x) - (f(0) + f'(0)x)\) doesn&rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f'(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2">
+<p>meaning that the error \(f(x) - (f(0) + f&rsquo;(0)x)\) doesn&rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f&rsquo;(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
+<li id="fn:3">
 <p>Of course this is not guaranteed for complex loss functions: there might be another local optimum somewhere else. This is just the condition for 0 to be one of the local optima at which we might end up.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
     </div>
 
     
-
 
 
 
@@ -908,6 +972,116 @@ range of values. This is what makes sparse weights likely.</p>
 </div>
 
 
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fejenner.com%2Fpost%2Fsparsity-singularities%2F&amp;text=L1&#43;regularization%3A&#43;sparsity&#43;through&#43;singularities" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fejenner.com%2Fpost%2Fsparsity-singularities%2F&amp;t=L1&#43;regularization%3A&#43;sparsity&#43;through&#43;singularities" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=L1%20regularization%3A%20sparsity%20through%20singularities&amp;body=https%3A%2F%2Fejenner.com%2Fpost%2Fsparsity-singularities%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fejenner.com%2Fpost%2Fsparsity-singularities%2F&amp;title=L1&#43;regularization%3A&#43;sparsity&#43;through&#43;singularities" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=L1&#43;regularization%3A&#43;sparsity&#43;through&#43;singularities%20https%3A%2F%2Fejenner.com%2Fpost%2Fsparsity-singularities%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fejenner.com%2Fpost%2Fsparsity-singularities%2F&amp;title=L1&#43;regularization%3A&#43;sparsity&#43;through&#43;singularities" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
 
 
 
@@ -1046,22 +1220,6 @@ range of values. This is what makes sparse weights likely.</p>
 
 
 
-  
-  
-  <div class="article-widget content-widget-hr">
-    <h3>Related</h3>
-    <ul>
-      
-      <li><a href="/post/random-vs-grid-search/">Visualizing random vs grid search</a></li>
-      
-      <li><a href="/post/bias-variance-tradeoff/">Troubles with the Bias-Variance tradeoff</a></li>
-      
-    </ul>
-  </div>
-  
-
-
-
 
 
   </div>
@@ -1078,29 +1236,48 @@ range of values. This is what makes sparse weights likely.</p>
 
 
 
-  
+
+
+
+
+
+
+
+
 
   
+  
+  
+  
+  
+
+
+<p class="powered-by">
+  
+  <a href="/privacy/">Privacy</a>
+  
+  
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
   <p class="powered-by">
     
-      <a href="/privacy/">Privacy</a>
-    
-    
-  </p>
-  
-
-  
-
-  
-  
-
-
-
-
-
-
-  <p class="powered-by">
-    
     
     
       
@@ -1109,7 +1286,7 @@ range of values. This is what makes sparse weights likely.</p>
       
       
       
-      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
     
   </p>
 </footer>
@@ -1117,6 +1294,101 @@ range of values. This is what makes sparse weights likely.</p>
     </div>
     
   </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.e8ee06ba8371980ffde659871dd593b0.js"></script>
+
+
+
+
+
+
 
   
 <div id="modal" class="modal fade" role="dialog">
@@ -1129,7 +1401,8 @@ range of values. This is what makes sparse weights likely.</p>
         </button>
       </div>
       <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
+        
+        <pre><code></code></pre>
       </div>
       <div class="modal-footer">
         <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
@@ -1144,101 +1417,27 @@ range of values. This is what makes sparse weights likely.</p>
   </div>
 </div>
 
-      
 
-    
-    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
 
-    
-    
-    
-      
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      
 
-      
-      
 
-      
 
-      
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
-        
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
-        
-      
-
-    
-
-    
-    
-    
-
-    
-    
-
-    
-    
-    
-      
-      <script id="search-hit-fuse-template" type="text/x-template">
-        <div class="search-hit" id="summary-{{key}}">
-          <div class="search-hit-content">
-            <div class="search-hit-name">
-              <a href="{{relpermalink}}">{{title}}</a>
-              <div class="article-metadata search-hit-type">{{type}}</div>
-              <p class="search-hit-description">{{snippet}}</p>
-            </div>
-          </div>
-        </div>
-      </script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-      
-    
-
-    
-    
-
-    
-    
-    
-    
-
-    
-    
-      
-      
-      
-      
-      
-      
-      
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-      
-      
-    
-    
-    <script src="/en/js/wowchemy.min.d68ecd57c0ec1f1f61d65fd568f1c3a0.js"></script>
-
-    <script data-goatcounter="https://ejnnr.goatcounter.com/count"
+  <script data-goatcounter="https://ejnnr.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

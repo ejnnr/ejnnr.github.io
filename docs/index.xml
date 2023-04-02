@@ -5,12 +5,67 @@
     <link>https://ejenner.com/</link>
       <atom:link href="https://ejenner.com/index.xml" rel="self" type="application/rss+xml" />
     <description>Erik Jenner</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 05 Nov 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 01 Apr 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
       <title>Erik Jenner</title>
       <link>https://ejenner.com/</link>
     </image>
+    
+    <item>
+      <title>Swoosh: Rethinking Activation Functions</title>
+      <link>https://ejenner.com/post/swoosh/</link>
+      <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>https://ejenner.com/post/swoosh/</guid>
+      <description>&lt;p&gt;Improvements to the activation function in neural networks have hit diminishing returns over recent years. Whereas the choice between Sigmoids and ReLUs can make or break your training, the same cannot be said for the difference between Swish, Mish, GLish, and Phish. (I made up one of these, but I bet you don&amp;rsquo;t know which.)&lt;/p&gt;
+&lt;p&gt;In our recent paper &amp;ldquo;Swoosh: Rethinking Activation Functions&amp;rdquo;&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, we argue that the problem is an overly narrow conception of what an activation function can be. Our key idea is the following observation:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Different activation functions work best for different problems. A good activation function should thus have &lt;em&gt;many hyperparameters&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Activation functions with learnable parameters have been proposed before, but they suffer from two flaws:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The number of parameters is usually quite small. For example, Swish uses only a single parameter. That&amp;rsquo;s about 175 billion fewer parameters than even a tiny model like GPT-3! And &lt;a href=&#34;https://twitter.com/AndrewSteinwold/status/1594889562526027777&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;it&amp;rsquo;s well known that more parameters = more powerful&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;They use &lt;em&gt;parameters&lt;/em&gt;. As we will argue, using &lt;em&gt;hyperparameters&lt;/em&gt; instead offers countless advantages.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;introducing-swoosh&#34;&gt;Introducing Swoosh&lt;/h1&gt;
+&lt;p&gt;The simplest version of the Swoosh activation function is
+$$\operatorname{Swoosh}_{f}(x) := f(Wf(x) + b),$$
+where $f$ is some simple non-linear function (such as $f(x) := \max(x, 0)$), $W$ is a matrix and $b$ is a vector. The entries of $W$ and $b$ are hyperparameters of the Swoosh activation function.&lt;/p&gt;
+&lt;p&gt;For even better results, we recommend using $f = \operatorname{Swoosh}_{g}$
+for a simple non-linear function $g$, or even&lt;/p&gt;
+&lt;p&gt;$$f = \operatorname{Swoosh}_{\operatorname{Swoosh}_g}$$&lt;/p&gt;
+&lt;p&gt;and so on.
+Note that in this case, the hyperparameters for each instance of Swoosh should be tuned independently.&lt;/p&gt;
+&lt;p&gt;Astonishingly, our experiments show that just a single hidden layer is enough for most tasks when using the Swoosh activation function. In slogan form: 2-layer networks are all you need!&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; The full network is then simply
+$$\operatorname{net}(x) = U \operatorname{Swoosh}(Vx + a) + b.$$&lt;/p&gt;
+&lt;h1 id=&#34;why-hyperparameters&#34;&gt;Why hyperparameters?&lt;/h1&gt;
+&lt;p&gt;One of our key contributions is that we treat the entries of $W$ and $b$ in Swoosh as &lt;em&gt;hyperparameters&lt;/em&gt;. This is a much better choice than using them as learnable parameters, like existing activation functions typically do. We&amp;rsquo;ll briefly sketch a few of the advantages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;Hyper&amp;rdquo; is greek for &amp;ldquo;above&amp;rdquo;, so the name should already tell us that hyperparameters are above (i.e. better than) parameters.&lt;/li&gt;
+&lt;li&gt;Specifically for Swoosh, the network output is differentiable in these hyperparameters, which means you can still use SGD! All common opitimizers and backpropagation implementations work out of the box for optimizing Swoosh hyperparameters.&lt;/li&gt;
+&lt;li&gt;Neural networks with higher parameter count tend to have higher memory requirements, longer training and inference times, higher compute costs, and a bigger environmental footprint. By using hyperparameters instead of parameters, we can keep the parameter count low.&lt;/li&gt;
+&lt;li&gt;Models sometimes perform worse on the test dataset than on the training data.&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; Using the well-known technique of choosing hyperparameters based on test performance, this is an issue of the past with Swoosh.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;conclusion-and-future-work&#34;&gt;Conclusion and future work&lt;/h1&gt;
+&lt;p&gt;We have shown how expanding our conception of what an activation function can be solves several key problems in deep learning, such as test set generalization and high compute requirements. We believe that this insight will not only revitalize the field of activation functions, but that it in fact heralds the end of the AI Winter we currently find ourselves in.&lt;/p&gt;
+&lt;p&gt;To make it as easy as possible for practitioners to adopt Swoosh, we have worked closely with the PyTorch team. We are excited to announce that Swoosh is &lt;a href=&#34;https://pytorch.org/vision/main/generated/torchvision.ops.MLP.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;available now in the PyTorch library&lt;/a&gt;! Tensorflow and JAX users can easily implement it in a few lines of code.&lt;/p&gt;
+&lt;p&gt;In the future, we are planning to improve the design of Swoosh in various ways. For example, we believe it could be promising to replace the matrix multiplication $Wx$ with a convolution, especially on inputs with translational symmetry such as images. There is a vast unexplored space of possible Swoosh architectures to discover, and we invite other researchers to join us in this exciting journey!&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;We will release the full paper upon acceptance of this blog post.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;In fact, in an upcoming paper we will show that for Swoosh activation functions, there are universal approximation theorems with bounded width and depth 1, improving on a result by &lt;a href=&#34;https://www.semanticscholar.org/paper/Lower-bounds-for-approximation-by-MLP-neural-Maiorov-Pinkus/4bdd1f845d26e488d67c0e4549cff17407b980ad&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Maiorov et al.&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
+&lt;p&gt;Or so I&amp;rsquo;ve heard, this has never happened to me personally.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Einsum is easy and useful</title>
@@ -19,50 +74,41 @@
       <guid>https://ejenner.com/post/einsum/</guid>
       <description>&lt;p&gt;&lt;code&gt;einsum&lt;/code&gt; is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&amp;rsquo;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason &lt;code&gt;einsum&lt;/code&gt; is great is precisely because it is &lt;em&gt;easier&lt;/em&gt; to use and reason about than the alternatives. So this post tries to set the record straight and show how simple &lt;code&gt;einsum&lt;/code&gt; really is.&lt;/p&gt;
 &lt;p&gt;The general syntax for &lt;code&gt;einsum&lt;/code&gt; is&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;einsum(&amp;quot;some string describing an operation&amp;quot;, tensor_1, tensor_2, ...)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;with an arbitrary number of tensors after the string. (I&amp;rsquo;ll be saying &amp;ldquo;tensors&amp;rdquo; but they could just as well be Numpy arrays.)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;einsum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;some string describing an operation&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tensor_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tensor_2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;with an arbitrary number of tensors after the string. (I&amp;rsquo;ll be saying &amp;ldquo;tensors&amp;rdquo; but they could just as well be Numpy arrays.)&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s look at an example. Say we have two matrices, &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;B&lt;/code&gt;, with shapes such that we can multiply them as &lt;code&gt;A @ B&lt;/code&gt;. Using &lt;code&gt;einsum&lt;/code&gt;, we can write this matrix product as&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;einsum(&amp;quot;ij,jk-&amp;gt;ik&amp;quot;, A, B)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The interesting part is the string, &lt;code&gt;&amp;quot;ij,jk-&amp;gt;ik&amp;quot;&lt;/code&gt;. These &lt;code&gt;einsum&lt;/code&gt; strings always follow the same structure:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;quot;&amp;lt;input indices&amp;gt; -&amp;gt; &amp;lt;output indices&amp;gt;&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In this example, the input indices are &lt;code&gt;&amp;quot;ij,jk&amp;quot;&lt;/code&gt;. These &lt;em&gt;define&lt;/em&gt; letters for indices into each input tensor. Different tensors are comma-separated, so &lt;code&gt;ij&lt;/code&gt; refers to &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;jk&lt;/code&gt; refers to &lt;code&gt;B&lt;/code&gt;. &lt;code&gt;ij&lt;/code&gt; means we call the first axis of &lt;code&gt;A&lt;/code&gt; &lt;code&gt;i&lt;/code&gt; and the second axis &lt;code&gt;j&lt;/code&gt;, and similarly, &lt;code&gt;jk&lt;/code&gt; defines names for the axes of &lt;code&gt;B&lt;/code&gt;. The specific letters we use are arbitrary here, we could just as well write &lt;code&gt;&amp;quot;ga,aw-&amp;gt;gw&amp;quot;&lt;/code&gt;. There has to be one index per axis of the input tensor—in our case, both &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;B&lt;/code&gt; have two axes (they&amp;rsquo;re matrices), so both get two indices.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;einsum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;ij,jk-&amp;gt;ik&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The interesting part is the string, &lt;code&gt;&amp;quot;ij,jk-&amp;gt;ik&amp;quot;&lt;/code&gt;. These &lt;code&gt;einsum&lt;/code&gt; strings always follow the same structure:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;lt;input indices&amp;gt; -&amp;gt; &amp;lt;output indices&amp;gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example, the input indices are &lt;code&gt;&amp;quot;ij,jk&amp;quot;&lt;/code&gt;. These &lt;em&gt;define&lt;/em&gt; letters for indices into each input tensor. Different tensors are comma-separated, so &lt;code&gt;ij&lt;/code&gt; refers to &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;jk&lt;/code&gt; refers to &lt;code&gt;B&lt;/code&gt;. &lt;code&gt;ij&lt;/code&gt; means we call the first axis of &lt;code&gt;A&lt;/code&gt; &lt;code&gt;i&lt;/code&gt; and the second axis &lt;code&gt;j&lt;/code&gt;, and similarly, &lt;code&gt;jk&lt;/code&gt; defines names for the axes of &lt;code&gt;B&lt;/code&gt;. The specific letters we use are arbitrary here, we could just as well write &lt;code&gt;&amp;quot;ga,aw-&amp;gt;gw&amp;quot;&lt;/code&gt;. There has to be one index per axis of the input tensor—in our case, both &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;B&lt;/code&gt; have two axes (they&amp;rsquo;re matrices), so both get two indices.&lt;/p&gt;
 &lt;p&gt;What&amp;rsquo;s important is that we&amp;rsquo;re using the same letter, &lt;code&gt;j&lt;/code&gt;, both for the second axis of &lt;code&gt;A&lt;/code&gt; and for the first axis of &lt;code&gt;B&lt;/code&gt;. That&amp;rsquo;s &lt;em&gt;not&lt;/em&gt; just an arbitrary definition, it has an effect on the result! Think of it this way: the entire left-hand side, &lt;code&gt;&amp;quot;ij,jk&amp;quot;&lt;/code&gt; defines a three-dimensional tensor, indexed by &lt;code&gt;i&lt;/code&gt;, &lt;code&gt;j&lt;/code&gt;, and &lt;code&gt;k&lt;/code&gt;. We get its elements by &lt;em&gt;multiplying&lt;/em&gt; the corresponding elements of &lt;code&gt;A&lt;/code&gt; and &lt;code&gt;B&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;product[i, j, k] = A[i, j] * B[j, k]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;So it matters that &lt;code&gt;j&lt;/code&gt; appears twice—a string like &lt;code&gt;&amp;quot;ij,lk&amp;quot;&lt;/code&gt; would define a four-dimensional tensor:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;product[i, j, l, k] = A[i, j] * B[l, k]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(Don&amp;rsquo;t worry about the order of these indices into &lt;code&gt;product&lt;/code&gt;—as we&amp;rsquo;ll see in a moment, the right-hand side of our string will explicitly specify the order we want).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So it matters that &lt;code&gt;j&lt;/code&gt; appears twice—a string like &lt;code&gt;&amp;quot;ij,lk&amp;quot;&lt;/code&gt; would define a four-dimensional tensor:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(Don&amp;rsquo;t worry about the order of these indices into &lt;code&gt;product&lt;/code&gt;—as we&amp;rsquo;ll see in a moment, the right-hand side of our string will explicitly specify the order we want).&lt;/p&gt;
 &lt;p&gt;The right side of the &lt;code&gt;-&amp;gt;&lt;/code&gt; arrow describes how to get our final output from this &lt;code&gt;product&lt;/code&gt; tensor. It&amp;rsquo;s very simple: any index that appears on the left (i.e. in the &lt;code&gt;product&lt;/code&gt; tensor) but doesn&amp;rsquo;t appear on the right is summed over. So in our matrix multiplication example, since our output indices are &lt;code&gt;ik&lt;/code&gt;, we sum over &lt;code&gt;j&lt;/code&gt;. So the final result is&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;out[i, k] = sum_j A[i, j] * B[j, k]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Precisely a matrix multiply, as promised!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum_j&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Precisely a matrix multiply, as promised!&lt;/p&gt;
 &lt;p&gt;All of this generalizes in very nice and intuitive ways. On the left side of the &lt;code&gt;-&amp;gt;&lt;/code&gt; arrow, we can have arbitrary patterns, and they&amp;rsquo;ll always describe a scheme for indexing into a product of the inputs. For example, the string &lt;code&gt;&amp;quot;iij,kji,l&amp;quot;&lt;/code&gt; would define a four-dimensional tensor, given by&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;product[i, j, k, l] = A[i, i, j] * B[k, j, i] * C[l]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(for input tensors &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt;, &lt;code&gt;C&lt;/code&gt;).
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;product&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(for input tensors &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt;, &lt;code&gt;C&lt;/code&gt;).
 Note how much easier this is compared to a version without &lt;code&gt;einsum&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;n = A.shape[0]
-product = A[t.arange(n), t.arange(n), :, None, None] \
-        * B.permute(2, 1, 0)[:, :, :, None] \
-        * C[None, None, None, :]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Our output can now be any permutation of any subset of &lt;code&gt;ijkl&lt;/code&gt;. For example, &lt;code&gt;&amp;quot;iij,kji,l-&amp;gt;ki&amp;quot;&lt;/code&gt; would implicitly compute the product tensor above, then sum over &lt;code&gt;j&lt;/code&gt; and &lt;code&gt;l&lt;/code&gt;, and finally permute the result so the order of axes was &lt;code&gt;ki&lt;/code&gt;. Contrast with how messy this would be without &lt;code&gt;einsum&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;# With broadcasting and array indexing:
-n = A.shape[0]
-out = (
-    A[t.arange(n), t.arange(n), :, None, None]
-  * B.permute(2, 1, 0)[:, :, :, None]
-  * C[None, None, None, :]
-).sum(1,3).T
-
-# With einsum:
-out = t.einsum(&amp;quot;iij,kji,l-&amp;gt;ki&amp;quot;, A, B, C)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The main point is not that the &lt;code&gt;einsum&lt;/code&gt; version is shorter—the point is that the other version took me 10 minutes to write and I&amp;rsquo;m still not sure it&amp;rsquo;s correct.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shape&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;product&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;permute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)[:,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Our output can now be any permutation of any subset of &lt;code&gt;ijkl&lt;/code&gt;. For example, &lt;code&gt;&amp;quot;iij,kji,l-&amp;gt;ki&amp;quot;&lt;/code&gt; would implicitly compute the product tensor above, then sum over &lt;code&gt;j&lt;/code&gt; and &lt;code&gt;l&lt;/code&gt;, and finally permute the result so the order of axes was &lt;code&gt;ki&lt;/code&gt;. Contrast with how messy this would be without &lt;code&gt;einsum&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# With broadcasting and array indexing:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shape&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;arange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;permute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)[:,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;None&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;:]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;T&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# With einsum:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;out&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;einsum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;iij,kji,l-&amp;gt;ki&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;B&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The main point is not that the &lt;code&gt;einsum&lt;/code&gt; version is shorter—the point is that the other version took me 10 minutes to write and I&amp;rsquo;m still not sure it&amp;rsquo;s correct.&lt;/p&gt;
 &lt;p&gt;That concludes the description of &lt;code&gt;einsum&lt;/code&gt;, but let&amp;rsquo;s look at some more examples to get a better intuition:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Say you want to compute the &lt;em&gt;transpose&lt;/em&gt; of the matrix product, &lt;code&gt;(A @ B).T&lt;/code&gt;. What that means is just that you want the indices in the output flipped, so the string now becomes &lt;code&gt;&amp;quot;ij,jk-&amp;gt;ki&amp;quot;&lt;/code&gt;.&lt;/li&gt;
@@ -74,40 +120,33 @@ out = t.einsum(&amp;quot;iij,kji,l-&amp;gt;ki&amp;quot;, A, B, C)
 &lt;/ul&gt;
 &lt;h1 id=&#34;einops&#34;&gt;Einops&lt;/h1&gt;
 &lt;p&gt;The main problem with &lt;code&gt;einsum&lt;/code&gt; is that it doesn&amp;rsquo;t support enough operations. For example, say you have an image tensor &lt;code&gt;x&lt;/code&gt; with shape &lt;code&gt;(batch, channels, height, width)&lt;/code&gt;. If all you want to do is move the channel axis, you can just do&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;einsum(&amp;quot;bchw-&amp;gt;bhwc&amp;quot;, x)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;But what if you also want to flatten the height and width dimension into a single axis? That&amp;rsquo;s where the &lt;a href=&#34;http://einops.rocks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;einops&lt;/code&gt;&lt;/a&gt; library comes into play:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;rearrange(x, &amp;quot;b c h w -&amp;gt; b (h w) c&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;code&gt;rearrange&lt;/code&gt; function takes a tensor followed by a string similar to &lt;code&gt;einsum&lt;/code&gt; strings. The only new aspect are the parentheses—here, they tell &lt;code&gt;einops&lt;/code&gt; to combine the height and width dimension into one axis. Just like &lt;code&gt;einsum&lt;/code&gt;, &lt;code&gt;rearrange&lt;/code&gt; is extremely flexible, so you can for example transpose these axes before flattening them just by doing&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;rearrange(x, &amp;quot;b c h w -&amp;gt; b (w h) c&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You can also have parentheses on the left side, to split one axis into multiple. So for example, we can invert the operation above using&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;rearrange(x, &amp;quot;b (w h) c -&amp;gt; b c h w&amp;quot;, h=32)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The &lt;code&gt;h=32&lt;/code&gt; tells &lt;code&gt;einops&lt;/code&gt; that the &lt;code&gt;h&lt;/code&gt; axis should have length 32 (without this information, it would be unclear how to split up the single input axis).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;einsum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;bchw-&amp;gt;bhwc&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;But what if you also want to flatten the height and width dimension into a single axis? That&amp;rsquo;s where the &lt;a href=&#34;http://einops.rocks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;einops&lt;/code&gt;&lt;/a&gt; library comes into play:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rearrange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;b c h w -&amp;gt; b (h w) c&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;rearrange&lt;/code&gt; function takes a tensor followed by a string similar to &lt;code&gt;einsum&lt;/code&gt; strings. The only new aspect are the parentheses—here, they tell &lt;code&gt;einops&lt;/code&gt; to combine the height and width dimension into one axis. Just like &lt;code&gt;einsum&lt;/code&gt;, &lt;code&gt;rearrange&lt;/code&gt; is extremely flexible, so you can for example transpose these axes before flattening them just by doing&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rearrange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;b c h w -&amp;gt; b (w h) c&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can also have parentheses on the left side, to split one axis into multiple. So for example, we can invert the operation above using&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;rearrange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;b (w h) c -&amp;gt; b c h w&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;h=32&lt;/code&gt; tells &lt;code&gt;einops&lt;/code&gt; that the &lt;code&gt;h&lt;/code&gt; axis should have length 32 (without this information, it would be unclear how to split up the single input axis).&lt;/p&gt;
 &lt;p&gt;Note how &lt;em&gt;obvious&lt;/em&gt; it is that &lt;code&gt;&amp;quot;b (w h) c -&amp;gt; b c h w&amp;quot;&lt;/code&gt; is the inverse of &lt;code&gt;&amp;quot;b c h w -&amp;gt; b (w h) c&amp;quot;&lt;/code&gt;. We just switched the left and right-hand side! In general, you can &lt;em&gt;compose&lt;/em&gt; &lt;code&gt;rearrange&lt;/code&gt; operations: doing &lt;code&gt;&amp;quot;string_1 -&amp;gt; string_2&amp;quot;&lt;/code&gt; followed by &lt;code&gt;&amp;quot;string_2 -&amp;gt; string_3&amp;quot;&lt;/code&gt; is the same as doing &lt;code&gt;&amp;quot;string_1 -&amp;gt; string_3&amp;quot;&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;There&amp;rsquo;s more to say about &lt;code&gt;rearrange&lt;/code&gt;, and its cousin &lt;code&gt;repeat&lt;/code&gt;, but the &lt;code&gt;einops&lt;/code&gt; documentation does a good job explaining them, so I&amp;rsquo;ll leave it at that.&lt;/p&gt;
 &lt;h1 id=&#34;a-more-complex-example&#34;&gt;A more complex example&lt;/h1&gt;
 &lt;p&gt;As a final example, let&amp;rsquo;s consider a multi-head attention mechanism. Say we have our &lt;code&gt;Q&lt;/code&gt;, &lt;code&gt;K&lt;/code&gt; and &lt;code&gt;V&lt;/code&gt; tensors,
 each of shape &lt;code&gt;(batch, seq_length, n_heads * head_dim)&lt;/code&gt; (the &lt;code&gt;n_heads&lt;/code&gt; and &lt;code&gt;head_dim&lt;/code&gt; dimensions are flattened into one because we did a single matrix multiply for all heads to obtain these tensors). We want to compute the attention pattern &lt;code&gt;A&lt;/code&gt; of shape &lt;code&gt;(batch, n_heads, seq_length, seq_length)&lt;/code&gt;. We can use &lt;code&gt;einops&lt;/code&gt; and &lt;code&gt;einsum&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;Q = rearrange(Q, &amp;quot;b q (h d) -&amp;gt; b q h d&amp;quot;, h=n_heads)
-K = rearrange(K, &amp;quot;b k (h d) -&amp;gt; b k h d&amp;quot;, h=n_heads)
-A = einsum(&amp;quot;b q h d, b k h d -&amp;gt; b h q k&amp;quot;, Q, K)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Note how simple this is: the output of our rearranged tensors, &lt;code&gt;bqhd&lt;/code&gt; and &lt;code&gt;bkhd&lt;/code&gt;, already tell us what the inputs for the &lt;code&gt;einsum&lt;/code&gt; have to be. The output indices for the &lt;code&gt;einsum&lt;/code&gt; are almost determined by the desired output shape. Implicitly, this is a batched matrix multiply over the &lt;code&gt;d&lt;/code&gt; dimensions (batched over all other axes), but we don&amp;rsquo;t have to think about that to write down the &lt;code&gt;einsum&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rearrange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;b q (h d) -&amp;gt; b q h d&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n_heads&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rearrange&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;b k (h d) -&amp;gt; b k h d&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n_heads&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;einsum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;b q h d, b k h d -&amp;gt; b h q k&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Note how simple this is: the output of our rearranged tensors, &lt;code&gt;bqhd&lt;/code&gt; and &lt;code&gt;bkhd&lt;/code&gt;, already tell us what the inputs for the &lt;code&gt;einsum&lt;/code&gt; have to be. The output indices for the &lt;code&gt;einsum&lt;/code&gt; are almost determined by the desired output shape. Implicitly, this is a batched matrix multiply over the &lt;code&gt;d&lt;/code&gt; dimensions (batched over all other axes), but we don&amp;rsquo;t have to think about that to write down the &lt;code&gt;einsum&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Contrast with this alternative, where we have to carefully think about the position of each axis:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;batch, seq_length, _ = Q.shape
-Q = Q.view(batch, seq_length, 1, n_heads, -1)
-K = K.view(batch, 1, seq_length, n_heads, -1)
-A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;code&gt;einsum&lt;/code&gt; isn&amp;rsquo;t just easier to read and write, it&amp;rsquo;s also easier to refactor. Imagine we suddenly have to deal with multiple batch dimensions. In the &lt;code&gt;einsum&lt;/code&gt; version, we just replace the &lt;code&gt;b&lt;/code&gt; with &lt;code&gt;...&lt;/code&gt; and everything works, whereas the second version becomes even messier. Or imagine the format of our tensors changes so that the &lt;code&gt;h&lt;/code&gt; and &lt;code&gt;d&lt;/code&gt; axes are now swapped. In the &lt;code&gt;einsum&lt;/code&gt; version, we just swap all occurrences of &lt;code&gt;h&lt;/code&gt; and &lt;code&gt;d&lt;/code&gt;. The other version requires us to carefully check all the magic numbers to see which ones need to be changed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;batch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;seq_length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shape&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;view&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;batch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;seq_length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_heads&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;K&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;view&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;batch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;seq_length&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n_heads&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;@&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;transpose&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;moveaxis&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;einsum&lt;/code&gt; isn&amp;rsquo;t just easier to read and write, it&amp;rsquo;s also easier to refactor. Imagine we suddenly have to deal with multiple batch dimensions. In the &lt;code&gt;einsum&lt;/code&gt; version, we just replace the &lt;code&gt;b&lt;/code&gt; with &lt;code&gt;...&lt;/code&gt; and everything works, whereas the second version becomes even messier. Or imagine the format of our tensors changes so that the &lt;code&gt;h&lt;/code&gt; and &lt;code&gt;d&lt;/code&gt; axes are now swapped. In the &lt;code&gt;einsum&lt;/code&gt; version, we just swap all occurrences of &lt;code&gt;h&lt;/code&gt; and &lt;code&gt;d&lt;/code&gt;. The other version requires us to carefully check all the magic numbers to see which ones need to be changed.&lt;/p&gt;
 &lt;h1 id=&#34;einsum-could-be-even-better&#34;&gt;&lt;code&gt;einsum&lt;/code&gt; could be even better&lt;/h1&gt;
 &lt;p&gt;I&amp;rsquo;d love to see an &lt;code&gt;einsum&lt;/code&gt; wrapper that combines the capabilities of &lt;code&gt;einsum&lt;/code&gt; and &lt;code&gt;rearrange&lt;/code&gt;. For example, we could write the attention mechanism above as a simple one-liner:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;A = einsum(&amp;quot;b q (h d), b k (h d) -&amp;gt; b h q k&amp;quot;, Q, K, h=n_heads)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If anyone ends up implementing this, please &lt;a href=&#34;mailto:erik@ejenner.com&#34;&gt;let me know&lt;/a&gt;!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;einsum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;b q (h d), b k (h d) -&amp;gt; b h q k&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Q&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;K&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;h&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n_heads&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If anyone ends up implementing this, please &lt;a href=&#34;mailto:erik@ejenner.com&#34;&gt;let me know&lt;/a&gt;!&lt;/p&gt;
 </description>
     </item>
     
@@ -121,13 +160,13 @@ Let&amp;rsquo;s briefly recap: a distribution is a function that maps certain ty
 of functions to real numbers. We write $\mathcal{D}(U)$ for the space of
 (compactly supported, smooth) functions on a space $U \subseteq \mathbb{R}^n$,
 called &lt;em&gt;test functions&lt;/em&gt;. Distributions are continuous linear maps
-$T: \mathcal{D}(U) \to \mathbb{R}$, and we write $\mathcal{D}&#39;(U)$
+$T: \mathcal{D}(U) \to \mathbb{R}$, and we write $\mathcal{D}&amp;rsquo;(U)$
 for the space of these distributions.&lt;/p&gt;
 &lt;p&gt;An important aspect of distributions is that they generalize functions
 $f: U \to \mathbb{R}$. This is not obvious at first&amp;mdash;distributions have an
 entirely different type signature after all, so how can they be a generalization?
 What we mean by that is that there is a natural way to embed the space of (locally
-integrable) functions on $U$ into the space of distributions $\mathcal{D}&#39;(U)$.
+integrable) functions on $U$ into the space of distributions $\mathcal{D}&amp;rsquo;(U)$.
 Namely, each function $f: U \to \mathbb{R}$ induces a distribution $T_f$ defined
 by
 $$\langle T_f, \varphi \rangle := \int_{U} f\varphi d\lambda^n.$$
@@ -233,10 +272,10 @@ distribution that we saw in Part I:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Step function&#34; srcset=&#34;
-               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_f1f4aafca29b119878148b037e6eb086.png 400w,
-               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_b93c7a98f8edef99f6014e68d68f218b.png 760w,
-               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_f1f4aafca29b119878148b037e6eb086.png&#34;
+               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_9a9ff2adad046672d27dbac02698dfd3.webp 400w,
+               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_846b02b71263109bce6994bdb41fcfc7.webp 760w,
+               /post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/distributions-operations/step-function_hu5d2b91dee034e8ecbccc06ed3a32a692_24593_9a9ff2adad046672d27dbac02698dfd3.webp&#34;
                width=&#34;760&#34;
                height=&#34;760&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -313,10 +352,10 @@ typically works better than grid search for hyperparameter optimization:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_d3be0eb04324b57719cec651481c1e64.png 400w,
-               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_36f8ac379869454f87dfa5f4b34af6da.png 760w,
-               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_d3be0eb04324b57719cec651481c1e64.png&#34;
+               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_b9a27839990b4a9c4f346a099271fbba.webp 400w,
+               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_9b6009a96990238097995846618ceab2.webp 760w,
+               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_b9a27839990b4a9c4f346a099271fbba.webp&#34;
                width=&#34;760&#34;
                height=&#34;381&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -355,10 +394,10 @@ performance, grid and random search look as follows:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_19a5cbd1a6dc38771a8e9df6b879b05b.png 400w,
-               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_d8bc08ca66551650e1d2021e02048928.png 760w,
-               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_19a5cbd1a6dc38771a8e9df6b879b05b.png&#34;
+               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_6148d00a8a37827639526c1e8a1c829c.webp 400w,
+               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_71e5d8f16a38178a97113f78d5733b0a.webp 760w,
+               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_6148d00a8a37827639526c1e8a1c829c.webp&#34;
                width=&#34;760&#34;
                height=&#34;378&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -390,10 +429,10 @@ so that the more important hyperparameter has a longer axis:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_82dc086908744a0bf37ef952ce7be0c5.png 400w,
-               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_ba1f60f5f2b8c14c406a9b8abe4fc00e.png 760w,
-               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_82dc086908744a0bf37ef952ce7be0c5.png&#34;
+               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_fe933030c24ae169514f0134dc26b434.webp 400w,
+               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_2bc79e8bcb48e50fd94f33e5689645f2.webp 760w,
+               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_fe933030c24ae169514f0134dc26b434.webp&#34;
                width=&#34;760&#34;
                height=&#34;274&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -408,13 +447,13 @@ better at &amp;ldquo;uniformly&amp;rdquo; filling out the hyperparameter space u
 we could improve grid search by having more grid points along the more important
 axis&amp;mdash;but often we &lt;em&gt;don&amp;rsquo;t&lt;/em&gt; know that, at least not very precisely. And
 for random search, it luckily doesn&amp;rsquo;t matter.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;James Bergstra and Yoshua Bengio: Random Search for Hyper-Parameter Optimization, &lt;a href=&#34;https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;This is a different sort of simplifying assumption
 than we had above: now, the overall performance cannot necessarily be decomposed
 as $f(x) + g(y)$. Instead, we assume that performance depends monotonically
@@ -423,7 +462,7 @@ of additivity, this is pretty unrealistic, but I think it still serves as
 a good intuition.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -491,15 +530,15 @@ are at least somewhat contiguous and we want to make use of this prior knowledge
 &lt;figure  id=&#34;figure-figure-1-example-application-of-s-t-mincuts-we-want-to-segment-the-top-left-image-into-foreground-and-background-and-have-some-degree-of-belief-about-the-correct-choice-for-each-pixel-we-combine-all-these-degrees-of-belief-into-a-graph-bottom-left-and-then-find-its-s-t-mincut-bottom-right-which-corresponds-to-a-segmentation-of-the-original-image-top-right-image-from-xiao-pengfeng-et-al-2017httpsieeexploreieeeorgdocument7803617-which-in-turn-was-adapted-from-boykov-yuri-and-funka-lea-gareth-2006httpslinkspringercomarticle101007s11263-006-7934-5&#34;&gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 1: Example application of \\(s\\)-\\(t\\)-mincuts: we want to segment the top left image into foreground and background and have some degree of belief about the correct choice for each pixel. We combine all these degrees of belief into a graph (bottom left) and then find its \\(s\\)-\\(t\\)-mincut (bottom right), which corresponds to a segmentation of the original image (top right). Image from [Xiao, Pengfeng et al. (2017)](https://ieeexplore.ieee.org/document/7803617), which in turn was adapted from [Boykov, Yuri and Funka-Lea, Gareth (2006)](https://link.springer.com/article/10.1007/s11263-006-7934-5).&#34; srcset=&#34;
-               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_562127e8334cff9c75ff2916ec219bb1.png 400w,
-               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_38e4b1d6b779e310198031db4f1ad6ad.png 760w,
-               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_562127e8334cff9c75ff2916ec219bb1.png&#34;
+               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_c8d59361788408cb2101b08b16c86667.webp 400w,
+               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_d8ed595bab91913bd72e3cd402230e9c.webp 760w,
+               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_c8d59361788408cb2101b08b16c86667.webp&#34;
                width=&#34;500px&#34;
                height=&#34;661&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;figcaption&gt;
-      Figure 1: Example application of \(s\)-\(t\)-mincuts: we want to segment the top left image into foreground and background and have some degree of belief about the correct choice for each pixel. We combine all these degrees of belief into a graph (bottom left) and then find its \(s\)-\(t\)-mincut (bottom right), which corresponds to a segmentation of the original image (top right). Image from &lt;a href=&#34;https://ieeexplore.ieee.org/document/7803617&#34;&gt;Xiao, Pengfeng et al. (2017)&lt;/a&gt;, which in turn was adapted from &lt;a href=&#34;https://link.springer.com/article/10.1007/s11263-006-7934-5&#34;&gt;Boykov, Yuri and Funka-Lea, Gareth (2006)&lt;/a&gt;.
+      Figure 1: Example application of \(s\)-\(t\)-mincuts: we want to segment the top left image into foreground and background and have some degree of belief about the correct choice for each pixel. We combine all these degrees of belief into a graph (bottom left) and then find its \(s\)-\(t\)-mincut (bottom right), which corresponds to a segmentation of the original image (top right). Image from &lt;a href=&#34;https://ieeexplore.ieee.org/document/7803617&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Xiao, Pengfeng et al. (2017)&lt;/a&gt;, which in turn was adapted from &lt;a href=&#34;https://link.springer.com/article/10.1007/s11263-006-7934-5&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Boykov, Yuri and Funka-Lea, Gareth (2006)&lt;/a&gt;.
     &lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;We turn our image into a graph; each pixel becomes one of the gray nodes in the graph.
 Then we add two more nodes, \(s\) and \(t\) (in red and blue). They are &amp;ldquo;helper nodes&amp;rdquo;
@@ -546,12 +585,17 @@ These nodes define a cut of the original graph into the partitions \(\{a\}\) and
 
 
 
+
+
+
+
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;
            src=&#34;https://ejenner.com/post/karger-extensions/karger_run.svg&#34;
            loading=&#34;lazy&#34; data-zoomable width=&#34;700px&#34; /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
+
 &lt;p&gt;This works for unweighted graphs and for graphs with positive edge weights (in which case
 edges are selected for contraction with probability proportional to their weight).&lt;/p&gt;
 &lt;p&gt;Since Karger&amp;rsquo;s algorithm uses &lt;em&gt;random&lt;/em&gt; contractions, it could of course produce a
@@ -707,12 +751,21 @@ course use more than six runs.&lt;/p&gt;
 
 
 
+
+
+
+
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;
            src=&#34;https://ejenner.com/post/karger-extensions/ensemble_1.svg&#34;
            loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
 
 
 
@@ -747,12 +800,22 @@ course use more than six runs.&lt;/p&gt;
 
 
 
+
+
+
+
+
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;
            src=&#34;https://ejenner.com/post/karger-extensions/ensemble_3.svg&#34;
            loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
+
+
+
+
+
 
 
 
@@ -787,6 +850,11 @@ course use more than six runs.&lt;/p&gt;
 
 
 
+
+
+
+
+
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;
@@ -807,12 +875,18 @@ course use more than six runs.&lt;/p&gt;
 
 
 
+
+
+
+
+
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34;
            src=&#34;https://ejenner.com/post/karger-extensions/ensemble_6.svg&#34;
            loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;/figure&gt;
+
 &lt;/div&gt;
 &lt;p&gt;This probability \(p_{karger}(v)\) is a probabilistic segmentation of the input
 graph. The following figure illustrates this and compares it to the potential that
@@ -831,19 +905,24 @@ the random walker algorithm produces:&lt;/p&gt;
 
 
 
+
+
+
+
 &lt;figure  id=&#34;figure-figure-2-karger-and-random-walker-potentials-in-comparison&#34;&gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 2: Karger and random walker potentials in comparison.&#34; srcset=&#34;
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png 400w,
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_08ea71d396c5535aef6219bdd98d9580.png 760w,
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png&#34;
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_ad5f72aa77b4672c41078e70260c3782.webp 400w,
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_d2bbb9191f55dd23cbd85b5a8ba99bd1.webp 760w,
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_ad5f72aa77b4672c41078e70260c3782.webp&#34;
                width=&#34;760&#34;
                height=&#34;203&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;figcaption&gt;
       Figure 2: Karger and random walker potentials in comparison.
     &lt;/figcaption&gt;&lt;/figure&gt;
+
 &lt;p&gt;\(\beta\) is a parameter that influences how the edge weights are computed based
 on the image. For large \(\beta\), the edge weights become very extreme and both
 algorithms assign probabilities close to zero or one to each pixel.&lt;/p&gt;
@@ -1013,14 +1092,14 @@ have made some steps towards understanding this distribution by linking it to
 the random walker. But there certainly remains a lot of space to improve our
 theoretical understanding of the &amp;ldquo;Karger distribution&amp;rdquo;, as well as the potential
 to use it for other purposes than the one we presented.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Generalizing to many classes and many seeds per class is straightforward, see our paper.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -1109,7 +1188,7 @@ more precise:&lt;/p&gt;
 is a smooth, compactly supported function \(\varphi: U \to \mathbb{R}\) and we write
 \(\mathcal{D}(U)\) for the space of all such test functions. A &lt;em&gt;Schwartz distribution&lt;/em&gt;
 on \(U\) is then a &lt;em&gt;continuous linear function&lt;/em&gt; \(T: \mathcal{D}(U) \to \mathbb{R}\).
-We write \(\mathcal{D}&#39;(U)\) for the space of all such distributions on \(U\).&lt;/p&gt;
+We write \(\mathcal{D}&amp;rsquo;(U)\) for the space of all such distributions on \(U\).&lt;/p&gt;
 &lt;p&gt;This definition requires some clarifications. First, Schwartz distributions are not
 at all the same thing as probability distributions, and when I say &amp;ldquo;distribution&amp;rdquo;
 in this series, I will always mean a Schwartz distribution. Second, if we want to
@@ -1181,14 +1260,14 @@ and in the examples here there is clearly one &amp;ldquo;right&amp;rdquo; way to
 mean. This will become even more clear in the &lt;a href=&#34;https://ejenner.com/post/distributions-operations&#34;&gt;next post&lt;/a&gt;: we will continue the theme of finding
 good definitions via &amp;ldquo;wishful thinking&amp;rdquo;, only this time for arbitrary distributions and for many
 more types of operations.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Actually, only for almost all \(x\) but that doesn&amp;rsquo;t change anything.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -1278,10 +1357,10 @@ like this&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;f
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_795dfba100f47daa6e1bca0062b92a2d.png 400w,
-               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_079a6e2e961641636483d1f6cb735677.png 760w,
-               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_795dfba100f47daa6e1bca0062b92a2d.png&#34;
+               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_bb8d43b4887de06e7e685f398f468427.webp 400w,
+               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_d2c59a9bf16ac788812e0b8ac37250c4.webp 760w,
+               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_bb8d43b4887de06e7e685f398f468427.webp&#34;
                width=&#34;760&#34;
                height=&#34;428&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -1310,14 +1389,14 @@ That repository also contains the other things I mentioned in this post.&lt;/p&g
 even more. If you have ideas in that direction, I would appreaciate &lt;a href=&#34;mailto:erik@ejenner.com&#34;&gt;a message&lt;/a&gt;.
 Also feel free to shoot me an email if you are trying to set up any of the things
 I&amp;rsquo;ve described here and want more details on how to do that.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.kisscc0.com/photo/public-domain-creative-commons-license-nature-1a92bt/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Wallpaper source&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -1405,10 +1484,10 @@ to gain more intuition about bias, variance, and their tradeoff):
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png 400w,
-               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_2f4bf3a7d769ce34b645317b0185e5da.png 760w,
-               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png&#34;
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_d9a99dd55e8ff64939a307b8b8b3a254.webp 400w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_6c06df1d0e7563e911baf928625df644.webp 760w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_d9a99dd55e8ff64939a307b8b8b3a254.webp&#34;
                width=&#34;650&#34;
                height=&#34;423&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -1484,10 +1563,10 @@ The following figure illustrates this concept:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png 400w,
-               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_c94c9439b2a33c151e94b625efc06607.png 760w,
-               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png&#34;
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_48ed433e714b1acc1847a91468024bf7.webp 400w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_3b298cac4c0b53405648a76975c6bc98.webp 760w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_48ed433e714b1acc1847a91468024bf7.webp&#34;
                width=&#34;760&#34;
                height=&#34;295&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -1584,7 +1663,7 @@ complexity. But note that
 we don&amp;rsquo;t want the (expected) Kolmogorov complexity of the learned model.
 For example, a randomly initialized neural network has high Kolmogorov complexity,
 but its model complexity should be zero (it&amp;rsquo;s all the way at
-&amp;ldquo;high bias, low variance&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&amp;quot;). What we might be able
+&amp;ldquo;high bias, low variance&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&amp;rdquo;). What we might be able
 to use instead is the algorithmic mutual information between the learned
 model and the dataset. Another approach would be the (information-theoretic)
 mutual information of dataset and model with respect to the distribution over datasets.
@@ -1609,20 +1688,20 @@ to keep in mind when doing machine learning.&lt;/p&gt;
 the way the tradeoff is often presented doesn&amp;rsquo;t do a good job of hightlighting
 the parts we don&amp;rsquo;t understand. I highly recommend &lt;a href=&#34;https://www.bradyneal.com/bias-variance-tradeoff-textbooks-update&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this essay&lt;/a&gt;, which makes a similar
 point more explicitly.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;I&amp;rsquo;m ignoring label noise here. More generally, if the labels are sampled from \(y = f(x) + \varepsilon\) with \(\mathbb{E}[\varepsilon] = 0\), there would be an additional \(\varepsilon^2\)-term, the &lt;em&gt;irreducible error&lt;/em&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Though just to make things even weirder: this only seems to occur when increasing the &lt;em&gt;width&lt;/em&gt; of networks. Increasing the depth often isn&amp;rsquo;t tested in papers on the topic, and when it is, there&amp;rsquo;s no double descent curve.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;To forestall potential confusion: the variance &lt;em&gt;with respect to the training data&lt;/em&gt; is low. Of course there is high variance with respect to the random initialization itself, but that&amp;rsquo;s not what we&amp;rsquo;re interested in.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -1684,9 +1763,8 @@ similar for your &lt;code&gt;/etc&lt;/code&gt; files using &lt;a href=&#34;http:
 after which you can edit, create, move and delete files there using whichever
 tools you like to use for that on your local machine. It&amp;rsquo;s in the package repositories
 of most Linux distributions and using it is as simple as
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;            $ sshfs [user@]hostname:[directory] mountpoint
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/dd&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            $ sshfs [user@]hostname:[directory] mountpoint
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;h2 id=&#34;shell&#34;&gt;Shell&lt;/h2&gt;
 &lt;dl&gt;
@@ -1697,10 +1775,9 @@ You can also use them in &lt;code&gt;zsh&lt;/code&gt; (add &lt;code&gt;bindkey -
 for some improved features). In &lt;code&gt;fish&lt;/code&gt;, you can use &lt;code&gt;fish_vi_key_bindings&lt;/code&gt; inside your config,
 and for &lt;code&gt;bash&lt;/code&gt; it&amp;rsquo;s &lt;code&gt;set -o vi&lt;/code&gt;. You can even enable them for all readline programs,
 such as the Python REPL, by adding
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;          set editing-mode vi
-          set keymap vi
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;to your &lt;code&gt;~/.inputrc&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          set editing-mode vi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          set keymap vi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to your &lt;code&gt;~/.inputrc&lt;/code&gt;.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt&gt;Ctrl-R history search&lt;/dt&gt;
 &lt;dd&gt;Pressing Ctrl-R inside your terminal will let you search
@@ -1771,12 +1848,11 @@ the PDF has no hyperlinked table of contents. Zathura remembers this setting for
 &lt;p&gt;Recoloring allows you to give PDFs a custom foreground and background color. For example,
 you could display PDFs as light text on a dark background. Or use the following in your &lt;code&gt;zathurarc&lt;/code&gt;,
 which displays PDFs in a Solarized light color scheme:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;    set recolor
-    set recolor-darkcolor &amp;quot;#586e75&amp;quot;
-    set recolor-lightcolor &amp;quot;#fdf6e3&amp;quot;
-    set recolor-keephue
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The last line means that the colors of images should be preserved (though they&amp;rsquo;ll be
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor-darkcolor &amp;#34;#586e75&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor-lightcolor &amp;#34;#fdf6e3&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor-keephue
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The last line means that the colors of images should be preserved (though they&amp;rsquo;ll be
 less vibrant). This works for &lt;em&gt;all&lt;/em&gt; pdfs, even scanned images! Ctrl-R will toggle recolorization
 on and off, in case you want to switch back to the original.
 For the ideal visual experience, you can also set the color of all the GUI elements,
@@ -1851,6 +1927,10 @@ on very informal derivations or explanations of why these statements are true.&l
 
 
 
+
+
+
+
 &lt;figure  id=&#34;figure-figure-1-various-styles-for-teaching-mathematics-yes-it-would-look-better-as-a-tikz-figure-but-it-was-either-this-or-nothing&#34;&gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 1: Various styles for teaching mathematics. Yes, it would look better as a TikZ figure, but it was either this or nothing.&#34;
@@ -1859,6 +1939,7 @@ on very informal derivations or explanations of why these statements are true.&l
   &lt;/div&gt;&lt;figcaption&gt;
       Figure 1: Various styles for teaching mathematics. Yes, it would look better as a TikZ figure, but it was either this or nothing.
     &lt;/figcaption&gt;&lt;/figure&gt;
+
 &lt;p&gt;I find that this approach &amp;ndash; stating things formally but reasoning about them informally &amp;ndash;
 works extremely well for me when I first learn about a subject. I&amp;rsquo;m happy to take someone&amp;rsquo;s
 word that a statement is true, at least initially and if the statement seems like it &lt;em&gt;should&lt;/em&gt;
@@ -1869,14 +1950,14 @@ how to write formal proofs, and it&amp;rsquo;s by design not as comprehensive as
 But sometimes an intuitive understanding is enough for my purposes, and even if I know I&amp;rsquo;ll
 later want to learn a subject in more depth, I find it helpful to build this intuitive
 understanding &lt;em&gt;before&lt;/em&gt; going through all the details.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;This sounded a bit absurd to me when writing it down &amp;ndash; how can you rigorously derive something you haven&amp;rsquo;t even really stated? But I think there&amp;rsquo;s some truth to it, and what I mean is roughly this: the calculations done in physics courses are often essentially the same that you&amp;rsquo;d do for a formal proof. But the objects used in those calculations aren&amp;rsquo;t formally defined, it&amp;rsquo;s just taken for granted that everyone has a sense of what they are and how they behave (or maybe it&amp;rsquo;s explicitly stated how they behave, but not whether they are uniquely characterized by that behavior).&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -1903,9 +1984,8 @@ compilation errors if there are any, there is auto-completion and so on.&lt;/p&g
 &lt;h2 id=&#34;visuals&#34;&gt;Visuals&lt;/h2&gt;
 &lt;p&gt;LaTeX can produce beautiful documents, but the source code isn&amp;rsquo;t very
 readable when writing mathematical expressions:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;  \alpha \mapsto \int_{\R}e^{-\alpha x^2}\,dx
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Emacs and AUCTeX (which is the de-facto standard package for using LaTeX inside
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;\alpha&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;\mapsto&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;\int&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;_{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\R&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;e&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;-&lt;span class=&#34;k&#34;&gt;\alpha&lt;/span&gt; x&lt;span class=&#34;nb&#34;&gt;^&lt;/span&gt;2&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\,&lt;/span&gt;dx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Emacs and AUCTeX (which is the de-facto standard package for using LaTeX inside
 Emacs) have several features that improve this situation:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;preview-latex&lt;/code&gt; replaces equations (and other parts of the LaTeX document)
@@ -1943,10 +2023,10 @@ look like this in my editor:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1ac1a653e1e944496505b731d26697b4.png 400w,
-               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_7bb49c13616a0ab182dae2332666fec5.png 760w,
-               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1ac1a653e1e944496505b731d26697b4.png&#34;
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_3721c4b32314ca0693fe98dbe3b70b00.webp 400w,
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_ac4590c31c134f6ad91b1c26076d37e5.webp 760w,
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_3721c4b32314ca0693fe98dbe3b70b00.webp&#34;
                width=&#34;457&#34;
                height=&#34;162&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -1976,34 +2056,29 @@ you to do:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Say you&amp;rsquo;ve typed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \(ax^{2} + b\)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and suddenly realize that this is supposed to go into an exponent. With your cursor
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s&#34;&gt;\(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;ax^{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; b&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and suddenly realize that this is supposed to go into an exponent. With your cursor
 anywhere on this math environment, type &lt;code&gt;ysim^&lt;/code&gt; (&amp;ldquo;surround everything inside the math
 environment as an exponent&amp;rdquo;) and you&amp;rsquo;ll get&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \(^{ax^{2} + b}\)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;with the cursor at the &lt;code&gt;^&lt;/code&gt;. Now you just need to enter the base.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s&#34;&gt;\(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;^{ax^{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; b}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;with the cursor at the &lt;code&gt;^&lt;/code&gt;. Now you just need to enter the base.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Your equations is now&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \(e^{ax^{2} + b}\)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and you decide that this merits its own displayed rather than
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s&#34;&gt;\(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;e^{ax^{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; b}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and you decide that this merits its own displayed rather than
 inline equation. So you type &lt;code&gt;csmee&lt;/code&gt; (&amp;ldquo;change the surrounding math environment
-to &lt;code&gt;equation&lt;/code&gt;&amp;quot;) and get&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \begin{equation}
-    e^{ax^{2} + b}
-    \end{equation}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
+to &lt;code&gt;equation&lt;/code&gt;&amp;rdquo;) and get&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    e&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;ax&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;2&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; + b&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;After a bit more editing, you have (for some reason)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \begin{equation}
-    \beta(e^{ax^{2} + b} + \frac{1}{x})
-    \end{equation}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Of course this looks ugly in the compiled document, you need to use &lt;code&gt;\left(&lt;/code&gt; and &lt;code&gt;\right)&lt;/code&gt;.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\beta&lt;/span&gt;(e&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;ax&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;2&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; + b&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; + &lt;span class=&#34;k&#34;&gt;\frac&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;1&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of course this looks ugly in the compiled document, you need to use &lt;code&gt;\left(&lt;/code&gt; and &lt;code&gt;\right)&lt;/code&gt;.
 With &lt;code&gt;evil-tex&lt;/code&gt;, you can just type &lt;code&gt;mtd&lt;/code&gt; (&amp;ldquo;toggle delimiter&amp;rdquo;) with the cursor anywhere
 inside the parantheses, and it will add &lt;code&gt;\left&lt;/code&gt; and &lt;code&gt;\right&lt;/code&gt; for you. Type &lt;code&gt;mtd&lt;/code&gt; again to
 go back to just the parantheses.&lt;/p&gt;
@@ -2018,14 +2093,12 @@ code and then let you do any calculations you want involving the expression.
 The result will automatically be converted back to LaTeX and written into the
 buffer.&lt;/p&gt;
 &lt;p&gt;For example, say you have&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;\[\sin\left( x^2 + \sqrt{x} \right)\]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and want to know the derivative. You can enter embedded mode and type &lt;code&gt;ad&lt;/code&gt; to differentiate,
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;\[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sin\left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x^&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sqrt&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and want to know the derivative. You can enter embedded mode and type &lt;code&gt;ad&lt;/code&gt; to differentiate,
 then type &lt;code&gt;x&lt;/code&gt; when prompted for the variable with respect to which to differentiate.
 And just like that, you will have&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;\[\left( 2 x + \frac{0.5}{\sqrt{x}} \right) \cos\left( x^2 + \sqrt{x} \right)\]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;inside your buffer. &lt;code&gt;calc&lt;/code&gt; can even parse and output things like &lt;code&gt;\begin{pmatrix}...\end{pmatrix}&lt;/code&gt;,
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;\[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\frac&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sqrt&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x}} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\cos\left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x^&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sqrt&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;inside your buffer. &lt;code&gt;calc&lt;/code&gt; can even parse and output things like &lt;code&gt;\begin{pmatrix}...\end{pmatrix}&lt;/code&gt;,
 so you can multiply matrices as well.&lt;/p&gt;
 &lt;h2 id=&#34;and-more&#34;&gt;And more&lt;/h2&gt;
 &lt;p&gt;I&amp;rsquo;ve only covered some of my personal favorite features when it comes to
@@ -2037,17 +2110,17 @@ easier &amp;ndash; this is Emacs after all.&lt;/p&gt;
 &lt;p&gt;The downside is of course that there is a pretty steep learning curve.
 But for people who need to write LaTeX documents all the time, I&amp;rsquo;d argue
 it&amp;rsquo;s worth it.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Though mostly the first part &amp;ndash; I haven&amp;rsquo;t actually tried many others and they may be just as amazing.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Using &lt;code&gt;TeX-electric-sub-and-superscript&lt;/code&gt;, &lt;code&gt;TeX-electric-math&lt;/code&gt;, and &lt;code&gt;LaTeX-csquotes-open-quote&lt;/code&gt; / &lt;code&gt;LaTeX-csquotes-close-quote&lt;/code&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -2157,17 +2230,17 @@ the Laplacian&amp;rsquo;s eigenspaces are still irreducible representations in h
 but they are not the only ones anymore). But combining this with our results
 from above, the spherical harmonics make up all the irreducible representations
 of \(\operatorname{SO}(3)\).&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;I&amp;rsquo;m skipping over some details here, see for example Claim 4.0.1 &lt;a href=&#34;http://www-users.math.umn.edu/~garrett/m/mfms/notes%5Fc/spheres%5FI.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;See Corollary 4.0.6 &lt;a href=&#34;http://www-users.math.umn.edu/~garrett/m/mfms/notes%5Fc/spheres%5FI.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;in the same document&lt;/a&gt; for a proof&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -2277,14 +2350,14 @@ is discussed in the &lt;a href=&#34;http://implicit-layers-tutorial.org/&#34; ta
 It starts with Deep equilbrium models (which essentially use layers defined
 by \(g(x, y) = 0\) as in this post, just framed differently) but then applies
 the same ideas to constraints described by ODEs, leading to Neural ODEs.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;This is assuming that the Jacobian \(\frac{\partial g}{\partial y}\) is invertible. This is exactly the condition under which the &lt;a href=&#34;https://en.wikipedia.org/wiki/Implicit%5Ffunction%5Ftheorem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;implicit function theorem&lt;/a&gt; holds. In that case, \(y^*\) is indeed differentiable (so we can apply the chain rule as we did). And if we drop the assumption that \(g(x, y) = 0\) is uniquely solvable, then the implicit function theorem at least guarantees that a unique solution \(y*(x)\) exists locally around a point \((x_0, y_0)\). So this theorem is sort of a theoretical backbone, which guarantees that what we do actually works. But if we assume that a solution function \(y^*\) exists and is differentiable, then computing it&amp;rsquo;s Jacobian doesn&amp;rsquo;t require any heavy machinery: as you can see, we just apply the chain rule once and then rearrange a bit.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -2334,14 +2407,13 @@ to get a function with the
 signature that we want, where \(\text{params} := \text{actor-param} \times \text{critic-param}\)
 is the type of the complete collection of parameters.
 In Python, this might look as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def train(trajectory, params):
-    actor_param, critic_param = params
-    v_function = V(critic_param)
-    actor_update = A(trajectory, actor_param, v_function)
-    critic_update = C(trajectory, critic_param)
-    return (actor_update, critic_update)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You should read this more as pseudo-code: the point is not that we would
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;train&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;trajectory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;actor_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;critic_param&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;v_function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;critic_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;actor_update&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;trajectory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v_function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;critic_update&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;trajectory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;critic_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;actor_update&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;critic_update&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You should read this more as pseudo-code: the point is not that we would
 actually implement an agent exactly like this, but just to show how these
 individual functions come together to define an update for the entire
 agent.&lt;/p&gt;
@@ -2378,8 +2450,8 @@ it into our training algorithm without changing anything else.&lt;/p&gt;
 &lt;p&gt;Before we discuss how to define such a function, let&amp;rsquo;s first take a step
 back and consider how this signature is actually implemented by the
 environment. An environment is defined by its transition probabilities
-\[p(s&#39;, r|s, a)\]
-i.e. the probability that the next state will be \(s&#39;\) and the reward \(r\)
+\[p(s&amp;rsquo;, r|s, a)\]
+i.e. the probability that the next state will be \(s&amp;rsquo;\) and the reward \(r\)
 if action \(a\) is taken in state \(s\). So this defines a function
 \[\text{state} \times \text{action} \to D(\text{state} \times \text{reward})\]
 where \(D(\cdot)\) denotes distributions with values of a given type.
@@ -2430,7 +2502,7 @@ etc.&lt;/p&gt;
 &lt;p&gt;As hinted before, using a model to replace the environment
 (by simulating trajectories) is only one of many applications.&lt;/p&gt;
 &lt;p&gt;First, let&amp;rsquo;s consider sample models (i.e. models that can
-generate \((s&#39;, r)\) tuples for any state-action input). As we saw
+generate \((s&amp;rsquo;, r)\) tuples for any state-action input). As we saw
 at the beginning of this post, many RL methods don&amp;rsquo;t need entire
 trajectories to learn, they instead work on smaller sequences of
 experience tuples. For example, 1-step methods compute
@@ -2481,17 +2553,17 @@ to updates for value functions or policies. This post showed
 that these functions are themselves building blocks for complete
 training loops and can be composed in different ways with models
 and sampling procedures.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Since parameters in deep learning are usually vectors, there isn&amp;rsquo;t any formal difference between a parameter and a change of a parameter. But we&amp;rsquo;ll still distinguish them because there is a big &lt;em&gt;conceptual&lt;/em&gt; difference and because it&amp;rsquo;s more general that way.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Usually, the type \(A \to B\) refers to &lt;em&gt;pure&lt;/em&gt; functions that map objects with type \(A\) to type \(B\). I use it slightly differently to also include stochastic functions, which have a random output of type \(B\). For example, the sampled trajectory is not a deterministic function of the policy, it will instead be different each time the sampling function is applied.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -2541,9 +2613,9 @@ to zero works for differentiable functions. If \(f(x)\) has a local minimum
 at 0, then this means that \(f(x) \geq f(0)\) for all sufficiently small \(x\).
 Since we assumed \(f\) to be differentiable at \(0\), \(f(x)\) is well approximated&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
 by
-\[f(x) \approx f(0) + f&#39;(0)x\]
-for small \(x\). So if \(f&#39;(0) &amp;gt; 0\), then \(f(x) &amp;lt; f(0)\) for small negative \(x\),
-and if \(f&#39;(0) &amp;lt; 0\) we get the same for positive \(x\). So the derivative at
+\[f(x) \approx f(0) + f&amp;rsquo;(0)x\]
+for small \(x\). So if \(f&amp;rsquo;(0) &amp;gt; 0\), then \(f(x) &amp;lt; f(0)\) for small negative \(x\),
+and if \(f&amp;rsquo;(0) &amp;lt; 0\) we get the same for positive \(x\). So the derivative at
 the minimum has to be zero, because otherwise taking a small step in the right
 direction would decrease the value.&lt;/p&gt;
 &lt;p&gt;We can apply the same idea to the loss with \(L_1\) regularization: what happens
@@ -2587,19 +2659,24 @@ unit variance and properly normalized:&lt;/p&gt;
 
 
 
+
+
+
+
 &lt;figure  id=&#34;figure-figure-1-gaussian-and-laplace-distribution-with-unit-variance-created-using-&#34;&gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 1: Gaussian and Laplace distribution with unit variance (created using )&#34; srcset=&#34;
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png 400w,
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_948f91e97afa11b33a27693d78698f5a.png 760w,
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png&#34;
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_576eee5558af5f10c82e7b70f778f071.webp 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_9ee58174ad35853213fb24038c96e01c.webp 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_576eee5558af5f10c82e7b70f778f071.webp&#34;
                width=&#34;760&#34;
                height=&#34;760&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;figcaption&gt;
-      Figure 1: Gaussian and Laplace distribution with unit variance (created using &lt;a href=&#34;https://www.desmos.com/&#34;&gt;https://www.desmos.com/&lt;/a&gt;)
+      Figure 1: Gaussian and Laplace distribution with unit variance (created using &lt;a href=&#34;https://www.desmos.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.desmos.com/&lt;/a&gt;)
     &lt;/figcaption&gt;&lt;/figure&gt;
+
 &lt;p&gt;One difference is that the Laplace distribution has a higher density
 at (and around) 0. I&amp;rsquo;ve seen this used as an explanation for sparsity several times:
 the Laplace distribution seems more &amp;ldquo;concentrated&amp;rdquo; around 0, i.e. assigns a higher
@@ -2620,19 +2697,24 @@ figure:&lt;/p&gt;
 
 
 
+
+
+
+
 &lt;figure  id=&#34;figure-figure-2-narrower-gaussian&#34;&gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 2: Narrower Gaussian&#34; srcset=&#34;
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png 400w,
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_f55fb9dccb8e2732aa3500260a17b57c.png 760w,
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png&#34;
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_d7e1a82396385f818f8f80bf538fcfdf.webp 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_781c384a8a3cac3785e7df787bc3eeca.webp 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_d7e1a82396385f818f8f80bf538fcfdf.webp&#34;
                width=&#34;760&#34;
                height=&#34;760&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;figcaption&gt;
       Figure 2: Narrower Gaussian
     &lt;/figcaption&gt;&lt;/figure&gt;
+
 &lt;p&gt;These are still a normalized Gaussian and a Laplace distribution, the only difference is that
 I&amp;rsquo;ve chosen a much smaller variance for the Gaussian. This corresponds to
 choosing a higher coefficient \(\beta\) for the \(L_2\) penalty. I&amp;rsquo;d argue that in this case the Gaussian is much more
@@ -2661,20 +2743,20 @@ regularization won&amp;rsquo;t lead to sparse weights.&lt;/p&gt;
 the singularity of the \(L_1\) norm (or the Laplace prior) creates an &lt;em&gt;inequality&lt;/em&gt; constraint
 for the partial derivative: it leads to \(w_i = 0\) as long as the derivative lies in a certain
 range of values. This is what makes sparse weights likely.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;This is a restriction, for example a model containign ReLUs will typically only be differentiable almost everywhere, and as we&amp;rsquo;ll see, individual non-differentiable points will play a big role. It might be possible to argue that the types of non-differentiable points created by ReLUs don&amp;rsquo;t change the conclusions of following discussion but we&amp;rsquo;ll just assume a differentiable loss so we can focus on the conceptual insights.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;meaning that the error \(f(x) - (f(0) + f&#39;(0)x)\) doesn&amp;rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f&#39;(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;meaning that the error \(f(x) - (f(0) + f&amp;rsquo;(0)x)\) doesn&amp;rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f&amp;rsquo;(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;Of course this is not guaranteed for complex loss functions: there might be another local optimum somewhere else. This is just the condition for 0 to be one of the local optima at which we might end up.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -2746,7 +2828,7 @@ be any \(n\) with complexity higher than \(k\) &amp;hellip;&lt;/p&gt;
 &lt;p&gt;&amp;hellip; which can&amp;rsquo;t be right, because just as with natural language descriptions,
 there are only finitely many programs of length \(\leq k\), but infinitely many
 bit strings.&lt;/p&gt;
-&lt;p&gt;This time, the issue is the phrase &amp;ldquo;Given a subroutine &amp;hellip;&amp;quot;: \(P_k\) is
+&lt;p&gt;This time, the issue is the phrase &amp;ldquo;Given a subroutine &amp;hellip;&amp;rdquo;: \(P_k\) is
 undecidable, so this subroutine unfortunately doesn&amp;rsquo;t exist&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. Or fortunately, if you value the consistency of mathematics.&lt;/p&gt;
 &lt;p&gt;In essense, the problem is this: in English, the smallest number with a simple property
 can be described in few words because you only need to describe the property and a few
@@ -2798,17 +2880,17 @@ paradox &amp;ndash; motivates a proof of Gödel&amp;rsquo;s second incompletenes
 &lt;li&gt;Chaitin himself briefly points out the similarity of his impossibility result to Berry&amp;rsquo;s paradoxon in
 &lt;em&gt;Gödel&amp;rsquo;s Theorem and Information&lt;/em&gt; (1982)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;At least in languages where you can&amp;rsquo;t just create an arbitrary number of new words by composing existing ones. If you can, then one word is enough to &amp;ldquo;describe&amp;rdquo; any number&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;It might seem like we&amp;rsquo;ve in fact proven that \(P_k\) is undecidable, because if it was decidable, we&amp;rsquo;d get a contradiction. But actuallly, we&amp;rsquo;ve only shown that \(P_k\) can&amp;rsquo;t be computed by any program of length less than \(k\). A longer program doesn&amp;rsquo;t immediately lead to a contradiction.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -3031,20 +3113,20 @@ or as a quick reference for how a given method works&lt;/li&gt;
 &lt;li&gt;More on score function estimators: &lt;a href=&#34;http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/&lt;/a&gt;
 and &lt;a href=&#34;http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Sham Kakade, 2001. &lt;a href=&#34;https://proceedings.neurips.cc/paper/2001/file/4b86abe48d358ecf194c56c69108433e-Paper.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(pdf link)&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Vanilla gradient descent can be interpreted as follows: we want to find \(\Delta \theta\) such that \(J(\theta + \Delta \theta)\) is maximized, but under the constraint that the update isn&amp;rsquo;t too large, \(\Vert\Delta \theta\Vert_2 \leq c\). As \(c\) gets smaller, the optimal update \(\Delta \theta\) aligns more and more with the gradient \(\nabla J(\theta)\). NPG does the same using the Kullback-Leibler divergence between \(\pi_\theta\) and \(\pi_{\theta + \Delta \theta}\) instead of the \(L^2\) distance between the parameters. So &lt;em&gt;infinitesimally&lt;/em&gt; (i.e. as the learning rate approaches zero), it limits the change in the policy, but it doesn&amp;rsquo;t actually give any guarantees in the finite regime.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;John Schulman et al., 2015. &lt;a href=&#34;https://arxiv.org/abs/1502.05477&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(arxiv link)&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -3136,14 +3218,14 @@ type theory formalizes this. If you want to see an example like the topology pro
 using the propositions as types view, check out section II. in &lt;a href=&#34;https://www.lesswrong.com/posts/Xfw2d5horPunP2MSK/dependent-type-theory-and-zero-shot-reasoning&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this post&lt;/a&gt;. If you haven&amp;rsquo;t seen
 the correspondence between propositions and types before and want to learn more,
 &lt;a href=&#34;https://www.youtube.com/watch?v=IOiZatlZtGU&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this talk&lt;/a&gt; is very fun to watch.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Note the &amp;ldquo;simple&amp;rdquo; &amp;ndash; there are obviously really hard to prove statements in point set topology, as in any discipline&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -3267,14 +3349,14 @@ principle: we can only observe Hamiltonians that permit observers to exist in th
 universe they describe. A harmonic oscillator is presumably too simple for that and maybe
 the same is true for any Hamiltonian which treats position and momentum exactly
 equivalently.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;I saw this point made in &lt;a href=&#34;https://www.lesswrong.com/posts/XDkeuJTFjM9Y2x6v6/which-basis-is-more-fundamental?commentId=A5Pux22d5QKj58fXi&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this comment&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -3411,8 +3493,8 @@ with respect to the current value estimate&lt;/li&gt;
 &lt;p&gt;This is called generalized policy iteration or GPI.&lt;/p&gt;
 &lt;p&gt;The second step in the loop, where we improve the policy, is easy for
 Q-functions. The greedy policy is then simply given by
-\[\pi&#39;(s) = \operatorname*{argmax}_a Q(s, a)\]
-and the \(\varepsilon\)-greedy policy just means following \(\pi&#39;\) with probability
+\[\pi&amp;rsquo;(s) = \operatorname*{argmax}_a Q(s, a)\]
+and the \(\varepsilon\)-greedy policy just means following \(\pi&amp;rsquo;\) with probability
 \(1 - \varepsilon\) and choosing randomly with probability \(\varepsilon\).&lt;/p&gt;
 &lt;p&gt;With V-functions on the other hand, we would need access to the environment dynamics
 to compute the greedy policy. Because we usually don&amp;rsquo;t have that,
@@ -3570,14 +3652,14 @@ an algorithm works really well or doesn&amp;rsquo;t even converge. But what I ha
 you of is that all the core building blocks from tabular RL appear in essentially the same
 way in deep RL and really are fundamental &amp;ldquo;building blocks&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;Next up: &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-2&#34;&gt;Part 2&lt;/a&gt;, where we will apply a similar breakdown to policy optimization methods.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;or expected Sarsa, they are the same for a deterministic policy&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -3793,23 +3875,23 @@ that contribute the most)&lt;/li&gt;
 &lt;li&gt;There is also a &lt;a href=&#34;https://arxiv.org/abs/1906.02691&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tutorial by Kingma and Welling&lt;/a&gt;, the authors who introduced VAEs. You could also look
 at their &lt;a href=&#34;https://arxiv.org/abs/1312.6114&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;original paper&lt;/a&gt; but that&amp;rsquo;s a lot terser&lt;/li&gt;
 &lt;/ul&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Michael Nielsen calls this &amp;ldquo;discovery fiction&amp;rdquo;, mentioned for example &lt;a href=&#34;http://cognitivemedium.com/srs-mathematics&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;If you intrinsically care about \(p(z|x)\), for example because you hope the latent variables will have an interesting meaning, this and parts of the remaining post are unnecessary, you&amp;rsquo;ll get to VAEs more directly. But my point is that you don&amp;rsquo;t &lt;em&gt;need&lt;/em&gt; that motivation &amp;ndash; VAEs arise pretty naturally even if you only care about finding a good model \(p_\theta(x)\) of the training data.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;In particular, the Kullback-Leibler divergence is not symmetric, which raises the question why we use \(D(q\Vert p)\) and not \(D(p\Vert q)\). The reason is that the latter would itself lead to an intractable optimization problem and so we wouldn&amp;rsquo;t have made any progress.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
 &lt;p&gt;If you&amp;rsquo;ve read the previous footnote: this is the point where using the other KL divergence would mean we&amp;rsquo;re stuck because we have an expectation with respect to \(p(z|x)\)&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -3978,17 +4060,17 @@ If an object has more structure, &amp;hellip;&lt;/p&gt;
 &lt;li&gt;specifying that particular object is often easier because the structure
 restricts the space of options, but there are exceptions&lt;/li&gt;
 &lt;/ul&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;In category theory these are forgetful functors but I&amp;rsquo;m just interested in intuition here, not formalism. In this example, there is also a natural way to turn any abelian group into a \(k\)-vector space, for a given field \(k\), by tensoring with \(k\). But that vector space won&amp;rsquo;t be over \(X\) anymore and in many other cases there is no canonical way to add structure at all.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;The automorphism group is the set of all isomorphisms from an object to itself (which becomes a group via composition as the group operation)&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -4146,23 +4228,23 @@ a single run.&lt;/p&gt;
 &lt;p&gt;But also note that any choice of a &amp;ldquo;branching factor&amp;rdquo; \(a\) works, as long as we then choose
 \(b = \sqrt{a}\). So splitting the computation up into just two subproblems is a reasonable
 and simple choice, but from a purely asymptotic perspective it is arbitrary.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;There is also an implementation in \(\mathcal{O}(m)\), where \(m\) is the number of edges, but for the Karger-Stein algorithm that won&amp;rsquo;t make a difference and we&amp;rsquo;ll ignore it.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;David Karger: &lt;em&gt;Global min-cuts in RNC, and other ramifications of a simple min-cut algorithm&lt;/em&gt;, SODA 1993&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;Usually we stop a bit before 2 vertices and just compute the mincut from there using other methods but that doesn&amp;rsquo;t matter here&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
 &lt;p&gt;This and the following analysis is based on the paper by Karger and Stein: &lt;em&gt;A new approach to the minimum cut problem&lt;/em&gt;, Journal of the ACM 1996. The difference is just that I consider arbitrary \(a\) and \(b\), rather than just \(a = 2\) and \(b = \sqrt{2}\).&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -4267,14 +4349,14 @@ events in the far future in a relativistic universe. But if you do, there will
 be &lt;em&gt;some&lt;/em&gt; consequences that I find rather unintuitive. Either you care a lot
 about what happens on faraway star systems in the far future, or how much
 you value different things changes whenever you change your velocity.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;because every point in your future light cone lies on the world line of some reference frame that you can reach by a Lorentz boost&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     

@@ -38,10 +38,10 @@ typically works better than grid search for hyperparameter optimization:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_d3be0eb04324b57719cec651481c1e64.png 400w,
-               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_36f8ac379869454f87dfa5f4b34af6da.png 760w,
-               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_d3be0eb04324b57719cec651481c1e64.png&#34;
+               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_b9a27839990b4a9c4f346a099271fbba.webp 400w,
+               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_9b6009a96990238097995846618ceab2.webp 760w,
+               /post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/random-vs-grid-search/random-vs-grid_hu3c6e7a3d78683d18209bf26d866ff875_195782_b9a27839990b4a9c4f346a099271fbba.webp&#34;
                width=&#34;760&#34;
                height=&#34;381&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -80,10 +80,10 @@ performance, grid and random search look as follows:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_19a5cbd1a6dc38771a8e9df6b879b05b.png 400w,
-               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_d8bc08ca66551650e1d2021e02048928.png 760w,
-               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_19a5cbd1a6dc38771a8e9df6b879b05b.png&#34;
+               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_6148d00a8a37827639526c1e8a1c829c.webp 400w,
+               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_71e5d8f16a38178a97113f78d5733b0a.webp 760w,
+               /post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/random-vs-grid-search/uniform_hu9818898b64c92bc8c8151d91cd2e27c5_45428_6148d00a8a37827639526c1e8a1c829c.webp&#34;
                width=&#34;760&#34;
                height=&#34;378&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -115,10 +115,10 @@ so that the more important hyperparameter has a longer axis:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_82dc086908744a0bf37ef952ce7be0c5.png 400w,
-               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_ba1f60f5f2b8c14c406a9b8abe4fc00e.png 760w,
-               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_82dc086908744a0bf37ef952ce7be0c5.png&#34;
+               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_fe933030c24ae169514f0134dc26b434.webp 400w,
+               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_2bc79e8bcb48e50fd94f33e5689645f2.webp 760w,
+               /post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/random-vs-grid-search/stretched_hu8519aab01fed6e1336a491f34d4cdba2_35890_fe933030c24ae169514f0134dc26b434.webp&#34;
                width=&#34;760&#34;
                height=&#34;274&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -133,13 +133,13 @@ better at &amp;ldquo;uniformly&amp;rdquo; filling out the hyperparameter space u
 we could improve grid search by having more grid points along the more important
 axis&amp;mdash;but often we &lt;em&gt;don&amp;rsquo;t&lt;/em&gt; know that, at least not very precisely. And
 for random search, it luckily doesn&amp;rsquo;t matter.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;James Bergstra and Yoshua Bengio: Random Search for Hyper-Parameter Optimization, &lt;a href=&#34;https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;This is a different sort of simplifying assumption
 than we had above: now, the overall performance cannot necessarily be decomposed
 as $f(x) + g(y)$. Instead, we assume that performance depends monotonically
@@ -148,7 +148,7 @@ of additivity, this is pretty unrealistic, but I think it still serves as
 a good intuition.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -236,10 +236,10 @@ to gain more intuition about bias, variance, and their tradeoff):
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png 400w,
-               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_2f4bf3a7d769ce34b645317b0185e5da.png 760w,
-               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_746ea3c321f93f5a7b574db6ab750c92.png&#34;
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_d9a99dd55e8ff64939a307b8b8b3a254.webp 400w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_6c06df1d0e7563e911baf928625df644.webp 760w,
+               /post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/tradeoff_huad58a1a719791584e96223cc1385b715_74447_d9a99dd55e8ff64939a307b8b8b3a254.webp&#34;
                width=&#34;650&#34;
                height=&#34;423&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -315,10 +315,10 @@ The following figure illustrates this concept:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png 400w,
-               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_c94c9439b2a33c151e94b625efc06607.png 760w,
-               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_f8ea40c8a5d46848ecdef6b516b73691.png&#34;
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_48ed433e714b1acc1847a91468024bf7.webp 400w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_3b298cac4c0b53405648a76975c6bc98.webp 760w,
+               /post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/bias-variance-tradeoff/double_descent_hu30a5ab44e4e723ba2eeab7a2c76eeb50_174059_48ed433e714b1acc1847a91468024bf7.webp&#34;
                width=&#34;760&#34;
                height=&#34;295&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -415,7 +415,7 @@ complexity. But note that
 we don&amp;rsquo;t want the (expected) Kolmogorov complexity of the learned model.
 For example, a randomly initialized neural network has high Kolmogorov complexity,
 but its model complexity should be zero (it&amp;rsquo;s all the way at
-&amp;ldquo;high bias, low variance&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&amp;quot;). What we might be able
+&amp;ldquo;high bias, low variance&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;&amp;rdquo;). What we might be able
 to use instead is the algorithmic mutual information between the learned
 model and the dataset. Another approach would be the (information-theoretic)
 mutual information of dataset and model with respect to the distribution over datasets.
@@ -440,20 +440,20 @@ to keep in mind when doing machine learning.&lt;/p&gt;
 the way the tradeoff is often presented doesn&amp;rsquo;t do a good job of hightlighting
 the parts we don&amp;rsquo;t understand. I highly recommend &lt;a href=&#34;https://www.bradyneal.com/bias-variance-tradeoff-textbooks-update&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this essay&lt;/a&gt;, which makes a similar
 point more explicitly.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;I&amp;rsquo;m ignoring label noise here. More generally, if the labels are sampled from \(y = f(x) + \varepsilon\) with \(\mathbb{E}[\varepsilon] = 0\), there would be an additional \(\varepsilon^2\)-term, the &lt;em&gt;irreducible error&lt;/em&gt;.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Though just to make things even weirder: this only seems to occur when increasing the &lt;em&gt;width&lt;/em&gt; of networks. Increasing the depth often isn&amp;rsquo;t tested in papers on the topic, and when it is, there&amp;rsquo;s no double descent curve.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;To forestall potential confusion: the variance &lt;em&gt;with respect to the training data&lt;/em&gt; is low. Of course there is high variance with respect to the random initialization itself, but that&amp;rsquo;s not what we&amp;rsquo;re interested in.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -503,9 +503,9 @@ to zero works for differentiable functions. If \(f(x)\) has a local minimum
 at 0, then this means that \(f(x) \geq f(0)\) for all sufficiently small \(x\).
 Since we assumed \(f\) to be differentiable at \(0\), \(f(x)\) is well approximated&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;
 by
-\[f(x) \approx f(0) + f&#39;(0)x\]
-for small \(x\). So if \(f&#39;(0) &amp;gt; 0\), then \(f(x) &amp;lt; f(0)\) for small negative \(x\),
-and if \(f&#39;(0) &amp;lt; 0\) we get the same for positive \(x\). So the derivative at
+\[f(x) \approx f(0) + f&amp;rsquo;(0)x\]
+for small \(x\). So if \(f&amp;rsquo;(0) &amp;gt; 0\), then \(f(x) &amp;lt; f(0)\) for small negative \(x\),
+and if \(f&amp;rsquo;(0) &amp;lt; 0\) we get the same for positive \(x\). So the derivative at
 the minimum has to be zero, because otherwise taking a small step in the right
 direction would decrease the value.&lt;/p&gt;
 &lt;p&gt;We can apply the same idea to the loss with \(L_1\) regularization: what happens
@@ -549,19 +549,24 @@ unit variance and properly normalized:&lt;/p&gt;
 
 
 
+
+
+
+
 &lt;figure  id=&#34;figure-figure-1-gaussian-and-laplace-distribution-with-unit-variance-created-using-&#34;&gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 1: Gaussian and Laplace distribution with unit variance (created using )&#34; srcset=&#34;
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png 400w,
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_948f91e97afa11b33a27693d78698f5a.png 760w,
-               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_726e162160eb52d0319a97b816cca137.png&#34;
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_576eee5558af5f10c82e7b70f778f071.webp 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_9ee58174ad35853213fb24038c96e01c.webp 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/gaussian_laplace_hudf3bcb2df9dfe189816964ee986ea242_74768_576eee5558af5f10c82e7b70f778f071.webp&#34;
                width=&#34;760&#34;
                height=&#34;760&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;figcaption&gt;
-      Figure 1: Gaussian and Laplace distribution with unit variance (created using &lt;a href=&#34;https://www.desmos.com/&#34;&gt;https://www.desmos.com/&lt;/a&gt;)
+      Figure 1: Gaussian and Laplace distribution with unit variance (created using &lt;a href=&#34;https://www.desmos.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://www.desmos.com/&lt;/a&gt;)
     &lt;/figcaption&gt;&lt;/figure&gt;
+
 &lt;p&gt;One difference is that the Laplace distribution has a higher density
 at (and around) 0. I&amp;rsquo;ve seen this used as an explanation for sparsity several times:
 the Laplace distribution seems more &amp;ldquo;concentrated&amp;rdquo; around 0, i.e. assigns a higher
@@ -582,19 +587,24 @@ figure:&lt;/p&gt;
 
 
 
+
+
+
+
 &lt;figure  id=&#34;figure-figure-2-narrower-gaussian&#34;&gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;Figure 2: Narrower Gaussian&#34; srcset=&#34;
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png 400w,
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_f55fb9dccb8e2732aa3500260a17b57c.png 760w,
-               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_ad521c5f5f96aebab09db3967c68bff7.png&#34;
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_d7e1a82396385f818f8f80bf538fcfdf.webp 400w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_781c384a8a3cac3785e7df787bc3eeca.webp 760w,
+               /post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/sparsity-singularities/fig/sparsity-regularization/narrow_gaussian_laplace_hu1bcdef45b5d96c976c595bddc380f10d_61833_d7e1a82396385f818f8f80bf538fcfdf.webp&#34;
                width=&#34;760&#34;
                height=&#34;760&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
   &lt;/div&gt;&lt;figcaption&gt;
       Figure 2: Narrower Gaussian
     &lt;/figcaption&gt;&lt;/figure&gt;
+
 &lt;p&gt;These are still a normalized Gaussian and a Laplace distribution, the only difference is that
 I&amp;rsquo;ve chosen a much smaller variance for the Gaussian. This corresponds to
 choosing a higher coefficient \(\beta\) for the \(L_2\) penalty. I&amp;rsquo;d argue that in this case the Gaussian is much more
@@ -623,20 +633,20 @@ regularization won&amp;rsquo;t lead to sparse weights.&lt;/p&gt;
 the singularity of the \(L_1\) norm (or the Laplace prior) creates an &lt;em&gt;inequality&lt;/em&gt; constraint
 for the partial derivative: it leads to \(w_i = 0\) as long as the derivative lies in a certain
 range of values. This is what makes sparse weights likely.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;This is a restriction, for example a model containign ReLUs will typically only be differentiable almost everywhere, and as we&amp;rsquo;ll see, individual non-differentiable points will play a big role. It might be possible to argue that the types of non-differentiable points created by ReLUs don&amp;rsquo;t change the conclusions of following discussion but we&amp;rsquo;ll just assume a differentiable loss so we can focus on the conceptual insights.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;meaning that the error \(f(x) - (f(0) + f&#39;(0)x)\) doesn&amp;rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f&#39;(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;meaning that the error \(f(x) - (f(0) + f&amp;rsquo;(0)x)\) doesn&amp;rsquo;t just approach 0 for \(x \to 0\) (that would be continuity), it approaches 0 fast enough that even \[\frac{f(x) - (f(0) + f&amp;rsquo;(0)x)}{x} \to 0\] This is enough to make the rest of argument work out.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;Of course this is not guaranteed for complex loss functions: there might be another local optimum somewhere else. This is just the condition for 0 to be one of the local optima at which we might end up.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     

@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en-us" >
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: April 1, 2023 --><html lang="en-us" >
+
 
 <head>
   <meta charset="utf-8" />
@@ -7,59 +10,59 @@
   
   
   
-    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
   
 
   
+  
+
+
+
+
+
+
+
+
+
+
+
 
   
   
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
   
   
   
     
-    
-    
-  
-  
-
-  <meta name="author" content="Erik Jenner" />
-
-  
-  
-  
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
     
   
-  <meta name="description" content="`einsum` is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&#39;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason `einsum` is great is precisely because it is *easier* to use and reason about than the alternatives. So this post tries to set the record straight and show how simple `einsum` really is.
-  " />
 
   
-  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/einsum/" />
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-
-  
-  
-  
-    <meta name="theme-color" content="#707070" />
   
 
   
@@ -70,14 +73,14 @@
 
   
 
-  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
 
   
   
   
     
     
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
     
 
     
@@ -93,41 +96,10 @@
     
     
     
-      
-    
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
-        
-      
-    
-
-    
-    
-    
 
     
 
     
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
     
       
       
@@ -240,49 +212,15 @@
   
   
   
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
-    
-  
-
   
   
   
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.fd9b978ceb8f3cb70c65357f0dc17c1c.css" />
-
-  
-
-
-
-  
-
-  
-
-  
-
-
-
+  <link rel="stylesheet" href="/css/wowchemy.87843d66b22de2ef388a7e23cc79fac1.css" />
 
   
   
   
 
-  
-
-  
-    <link rel="manifest" href="/manifest.webmanifest" />
-  
-
-  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
-
-  <link rel="canonical" href="https://ejenner.com/post/einsum/" />
-
-  
   
   
   
@@ -292,30 +230,115 @@
   
     
     
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
   
   
-  <meta property="twitter:card" content="summary" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-    <meta property="twitter:site" content="@jenner_erik" />
-    <meta property="twitter:creator" content="@jenner_erik" />
   
-  <meta property="og:site_name" content="Erik Jenner" />
-  <meta property="og:url" content="https://ejenner.com/post/einsum/" />
-  <meta property="og:title" content="Einsum is easy and useful | Erik Jenner" />
-  <meta property="og:description" content="`einsum` is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&#39;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason `einsum` is great is precisely because it is *easier* to use and reason about than the alternatives. So this post tries to set the record straight and show how simple `einsum` really is.
-  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
-    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
   
-    
-      <meta
-        property="article:published_time"
-        content="2022-11-05T00:00:00&#43;00:00"
-      />
-    
+
+
+
+
+
+
+  <meta name="author" content="Erik Jenner" />
+
+
+
+
+
+  
+
+<meta name="description" content="`einsum` is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&#39;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason `einsum` is great is precisely because it is *easier* to use and reason about than the alternatives. So this post tries to set the record straight and show how simple `einsum` really is.
+  " />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/einsum/" />
+<link rel="canonical" href="https://ejenner.com/post/einsum/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#707070" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@jenner_erik" />
+  <meta property="twitter:creator" content="@jenner_erik" />
+<meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+<meta property="og:site_name" content="Erik Jenner" />
+<meta property="og:url" content="https://ejenner.com/post/einsum/" />
+<meta property="og:title" content="Einsum is easy and useful | Erik Jenner" />
+<meta property="og:description" content="`einsum` is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&#39;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason `einsum` is great is precisely because it is *easier* to use and reason about than the alternatives. So this post tries to set the record straight and show how simple `einsum` really is.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2022-11-05T00:00:00&#43;00:00"
+    />
+  
+  
     <meta property="article:modified_time" content="2022-11-05T00:00:00&#43;00:00">
   
 
-  
+
+
+
 
 
     
@@ -364,15 +387,37 @@
 
   
 
+
+
+
+  
+  
+  
+
+  
   
 
   
 
 
-
-
-
+  
   <title>Einsum is easy and useful | Erik Jenner</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
 
@@ -387,7 +432,7 @@
   
   
   
-  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+  <script src="/js/wowchemy-init.min.ec9d49ca50e4b80bdb08f0417a28ed84.js"></script>
 
   
 
@@ -431,8 +476,12 @@
 
 
 
-  <div class="page-header">
-    
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
 
 
 
@@ -445,187 +494,196 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
-  <div class="container-xl">
-
-    
-
-    
-    <button type="button" class="navbar-toggler" data-toggle="collapse"
-            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-    <span><i class="fas fa-bars"></i></span>
-    </button>
-    
-
-    
-
-    
-    
-    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
 
       
-      <ul class="navbar-nav d-md-inline-flex">
-        
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
 
         
-
-        
-        
-        
+        <ul class="navbar-nav d-md-inline-flex">
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
+
           
           
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
             
             
+              
+              
+              
+                
+              
+              
             
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
               
             
             
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link " href="/#about"><span>Home</span></a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post"><span>Blog</span></a>
+          </li>
 
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-
-        
-        
-        
-        
-
-        
-          
-            
-            
           
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link  active" href="/post"><span>Blog</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
           
           
             
+          
+
+          
+
+          
+          
+          
+          
+
+          
             
-            
+              
               
             
             
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
           
         
 
+        
+        
+        
         <li class="nav-item">
-          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
 
         
         
 
-      
-
-        
       </ul>
+
     </div>
-
-    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-
-      
-      
-        
-      
-
-      
-      
-      <li class="nav-item">
-        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
-      </li>
-      
-
-      
-      
-      <li class="nav-item dropdown theme-dropdown">
-        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#" class="dropdown-item js-set-theme-light">
-            <span>Light</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-dark">
-            <span>Dark</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-auto">
-            <span>Automatic</span>
-          </a>
-        </div>
-      </li>
-      
-
-      
-      
-
-    </ul>
-
-  </div>
-</nav>
+  </nav>
+</header>
 
 
   </div>
 
   <div class="page-body">
+    
+    
+    
+
     <article class="article">
 
   
+
 
 
 
@@ -661,7 +719,7 @@
   <span class="article-date">
     
     
-      
+    
     
     Nov 5, 2022
   </span>
@@ -673,7 +731,7 @@
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     
-      8
+    8
     
     min read
   </span>
@@ -683,14 +741,11 @@
   
   
   
-  
-  
 
   
   
 
 </div>
-
     
 
 
@@ -707,50 +762,41 @@
     <div class="article-style">
       <p><code>einsum</code> is one of the most useful functions in Numpy/Pytorch/Tensorflow and yet many people don&rsquo;t use it. It seems to have a reputation as being difficult to understand and use, which is completely backwards in my view: the reason <code>einsum</code> is great is precisely because it is <em>easier</em> to use and reason about than the alternatives. So this post tries to set the record straight and show how simple <code>einsum</code> really is.</p>
 <p>The general syntax for <code>einsum</code> is</p>
-<pre><code class="language-python">einsum(&quot;some string describing an operation&quot;, tensor_1, tensor_2, ...)
-</code></pre>
-<p>with an arbitrary number of tensors after the string. (I&rsquo;ll be saying &ldquo;tensors&rdquo; but they could just as well be Numpy arrays.)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">einsum</span><span class="p">(</span><span class="s2">&#34;some string describing an operation&#34;</span><span class="p">,</span> <span class="n">tensor_1</span><span class="p">,</span> <span class="n">tensor_2</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</span></span></code></pre></div><p>with an arbitrary number of tensors after the string. (I&rsquo;ll be saying &ldquo;tensors&rdquo; but they could just as well be Numpy arrays.)</p>
 <p>Let&rsquo;s look at an example. Say we have two matrices, <code>A</code> and <code>B</code>, with shapes such that we can multiply them as <code>A @ B</code>. Using <code>einsum</code>, we can write this matrix product as</p>
-<pre><code class="language-python">einsum(&quot;ij,jk-&gt;ik&quot;, A, B)
-</code></pre>
-<p>The interesting part is the string, <code>&quot;ij,jk-&gt;ik&quot;</code>. These <code>einsum</code> strings always follow the same structure:</p>
-<pre><code class="language-python">&quot;&lt;input indices&gt; -&gt; &lt;output indices&gt;&quot;
-</code></pre>
-<p>In this example, the input indices are <code>&quot;ij,jk&quot;</code>. These <em>define</em> letters for indices into each input tensor. Different tensors are comma-separated, so <code>ij</code> refers to <code>A</code> and <code>jk</code> refers to <code>B</code>. <code>ij</code> means we call the first axis of <code>A</code> <code>i</code> and the second axis <code>j</code>, and similarly, <code>jk</code> defines names for the axes of <code>B</code>. The specific letters we use are arbitrary here, we could just as well write <code>&quot;ga,aw-&gt;gw&quot;</code>. There has to be one index per axis of the input tensor—in our case, both <code>A</code> and <code>B</code> have two axes (they&rsquo;re matrices), so both get two indices.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">einsum</span><span class="p">(</span><span class="s2">&#34;ij,jk-&gt;ik&#34;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+</span></span></code></pre></div><p>The interesting part is the string, <code>&quot;ij,jk-&gt;ik&quot;</code>. These <code>einsum</code> strings always follow the same structure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s2">&#34;&lt;input indices&gt; -&gt; &lt;output indices&gt;&#34;</span>
+</span></span></code></pre></div><p>In this example, the input indices are <code>&quot;ij,jk&quot;</code>. These <em>define</em> letters for indices into each input tensor. Different tensors are comma-separated, so <code>ij</code> refers to <code>A</code> and <code>jk</code> refers to <code>B</code>. <code>ij</code> means we call the first axis of <code>A</code> <code>i</code> and the second axis <code>j</code>, and similarly, <code>jk</code> defines names for the axes of <code>B</code>. The specific letters we use are arbitrary here, we could just as well write <code>&quot;ga,aw-&gt;gw&quot;</code>. There has to be one index per axis of the input tensor—in our case, both <code>A</code> and <code>B</code> have two axes (they&rsquo;re matrices), so both get two indices.</p>
 <p>What&rsquo;s important is that we&rsquo;re using the same letter, <code>j</code>, both for the second axis of <code>A</code> and for the first axis of <code>B</code>. That&rsquo;s <em>not</em> just an arbitrary definition, it has an effect on the result! Think of it this way: the entire left-hand side, <code>&quot;ij,jk&quot;</code> defines a three-dimensional tensor, indexed by <code>i</code>, <code>j</code>, and <code>k</code>. We get its elements by <em>multiplying</em> the corresponding elements of <code>A</code> and <code>B</code>:</p>
-<pre><code class="language-python">product[i, j, k] = A[i, j] * B[j, k]
-</code></pre>
-<p>So it matters that <code>j</code> appears twice—a string like <code>&quot;ij,lk&quot;</code> would define a four-dimensional tensor:</p>
-<pre><code class="language-python">product[i, j, l, k] = A[i, j] * B[l, k]
-</code></pre>
-<p>(Don&rsquo;t worry about the order of these indices into <code>product</code>—as we&rsquo;ll see in a moment, the right-hand side of our string will explicitly specify the order we want).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">product</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+</span></span></code></pre></div><p>So it matters that <code>j</code> appears twice—a string like <code>&quot;ij,lk&quot;</code> would define a four-dimensional tensor:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">product</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+</span></span></code></pre></div><p>(Don&rsquo;t worry about the order of these indices into <code>product</code>—as we&rsquo;ll see in a moment, the right-hand side of our string will explicitly specify the order we want).</p>
 <p>The right side of the <code>-&gt;</code> arrow describes how to get our final output from this <code>product</code> tensor. It&rsquo;s very simple: any index that appears on the left (i.e. in the <code>product</code> tensor) but doesn&rsquo;t appear on the right is summed over. So in our matrix multiplication example, since our output indices are <code>ik</code>, we sum over <code>j</code>. So the final result is</p>
-<pre><code class="language-python">out[i, k] = sum_j A[i, j] * B[j, k]
-</code></pre>
-<p>Precisely a matrix multiply, as promised!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">sum_j</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span>
+</span></span></code></pre></div><p>Precisely a matrix multiply, as promised!</p>
 <p>All of this generalizes in very nice and intuitive ways. On the left side of the <code>-&gt;</code> arrow, we can have arbitrary patterns, and they&rsquo;ll always describe a scheme for indexing into a product of the inputs. For example, the string <code>&quot;iij,kji,l&quot;</code> would define a four-dimensional tensor, given by</p>
-<pre><code class="language-python">product[i, j, k, l] = A[i, i, j] * B[k, j, i] * C[l]
-</code></pre>
-<p>(for input tensors <code>A</code>, <code>B</code>, <code>C</code>).
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">product</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">C</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
+</span></span></code></pre></div><p>(for input tensors <code>A</code>, <code>B</code>, <code>C</code>).
 Note how much easier this is compared to a version without <code>einsum</code>:</p>
-<pre><code class="language-python">n = A.shape[0]
-product = A[t.arange(n), t.arange(n), :, None, None] \
-        * B.permute(2, 1, 0)[:, :, :, None] \
-        * C[None, None, None, :]
-</code></pre>
-<p>Our output can now be any permutation of any subset of <code>ijkl</code>. For example, <code>&quot;iij,kji,l-&gt;ki&quot;</code> would implicitly compute the product tensor above, then sum over <code>j</code> and <code>l</code>, and finally permute the result so the order of axes was <code>ki</code>. Contrast with how messy this would be without <code>einsum</code>:</p>
-<pre><code class="language-python"># With broadcasting and array indexing:
-n = A.shape[0]
-out = (
-    A[t.arange(n), t.arange(n), :, None, None]
-  * B.permute(2, 1, 0)[:, :, :, None]
-  * C[None, None, None, :]
-).sum(1,3).T
-
-# With einsum:
-out = t.einsum(&quot;iij,kji,l-&gt;ki&quot;, A, B, C)
-</code></pre>
-<p>The main point is not that the <code>einsum</code> version is shorter—the point is that the other version took me 10 minutes to write and I&rsquo;m still not sure it&rsquo;s correct.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">product</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">t</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span> \
+</span></span><span class="line"><span class="cl">        <span class="o">*</span> <span class="n">C</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+</span></span></code></pre></div><p>Our output can now be any permutation of any subset of <code>ijkl</code>. For example, <code>&quot;iij,kji,l-&gt;ki&quot;</code> would implicitly compute the product tensor above, then sum over <code>j</code> and <code>l</code>, and finally permute the result so the order of axes was <code>ki</code>. Contrast with how messy this would be without <code>einsum</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># With broadcasting and array indexing:</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">A</span><span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">t</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span> <span class="n">B</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="kc">None</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span> <span class="n">C</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># With einsum:</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&#34;iij,kji,l-&gt;ki&#34;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+</span></span></code></pre></div><p>The main point is not that the <code>einsum</code> version is shorter—the point is that the other version took me 10 minutes to write and I&rsquo;m still not sure it&rsquo;s correct.</p>
 <p>That concludes the description of <code>einsum</code>, but let&rsquo;s look at some more examples to get a better intuition:</p>
 <ul>
 <li>Say you want to compute the <em>transpose</em> of the matrix product, <code>(A @ B).T</code>. What that means is just that you want the indices in the output flipped, so the string now becomes <code>&quot;ij,jk-&gt;ki&quot;</code>.</li>
@@ -762,45 +808,37 @@ out = t.einsum(&quot;iij,kji,l-&gt;ki&quot;, A, B, C)
 </ul>
 <h1 id="einops">Einops</h1>
 <p>The main problem with <code>einsum</code> is that it doesn&rsquo;t support enough operations. For example, say you have an image tensor <code>x</code> with shape <code>(batch, channels, height, width)</code>. If all you want to do is move the channel axis, you can just do</p>
-<pre><code class="language-python">einsum(&quot;bchw-&gt;bhwc&quot;, x)
-</code></pre>
-<p>But what if you also want to flatten the height and width dimension into a single axis? That&rsquo;s where the <a href="http://einops.rocks" target="_blank" rel="noopener"><code>einops</code></a> library comes into play:</p>
-<pre><code class="language-python">rearrange(x, &quot;b c h w -&gt; b (h w) c&quot;)
-</code></pre>
-<p>The <code>rearrange</code> function takes a tensor followed by a string similar to <code>einsum</code> strings. The only new aspect are the parentheses—here, they tell <code>einops</code> to combine the height and width dimension into one axis. Just like <code>einsum</code>, <code>rearrange</code> is extremely flexible, so you can for example transpose these axes before flattening them just by doing</p>
-<pre><code class="language-python">rearrange(x, &quot;b c h w -&gt; b (w h) c&quot;)
-</code></pre>
-<p>You can also have parentheses on the left side, to split one axis into multiple. So for example, we can invert the operation above using</p>
-<pre><code class="language-python">rearrange(x, &quot;b (w h) c -&gt; b c h w&quot;, h=32)
-</code></pre>
-<p>The <code>h=32</code> tells <code>einops</code> that the <code>h</code> axis should have length 32 (without this information, it would be unclear how to split up the single input axis).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">einsum</span><span class="p">(</span><span class="s2">&#34;bchw-&gt;bhwc&#34;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</span></span></code></pre></div><p>But what if you also want to flatten the height and width dimension into a single axis? That&rsquo;s where the <a href="http://einops.rocks" target="_blank" rel="noopener"><code>einops</code></a> library comes into play:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">rearrange</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&#34;b c h w -&gt; b (h w) c&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>The <code>rearrange</code> function takes a tensor followed by a string similar to <code>einsum</code> strings. The only new aspect are the parentheses—here, they tell <code>einops</code> to combine the height and width dimension into one axis. Just like <code>einsum</code>, <code>rearrange</code> is extremely flexible, so you can for example transpose these axes before flattening them just by doing</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">rearrange</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&#34;b c h w -&gt; b (w h) c&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>You can also have parentheses on the left side, to split one axis into multiple. So for example, we can invert the operation above using</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">rearrange</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&#34;b (w h) c -&gt; b c h w&#34;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</span></span></code></pre></div><p>The <code>h=32</code> tells <code>einops</code> that the <code>h</code> axis should have length 32 (without this information, it would be unclear how to split up the single input axis).</p>
 <p>Note how <em>obvious</em> it is that <code>&quot;b (w h) c -&gt; b c h w&quot;</code> is the inverse of <code>&quot;b c h w -&gt; b (w h) c&quot;</code>. We just switched the left and right-hand side! In general, you can <em>compose</em> <code>rearrange</code> operations: doing <code>&quot;string_1 -&gt; string_2&quot;</code> followed by <code>&quot;string_2 -&gt; string_3&quot;</code> is the same as doing <code>&quot;string_1 -&gt; string_3&quot;</code>.</p>
 <p>There&rsquo;s more to say about <code>rearrange</code>, and its cousin <code>repeat</code>, but the <code>einops</code> documentation does a good job explaining them, so I&rsquo;ll leave it at that.</p>
 <h1 id="a-more-complex-example">A more complex example</h1>
 <p>As a final example, let&rsquo;s consider a multi-head attention mechanism. Say we have our <code>Q</code>, <code>K</code> and <code>V</code> tensors,
 each of shape <code>(batch, seq_length, n_heads * head_dim)</code> (the <code>n_heads</code> and <code>head_dim</code> dimensions are flattened into one because we did a single matrix multiply for all heads to obtain these tensors). We want to compute the attention pattern <code>A</code> of shape <code>(batch, n_heads, seq_length, seq_length)</code>. We can use <code>einops</code> and <code>einsum</code>:</p>
-<pre><code class="language-python">Q = rearrange(Q, &quot;b q (h d) -&gt; b q h d&quot;, h=n_heads)
-K = rearrange(K, &quot;b k (h d) -&gt; b k h d&quot;, h=n_heads)
-A = einsum(&quot;b q h d, b k h d -&gt; b h q k&quot;, Q, K)
-</code></pre>
-<p>Note how simple this is: the output of our rearranged tensors, <code>bqhd</code> and <code>bkhd</code>, already tell us what the inputs for the <code>einsum</code> have to be. The output indices for the <code>einsum</code> are almost determined by the desired output shape. Implicitly, this is a batched matrix multiply over the <code>d</code> dimensions (batched over all other axes), but we don&rsquo;t have to think about that to write down the <code>einsum</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Q</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="s2">&#34;b q (h d) -&gt; b q h d&#34;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">n_heads</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">K</span> <span class="o">=</span> <span class="n">rearrange</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="s2">&#34;b k (h d) -&gt; b k h d&#34;</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">n_heads</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">einsum</span><span class="p">(</span><span class="s2">&#34;b q h d, b k h d -&gt; b h q k&#34;</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+</span></span></code></pre></div><p>Note how simple this is: the output of our rearranged tensors, <code>bqhd</code> and <code>bkhd</code>, already tell us what the inputs for the <code>einsum</code> have to be. The output indices for the <code>einsum</code> are almost determined by the desired output shape. Implicitly, this is a batched matrix multiply over the <code>d</code> dimensions (batched over all other axes), but we don&rsquo;t have to think about that to write down the <code>einsum</code>.</p>
 <p>Contrast with this alternative, where we have to carefully think about the position of each axis:</p>
-<pre><code class="language-python">batch, seq_length, _ = Q.shape
-Q = Q.view(batch, seq_length, 1, n_heads, -1)
-K = K.view(batch, 1, seq_length, n_heads, -1)
-A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
-</code></pre>
-<p><code>einsum</code> isn&rsquo;t just easier to read and write, it&rsquo;s also easier to refactor. Imagine we suddenly have to deal with multiple batch dimensions. In the <code>einsum</code> version, we just replace the <code>b</code> with <code>...</code> and everything works, whereas the second version becomes even messier. Or imagine the format of our tensors changes so that the <code>h</code> and <code>d</code> axes are now swapped. In the <code>einsum</code> version, we just swap all occurrences of <code>h</code> and <code>d</code>. The other version requires us to carefully check all the magic numbers to see which ones need to be changed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">batch</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">shape</span>
+</span></span><span class="line"><span class="cl"><span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_heads</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">K</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">seq_length</span><span class="p">,</span> <span class="n">n_heads</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">K</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p><code>einsum</code> isn&rsquo;t just easier to read and write, it&rsquo;s also easier to refactor. Imagine we suddenly have to deal with multiple batch dimensions. In the <code>einsum</code> version, we just replace the <code>b</code> with <code>...</code> and everything works, whereas the second version becomes even messier. Or imagine the format of our tensors changes so that the <code>h</code> and <code>d</code> axes are now swapped. In the <code>einsum</code> version, we just swap all occurrences of <code>h</code> and <code>d</code>. The other version requires us to carefully check all the magic numbers to see which ones need to be changed.</p>
 <h1 id="einsum-could-be-even-better"><code>einsum</code> could be even better</h1>
 <p>I&rsquo;d love to see an <code>einsum</code> wrapper that combines the capabilities of <code>einsum</code> and <code>rearrange</code>. For example, we could write the attention mechanism above as a simple one-liner:</p>
-<pre><code class="language-python">A = einsum(&quot;b q (h d), b k (h d) -&gt; b h q k&quot;, Q, K, h=n_heads)
-</code></pre>
-<p>If anyone ends up implementing this, please <a href="mailto:erik@ejenner.com">let me know</a>!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">A</span> <span class="o">=</span> <span class="n">einsum</span><span class="p">(</span><span class="s2">&#34;b q (h d), b k (h d) -&gt; b h q k&#34;</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="n">n_heads</span><span class="p">)</span>
+</span></span></code></pre></div><p>If anyone ends up implementing this, please <a href="mailto:erik@ejenner.com">let me know</a>!</p>
 
     </div>
 
     
-
 
 
 
@@ -811,6 +849,116 @@ A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
 </div>
 
 
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fejenner.com%2Fpost%2Feinsum%2F&amp;text=Einsum&#43;is&#43;easy&#43;and&#43;useful" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fejenner.com%2Fpost%2Feinsum%2F&amp;t=Einsum&#43;is&#43;easy&#43;and&#43;useful" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=Einsum%20is%20easy%20and%20useful&amp;body=https%3A%2F%2Fejenner.com%2Fpost%2Feinsum%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fejenner.com%2Fpost%2Feinsum%2F&amp;title=Einsum&#43;is&#43;easy&#43;and&#43;useful" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Einsum&#43;is&#43;easy&#43;and&#43;useful%20https%3A%2F%2Fejenner.com%2Fpost%2Feinsum%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fejenner.com%2Fpost%2Feinsum%2F&amp;title=Einsum&#43;is&#43;easy&#43;and&#43;useful" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
 
 
 
@@ -949,11 +1097,6 @@ A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
 
 
 
-  
-  
-
-
-
 
 
   </div>
@@ -970,29 +1113,48 @@ A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
 
 
 
-  
+
+
+
+
+
+
+
+
 
   
+  
+  
+  
+  
+
+
+<p class="powered-by">
+  
+  <a href="/privacy/">Privacy</a>
+  
+  
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
   <p class="powered-by">
     
-      <a href="/privacy/">Privacy</a>
-    
-    
-  </p>
-  
-
-  
-
-  
-  
-
-
-
-
-
-
-  <p class="powered-by">
-    
     
     
       
@@ -1001,7 +1163,7 @@ A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
       
       
       
-      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
     
   </p>
 </footer>
@@ -1009,6 +1171,101 @@ A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
     </div>
     
   </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.e8ee06ba8371980ffde659871dd593b0.js"></script>
+
+
+
+
+
+
 
   
 <div id="modal" class="modal fade" role="dialog">
@@ -1021,7 +1278,8 @@ A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
         </button>
       </div>
       <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
+        
+        <pre><code></code></pre>
       </div>
       <div class="modal-footer">
         <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
@@ -1036,101 +1294,27 @@ A = (Q @ K.transpose(-2, -1)).moveaxis(-1, 1)
   </div>
 </div>
 
-      
 
-    
-    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
 
-    
-    
-    
-      
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      
 
-      
-      
 
-      
 
-      
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
-        
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
-        
-      
-
-    
-
-    
-    
-    
-
-    
-    
-
-    
-    
-    
-      
-      <script id="search-hit-fuse-template" type="text/x-template">
-        <div class="search-hit" id="summary-{{key}}">
-          <div class="search-hit-content">
-            <div class="search-hit-name">
-              <a href="{{relpermalink}}">{{title}}</a>
-              <div class="article-metadata search-hit-type">{{type}}</div>
-              <p class="search-hit-description">{{snippet}}</p>
-            </div>
-          </div>
-        </div>
-      </script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-      
-    
-
-    
-    
-
-    
-    
-    
-    
-
-    
-    
-      
-      
-      
-      
-      
-      
-      
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-      
-      
-    
-    
-    <script src="/en/js/wowchemy.min.d68ecd57c0ec1f1f61d65fd568f1c3a0.js"></script>
-
-    <script data-goatcounter="https://ejnnr.goatcounter.com/count"
+  <script data-goatcounter="https://ejnnr.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

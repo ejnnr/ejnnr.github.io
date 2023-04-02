@@ -90,10 +90,10 @@ like this&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;f
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_795dfba100f47daa6e1bca0062b92a2d.png 400w,
-               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_079a6e2e961641636483d1f6cb735677.png 760w,
-               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_795dfba100f47daa6e1bca0062b92a2d.png&#34;
+               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_bb8d43b4887de06e7e685f398f468427.webp 400w,
+               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_d2c59a9bf16ac788812e0b8ac37250c4.webp 760w,
+               /post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/automation-productivity/welcome_hu8a94cbf0080c5f16755e543a89648003_2648525_bb8d43b4887de06e7e685f398f468427.webp&#34;
                width=&#34;760&#34;
                height=&#34;428&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -122,14 +122,14 @@ That repository also contains the other things I mentioned in this post.&lt;/p&g
 even more. If you have ideas in that direction, I would appreaciate &lt;a href=&#34;mailto:erik@ejenner.com&#34;&gt;a message&lt;/a&gt;.
 Also feel free to shoot me an email if you are trying to set up any of the things
 I&amp;rsquo;ve described here and want more details on how to do that.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.kisscc0.com/photo/public-domain-creative-commons-license-nature-1a92bt/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Wallpaper source&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -191,9 +191,8 @@ similar for your &lt;code&gt;/etc&lt;/code&gt; files using &lt;a href=&#34;http:
 after which you can edit, create, move and delete files there using whichever
 tools you like to use for that on your local machine. It&amp;rsquo;s in the package repositories
 of most Linux distributions and using it is as simple as
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;            $ sshfs [user@]hostname:[directory] mountpoint
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/dd&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            $ sshfs [user@]hostname:[directory] mountpoint
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/dd&gt;
 &lt;/dl&gt;
 &lt;h2 id=&#34;shell&#34;&gt;Shell&lt;/h2&gt;
 &lt;dl&gt;
@@ -204,10 +203,9 @@ You can also use them in &lt;code&gt;zsh&lt;/code&gt; (add &lt;code&gt;bindkey -
 for some improved features). In &lt;code&gt;fish&lt;/code&gt;, you can use &lt;code&gt;fish_vi_key_bindings&lt;/code&gt; inside your config,
 and for &lt;code&gt;bash&lt;/code&gt; it&amp;rsquo;s &lt;code&gt;set -o vi&lt;/code&gt;. You can even enable them for all readline programs,
 such as the Python REPL, by adding
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;          set editing-mode vi
-          set keymap vi
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;to your &lt;code&gt;~/.inputrc&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          set editing-mode vi
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;          set keymap vi
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;to your &lt;code&gt;~/.inputrc&lt;/code&gt;.&lt;/p&gt;
 &lt;/dd&gt;
 &lt;dt&gt;Ctrl-R history search&lt;/dt&gt;
 &lt;dd&gt;Pressing Ctrl-R inside your terminal will let you search
@@ -278,12 +276,11 @@ the PDF has no hyperlinked table of contents. Zathura remembers this setting for
 &lt;p&gt;Recoloring allows you to give PDFs a custom foreground and background color. For example,
 you could display PDFs as light text on a dark background. Or use the following in your &lt;code&gt;zathurarc&lt;/code&gt;,
 which displays PDFs in a Solarized light color scheme:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-nil&#34;&gt;    set recolor
-    set recolor-darkcolor &amp;quot;#586e75&amp;quot;
-    set recolor-lightcolor &amp;quot;#fdf6e3&amp;quot;
-    set recolor-keephue
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The last line means that the colors of images should be preserved (though they&amp;rsquo;ll be
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor-darkcolor &amp;#34;#586e75&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor-lightcolor &amp;#34;#fdf6e3&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    set recolor-keephue
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The last line means that the colors of images should be preserved (though they&amp;rsquo;ll be
 less vibrant). This works for &lt;em&gt;all&lt;/em&gt; pdfs, even scanned images! Ctrl-R will toggle recolorization
 on and off, in case you want to switch back to the original.
 For the ideal visual experience, you can also set the color of all the GUI elements,
@@ -316,9 +313,8 @@ compilation errors if there are any, there is auto-completion and so on.&lt;/p&g
 &lt;h2 id=&#34;visuals&#34;&gt;Visuals&lt;/h2&gt;
 &lt;p&gt;LaTeX can produce beautiful documents, but the source code isn&amp;rsquo;t very
 readable when writing mathematical expressions:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;  \alpha \mapsto \int_{\R}e^{-\alpha x^2}\,dx
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Emacs and AUCTeX (which is the de-facto standard package for using LaTeX inside
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;\alpha&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;\mapsto&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;\int&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;_{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\R&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;e&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;-&lt;span class=&#34;k&#34;&gt;\alpha&lt;/span&gt; x&lt;span class=&#34;nb&#34;&gt;^&lt;/span&gt;2&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\,&lt;/span&gt;dx
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Emacs and AUCTeX (which is the de-facto standard package for using LaTeX inside
 Emacs) have several features that improve this situation:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;preview-latex&lt;/code&gt; replaces equations (and other parts of the LaTeX document)
@@ -356,10 +352,10 @@ look like this in my editor:
 &lt;figure  &gt;
   &lt;div class=&#34;d-flex justify-content-center&#34;&gt;
     &lt;div class=&#34;w-100&#34; &gt;&lt;img alt=&#34;&#34; srcset=&#34;
-               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1ac1a653e1e944496505b731d26697b4.png 400w,
-               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_7bb49c13616a0ab182dae2332666fec5.png 760w,
-               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1200x1200_fit_lanczos_3.png 1200w&#34;
-               src=&#34;https://ejenner.com/post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1ac1a653e1e944496505b731d26697b4.png&#34;
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_3721c4b32314ca0693fe98dbe3b70b00.webp 400w,
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_ac4590c31c134f6ad91b1c26076d37e5.webp 760w,
+               /post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_1200x1200_fit_q75_h2_lanczos_3.webp 1200w&#34;
+               src=&#34;https://ejenner.com/post/latex-emacs/_20210317_140709screenshot_hu90a561829b557b8c94f2740a8e594e56_19495_3721c4b32314ca0693fe98dbe3b70b00.webp&#34;
                width=&#34;457&#34;
                height=&#34;162&#34;
                loading=&#34;lazy&#34; data-zoomable /&gt;&lt;/div&gt;
@@ -389,34 +385,29 @@ you to do:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Say you&amp;rsquo;ve typed&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \(ax^{2} + b\)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and suddenly realize that this is supposed to go into an exponent. With your cursor
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s&#34;&gt;\(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;ax^{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; b&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and suddenly realize that this is supposed to go into an exponent. With your cursor
 anywhere on this math environment, type &lt;code&gt;ysim^&lt;/code&gt; (&amp;ldquo;surround everything inside the math
 environment as an exponent&amp;rdquo;) and you&amp;rsquo;ll get&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \(^{ax^{2} + b}\)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;with the cursor at the &lt;code&gt;^&lt;/code&gt;. Now you just need to enter the base.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s&#34;&gt;\(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;^{ax^{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; b}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;with the cursor at the &lt;code&gt;^&lt;/code&gt;. Now you just need to enter the base.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Your equations is now&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \(e^{ax^{2} + b}\)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and you decide that this merits its own displayed rather than
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;s&#34;&gt;\(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;e^{ax^{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;} &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; b}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and you decide that this merits its own displayed rather than
 inline equation. So you type &lt;code&gt;csmee&lt;/code&gt; (&amp;ldquo;change the surrounding math environment
-to &lt;code&gt;equation&lt;/code&gt;&amp;quot;) and get&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \begin{equation}
-    e^{ax^{2} + b}
-    \end{equation}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
+to &lt;code&gt;equation&lt;/code&gt;&amp;rdquo;) and get&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    e&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;ax&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;2&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; + b&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;After a bit more editing, you have (for some reason)&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;    \begin{equation}
-    \beta(e^{ax^{2} + b} + \frac{1}{x})
-    \end{equation}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Of course this looks ugly in the compiled document, you need to use &lt;code&gt;\left(&lt;/code&gt; and &lt;code&gt;\right)&lt;/code&gt;.
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\beta&lt;/span&gt;(e&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;ax&lt;span class=&#34;nb&#34;&gt;^{&lt;/span&gt;2&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; + b&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; + &lt;span class=&#34;k&#34;&gt;\frac&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;1&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;equation&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Of course this looks ugly in the compiled document, you need to use &lt;code&gt;\left(&lt;/code&gt; and &lt;code&gt;\right)&lt;/code&gt;.
 With &lt;code&gt;evil-tex&lt;/code&gt;, you can just type &lt;code&gt;mtd&lt;/code&gt; (&amp;ldquo;toggle delimiter&amp;rdquo;) with the cursor anywhere
 inside the parantheses, and it will add &lt;code&gt;\left&lt;/code&gt; and &lt;code&gt;\right&lt;/code&gt; for you. Type &lt;code&gt;mtd&lt;/code&gt; again to
 go back to just the parantheses.&lt;/p&gt;
@@ -431,14 +422,12 @@ code and then let you do any calculations you want involving the expression.
 The result will automatically be converted back to LaTeX and written into the
 buffer.&lt;/p&gt;
 &lt;p&gt;For example, say you have&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;\[\sin\left( x^2 + \sqrt{x} \right)\]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;and want to know the derivative. You can enter embedded mode and type &lt;code&gt;ad&lt;/code&gt; to differentiate,
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;\[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sin\left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x^&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sqrt&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and want to know the derivative. You can enter embedded mode and type &lt;code&gt;ad&lt;/code&gt; to differentiate,
 then type &lt;code&gt;x&lt;/code&gt; when prompted for the variable with respect to which to differentiate.
 And just like that, you will have&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-latex&#34;&gt;\[\left( 2 x + \frac{0.5}{\sqrt{x}} \right) \cos\left( x^2 + \sqrt{x} \right)\]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;inside your buffer. &lt;code&gt;calc&lt;/code&gt; can even parse and output things like &lt;code&gt;\begin{pmatrix}...\end{pmatrix}&lt;/code&gt;,
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-latex&#34; data-lang=&#34;latex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sb&#34;&gt;\[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\frac&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sqrt&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x}} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\cos\left&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; x^&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\sqrt&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{x} &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;\right&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;\]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;inside your buffer. &lt;code&gt;calc&lt;/code&gt; can even parse and output things like &lt;code&gt;\begin{pmatrix}...\end{pmatrix}&lt;/code&gt;,
 so you can multiply matrices as well.&lt;/p&gt;
 &lt;h2 id=&#34;and-more&#34;&gt;And more&lt;/h2&gt;
 &lt;p&gt;I&amp;rsquo;ve only covered some of my personal favorite features when it comes to
@@ -450,17 +439,17 @@ easier &amp;ndash; this is Emacs after all.&lt;/p&gt;
 &lt;p&gt;The downside is of course that there is a pretty steep learning curve.
 But for people who need to write LaTeX documents all the time, I&amp;rsquo;d argue
 it&amp;rsquo;s worth it.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Though mostly the first part &amp;ndash; I haven&amp;rsquo;t actually tried many others and they may be just as amazing.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Using &lt;code&gt;TeX-electric-sub-and-superscript&lt;/code&gt;, &lt;code&gt;TeX-electric-math&lt;/code&gt;, and &lt;code&gt;LaTeX-csquotes-open-quote&lt;/code&gt; / &lt;code&gt;LaTeX-csquotes-close-quote&lt;/code&gt;&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     

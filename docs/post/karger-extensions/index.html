@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en-us" >
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: April 1, 2023 --><html lang="en-us" >
+
 
 <head>
   <meta charset="utf-8" />
@@ -7,59 +10,59 @@
   
   
   
-    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
   
 
   
+  
+
+
+
+
+
+
+
+
+
+
+
 
   
   
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
   
   
   
     
-    
-    
-  
-  
-
-  <meta name="author" content="Erik Jenner" />
-
-  
-  
-  
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
     
   
-  <meta name="description" content="If you prefer videos, check out our ICCV presentation, which covers similar content as this blog post. For more details, see our paper.
-Karger&rsquo;s contraction algorithm is a fast and very famous method for finding global minimum graph cuts." />
 
   
-  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/karger-extensions/" />
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-
-  
-  
-  
-    <meta name="theme-color" content="#707070" />
   
 
   
@@ -70,14 +73,14 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
 
   
 
-  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
 
   
   
   
     
     
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
     
 
     
@@ -93,41 +96,10 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
     
     
     
-      
-    
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
-        
-      
-    
-
-    
-    
-    
 
     
 
     
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
     
       
       
@@ -240,49 +212,15 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
   
   
   
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
-    
-  
-
   
   
   
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.fd9b978ceb8f3cb70c65357f0dc17c1c.css" />
-
-  
-
-
-
-  
-
-  
-
-  
-
-
-
+  <link rel="stylesheet" href="/css/wowchemy.87843d66b22de2ef388a7e23cc79fac1.css" />
 
   
   
   
 
-  
-
-  
-    <link rel="manifest" href="/manifest.webmanifest" />
-  
-
-  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
-
-  <link rel="canonical" href="https://ejenner.com/post/karger-extensions/" />
-
-  
   
   
   
@@ -291,30 +229,115 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
   
   
     
-  
-  
-  <meta property="twitter:card" content="summary_large_image" />
-  
-    <meta property="twitter:site" content="@jenner_erik" />
-    <meta property="twitter:creator" content="@jenner_erik" />
-  
-  <meta property="og:site_name" content="Erik Jenner" />
-  <meta property="og:url" content="https://ejenner.com/post/karger-extensions/" />
-  <meta property="og:title" content="Extensions of Karger&#39;s algorithm | Erik Jenner" />
-  <meta property="og:description" content="If you prefer videos, check out our ICCV presentation, which covers similar content as this blog post. For more details, see our paper.
-Karger&rsquo;s contraction algorithm is a fast and very famous method for finding global minimum graph cuts." /><meta property="og:image" content="https://ejenner.com/post/karger-extensions/featured.png" />
-    <meta property="twitter:image" content="https://ejenner.com/post/karger-extensions/featured.png" /><meta property="og:locale" content="en-us" />
-  
     
-      <meta
-        property="article:published_time"
-        content="2021-09-10T11:41:00&#43;02:00"
-      />
-    
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+
+
+
+
+
+  <meta name="author" content="Erik Jenner" />
+
+
+
+
+
+  
+
+<meta name="description" content="If you prefer videos, check out our ICCV presentation, which covers similar content as this blog post. For more details, see our paper.
+Karger&rsquo;s contraction algorithm is a fast and very famous method for finding global minimum graph cuts." />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/karger-extensions/" />
+<link rel="canonical" href="https://ejenner.com/post/karger-extensions/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#707070" />
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary_large_image" />
+
+  <meta property="twitter:site" content="@jenner_erik" />
+  <meta property="twitter:creator" content="@jenner_erik" />
+<meta property="twitter:image" content="https://ejenner.com/post/karger-extensions/featured.png" />
+<meta property="og:site_name" content="Erik Jenner" />
+<meta property="og:url" content="https://ejenner.com/post/karger-extensions/" />
+<meta property="og:title" content="Extensions of Karger&#39;s algorithm | Erik Jenner" />
+<meta property="og:description" content="If you prefer videos, check out our ICCV presentation, which covers similar content as this blog post. For more details, see our paper.
+Karger&rsquo;s contraction algorithm is a fast and very famous method for finding global minimum graph cuts." /><meta property="og:image" content="https://ejenner.com/post/karger-extensions/featured.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2021-09-10T11:41:00&#43;02:00"
+    />
+  
+  
     <meta property="article:modified_time" content="2021-09-10T11:41:00&#43;02:00">
   
 
-  
+
+
+
 
 
     
@@ -367,15 +390,37 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
 
   
 
+
+
+
+  
+  
+  
+
+  
   
 
   
 
 
-
-
-
+  
   <title>Extensions of Karger&#39;s algorithm | Erik Jenner</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
 
@@ -390,7 +435,7 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
   
   
   
-  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+  <script src="/js/wowchemy-init.min.ec9d49ca50e4b80bdb08f0417a28ed84.js"></script>
 
   
 
@@ -434,8 +479,12 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
 
 
 
-  <div class="page-header">
-    
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
 
 
 
@@ -448,187 +497,196 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
-  <div class="container-xl">
-
-    
-
-    
-    <button type="button" class="navbar-toggler" data-toggle="collapse"
-            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-    <span><i class="fas fa-bars"></i></span>
-    </button>
-    
-
-    
-
-    
-    
-    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
 
       
-      <ul class="navbar-nav d-md-inline-flex">
-        
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
 
         
-
-        
-        
-        
+        <ul class="navbar-nav d-md-inline-flex">
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
+
           
           
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
             
             
+              
+              
+              
+                
+              
+              
             
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
               
             
             
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link " href="/#about"><span>Home</span></a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post"><span>Blog</span></a>
+          </li>
 
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-
-        
-        
-        
-        
-
-        
-          
-            
-            
           
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link  active" href="/post"><span>Blog</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
           
           
             
+          
+
+          
+
+          
+          
+          
+          
+
+          
             
-            
+              
               
             
             
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
           
         
 
+        
+        
+        
         <li class="nav-item">
-          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
 
         
         
 
-      
-
-        
       </ul>
+
     </div>
-
-    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-
-      
-      
-        
-      
-
-      
-      
-      <li class="nav-item">
-        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
-      </li>
-      
-
-      
-      
-      <li class="nav-item dropdown theme-dropdown">
-        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#" class="dropdown-item js-set-theme-light">
-            <span>Light</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-dark">
-            <span>Dark</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-auto">
-            <span>Automatic</span>
-          </a>
-        </div>
-      </li>
-      
-
-      
-      
-
-    </ul>
-
-  </div>
-</nav>
+  </nav>
+</header>
 
 
   </div>
 
   <div class="page-body">
+    
+    
+    
+
     <article class="article">
 
   
+
 
 
 
@@ -664,7 +722,7 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
   <span class="article-date">
     
     
-      
+    
     
     Sep 10, 2021
   </span>
@@ -676,7 +734,7 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     
-      8
+    8
     
     min read
   </span>
@@ -686,14 +744,11 @@ Karger&rsquo;s contraction algorithm is a fast and very famous method for findin
   
   
   
-  
-  
 
   
   
 
 </div>
-
     
 
 
@@ -748,15 +803,15 @@ are at least somewhat contiguous and we want to make use of this prior knowledge
 <figure  id="figure-figure-1-example-application-of-s-t-mincuts-we-want-to-segment-the-top-left-image-into-foreground-and-background-and-have-some-degree-of-belief-about-the-correct-choice-for-each-pixel-we-combine-all-these-degrees-of-belief-into-a-graph-bottom-left-and-then-find-its-s-t-mincut-bottom-right-which-corresponds-to-a-segmentation-of-the-original-image-top-right-image-from-xiao-pengfeng-et-al-2017httpsieeexploreieeeorgdocument7803617-which-in-turn-was-adapted-from-boykov-yuri-and-funka-lea-gareth-2006httpslinkspringercomarticle101007s11263-006-7934-5">
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt="Figure 1: Example application of \\(s\\)-\\(t\\)-mincuts: we want to segment the top left image into foreground and background and have some degree of belief about the correct choice for each pixel. We combine all these degrees of belief into a graph (bottom left) and then find its \\(s\\)-\\(t\\)-mincut (bottom right), which corresponds to a segmentation of the original image (top right). Image from [Xiao, Pengfeng et al. (2017)](https://ieeexplore.ieee.org/document/7803617), which in turn was adapted from [Boykov, Yuri and Funka-Lea, Gareth (2006)](https://link.springer.com/article/10.1007/s11263-006-7934-5)." srcset="
-               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_562127e8334cff9c75ff2916ec219bb1.png 400w,
-               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_38e4b1d6b779e310198031db4f1ad6ad.png 760w,
-               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_1200x1200_fit_lanczos_3.png 1200w"
-               src="/post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_562127e8334cff9c75ff2916ec219bb1.png"
+               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_c8d59361788408cb2101b08b16c86667.webp 400w,
+               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_d8ed595bab91913bd72e3cd402230e9c.webp 760w,
+               /post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/karger-extensions/st_cut_hu7a979f5552f8ad097f1d3740ca26fde1_102710_c8d59361788408cb2101b08b16c86667.webp"
                width="500px"
                height="661"
                loading="lazy" data-zoomable /></div>
   </div><figcaption>
-      Figure 1: Example application of \(s\)-\(t\)-mincuts: we want to segment the top left image into foreground and background and have some degree of belief about the correct choice for each pixel. We combine all these degrees of belief into a graph (bottom left) and then find its \(s\)-\(t\)-mincut (bottom right), which corresponds to a segmentation of the original image (top right). Image from <a href="https://ieeexplore.ieee.org/document/7803617">Xiao, Pengfeng et al. (2017)</a>, which in turn was adapted from <a href="https://link.springer.com/article/10.1007/s11263-006-7934-5">Boykov, Yuri and Funka-Lea, Gareth (2006)</a>.
+      Figure 1: Example application of \(s\)-\(t\)-mincuts: we want to segment the top left image into foreground and background and have some degree of belief about the correct choice for each pixel. We combine all these degrees of belief into a graph (bottom left) and then find its \(s\)-\(t\)-mincut (bottom right), which corresponds to a segmentation of the original image (top right). Image from <a href="https://ieeexplore.ieee.org/document/7803617" target="_blank" rel="noopener">Xiao, Pengfeng et al. (2017)</a>, which in turn was adapted from <a href="https://link.springer.com/article/10.1007/s11263-006-7934-5" target="_blank" rel="noopener">Boykov, Yuri and Funka-Lea, Gareth (2006)</a>.
     </figcaption></figure>
 <p>We turn our image into a graph; each pixel becomes one of the gray nodes in the graph.
 Then we add two more nodes, \(s\) and \(t\) (in red and blue). They are &ldquo;helper nodes&rdquo;
@@ -803,12 +858,17 @@ These nodes define a cut of the original graph into the partitions \(\{a\}\) and
 
 
 
+
+
+
+
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
            src="/post/karger-extensions/karger_run.svg"
            loading="lazy" data-zoomable width="700px" /></div>
   </div></figure>
+
 <p>This works for unweighted graphs and for graphs with positive edge weights (in which case
 edges are selected for contraction with probability proportional to their weight).</p>
 <p>Since Karger&rsquo;s algorithm uses <em>random</em> contractions, it could of course produce a
@@ -964,12 +1024,21 @@ course use more than six runs.</p>
 
 
 
+
+
+
+
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
            src="/post/karger-extensions/ensemble_1.svg"
            loading="lazy" data-zoomable /></div>
   </div></figure>
+
+
+
+
+
 
 
 
@@ -1004,12 +1073,22 @@ course use more than six runs.</p>
 
 
 
+
+
+
+
+
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
            src="/post/karger-extensions/ensemble_3.svg"
            loading="lazy" data-zoomable /></div>
   </div></figure>
+
+
+
+
+
 
 
 
@@ -1044,6 +1123,11 @@ course use more than six runs.</p>
 
 
 
+
+
+
+
+
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
@@ -1064,12 +1148,18 @@ course use more than six runs.</p>
 
 
 
+
+
+
+
+
 <figure  >
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt=""
            src="/post/karger-extensions/ensemble_6.svg"
            loading="lazy" data-zoomable /></div>
   </div></figure>
+
 </div>
 <p>This probability \(p_{karger}(v)\) is a probabilistic segmentation of the input
 graph. The following figure illustrates this and compares it to the potential that
@@ -1088,19 +1178,24 @@ the random walker algorithm produces:</p>
 
 
 
+
+
+
+
 <figure  id="figure-figure-2-karger-and-random-walker-potentials-in-comparison">
   <div class="d-flex justify-content-center">
     <div class="w-100" ><img alt="Figure 2: Karger and random walker potentials in comparison." srcset="
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png 400w,
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_08ea71d396c5535aef6219bdd98d9580.png 760w,
-               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_1200x1200_fit_lanczos_3.png 1200w"
-               src="/post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_c71696a5d290738c89eec623c5e47089.png"
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_ad5f72aa77b4672c41078e70260c3782.webp 400w,
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_d2bbb9191f55dd23cbd85b5a8ba99bd1.webp 760w,
+               /post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+               src="/post/karger-extensions/flower_hu60e3af469ea33e3308ec4570403ca1b9_571770_ad5f72aa77b4672c41078e70260c3782.webp"
                width="760"
                height="203"
                loading="lazy" data-zoomable /></div>
   </div><figcaption>
       Figure 2: Karger and random walker potentials in comparison.
     </figcaption></figure>
+
 <p>\(\beta\) is a parameter that influences how the edge weights are computed based
 on the image. For large \(\beta\), the edge weights become very extreme and both
 algorithms assign probabilities close to zero or one to each pixel.</p>
@@ -1270,14 +1365,14 @@ have made some steps towards understanding this distribution by linking it to
 the random walker. But there certainly remains a lot of space to improve our
 theoretical understanding of the &ldquo;Karger distribution&rdquo;, as well as the potential
 to use it for other purposes than the one we presented.</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>Generalizing to many classes and many seeds per class is straightforward, see our paper.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
     </div>
 
@@ -1289,6 +1384,115 @@ to use it for other purposes than the one we presented.</p>
 
 
 
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fejenner.com%2Fpost%2Fkarger-extensions%2F&amp;text=Extensions&#43;of&#43;Karger%27s&#43;algorithm" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fejenner.com%2Fpost%2Fkarger-extensions%2F&amp;t=Extensions&#43;of&#43;Karger%27s&#43;algorithm" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=Extensions%20of%20Karger%27s%20algorithm&amp;body=https%3A%2F%2Fejenner.com%2Fpost%2Fkarger-extensions%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fejenner.com%2Fpost%2Fkarger-extensions%2F&amp;title=Extensions&#43;of&#43;Karger%27s&#43;algorithm" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Extensions&#43;of&#43;Karger%27s&#43;algorithm%20https%3A%2F%2Fejenner.com%2Fpost%2Fkarger-extensions%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fejenner.com%2Fpost%2Fkarger-extensions%2F&amp;title=Extensions&#43;of&#43;Karger%27s&#43;algorithm" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
 
 
 
@@ -1427,11 +1631,6 @@ to use it for other purposes than the one we presented.</p>
 
 
 
-  
-  
-
-
-
 
 
   </div>
@@ -1448,29 +1647,48 @@ to use it for other purposes than the one we presented.</p>
 
 
 
-  
+
+
+
+
+
+
+
+
 
   
+  
+  
+  
+  
+
+
+<p class="powered-by">
+  
+  <a href="/privacy/">Privacy</a>
+  
+  
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
   <p class="powered-by">
     
-      <a href="/privacy/">Privacy</a>
-    
-    
-  </p>
-  
-
-  
-
-  
-  
-
-
-
-
-
-
-  <p class="powered-by">
-    
     
     
       
@@ -1479,7 +1697,7 @@ to use it for other purposes than the one we presented.</p>
       
       
       
-      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
     
   </p>
 </footer>
@@ -1487,6 +1705,101 @@ to use it for other purposes than the one we presented.</p>
     </div>
     
   </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.e8ee06ba8371980ffde659871dd593b0.js"></script>
+
+
+
+
+
+
 
   
 <div id="modal" class="modal fade" role="dialog">
@@ -1499,7 +1812,8 @@ to use it for other purposes than the one we presented.</p>
         </button>
       </div>
       <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
+        
+        <pre><code></code></pre>
       </div>
       <div class="modal-footer">
         <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
@@ -1514,101 +1828,27 @@ to use it for other purposes than the one we presented.</p>
   </div>
 </div>
 
-      
 
-    
-    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
 
-    
-    
-    
-      
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      
 
-      
-      
 
-      
 
-      
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
-        
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
-        
-      
-
-    
-
-    
-    
-    
-
-    
-    
-
-    
-    
-    
-      
-      <script id="search-hit-fuse-template" type="text/x-template">
-        <div class="search-hit" id="summary-{{key}}">
-          <div class="search-hit-content">
-            <div class="search-hit-name">
-              <a href="{{relpermalink}}">{{title}}</a>
-              <div class="article-metadata search-hit-type">{{type}}</div>
-              <p class="search-hit-description">{{snippet}}</p>
-            </div>
-          </div>
-        </div>
-      </script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-      
-    
-
-    
-    
-
-    
-    
-    
-    
-
-    
-    
-      
-      
-      
-      
-      
-      
-      
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-      
-      
-    
-    
-    <script src="/en/js/wowchemy.min.d68ecd57c0ec1f1f61d65fd568f1c3a0.js"></script>
-
-    <script data-goatcounter="https://ejnnr.goatcounter.com/count"
+  <script data-goatcounter="https://ejnnr.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

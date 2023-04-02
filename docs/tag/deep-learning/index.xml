@@ -126,14 +126,14 @@ is discussed in the &lt;a href=&#34;http://implicit-layers-tutorial.org/&#34; ta
 It starts with Deep equilbrium models (which essentially use layers defined
 by \(g(x, y) = 0\) as in this post, just framed differently) but then applies
 the same ideas to constraints described by ODEs, leading to Neural ODEs.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;This is assuming that the Jacobian \(\frac{\partial g}{\partial y}\) is invertible. This is exactly the condition under which the &lt;a href=&#34;https://en.wikipedia.org/wiki/Implicit%5Ffunction%5Ftheorem&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;implicit function theorem&lt;/a&gt; holds. In that case, \(y^*\) is indeed differentiable (so we can apply the chain rule as we did). And if we drop the assumption that \(g(x, y) = 0\) is uniquely solvable, then the implicit function theorem at least guarantees that a unique solution \(y*(x)\) exists locally around a point \((x_0, y_0)\). So this theorem is sort of a theoretical backbone, which guarantees that what we do actually works. But if we assume that a solution function \(y^*\) exists and is differentiable, then computing it&amp;rsquo;s Jacobian doesn&amp;rsquo;t require any heavy machinery: as you can see, we just apply the chain rule once and then rearrange a bit.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -349,23 +349,23 @@ that contribute the most)&lt;/li&gt;
 &lt;li&gt;There is also a &lt;a href=&#34;https://arxiv.org/abs/1906.02691&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tutorial by Kingma and Welling&lt;/a&gt;, the authors who introduced VAEs. You could also look
 at their &lt;a href=&#34;https://arxiv.org/abs/1312.6114&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;original paper&lt;/a&gt; but that&amp;rsquo;s a lot terser&lt;/li&gt;
 &lt;/ul&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Michael Nielsen calls this &amp;ldquo;discovery fiction&amp;rdquo;, mentioned for example &lt;a href=&#34;http://cognitivemedium.com/srs-mathematics&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;If you intrinsically care about \(p(z|x)\), for example because you hope the latent variables will have an interesting meaning, this and parts of the remaining post are unnecessary, you&amp;rsquo;ll get to VAEs more directly. But my point is that you don&amp;rsquo;t &lt;em&gt;need&lt;/em&gt; that motivation &amp;ndash; VAEs arise pretty naturally even if you only care about finding a good model \(p_\theta(x)\) of the training data.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;In particular, the Kullback-Leibler divergence is not symmetric, which raises the question why we use \(D(q\Vert p)\) and not \(D(p\Vert q)\). The reason is that the latter would itself lead to an intractable optimization problem and so we wouldn&amp;rsquo;t have made any progress.&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:4&#34;&gt;
 &lt;p&gt;If you&amp;rsquo;ve read the previous footnote: this is the point where using the other KL divergence would mean we&amp;rsquo;re stuck because we have an expectation with respect to \(p(z|x)\)&amp;#160;&lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     

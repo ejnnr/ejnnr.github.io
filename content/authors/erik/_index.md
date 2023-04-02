@@ -2,6 +2,10 @@
 # Display name
 title: Erik Jenner
 
+# Full name (for SEO)
+first_name: Erik
+last_name: Jenner
+
 # Is this the primary user of the site?
 superuser: true
 

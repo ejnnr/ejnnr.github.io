@@ -1,4 +1,7 @@
-<!DOCTYPE html><html lang="en-us" >
+<!DOCTYPE html>
+<!-- This site was created with Wowchemy. https://www.wowchemy.com -->
+<!-- Last Published: April 1, 2023 --><html lang="en-us" >
+
 
 <head>
   <meta charset="utf-8" />
@@ -7,62 +10,59 @@
   
   
   
-    <meta name="generator" content="Wowchemy 5.3.0 for Hugo" />
+    <meta name="generator" content="Wowchemy 5.7.0 for Hugo" />
   
 
   
+  
+
+
+
+
+
+
+
+
+
+
+
 
   
   
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  
+
   
   
   
     
-    
-    
-  
-  
-
-  <meta name="author" content="Erik Jenner" />
-
-  
-  
-  
+      
+      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media="print" onload="this.media='all'">
     
   
-  <meta name="description" content="  Reinforcement Learning consists of a few key building blocks that can be combined to create
-  many of the well-known algorithms. Framing RL in terms of these building blocks
-  can give a good overview and better understanding of these algorithms. This is part 2
-  of a series with such an overview, covering some policy optimization methods.
-  " />
 
   
-  <link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/rl-building-blocks-2/" />
-
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  
-
-  
-  
-  
-    <meta name="theme-color" content="#707070" />
   
 
   
@@ -73,14 +73,14 @@
 
   
 
-  <link rel="stylesheet" href="/css/vendor-bundle.min.f1ecf783c14edc00c9320c205831ad8e.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css" media="print" onload="this.media='all'">
 
   
   
   
     
     
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous" media="print" onload="this.media='all'">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css" integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin="anonymous" media="print" onload="this.media='all'">
     
 
     
@@ -96,41 +96,10 @@
     
     
     
-      
-    
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/github.min.css" crossorigin="anonymous" title="hl-light" media="print" onload="this.media='all'">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" media="print" onload="this.media='all'" disabled>
-        
-      
-    
-
-    
-    
-    
 
     
 
     
-    
-      
-      
-
-      
-      
-
-      
-    
-      
-      
-
-      
-      
-
-      
     
       
       
@@ -243,49 +212,15 @@
   
   
   
-    
-      
-      <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:wght@400;700&family=Roboto:wght@400;700&display=swap&display=swap" media="print" onload="this.media='all'">
-    
-  
-
   
   
   
-  
-  
-  <link rel="stylesheet" href="/css/wowchemy.fd9b978ceb8f3cb70c65357f0dc17c1c.css" />
-
-  
-
-
-
-  
-
-  
-
-  
-
-
-
+  <link rel="stylesheet" href="/css/wowchemy.87843d66b22de2ef388a7e23cc79fac1.css" />
 
   
   
   
 
-  
-
-  
-    <link rel="manifest" href="/manifest.webmanifest" />
-  
-
-  <link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
-  <link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
-
-  <link rel="canonical" href="https://ejenner.com/post/rl-building-blocks-2/" />
-
-  
   
   
   
@@ -295,33 +230,121 @@
   
     
     
+    <link rel="stylesheet" href="/css/libs/chroma/github-light.min.css" title="hl-light" media="print" onload="this.media='all'" >
+    <link rel="stylesheet" href="/css/libs/chroma/dracula.min.css" title="hl-dark" media="print" onload="this.media='all'" disabled>
+  
+
   
   
-  <meta property="twitter:card" content="summary" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-    <meta property="twitter:site" content="@jenner_erik" />
-    <meta property="twitter:creator" content="@jenner_erik" />
   
-  <meta property="og:site_name" content="Erik Jenner" />
-  <meta property="og:url" content="https://ejenner.com/post/rl-building-blocks-2/" />
-  <meta property="og:title" content="Building Blocks of RL Part II: Policy Optimization | Erik Jenner" />
-  <meta property="og:description" content="  Reinforcement Learning consists of a few key building blocks that can be combined to create
+  
+
+
+
+
+
+
+  <meta name="author" content="Erik Jenner" />
+
+
+
+
+
+  
+
+<meta name="description" content="  Reinforcement Learning consists of a few key building blocks that can be combined to create
   many of the well-known algorithms. Framing RL in terms of these building blocks
   can give a good overview and better understanding of these algorithms. This is part 2
   of a series with such an overview, covering some policy optimization methods.
-  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
-    <meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+  " />
+
+
+
+<link rel="alternate" hreflang="en-us" href="https://ejenner.com/post/rl-building-blocks-2/" />
+<link rel="canonical" href="https://ejenner.com/post/rl-building-blocks-2/" />
+
+
+
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+
+
+<link rel="icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png" />
+<link rel="apple-touch-icon" type="image/png" href="/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png" />
+
+<meta name="theme-color" content="#707070" />
+
+
+
+
+
+
+
+
+
+
   
-    
-      <meta
-        property="article:published_time"
-        content="2021-02-03T07:39:00&#43;01:00"
-      />
-    
+  
+
+
+
+
+
+
+<meta property="twitter:card" content="summary" />
+
+  <meta property="twitter:site" content="@jenner_erik" />
+  <meta property="twitter:creator" content="@jenner_erik" />
+<meta property="twitter:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" />
+<meta property="og:site_name" content="Erik Jenner" />
+<meta property="og:url" content="https://ejenner.com/post/rl-building-blocks-2/" />
+<meta property="og:title" content="Building Blocks of RL Part II: Policy Optimization | Erik Jenner" />
+<meta property="og:description" content="  Reinforcement Learning consists of a few key building blocks that can be combined to create
+  many of the well-known algorithms. Framing RL in terms of these building blocks
+  can give a good overview and better understanding of these algorithms. This is part 2
+  of a series with such an overview, covering some policy optimization methods.
+  " /><meta property="og:image" content="https://ejenner.com/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png" /><meta property="og:locale" content="en-us" />
+
+  
+    <meta
+      property="article:published_time"
+      content="2021-02-03T07:39:00&#43;01:00"
+    />
+  
+  
     <meta property="article:modified_time" content="2021-02-03T07:39:00&#43;01:00">
   
 
-  
+
+
+
 
 
     
@@ -370,15 +393,37 @@
 
   
 
+
+
+
+  
+  
+  
+
+  
   
 
   
 
 
-
-
-
+  
   <title>Building Blocks of RL Part II: Policy Optimization | Erik Jenner</title>
+
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
 </head>
 
 
@@ -393,7 +438,7 @@
   
   
   
-  <script src="/js/wowchemy-init.min.8988fb2a4bba758785868cfcb5244555.js"></script>
+  <script src="/js/wowchemy-init.min.ec9d49ca50e4b80bdb08f0417a28ed84.js"></script>
 
   
 
@@ -437,8 +482,12 @@
 
 
 
-  <div class="page-header">
-    
+  <div class="page-header header--fixed">
+  
+  
+  
+  
+  
 
 
 
@@ -451,187 +500,196 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
-  <div class="container-xl">
-
-    
-
-    
-    <button type="button" class="navbar-toggler" data-toggle="collapse"
-            data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
-    <span><i class="fas fa-bars"></i></span>
-    </button>
-    
-
-    
-
-    
-    
-    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+    <div class="container-xl">
 
       
-      <ul class="navbar-nav d-md-inline-flex">
-        
+
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#navbar-content" aria-controls="navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+      <span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+      
+
+      
+      
+      <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
 
         
-
-        
-        
-        
+        <ul class="navbar-nav d-md-inline-flex">
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
+
           
           
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
+              
             
             
+              
+              
+              
+                
+              
+              
             
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#about"><span>Home</span></a>
+          </li>
+
+          
+          
+
+          
+
+          
+          
+          
+            
+          
+
+          
+
+          
+          
+          
+          
+
+          
+            
+              
               
             
             
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link " href="/#about"><span>Home</span></a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link  active" href="/post"><span>Blog</span></a>
+          </li>
 
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-
-        
-        
-        
-        
-
-        
-          
-            
-            
           
           
-        
 
-        <li class="nav-item">
-          <a class="nav-link  active" href="/post"><span>Blog</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
           
-        
 
-        
-
-        
-        
-        
-        
-
-        
           
-            
-            
           
           
             
+          
+
+          
+
+          
+          
+          
+          
+
+          
             
-            
+              
               
             
             
+              
+              
+              
+                
+              
+              
+            
+          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          </li>
+
+          
+          
+
+        
+
+          
+        </ul>
+      </div>
+
+      <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+
+        
+        
           
         
 
+        
+        
+        
         <li class="nav-item">
-          <a class="nav-link " href="/#featured"><span>Publications</span></a>
+          <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
         </li>
+        
+
+        
+        
+        
+        <li class="nav-item dropdown theme-dropdown">
+          <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item js-set-theme-light">
+              <span>Light</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-dark">
+              <span>Dark</span>
+            </a>
+            <a href="#" class="dropdown-item js-set-theme-auto">
+              <span>Automatic</span>
+            </a>
+          </div>
+        </li>
+        
 
         
         
 
-      
-
-        
       </ul>
+
     </div>
-
-    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
-
-      
-      
-        
-      
-
-      
-      
-      <li class="nav-item">
-        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
-      </li>
-      
-
-      
-      
-      <li class="nav-item dropdown theme-dropdown">
-        <a href="#" class="nav-link" data-toggle="dropdown" aria-haspopup="true" aria-label="Display preferences">
-          <i class="fas fa-moon" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#" class="dropdown-item js-set-theme-light">
-            <span>Light</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-dark">
-            <span>Dark</span>
-          </a>
-          <a href="#" class="dropdown-item js-set-theme-auto">
-            <span>Automatic</span>
-          </a>
-        </div>
-      </li>
-      
-
-      
-      
-
-    </ul>
-
-  </div>
-</nav>
+  </nav>
+</header>
 
 
   </div>
 
   <div class="page-body">
+    
+    
+    
+
     <article class="article">
 
   
+
 
 
 
@@ -667,7 +725,7 @@
   <span class="article-date">
     
     
-      
+    
     
     Feb 3, 2021
   </span>
@@ -679,7 +737,7 @@
   <span class="middot-divider"></span>
   <span class="article-reading-time">
     
-      11
+    11
     
     min read
   </span>
@@ -689,14 +747,11 @@
   
   
   
-  
-  
 
   
   
 
 </div>
-
     
 
 
@@ -925,25 +980,24 @@ or as a quick reference for how a given method works</li>
 <li>More on score function estimators: <a href="http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/" target="_blank" rel="noopener">http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/</a>
 and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/" target="_blank" rel="noopener">http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/</a></li>
 </ul>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>Sham Kakade, 2001. <a href="https://proceedings.neurips.cc/paper/2001/file/4b86abe48d358ecf194c56c69108433e-Paper.pdf" target="_blank" rel="noopener">(pdf link)</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
+<li id="fn:2">
 <p>Vanilla gradient descent can be interpreted as follows: we want to find \(\Delta \theta\) such that \(J(\theta + \Delta \theta)\) is maximized, but under the constraint that the update isn&rsquo;t too large, \(\Vert\Delta \theta\Vert_2 \leq c\). As \(c\) gets smaller, the optimal update \(\Delta \theta\) aligns more and more with the gradient \(\nabla J(\theta)\). NPG does the same using the Kullback-Leibler divergence between \(\pi_\theta\) and \(\pi_{\theta + \Delta \theta}\) instead of the \(L^2\) distance between the parameters. So <em>infinitesimally</em> (i.e. as the learning rate approaches zero), it limits the change in the policy, but it doesn&rsquo;t actually give any guarantees in the finite regime.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
+<li id="fn:3">
 <p>John Schulman et al., 2015. <a href="https://arxiv.org/abs/1502.05477" target="_blank" rel="noopener">(arxiv link)</a>&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
     </div>
 
     
-
 
 
 
@@ -956,6 +1010,116 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
 </div>
 
 
+
+<div class="share-box">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fejenner.com%2Fpost%2Frl-building-blocks-2%2F&amp;text=Building&#43;Blocks&#43;of&#43;RL&#43;Part&#43;II%3A&#43;Policy&#43;Optimization" target="_blank" rel="noopener" class="share-btn-twitter" aria-label="twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fejenner.com%2Fpost%2Frl-building-blocks-2%2F&amp;t=Building&#43;Blocks&#43;of&#43;RL&#43;Part&#43;II%3A&#43;Policy&#43;Optimization" target="_blank" rel="noopener" class="share-btn-facebook" aria-label="facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+        
+      
+      <li>
+        <a href="mailto:?subject=Building%20Blocks%20of%20RL%20Part%20II%3A%20Policy%20Optimization&amp;body=https%3A%2F%2Fejenner.com%2Fpost%2Frl-building-blocks-2%2F" target="_blank" rel="noopener" class="share-btn-email" aria-label="envelope">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fejenner.com%2Fpost%2Frl-building-blocks-2%2F&amp;title=Building&#43;Blocks&#43;of&#43;RL&#43;Part&#43;II%3A&#43;Policy&#43;Optimization" target="_blank" rel="noopener" class="share-btn-linkedin" aria-label="linkedin-in">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=Building&#43;Blocks&#43;of&#43;RL&#43;Part&#43;II%3A&#43;Policy&#43;Optimization%20https%3A%2F%2Fejenner.com%2Fpost%2Frl-building-blocks-2%2F" target="_blank" rel="noopener" class="share-btn-whatsapp" aria-label="whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fejenner.com%2Fpost%2Frl-building-blocks-2%2F&amp;title=Building&#43;Blocks&#43;of&#43;RL&#43;Part&#43;II%3A&#43;Policy&#43;Optimization" target="_blank" rel="noopener" class="share-btn-weibo" aria-label="weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
 
 
 
@@ -1094,24 +1258,6 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
 
 
 
-  
-  
-  <div class="article-widget content-widget-hr">
-    <h3>Related</h3>
-    <ul>
-      
-      <li><a href="/publication/reward-preprocessing/">Preprocessing Reward Functions for Interpretability</a></li>
-      
-      <li><a href="/post/rl-building-blocks-3/">Building Blocks of RL Part III: Model-based RL</a></li>
-      
-      <li><a href="/post/rl-building-blocks-1/">Building Blocks of RL Part I: Value-based methods</a></li>
-      
-    </ul>
-  </div>
-  
-
-
-
 
 
   </div>
@@ -1128,29 +1274,48 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
 
 
 
-  
+
+
+
+
+
+
+
+
 
   
+  
+  
+  
+  
+
+
+<p class="powered-by">
+  
+  <a href="/privacy/">Privacy</a>
+  
+  
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
   <p class="powered-by">
     
-      <a href="/privacy/">Privacy</a>
-    
-    
-  </p>
-  
-
-  
-
-  
-  
-
-
-
-
-
-
-  <p class="powered-by">
-    
     
     
       
@@ -1159,7 +1324,7 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
       
       
       
-      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-modules" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
+      Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target="_blank" rel="noopener">Wowchemy</a> — the free, <a href="https://github.com/wowchemy/wowchemy-hugo-themes" target="_blank" rel="noopener">open source</a> website builder that empowers creators.
     
   </p>
 </footer>
@@ -1167,6 +1332,101 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
     </div>
     
   </div>
+
+  
+
+
+<script src="/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js"></script>
+
+
+
+
+  
+
+  
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script id="search-hit-fuse-template" type="text/x-template">
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js" integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin="anonymous"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+<script id="page-data" type="application/json">{"use_headroom":true}</script>
+
+
+
+  <script src="/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<script src="/en/js/wowchemy.min.e8ee06ba8371980ffde659871dd593b0.js"></script>
+
+
+
+
+
+
 
   
 <div id="modal" class="modal fade" role="dialog">
@@ -1179,7 +1439,8 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
         </button>
       </div>
       <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
+        
+        <pre><code></code></pre>
       </div>
       <div class="modal-footer">
         <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
@@ -1194,101 +1455,27 @@ and <a href="http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5
   </div>
 </div>
 
-      
 
-    
-    <script src="/js/vendor-bundle.min.b73dfaac3b6499dc997741748a7c3fe2.js"></script>
+  <script src="/js/wowchemy-publication.68f8d7090562ca65fc6d3cb3f8f2d2cb.js" type="module"></script>
 
-    
-    
-    
-      
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      
 
-      
-      
 
-      
 
-      
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/highlight.min.js" integrity="sha512-TDKKr+IvoqZnPzc3l35hdjpHD0m+b2EC2SrLEgKDRWpxf2rFCxemkgvJ5kfU48ip+Y+m2XVKyOCD85ybtlZDmw==" crossorigin="anonymous"></script>
-        
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/python.min.js" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/languages/latex.min.js" crossorigin="anonymous"></script>
-        
-      
-
-    
-
-    
-    
-    
-
-    
-    
-
-    
-    
-    
-      
-      <script id="search-hit-fuse-template" type="text/x-template">
-        <div class="search-hit" id="summary-{{key}}">
-          <div class="search-hit-content">
-            <div class="search-hit-name">
-              <a href="{{relpermalink}}">{{title}}</a>
-              <div class="article-metadata search-hit-type">{{type}}</div>
-              <p class="search-hit-description">{{snippet}}</p>
-            </div>
-          </div>
-        </div>
-      </script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
-      
-    
-
-    
-    
-
-    
-    
-    
-    
-
-    
-    
-      
-      
-      
-      
-      
-      
-      
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-      
-      
-    
-    
-    <script src="/en/js/wowchemy.min.d68ecd57c0ec1f1f61d65fd568f1c3a0.js"></script>
-
-    <script data-goatcounter="https://ejnnr.goatcounter.com/count"
+  <script data-goatcounter="https://ejnnr.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -66,14 +66,13 @@ to get a function with the
 signature that we want, where \(\text{params} := \text{actor-param} \times \text{critic-param}\)
 is the type of the complete collection of parameters.
 In Python, this might look as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;def train(trajectory, params):
-    actor_param, critic_param = params
-    v_function = V(critic_param)
-    actor_update = A(trajectory, actor_param, v_function)
-    critic_update = C(trajectory, critic_param)
-    return (actor_update, critic_update)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You should read this more as pseudo-code: the point is not that we would
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;train&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;trajectory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;actor_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;critic_param&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;params&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;v_function&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;V&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;critic_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;actor_update&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;trajectory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;actor_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v_function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;critic_update&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;trajectory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;critic_param&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;actor_update&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;critic_update&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You should read this more as pseudo-code: the point is not that we would
 actually implement an agent exactly like this, but just to show how these
 individual functions come together to define an update for the entire
 agent.&lt;/p&gt;
@@ -110,8 +109,8 @@ it into our training algorithm without changing anything else.&lt;/p&gt;
 &lt;p&gt;Before we discuss how to define such a function, let&amp;rsquo;s first take a step
 back and consider how this signature is actually implemented by the
 environment. An environment is defined by its transition probabilities
-\[p(s&#39;, r|s, a)\]
-i.e. the probability that the next state will be \(s&#39;\) and the reward \(r\)
+\[p(s&amp;rsquo;, r|s, a)\]
+i.e. the probability that the next state will be \(s&amp;rsquo;\) and the reward \(r\)
 if action \(a\) is taken in state \(s\). So this defines a function
 \[\text{state} \times \text{action} \to D(\text{state} \times \text{reward})\]
 where \(D(\cdot)\) denotes distributions with values of a given type.
@@ -162,7 +161,7 @@ etc.&lt;/p&gt;
 &lt;p&gt;As hinted before, using a model to replace the environment
 (by simulating trajectories) is only one of many applications.&lt;/p&gt;
 &lt;p&gt;First, let&amp;rsquo;s consider sample models (i.e. models that can
-generate \((s&#39;, r)\) tuples for any state-action input). As we saw
+generate \((s&amp;rsquo;, r)\) tuples for any state-action input). As we saw
 at the beginning of this post, many RL methods don&amp;rsquo;t need entire
 trajectories to learn, they instead work on smaller sequences of
 experience tuples. For example, 1-step methods compute
@@ -213,17 +212,17 @@ to updates for value functions or policies. This post showed
 that these functions are themselves building blocks for complete
 training loops and can be composed in different ways with models
 and sampling procedures.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Since parameters in deep learning are usually vectors, there isn&amp;rsquo;t any formal difference between a parameter and a change of a parameter. But we&amp;rsquo;ll still distinguish them because there is a big &lt;em&gt;conceptual&lt;/em&gt; difference and because it&amp;rsquo;s more general that way.&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Usually, the type \(A \to B\) refers to &lt;em&gt;pure&lt;/em&gt; functions that map objects with type \(A\) to type \(B\). I use it slightly differently to also include stochastic functions, which have a random output of type \(B\). For example, the sampled trajectory is not a deterministic function of the policy, it will instead be different each time the sampling function is applied.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -446,20 +445,20 @@ or as a quick reference for how a given method works&lt;/li&gt;
 &lt;li&gt;More on score function estimators: &lt;a href=&#34;http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://stillbreeze.github.io/REINFORCE-vs-Reparameterization-trick/&lt;/a&gt;
 and &lt;a href=&#34;http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;http://blog.shakirm.com/2015/11/machine-learning-trick-of-the-day-5-log-derivative-trick/&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;Sham Kakade, 2001. &lt;a href=&#34;https://proceedings.neurips.cc/paper/2001/file/4b86abe48d358ecf194c56c69108433e-Paper.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(pdf link)&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
 &lt;p&gt;Vanilla gradient descent can be interpreted as follows: we want to find \(\Delta \theta\) such that \(J(\theta + \Delta \theta)\) is maximized, but under the constraint that the update isn&amp;rsquo;t too large, \(\Vert\Delta \theta\Vert_2 \leq c\). As \(c\) gets smaller, the optimal update \(\Delta \theta\) aligns more and more with the gradient \(\nabla J(\theta)\). NPG does the same using the Kullback-Leibler divergence between \(\pi_\theta\) and \(\pi_{\theta + \Delta \theta}\) instead of the \(L^2\) distance between the parameters. So &lt;em&gt;infinitesimally&lt;/em&gt; (i.e. as the learning rate approaches zero), it limits the change in the policy, but it doesn&amp;rsquo;t actually give any guarantees in the finite regime.&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
-&lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:3&#34;&gt;
 &lt;p&gt;John Schulman et al., 2015. &lt;a href=&#34;https://arxiv.org/abs/1502.05477&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;(arxiv link)&lt;/a&gt;&amp;#160;&lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -596,8 +595,8 @@ with respect to the current value estimate&lt;/li&gt;
 &lt;p&gt;This is called generalized policy iteration or GPI.&lt;/p&gt;
 &lt;p&gt;The second step in the loop, where we improve the policy, is easy for
 Q-functions. The greedy policy is then simply given by
-\[\pi&#39;(s) = \operatorname*{argmax}_a Q(s, a)\]
-and the \(\varepsilon\)-greedy policy just means following \(\pi&#39;\) with probability
+\[\pi&amp;rsquo;(s) = \operatorname*{argmax}_a Q(s, a)\]
+and the \(\varepsilon\)-greedy policy just means following \(\pi&amp;rsquo;\) with probability
 \(1 - \varepsilon\) and choosing randomly with probability \(\varepsilon\).&lt;/p&gt;
 &lt;p&gt;With V-functions on the other hand, we would need access to the environment dynamics
 to compute the greedy policy. Because we usually don&amp;rsquo;t have that,
@@ -755,14 +754,14 @@ an algorithm works really well or doesn&amp;rsquo;t even converge. But what I ha
 you of is that all the core building blocks from tabular RL appear in essentially the same
 way in deep RL and really are fundamental &amp;ldquo;building blocks&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;Next up: &lt;a href=&#34;https://ejenner.com/post/rl-building-blocks-2&#34;&gt;Part 2&lt;/a&gt;, where we will apply a similar breakdown to policy optimization methods.&lt;/p&gt;
-&lt;section class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
 &lt;p&gt;or expected Sarsa, they are the same for a deterministic policy&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/section&gt;
+&lt;/div&gt;
 </description>
     </item>
     

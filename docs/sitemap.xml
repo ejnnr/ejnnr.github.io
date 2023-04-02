@@ -2,135 +2,183 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ejenner.com/post/einsum/</loc>
-    <lastmod>2022-11-05T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://ejenner.com/</loc>
-    <lastmod>2022-11-05T00:00:00+00:00</lastmod>
+    <lastmod>2023-04-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/</loc>
+    <lastmod>2023-04-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ejenner.com/post/swoosh/</loc>
+    <lastmod>2023-04-01T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+  </url><url>
+    <loc>https://ejenner.com/post/einsum/</loc>
     <lastmod>2022-11-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/distributions-operations/</loc>
     <lastmod>2022-03-06T00:00:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/math/</loc>
     <lastmod>2022-03-06T00:00:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tags/</loc>
     <lastmod>2022-03-06T00:00:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/machine-learning/</loc>
     <lastmod>2021-12-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/random-vs-grid-search/</loc>
     <lastmod>2021-12-22T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/publication-type/1/</loc>
     <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/publication/karger/</loc>
     <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/graphs/</loc>
     <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/publication_types/</loc>
     <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/publication/</loc>
     <lastmod>2021-10-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/publication-type/0/</loc>
     <lastmod>2021-09-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/publication/reward-preprocessing/</loc>
     <lastmod>2021-09-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/reinforcement-learning/</loc>
     <lastmod>2021-09-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/karger-extensions/</loc>
     <lastmod>2021-09-10T11:41:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/distributions-intro/</loc>
     <lastmod>2021-07-06T14:15:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/deep-learning/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/equivariance/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/publication/steerable-pdos/</loc>
     <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/productivity/</loc>
     <lastmod>2021-04-14T19:42:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/automation-productivity/</loc>
     <lastmod>2021-04-14T19:42:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/bias-variance-tradeoff/</loc>
     <lastmod>2021-04-07T18:19:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/computer-tips/</loc>
     <lastmod>2021-03-31T14:49:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/state-formally-reason-informally/</loc>
     <lastmod>2021-03-24T11:00:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/latex-emacs/</loc>
     <lastmod>2021-03-17T14:14:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/spherical-harmonics/</loc>
     <lastmod>2021-03-10T17:07:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/implicit-layers/</loc>
     <lastmod>2021-03-03T14:48:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/rl-building-blocks-3/</loc>
     <lastmod>2021-02-24T10:41:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/sparsity-singularities/</loc>
     <lastmod>2021-02-17T09:33:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/boring-numbers/</loc>
     <lastmod>2021-02-10T16:27:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/rl-building-blocks-2/</loc>
     <lastmod>2021-02-03T07:39:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/structure/</loc>
     <lastmod>2021-01-27T08:53:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/too-much-structure/</loc>
     <lastmod>2021-01-27T08:53:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/position-momentum-asymmetry/</loc>
     <lastmod>2021-01-19T10:52:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/tag/physics/</loc>
     <lastmod>2021-01-19T10:52:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/rl-building-blocks-1/</loc>
     <lastmod>2021-01-13T16:58:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/vae-generative/</loc>
     <lastmod>2021-01-06T14:45:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/perspectives-on-structure/</loc>
     <lastmod>2020-12-29T14:03:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/karger-stein/</loc>
     <lastmod>2020-12-06T18:00:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/post/discounting-relativistic-universe/</loc>
     <lastmod>2020-06-20T12:25:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/privacy/</loc>
     <lastmod>2018-06-28T00:00:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
   </url><url>
     <loc>https://ejenner.com/categories/</loc>
+    <changefreq>weekly</changefreq>
   </url>
 </urlset>
