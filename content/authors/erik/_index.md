@@ -76,7 +76,7 @@ highlight_name: true
 
 I'm a Computer Science PhD student at UC Berkeley
 working on how to align powerful future AI systems with human values,
-to reduce the [existential risk posed by AI](https://futureoflife.org/background/benefits-risks-of-artificial-intelligence/).
+to reduce the [existential risk posed by AI](https://www.agisafetyfundamentals.com/alignment-introduction).
 I am advised by [Stuart Russell](https://people.eecs.berkeley.edu/~russell/)
 and part of the [Center for Human-Compatible AI](https://humancompatible.ai/).
 I am grateful to be supported by fellowships from the [Future of Life Institute](https://futureoflife.org/team/fellowship-winners-2022/)
