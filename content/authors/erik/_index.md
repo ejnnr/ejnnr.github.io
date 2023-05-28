@@ -23,7 +23,8 @@ bio:
 # Interests to show in About widget
 interests:
 - AI existential safety
-- Reward learning
+- Mechanistic anomaly detection ([more](https://www.alignmentforum.org/posts/vwt3wKXWaCvqZyF74/mechanistic-anomaly-detection-and-elk))
+- Abstractions of computations ([more](https://www.alignmentforum.org/posts/L8LHBTMvhLDpxDaqv/research-agenda-formalizing-abstractions-of-computations-1)), [Causal abstraction of neural networks](http://ai.stanford.edu/blog/causal-abstraction/)
 
 # Education to show in About widget
 education:
