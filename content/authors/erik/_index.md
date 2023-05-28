@@ -23,8 +23,8 @@ bio:
 # Interests to show in About widget
 interests:
 - AI existential safety
-- Mechanistic anomaly detection ([more](https://www.alignmentforum.org/posts/vwt3wKXWaCvqZyF74/mechanistic-anomaly-detection-and-elk))
 - Abstractions of computations ([more](https://www.alignmentforum.org/posts/L8LHBTMvhLDpxDaqv/research-agenda-formalizing-abstractions-of-computations-1)), [Causal abstraction of neural networks](http://ai.stanford.edu/blog/causal-abstraction/)
+- Mechanistic anomaly detection ([more](https://www.alignmentforum.org/posts/vwt3wKXWaCvqZyF74/mechanistic-anomaly-detection-and-elk))
 
 # Education to show in About widget
 education:
@@ -81,3 +81,7 @@ I am advised by [Stuart Russell](https://people.eecs.berkeley.edu/~russell/)
 and part of the [Center for Human-Compatible AI](https://humancompatible.ai/).
 I am grateful to be supported by fellowships from the [Future of Life Institute](https://futureoflife.org/team/fellowship-winners-2022/)
 and [Open Philanthropy](https://www.openphilanthropy.org/grants/open-phil-ai-fellowship-2022-class/).
+
+See [Google Scholar](https://scholar.google.com/citations?user=8DgF8HcAAAAJ) for papers
+I've written, and the [Alignment Forum](https://www.alignmentforum.org/users/erik-jenner)
+for my blog posts about earlier-stage work.
