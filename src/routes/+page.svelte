@@ -81,8 +81,9 @@
 			<!-- Right Side: Bio -->
 			<div class="prose text-left text-lg text-gray-600">
 				<p>
-					I'm a Research Scientist at Google DeepMind working on AGI Safety & Alignment. I'm on
-					leave from a PhD at the Center for Human-Compatible AI at UC Berkeley.
+					I'm a Research Scientist at Google DeepMind working on <span
+						class="paperclip-cursor-hover">AGI Safety & Alignment</span
+					>. I'm on leave from a PhD at the Center for Human-Compatible AI at UC Berkeley.
 				</p>
 
 				<p>
@@ -143,3 +144,11 @@
 		{/if}
 	</div>
 </div>
+
+<style>
+	.paperclip-cursor-hover {
+		cursor:
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M16.5 6v11.5a4 4 0 0 1-4 4a4 4 0 0 1-4-4V5A2.5 2.5 0 0 1 11 2.5A2.5 2.5 0 0 1 13.5 5v10.5a1 1 0 0 1-1 1a1 1 0 0 1-1-1V6H10v9.5a2.5 2.5 0 0 0 2.5 2.5a2.5 2.5 0 0 0 2.5-2.5V5a4 4 0 0 0-4-4a4 4 0 0 0-4 4v12.5a5.5 5.5 0 0 0 5.5 5.5a5.5 5.5 0 0 0 5.5-5.5V6z'/%3E%3C/svg%3E"),
+			auto;
+	}
+</style>
