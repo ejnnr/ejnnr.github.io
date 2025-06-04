@@ -1,0 +1,8 @@
+I'm translating my personal blog & website from Hugo to a custom website with Svelte and Tailwind.
+Svelte, SvelteKit, mdsvex, and Tailwind are already set up.
+The blog posts will be stored as Markdown in the `src/routes/post` directory,
+with one blog post per subdirectory. Each blog post is in the `+page.md` file.
+
+The website should be fast, responsive and mobile-friendly, but not over-engineered.
+
+Use pnpm as package manager.

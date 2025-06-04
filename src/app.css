@@ -1,0 +1,32 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* Style footnote backlinks */
+a.footnote-backref {
+    font-size: 0;
+    /* Hide the default emoji/text */
+    text-decoration: none;
+}
+
+a.footnote-backref::after {
+    content: '↩︎';
+    font-size: 1rem;
+    margin-left: 4px;
+    text-decoration: underline;
+}
+
+a.footnote-backref:hover {
+    opacity: 0.6;
+}
+
+/* Remove backticks from code blocks */
+@utility prose {
+    code {
+
+        &::before,
+        &::after {
+            content: none;
+        }
+    }
+}
