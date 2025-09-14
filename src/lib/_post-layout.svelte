@@ -7,7 +7,6 @@
 	// Import components and libraries if needed
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { marked } from 'marked';
 
 	// Props passed directly from mdsvex frontmatter
 	export let title = '';
@@ -19,15 +18,22 @@
 	export let readingTime = undefined;
 	export let toc = false;
 
-	// Reactive variable for parsed summary
-	$: parsedSummary = summary ? marked.parse(summary) : '';
+	// Reactive variable for parsed summary removed; summary is used only for meta description
 
 	// Get the slug from the URL if not provided directly
 	$: actualSlug = slug || $page.url.pathname.split('/').filter(Boolean).pop();
 
 	// Format the date
 	const formatDate = (dateString) => {
-		const date = new Date(dateString);
+		if (!dateString) return '';
+
+		// Extract just the date part (YYYY-MM-DD) to avoid timezone conversion issues
+		const dateOnly = dateString.split('T')[0] || dateString.split(' ')[0];
+		const [year, month, day] = dateOnly.split('-');
+
+		// Create date using local timezone to avoid conversion
+		const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
 		return date.toLocaleDateString('en-US', {
 			year: 'numeric',
 			month: 'long',
@@ -102,12 +108,6 @@
 				{/each}
 			</div>
 		{/if}
-
-		{#if summary}
-			<div class="mt-4 text-lg text-gray-700">
-				{@html parsedSummary}
-			</div>
-		{/if}
 	</header>
 
 	{#if toc && tableOfContents.length > 0}
@@ -137,7 +137,7 @@
 		</div>
 	{/if}
 
-	<div class="prose prose-lg max-w-none">
+	<div class="prose prose-lg prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl max-w-none">
 		<slot />
 	</div>
 

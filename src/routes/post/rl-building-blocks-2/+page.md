@@ -32,7 +32,7 @@ Policy optimization in general means that we have a parameterized
 family of policies $\pi_\theta(a|s)$ and want to maximize the expected
 return with respect to the parameters $\theta$:
 $$
-\operatorname\*{argmax}_{\theta} J(\theta)
+\operatorname*{argmax}_{\theta} J(\theta)
 $$
 where $J$ is the expected return:
 $$
@@ -121,8 +121,8 @@ the REINFORCE method or _score function estimation_.
 We can use the fact that $\nabla g(x) = g(x) \nabla \log g(x)$ for any $g$ and write
 $$
 \begin{split}
-\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &= \int_a f(a)\nabla \pi_\theta(a) da \\\\\\
-&= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\\\\\
+\nabla_\theta \mathbb{E}_{a \sim \pi_\theta} f(a) &= \int_a f(a)\nabla \pi_\theta(a) da \\
+&= \int_a \pi_\theta(a) f(a) \nabla \log \pi_\theta(a) da \\
 &= \mathbb{E}_{a \sim \pi_\theta} \left[f(a)\nabla \log \pi_\theta(a)\right]
 \end{split}
 $$

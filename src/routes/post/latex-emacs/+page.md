@@ -39,7 +39,7 @@ LaTeX can produce beautiful documents, but the source code isn't very
 readable when writing mathematical expressions:
 
 ```latex
-  \alpha \mapsto \int_{\R}e^{-\alpha x^2}\,dx
+\\alpha \\mapsto \\int_{\\R}e^{-\\alpha x^2}\\,dx
 ```
 
 Emacs and AUCTeX (which is the de-facto standard package for using LaTeX inside
@@ -90,7 +90,7 @@ you to do:
 -   Say you've typed
 
     ```latex
-        $ax^{2} + b$
+    $ax^{2} + b$
     ```
 
     and suddenly realize that this is supposed to go into an exponent. With your cursor
@@ -98,14 +98,14 @@ you to do:
     environment as an exponent") and you'll get
 
     ```latex
-        $^{ax^{2} + b}$
+    $^{ax^{2} + b}$
     ```
 
     with the cursor at the `^`. Now you just need to enter the base.
 -   Your equations is now
 
     ```latex
-        $e^{ax^{2} + b}$
+    $e^{ax^{2} + b}$
     ```
 
     and you decide that this merits its own displayed rather than
@@ -113,17 +113,17 @@ you to do:
     to `equation`") and get
 
     ```latex
-        \begin{equation}
-        e^{ax^{2} + b}
-        \end{equation}
+    \\begin{equation}
+    e^{ax^{2} + b}
+    \\\\end{equation}
     ```
 
 -   After a bit more editing, you have (for some reason)
 
     ```latex
-        \begin{equation}
-        \beta(e^{ax^{2} + b} + \frac{1}{x})
-        \end{equation}
+    \\begin{equation}
+    \\beta(e^{ax^{2} + b} + \\frac{1}{x})
+    \\\\end{equation}
     ```
 
     Of course this looks ugly in the compiled document, you need to use `\left(` and `\right)`.
@@ -146,7 +146,7 @@ For example, say you have
 
 ```latex
 $$
-\sin\left( x^2 + \sqrt{x} \right)
+\\sin\\left( x^2 + \\sqrt{x} \\right)
 $$
 ```
 
@@ -156,7 +156,7 @@ And just like that, you will have
 
 ```latex
 $$
-\left( 2 x + \frac{0.5}{\sqrt{x}} \right) \cos\left( x^2 + \sqrt{x} \right)
+\\left( 2 x + \\frac{0.5}{\\sqrt{x}} \\right) \\cos\\left( x^2 + \\sqrt{x} \\right)
 $$
 ```
 

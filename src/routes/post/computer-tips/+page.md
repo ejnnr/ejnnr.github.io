@@ -75,9 +75,9 @@ sshfs
     tools you like to use for that on your local machine. It's in the package repositories
     of most Linux distributions and using it is as simple as
 
-    ```nil
-                $ sshfs [user@]hostname:[directory] mountpoint
-    ```
+```
+$ sshfs [user@]hostname:[directory] mountpoint
+```
 
 
 ## Shell
@@ -90,10 +90,10 @@ Use vim keybindings everywhere
     and for `bash` it's `set -o vi`. You can even enable them for all readline programs,
     such as the Python REPL, by adding
 
-    ```nil
-              set editing-mode vi
-              set keymap vi
-    ```
+```
+set editing-mode vi
+set keymap vi
+```
 
     to your `~/.inputrc`.
 

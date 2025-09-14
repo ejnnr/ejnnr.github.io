@@ -90,8 +90,8 @@ $$
 This already proves that spherical harmonics are eigenfunctions of the spherical
 Laplacian.
 
-But we can say more than that: if we take any eigenfunction \\(f: S^2 \to
-\mathbb{C}\\) of the spherical Laplacian and multiply by $r^l$ (with $l$ such
+But we can say more than that: if we take any eigenfunction $f: S^2 \to
+\mathbb{C}$ of the spherical Laplacian and multiply by $r^l$ (with $l$ such
 that $-l(l + 1)$ gives the eigenvalue[^1]), then $r^l f(\theta, \varphi)$ must be
 harmonic. So the eigenfunctions of the spherical Laplacian are in fact in 1-to-1
 correspondence with harmonic homogeneous functions on $\mathbb{R}^3$. It then turns

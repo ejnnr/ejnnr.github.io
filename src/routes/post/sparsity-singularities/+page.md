@@ -34,7 +34,7 @@ Let $w$ be a vector of parameters and $\mathcal{L}(w)$ be any continuously
 differentiable loss function[^1].
 For $L_2$ regularization, we want to find
 $$
-\operatorname\*{argmax}_w \mathcal{L}(w) + \beta\Vert w\Vert_2^2
+\operatorname*{argmax}_w \mathcal{L}(w) + \beta\Vert w\Vert_2^2
 $$
 This means that the gradient has to be zero:
 $$
@@ -59,14 +59,14 @@ $$
 $L_1$ regularization just uses the 1-norm instead of the Euclidean
 norm:
 $$
-\operatorname\*{argmax}_w \mathcal{L}(w) + \beta\Vert w\Vert_1
+\operatorname*{argmax}_w \mathcal{L}(w) + \beta\Vert w\Vert_1
 $$
 How does that change things? Well, the 1-norm of a vector is not
 differentiable at 0. More precisely:
 $$
 \frac{\partial}{\partial w_i} \Vert w\Vert_1 = \begin{cases}
-+1, \quad w_i > 0\\\\\\
--1,\quad w_i < 0\\\\\\
++1, \quad w_i > 0\\
+-1,\quad w_i < 0\\
 \text{undefined for } w_i = 0
 \end{cases}
 $$
@@ -119,14 +119,14 @@ using the evidence from the loss function, and then pick the parameters
 which are the most probable according to the posterior distribution.
 
 $L_2$ regularization corresponds to a Gaussian prior and $L_1$ regularization
-to a [Laplace prior](https:en.wikipedia.org/wiki/Laplace%5Fdistribution) (in both cases centered around 0). So it's natural to
+to a [Laplace prior](https://en.wikipedia.org/wiki/Laplace%5Fdistribution) (in both cases centered around 0). So it's natural to
 try to explain the sparsity behavior of these regularization methods
 in terms of the underlying priors.
 
 Here's what a Gaussian (red) and Laplace (blue) distribution look like, both with
 unit variance and properly normalized:
 
-<Figure src="fig/sparsity-regularization/gaussian_laplace.png" caption="Figure 1: Gaussian and Laplace distribution with unit variance (created using <https://www.desmos.com/>)" />
+<Figure src="./gaussian_laplace.png" caption="Figure 1: Gaussian and Laplace distribution with unit variance (created using <https://www.desmos.com/>)" />
 
 One difference is that the Laplace distribution has a higher density
 at (and around) 0. I've seen this used as an explanation for sparsity several times:
@@ -136,7 +136,7 @@ prior to 0, which is why we get sparse solutions.
 But that is very misleading (and depending on what is meant by "concentrated" just wrong). Consider the following
 figure:
 
-<Figure src="fig/sparsity-regularization/narrow_gaussian_laplace.png" caption="Figure 2: Narrower Gaussian" />
+<Figure src="./narrow_gaussian_laplace.png" caption="Figure 2: Narrower Gaussian" />
 
 These are still a normalized Gaussian and a Laplace distribution, the only difference is that
 I've chosen a much smaller variance for the Gaussian. This corresponds to

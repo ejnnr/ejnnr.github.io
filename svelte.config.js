@@ -12,7 +12,15 @@ const config = {
 			remarkFootnotes,
 		],
 		rehypePlugins: [
-			rehypeKatexSvelte,
+			[rehypeKatexSvelte, {
+				// Emulate common DeclareMathOperator uses
+				macros: {
+					"\\argmax": "\\operatorname*{arg\\,max}",
+					"\\argmin": "\\operatorname*{arg\\,min}",
+					"\\E": "\\mathbb{E}",
+					"\\R": "\\mathbb{R}"
+				}
+			}],
 		],
 		extensions: ['.md', '.svx'],
 		layout: {

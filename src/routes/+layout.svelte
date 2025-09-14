@@ -34,8 +34,8 @@
 <svelte:head>
 	<link
 		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css"
-		integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X"
+		href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"
+		integrity=""
 		crossorigin="anonymous"
 	/>
 </svelte:head>
@@ -51,8 +51,7 @@
 			? 'fixed -translate-y-full'
 			: 'relative'} // Apply fixed/translate classes based on state"
 >
-	<nav class="mx-auto flex max-w-3xl items-center justify-between p-4">
-		<a href="/" class="text-lg font-semibold text-gray-800 hover:text-blue-600">My Site</a>
+	<nav class="mx-auto flex max-w-3xl items-center p-4">
 		<div class="space-x-4">
 			<a href="/" class="text-gray-600 hover:text-blue-600">Home</a>
 			<a href="/post" class="text-gray-600 hover:text-blue-600">Posts</a>

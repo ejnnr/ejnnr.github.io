@@ -180,7 +180,7 @@ This is called generalized policy iteration or GPI.
 The second step in the loop, where we improve the policy, is easy for
 Q-functions. The greedy policy is then simply given by
 $$
-\pi'(s) = \operatorname\*{argmax}_a Q(s, a)
+\pi'(s) = \operatorname*{argmax}_a Q(s, a)
 $$
 and the $\varepsilon$-greedy policy just means following $\pi'$ with probability
 $1 - \varepsilon$ and choosing randomly with probability $\varepsilon$.

@@ -10,7 +10,15 @@
 	// Simple date formatting function
 	function formatDate(dateString) {
 		if (!dateString) return '';
-		return new Date(dateString).toLocaleDateString('en-US', {
+
+		// Extract just the date part (YYYY-MM-DD) to avoid timezone conversion issues
+		const dateOnly = dateString.split('T')[0] || dateString.split(' ')[0];
+		const [year, month, day] = dateOnly.split('-');
+
+		// Create date using local timezone to avoid conversion
+		const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+		return date.toLocaleDateString('en-US', {
 			year: 'numeric',
 			month: 'long',
 			day: 'numeric'
@@ -69,7 +77,7 @@
 				<p>
 					I'm a Research Scientist at Google DeepMind working on <span
 						class="paperclip-cursor-hover">AGI Safety & Alignment</span
-					>. I'm on leave from a PhD at the Center for Human-Compatible AI at UC Berkeley.
+					>. Previously, I did part of a PhD at the Center for Human-Compatible AI at UC Berkeley.
 				</p>
 
 				<p>

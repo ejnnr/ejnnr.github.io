@@ -13,12 +13,6 @@ image:
   preview_only: 'true'
 ---
 
-\\(
-\DeclareMathOperator\*{\argmax}{argmax}
-\DeclareMathOperator\*{\argmin}{argmin}
-\DeclareMathOperator\*{\E}{\mathbb{E}} % expected value
-\newcommand{\R}{\mathbb{R}}
-\\)
 This is my attempt to tell a story[^1]
 about how you might invent variational autoencoders (VAEs).
 There are already [great introductory posts](https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73) doing this and if you haven't seen VAEs before, I would
@@ -110,11 +104,11 @@ but that's not necessary for this post). The idea of variational inference is th
 you have some distribution $p$ that you care about, but which is intractable to work with.
 So you define a family $\mathcal{Q}$ of simpler distributions and then find
 $$
-q^\* := \argmin_{q \in \mathcal{Q}} D(q\Vert p)
+q^* := \argmin_{q \in \mathcal{Q}} D(q\Vert p)
 $$
 where $D(\cdot \Vert \cdot)$ is the Kullback-Leibler divergence (which measures "distances"
 between probability distributions, though it is not a metric in the mathematical sense[^3]). We
-can then use $q^\*$ in place of $p$ whenever we need to evaluate it.
+can then use $q^*$ in place of $p$ whenever we need to evaluate it.
 
 This may sound like an enourmous amount of computational overhead: to just evaluate
 our objective, we will have to solve an entire optimization problem each time! We will later
@@ -125,7 +119,7 @@ To apply this to our problem, we will approximate $p(z|x)$ with a simpler distri
 parameterized by a new parameter $\lambda$. For example, $q_\lambda$ could be a Gaussian
 and $\lambda$ would be its mean and covariance matrix. Note that while $q_\lambda(z)$ does not
 explicitly depend on $x$, the optimal parameter
-$\lambda^\*$ does depend on $x$ because we minimize the Kullback-Leibler divergence between
+$\lambda^*$ does depend on $x$ because we minimize the Kullback-Leibler divergence between
 $q_\lambda$ and $p(\cdot | x)$.
 
 The variational inference problem is now minimizing
@@ -175,19 +169,19 @@ $$
 for an arbitrarily chosen $z$.
 We then used variational inference to approximate the intractable term as
 $$
-\log p_\theta(z|x) \approx \log q_{\lambda^\*}(z)
+\log p_\theta(z|x) \approx \log q_{\lambda^*}(z)
 $$
-where $\lambda^\*$ is the solution to the variational problem:
+where $\lambda^*$ is the solution to the variational problem:
 $$
-\lambda^\*(\theta) = \argmax_\lambda \E_{z \sim q_\lambda}\left[\log p_\theta(x, z) - \log q_\lambda(z)\right]
+\lambda^*(\theta) = \argmax_\lambda \E_{z \sim q_\lambda}\left[\log p_\theta(x, z) - \log q_\lambda(z)\right]
 $$
 
 So we could now in principle plug in this approximation and solve
 $$
-\argmax_\theta \log p_\theta(x) \approx \log p_\theta(x, z) - \log q_{\lambda^\*}(z)
+\argmax_\theta \log p_\theta(x) \approx \log p_\theta(x, z) - \log q_{\lambda^*}(z)
 $$
 but there are problems with this.
-First, note that $\lambda^\*$ depends on $\theta$. If we for example use gradient
+First, note that $\lambda^*$ depends on $\theta$. If we for example use gradient
 ascent to optimize over $\theta$, we would need to find the new
 optimal $\lambda$ after each gradient step.
 Second, using an arbitrarily chosen $z$ is kind of silly: we optimized
@@ -205,22 +199,22 @@ $$
 instead, for an arbitrary distribution $q$.
 Plugging in our approximation, we get
 $$
-\E_{z \sim q}\left[\log p_\theta(x, z) - \log q_{\lambda^\*}(z)\right]
+\E_{z \sim q}\left[\log p_\theta(x, z) - \log q_{\lambda^*}(z)\right]
 $$
 
-The question now is which distribution $q$ to use. But note that by using $q = q_{\lambda^\*}$,
+The question now is which distribution $q$ to use. But note that by using $q = q_{\lambda^*}$,
 we again get the ELBO, this time as the objective for our original optimization problem.
 This is a good choice for two reasons:
 
 1.  The ELBO is a lower bound on the evidence, $\text{ELBO} \leq \log p(x)$. If we used another
     distribution $q$, we wouldn't have any guarantee that we're optimizing for the right thing
-    if the approximation $p(z|x) \approx q_{\lambda^\*}(z)$ became bad enough. This way, we're
+    if the approximation $p(z|x) \approx q_{\lambda^*}(z)$ became bad enough. This way, we're
     at least optimizing a lower bound on what we really care about.
-2.  We saw above that we need to find the new $\lambda^\*(\theta)$ after each update to $\theta$,
+2.  We saw above that we need to find the new $\lambda^*(\theta)$ after each update to $\theta$,
     which is very inefficient. But the ELBO is already our objective for $\lambda$, so now we have
     the same optimization objective for both parameters and can optimize them jointly.
 
-With this choice of $q = q_{\lambda^\*}$, the joint optimization problem becomes
+With this choice of $q = q_{\lambda^*}$, the joint optimization problem becomes
 $$
 \argmax_{\theta, \lambda} \E_{z \sim q_\lambda}\left[\log p_\theta(x, z) - \log q_\lambda(z)\right]
 $$
@@ -245,13 +239,13 @@ of a huge number of parameters and computational infeasibility.
 
 So instead, we use _[amortized variational inference](https://gordonjo.github.io/post/amortized%5Fvi/)_. This means that instead of optimizing parameters for
 $q_\lambda$ for each $x$, we learn a function $x \mapsto \lambda$. This function is trained to approximate the optimal solution
-$\lambda^\*(x)$. The downside is that we're introducing yet another approximation, which can only
+$\lambda^*(x)$. The downside is that we're introducing yet another approximation, which can only
 worsen how well we maximize the likelihood $p(x)$. But the big advantage is that evaluating it is
 much cheaper than solving an entire optimization problem.
 
 In practice, this means we train a neural
 network $f_\varphi(x)$ to find the best $\lambda$ (in terms of the objective above) for a given $x$. We then
-use $q_{f_\varphi(x)}(z)$ in place of $q_{\lambda^\*}(z)$. To make the notation a bit nicer,
+use $q_{f_\varphi(x)}(z)$ in place of $q_{\lambda^*}(z)$. To make the notation a bit nicer,
 we write this as
 $$
 q_\varphi(z|x) := q_{f_\varphi(x)}(z)

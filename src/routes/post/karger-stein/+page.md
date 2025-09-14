@@ -63,13 +63,13 @@ I said we first contract to "roughly" $\frac{n}{b}$ vertices -- to be precise we
 until $\lceil \frac{n}{b} + 1\rceil$ vertices are left, this will give us a nice bound.
 The probability that a mincut survives this contraction is[^4]:
 
-\begin{equation}
+$$
 \begin{split}
-p &\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\\\\\
-&\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\\\\\
+p &\geq \frac{\lceil \frac{n}{b} + 1 \rceil \lceil \frac{n}{b} \rceil}{n (n - 1)}\\
+&\geq \frac{(\frac{n}{b} + 1) \cdot \frac{n}{b}}{n (n - 1)}\\
 &\geq \frac{1}{b^2}
 \end{split}
-\end{equation}
+$$
 
 We can now apply this bound recursively: After we have contracted to $\lceil \frac{n}{b} + 1 \rceil$
 vertices, we can forget that this is a partially contracted graph, and just treat
@@ -95,15 +95,15 @@ This recurrence doesn't have an obious solution we can just read off but with
 some rewriting, we can get something that's good enough for our purposes.
 Substituting $z_k := \frac{b^2}{p_k} - 1$, we get
 
-\begin{equation}
+$$
 \begin{split}
-z\_{k + 1} &= \frac{b^2}{p\_{k + 1}} - 1 \\\\\\
-&\leq \frac{b^2}{1 - \left(1 - \frac{1}{z\_k + 1}\right)^a} - 1\\\\\\
-&= \frac{b^2 \left(z\_k + 1\right)^a}{\left(z\_k + 1\right)^a - z\_k^a} - 1\\\\\\
-&\leq \frac{b^2 \left(z\_k + 1 \right)^a}{a z\_k^{a - 1}} - 1\\\\\\
+z\_{k + 1} &= \frac{b^2}{p\_{k + 1}} - 1 \\
+&\leq \frac{b^2}{1 - \left(1 - \frac{1}{z\_k + 1}\right)^a} - 1\\
+&= \frac{b^2 \left(z\_k + 1\right)^a}{\left(z\_k + 1\right)^a - z\_k^a} - 1\\
+&\leq \frac{b^2 \left(z\_k + 1 \right)^a}{a z\_k^{a - 1}} - 1\\
 &\leq \frac{b^2}{a} z\_k + \text{const}
 \end{split}
-\end{equation}
+$$
 
 where we used $z_k \geq 1$ in the last step. The constant term may depend
 on $a$ and $b$ but not on $z_k$.

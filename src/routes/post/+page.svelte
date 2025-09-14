@@ -4,6 +4,24 @@
 
 	/** @type {import('./$types').PageData} */
 	export let data;
+
+	// Simple date formatting function that avoids timezone conversion
+	function formatDate(dateString) {
+		if (!dateString) return '';
+
+		// Extract just the date part (YYYY-MM-DD) to avoid timezone conversion issues
+		const dateOnly = dateString.split('T')[0] || dateString.split(' ')[0];
+		const [year, month, day] = dateOnly.split('-');
+
+		// Create date using local timezone to avoid conversion
+		const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+
+		return date.toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+	}
 </script>
 
 <svelte:head>
@@ -24,11 +42,7 @@
 						<div class="mb-3 flex items-center gap-4 text-sm text-gray-600">
 							{#if post.date}
 								<time datetime={post.date}>
-									{new Date(post.date).toLocaleDateString('en-US', {
-										year: 'numeric',
-										month: 'long',
-										day: 'numeric'
-									})}
+									{formatDate(post.date)}
 								</time>
 							{/if}
 						</div>

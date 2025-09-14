@@ -37,7 +37,7 @@ whether we can also generalize these operations. It turns out that this
 is possible in a (to me) surprising number of cases, in a surprisingly
 simple way!
 
-# Addition
+## Addition
 Let's start with a warm-up: just like we can add classical functions,
 we can add two distributions $S$ and $T$. Specifically, we define $S + T$
 as the distribution given by
@@ -71,7 +71,7 @@ $$\begin{aligned}
 This implies that $T_{f + g} = T_f + T_g$ (since distributions are themselves
 just functions, and if two functions are equal on all inputs, they're the same).
 
-# Derivatives
+## Derivatives
 Addition was pretty easy, but how are we supposed to define derivatives
 of distributions? This seems really hard at first. Do we need some kind of
 limit of finite differences, like for classical functions? But what
@@ -121,7 +121,7 @@ distribution that we saw in Part I:
 ![Step function](./step-function.png)
 The delta distribution is *not* induced by any function, as we discussed back then.
 
-# Convolutions
+## Convolutions
 We know the recipe now, so let's just run through two more examples,
 starting with convolutions. As a quick reminder, the convolution of two
 functions $f$ and $g$ is defined as the function $f * g$ given by
@@ -144,7 +144,7 @@ $$(T * g)(x) := \langle T, \tau_x \check{g}\rangle.$$
 So the convolution of a distribution with a function is again a classical function
 (we evaluate it at points $x \in \mathbb{R}^n$, rather than on test functions).
 
-# Fourier transforms
+## Fourier transforms
 We'll finish with a pretty cool operation: even Fourier transforms work for
 distributions. Well, at least for *some* distributions, we'll get back to that
 in a moment. First, let's recall the definition of the Fourier transform
