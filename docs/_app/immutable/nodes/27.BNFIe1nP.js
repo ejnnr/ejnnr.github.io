@@ -1,4 +1,4 @@
-import{t as Gm,a as Um}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Hm,c as s,b as a,n as m}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ym,s as Zm}from"../chunks/lNFSlT5-.js";import{_ as Jm}from"../chunks/C2OPhFAa.js";const xn={title:"VAEs from a generative perspective",summary:`  Variational autoencoders are usually introduced as a probabilistic extension of autoencoders
+import{t as Gm,a as Um}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Hm,c as s,b as a,n as m}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ym,s as Zm}from"../chunks/lNFSlT5-.js";import{_ as Jm}from"../chunks/BInqBSHA.js";const xn={title:"VAEs from a generative perspective",summary:`  Variational autoencoders are usually introduced as a probabilistic extension of autoencoders
   with regularization. An alternative view is that the encoder arises naturally as a tool
   for efficiently training the decoder. This is the perspective I take in this post, deriving
   VAEs without assuming an autoencoder architecture a priori.

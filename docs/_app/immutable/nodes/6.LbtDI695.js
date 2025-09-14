@@ -1,4 +1,4 @@
-import{t as hn,a as cn}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{f as gn,s as n,c as s,b as a,n as e}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as dn,s as wn}from"../chunks/lNFSlT5-.js";import{_ as un}from"../chunks/C2OPhFAa.js";const Js={title:"Boring numbers, complexity and Chaitin's incompleteness theorem",summary:`  There is a "complexity barrier": a number such that we can't prove
+import{t as hn,a as cn}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{f as gn,s as n,c as s,b as a,n as e}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as dn,s as wn}from"../chunks/lNFSlT5-.js";import{_ as un}from"../chunks/BInqBSHA.js";const Js={title:"Boring numbers, complexity and Chaitin's incompleteness theorem",summary:`  There is a "complexity barrier": a number such that we can't prove
   the Kolmogorov complexity of any specific string to be larger than
   that. The proof of this astonishing fact is closely related to some
   famous paradoxa and we'll use this connection to get a better intuition

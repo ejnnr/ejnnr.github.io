@@ -1,4 +1,4 @@
-import{t as Ms,a as _s}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s,f as Hs,c as a,b as n,n as e}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ls,s as Vs}from"../chunks/lNFSlT5-.js";import{_ as Ts}from"../chunks/C2OPhFAa.js";const E={title:"Asymmetry between position and momentum in physics",summary:`  In both classical mechanics and QM, there are transformations between position-based
+import{t as Ms,a as _s}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s,f as Hs,c as a,b as n,n as e}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ls,s as Vs}from"../chunks/lNFSlT5-.js";import{_ as Ts}from"../chunks/BInqBSHA.js";const E={title:"Asymmetry between position and momentum in physics",summary:`  In both classical mechanics and QM, there are transformations between position-based
   and momentum-based representations that preserve the dynamical laws. So from
   a mathematical perspective, position and momentum seem to play equivalent roles
   in physics. But they don't play equivalent roles in our cognition, which is part of

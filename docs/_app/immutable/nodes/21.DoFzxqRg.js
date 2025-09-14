@@ -1,4 +1,4 @@
-import{t as ps,a as ms}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as t,f as is,c as a,b as s,n as e}from"../chunks/CXEaPN9q.js";import{h as n}from"../chunks/CkMDHBy_.js";import{l as ls,s as os}from"../chunks/lNFSlT5-.js";import{_ as rs}from"../chunks/C2OPhFAa.js";const ha={title:"Building Blocks of RL Part III: Model-based RL",summary:`  Reinforcement Learning consists of a few key building blocks that can be combined to create
+import{t as ps,a as ms}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as t,f as is,c as a,b as s,n as e}from"../chunks/CXEaPN9q.js";import{h as n}from"../chunks/CkMDHBy_.js";import{l as ls,s as os}from"../chunks/lNFSlT5-.js";import{_ as rs}from"../chunks/BInqBSHA.js";const ha={title:"Building Blocks of RL Part III: Model-based RL",summary:`  Reinforcement Learning consists of a few key building blocks that can be combined to create
   many of the well-known algorithms. Framing RL in terms of these building blocks
   can give a good overview and better understanding of these algorithms. This is
   the conclusion of a series with such an overview, covering model-based RL.

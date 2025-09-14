@@ -1,4 +1,4 @@
-import{t as _a,a as La}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Ta,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as qa,s as Ia}from"../chunks/lNFSlT5-.js";import{_ as $a}from"../chunks/C2OPhFAa.js";const bs={title:"Deep Implicit layers",summary:`  Several new architectures for neural networks, such as Neural ODEs and
+import{t as _a,a as La}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Ta,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as qa,s as Ia}from"../chunks/lNFSlT5-.js";import{_ as $a}from"../chunks/BInqBSHA.js";const bs={title:"Deep Implicit layers",summary:`  Several new architectures for neural networks, such as Neural ODEs and
   deep equlibirum models can be understood as replacing classical layers
   that explicitly specify how to compute the output with implicit layers.
   These layers describe which conditions the output should specify but

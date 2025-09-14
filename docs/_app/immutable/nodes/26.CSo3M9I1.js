@@ -1,4 +1,4 @@
-import{t as As,a as Bs}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s,f as Ps,c as a,b as n,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ss,s as Ws}from"../chunks/lNFSlT5-.js";import{_ as Os}from"../chunks/C2OPhFAa.js";const E={title:"Too much structure",summary:`  Proving things for object that have a lot of structure can be harder
+import{t as As,a as Bs}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s,f as Ps,c as a,b as n,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ss,s as Ws}from"../chunks/lNFSlT5-.js";import{_ as Os}from"../chunks/BInqBSHA.js";const E={title:"Too much structure",summary:`  Proving things for object that have a lot of structure can be harder
   than for object with less structure, simply because the tree of possible
   proofs is much wider. This is probably why trying to prove a more general
   case is sometimes a helpful strategy.

@@ -1,4 +1,4 @@
-import{t as Gt,a as qt}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Rt,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Tt,s as Ft}from"../chunks/lNFSlT5-.js";import{_ as Et}from"../chunks/C2OPhFAa.js";const Fa={title:"Building Blocks of RL Part II: Policy Optimization",summary:`  Reinforcement Learning consists of a few key building blocks that can be combined to create
+import{t as Gt,a as qt}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Rt,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Tt,s as Ft}from"../chunks/lNFSlT5-.js";import{_ as Et}from"../chunks/BInqBSHA.js";const Fa={title:"Building Blocks of RL Part II: Policy Optimization",summary:`  Reinforcement Learning consists of a few key building blocks that can be combined to create
   many of the well-known algorithms. Framing RL in terms of these building blocks
   can give a good overview and better understanding of these algorithms. This is part 2
   of a series with such an overview, covering some policy optimization methods.

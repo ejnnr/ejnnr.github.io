@@ -1,4 +1,4 @@
-import{t as ha,a as da}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as ua,c as a,b as s,n as e}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as ga,s as ya}from"../chunks/lNFSlT5-.js";import{_ as wa}from"../chunks/C2OPhFAa.js";const F={title:"Discounting in a relativistic universe",summary:`  For people who want to discount the future, special relativity creates
+import{t as ha,a as da}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as ua,c as a,b as s,n as e}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as ga,s as ya}from"../chunks/lNFSlT5-.js";import{_ as wa}from"../chunks/BInqBSHA.js";const F={title:"Discounting in a relativistic universe",summary:`  For people who want to discount the future, special relativity creates
   some challenges. There are different ways to handle those but none
   seem completely satisfactory which may be yet another argument against
   discounting pure utilities.

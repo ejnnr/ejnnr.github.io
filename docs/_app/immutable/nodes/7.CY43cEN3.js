@@ -1,4 +1,4 @@
-import{t as w,a as b}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as e,f as v,c as o,b as t,n as k}from"../chunks/CXEaPN9q.js";import{h as i}from"../chunks/CkMDHBy_.js";import{l as x,s as z}from"../chunks/lNFSlT5-.js";import{_ as I}from"../chunks/C2OPhFAa.js";const u={title:"Collection of quick computer tips",summary:`  Many of us spend a lot of time working with our computer, so it's worth
+import{t as w,a as b}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as e,f as v,c as o,b as t,n as k}from"../chunks/CXEaPN9q.js";import{h as i}from"../chunks/CkMDHBy_.js";import{l as x,s as z}from"../chunks/lNFSlT5-.js";import{_ as I}from"../chunks/BInqBSHA.js";const u={title:"Collection of quick computer tips",summary:`  Many of us spend a lot of time working with our computer, so it's worth
   spending some time to make that experience as pleasent and productive
   as possible. This is a collection of tips that are relatively quick
   to implement and still very valuable in the long run in my opinion.

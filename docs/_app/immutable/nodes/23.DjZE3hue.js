@@ -1,4 +1,4 @@
-import{t as kn,a as Mn}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{f as _n,s as n,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ln,s as Sn}from"../chunks/lNFSlT5-.js";import{_ as Yn}from"../chunks/C2OPhFAa.js";const Qs={title:"Perspectives on spherical harmonics",summary:`  Spherical harmonics are ubiquitous in math and physics, in part because
+import{t as kn,a as Mn}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{f as _n,s as n,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Ln,s as Sn}from"../chunks/lNFSlT5-.js";import{_ as Yn}from"../chunks/BInqBSHA.js";const Qs={title:"Perspectives on spherical harmonics",summary:`  Spherical harmonics are ubiquitous in math and physics, in part because
   they naturally appear as solutions to several problems; in particular they
   are the eigenfunctions of the spherical Laplacian and the irreducible
   representations of SO(3). But why should the solutions to these problems

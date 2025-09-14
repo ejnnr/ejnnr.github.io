@@ -3,6 +3,7 @@
 	import IconX from '~icons/simple-icons/x';
 	import IconGoogleScholar from '~icons/simple-icons/googlescholar';
 	import IconGithub from '~icons/simple-icons/github';
+	import IconMail from '~icons/lucide/mail';
 	// You can add any JavaScript logic here if needed
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -68,6 +69,15 @@
 					>
 						<span class="sr-only">GitHub</span>
 						<IconGithub class="h-6 w-6" />
+					</a>
+					<a
+						href="mailto:erik@ejenner.com"
+						target="_self"
+						rel="noopener noreferrer"
+						class="text-gray-400 hover:text-gray-500"
+					>
+						<span class="sr-only">Email</span>
+						<IconMail class="h-6 w-6" />
 					</a>
 				</div>
 			</div>

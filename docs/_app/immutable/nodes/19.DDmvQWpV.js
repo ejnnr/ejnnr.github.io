@@ -1,4 +1,4 @@
-import{t as Jt,a as Kt}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Xt,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Yt,s as sp}from"../chunks/lNFSlT5-.js";import{_ as ap}from"../chunks/C2OPhFAa.js";const Na={title:"Building Blocks of RL Part I: Value-based methods",summary:`  Reinforcement Learning consists of a few key building blocks that can be combined to create
+import{t as Jt,a as Kt}from"../chunks/ZND8Q6sY.js";import"../chunks/D1wvszJw.js";import{s as n,f as Xt,c as s,b as a,n as p}from"../chunks/CXEaPN9q.js";import{h as t}from"../chunks/CkMDHBy_.js";import{l as Yt,s as sp}from"../chunks/lNFSlT5-.js";import{_ as ap}from"../chunks/BInqBSHA.js";const Na={title:"Building Blocks of RL Part I: Value-based methods",summary:`  Reinforcement Learning consists of a few key building blocks that can be combined to create
   many of the well-known algorithms. Framing RL in terms of these building blocks
   can give a good overview and better understanding of these algorithms. This is part 1
   of a series with such an overview, covering value-based methods (mainly in a tabular
