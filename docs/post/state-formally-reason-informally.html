@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="../favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+		<link href="../_app/immutable/assets/0.BV6eIN1u.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BU4YA098.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CiKng2ZP.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CXEaPN9q.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BH9Iu36z.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/IITJ3E17.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.B4LPIQdn.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DgNpRiRI.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ZND8Q6sY.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/lNFSlT5-.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CIAIJGM7.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.DUYzCeOk.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BpsNOneS.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/24.DtOfOD8_.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/D1wvszJw.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/C2OPhFAa.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/dy7G579c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CJUGsd79.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CkMDHBy_.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Dw7dpdZy.js"><!--[--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="" crossorigin="anonymous"><!--]--><!--[--><!--[--><meta name="description" content="  There's a style of teaching mathematics that I really like: stating definitions
+  and theorems as formally as in any textbook, but focusing on informal arguments
+  for why they should be true.
+  "><!--]--><!--]--><title>State formally, reason informally</title>
+</head>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents"><!--[--><!--[--><!----><header class="sticky top-0 z-10 w-full bg-white/90 shadow-sm backdrop-blur-sm transition-transform duration-300 ease-in-out relative // Apply fixed/translate classes based on state"><nav class="mx-auto flex max-w-3xl items-center p-4"><div class="space-x-4"><a href="/" class="text-gray-600 hover:text-blue-600">Home</a> <a href="/post" class="text-gray-600 hover:text-blue-600">Posts</a></div></nav></header> <main class="mx-auto max-w-3xl p-4"><!----><article class="mx-auto max-w-3xl px-4 py-8"><header class="mb-8"><h1 class="mb-4 border-b pb-4 text-4xl leading-tight font-bold text-gray-900">State formally, reason informally</h1> <!--[--><div class="mt-2 flex items-center gap-4 text-sm text-gray-600"><time datetime="2021-03-24T10:00:00.000Z">March 24, 2021</time> <!--[!--><!--]--></div><!--]--> <!--[--><div class="mt-4 flex flex-wrap gap-2"><!--[--><span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">Math</span><!--]--></div><!--]--></header> <!--[!--><!--]--> <!--[!--><!--]--> <div class="prose prose-lg prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl max-w-none"><!----><p>Evan Chen’s <a href="https://web.evanchen.cc/napkin.html" rel="nofollow">Infinitely Large Napkin</a> is my go-to resource when I want to learn
+about some new area of mathematics (or at least it used to be; I’m increasingly
+often running into the issue that it doesn’t have a chapter about what I want
+to learn — at barely over 900 pages it’s just way too short). I recently asked
+myself what it is about the Napkin that I like so much, and this post is part
+of my answer.</p> <p>Note that I’m describing the way <em>I</em> like to learn math, not the objectively
+best way. If you happen to like learning that way too, maybe this post can give
+you a more explicit idea of what “that way” is. Otherwise, it will at least
+give you some insight into the brain of someone who learns differently
+than you do, and maybe that will help if you want to teach math to other
+people.</p> <p>One way of teaching mathematical concepts is the approach typically employed
+by textbooks: give some definitions, probably a few examples, state a few theorems,
+prove them. In some cases, you might also get an intuitive explanation of what
+these definitions are all about or why a theorem is interesting or how the proof
+roughly works. But often, these explanations are sparse and confined to the beginning
+of a section, so as not to dilute the mathematical purity of the remaining text.</p> <p>Another style of explanation is the one that consists almost entirely of hand-waving. Evan Chen
+describes it as follows:</p> <blockquote><p>Someone tells you about the hairy ball theorem in the form “you can’t comb the
+hair on a spherical cat”, then doesn’t tell you anything about why it should be true,
+what it means to actually “comb the hair”, or any of the underlying theory, leaving
+you with just some vague notion in your head.</p></blockquote> <p>We could think of these two approaches as opposite ends of a “rigor”-spectrum.
+Somewhere in the middle, you might have the way that theoretical physics is often taught:
+few things are formally defined, but concepts are at least made
+explicit enough that you are able to use them in calculations, and equations
+are usually derived (though less rigorously than in math).</p> <p>Where does the Napkin fit in on this axis? Is it more or less rigorous than
+theoretical physics courses? I think that’s the wrong question to ask because
+the one-dimensional model of approaches to teaching math is too simplistic.
+The space of all the ways you could explain mathematical concepts is very large
+and treating it as one-dimensional isn’t such a great approximation (though I think
+that the “rigor”-axis might be the best one can do with only one dimension).</p> <p>So what’s a better model? I want to suggest thinking about mathematical explanations
+using a two-dimensional approximation. On one axis, we have the rigor used when <em>stating</em> definitions or results, while the other axis is the rigor of the <em>derivations</em> of these results.
+Textbooks have both formal statements and formal derivations, casual hand-wavy explanations
+have neither. Physics is somewhere in between, though to me the derivations often
+seem more rigorous than the statements<sup id="fnref-1"><a href="#fn-1" class="footnote-ref">1</a></sup>.
+Finally, the Napkin takes the opposite approach:
+it states things with essentially the same rigor as textbooks but then places emphasis
+on very informal derivations or explanations of why these statements are true.</p> <figure class="mx-auto my-6 flex flex-col items-center" style="width: auto; max-width: 100%;"><img src="/_app/immutable/assets/rigor.DHCmpRbB.svg" alt="Figure 1: Various styles for teaching mathematics. Yes, it would look better as a TikZ figure, but it was either this or nothing." class="h-auto max-w-full"> <!--[--><figcaption class="text-s mt-2 text-center text-gray-500 italic"><!---->Figure 1: Various styles for teaching mathematics. Yes, it would look better as a TikZ figure, but it was either this or nothing.<!----></figcaption><!--]--></figure><!----> <p>I find that this approach — stating things formally but reasoning about them informally —
+works extremely well for me when I first learn about a subject. I’m happy to take someone’s
+word that a statement is true, at least initially and if the statement seems like it <em>should</em> be true. But if I don’t know precisely what the statement is, I find it much harder to get
+to grips with the subject.</p> <p>As a caveat, note that I said “when I first learn about a subject”. This approach doesn’t teach
+how to write formal proofs, and it’s by design not as comprehensive as a textbook.
+But sometimes an intuitive understanding is enough for my purposes, and even if I know I’ll
+later want to learn a subject in more depth, I find it helpful to build this intuitive
+understanding <em>before</em> going through all the details.</p> <div class="footnotes"><hr> <ol><li id="fn-1">This sounded a bit absurd to me when writing it down — how can you rigorously derive something you haven’t even really stated? But I think there’s some truth to it, and what I mean is roughly this: the calculations done in physics courses are often essentially the same that you’d do for a formal proof. But the objects used in those calculations aren’t formally defined, it’s just taken for granted that everyone has a sense of what they are and how they behave (or maybe it’s explicitly stated how they behave, but not whether they are uniquely characterized by that behavior).<a href="#fnref-1" class="footnote-backref">↩</a></li></ol></div><!----></div> <div class="mt-12 border-t border-gray-200 pt-8"><div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><a href="/post" class="inline-flex items-center text-blue-600 hover:text-blue-800"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Back to all posts</a></div></div></article><!----><!----></main><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_6e0cus = {
+						base: new URL("..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../_app/immutable/entry/start.BU4YA098.js"),
+						import("../_app/immutable/entry/app.B4LPIQdn.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 24],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+</body>
+
+</html>

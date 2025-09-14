@@ -3,6 +3,7 @@ import rehypeKatexSvelte from "rehype-katex-svelte";
 import remarkMath from 'remark-math';
 import relativeImages from 'mdsvex-relative-images';
 import remarkFootnotes from 'remark-footnotes';
+import adapter from '@sveltejs/adapter-static';
 
 const config = {
 	preprocess: [mdsvex({
@@ -27,7 +28,11 @@ const config = {
 			post: './src/lib/_post-layout.svelte'
 		}
 	})],
-	extensions: ['.svelte', '.md', '.svx']
+	extensions: ['.svelte', '.md', '.svx'],
+	kit: {
+		adapter: adapter({ pages: 'docs', assets: 'docs' }),
+		paths: { base: '' }
+	}
 };
 
 export default config;

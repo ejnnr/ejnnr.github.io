@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<link rel="icon" href="../favicon.png" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+		<link href="../_app/immutable/assets/0.BV6eIN1u.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.BU4YA098.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CiKng2ZP.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CXEaPN9q.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BH9Iu36z.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/IITJ3E17.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.B4LPIQdn.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DgNpRiRI.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ZND8Q6sY.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/lNFSlT5-.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CIAIJGM7.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.DUYzCeOk.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BpsNOneS.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/15.DOsrSZDl.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/D1wvszJw.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CkMDHBy_.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/dy7G579c.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/C2OPhFAa.js"><!--[--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css" integrity="" crossorigin="anonymous"><!--]--><!--[--><!--[--><meta name="description" content="  Emacs has some really amazing features for writing LaTeX; this post gives
+  an overview of some of them, either to convince you to give Emacs a try,
+  or to make you aware that these features exist if you're already using
+  Emacs but didn't know about them.
+  "><!--]--><!--]--><title>Emacs as an amazing LaTeX editor</title>
+</head>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents"><!--[--><!--[--><!----><header class="sticky top-0 z-10 w-full bg-white/90 shadow-sm backdrop-blur-sm transition-transform duration-300 ease-in-out relative // Apply fixed/translate classes based on state"><nav class="mx-auto flex max-w-3xl items-center p-4"><div class="space-x-4"><a href="/" class="text-gray-600 hover:text-blue-600">Home</a> <a href="/post" class="text-gray-600 hover:text-blue-600">Posts</a></div></nav></header> <main class="mx-auto max-w-3xl p-4"><!----><article class="mx-auto max-w-3xl px-4 py-8"><header class="mb-8"><h1 class="mb-4 border-b pb-4 text-4xl leading-tight font-bold text-gray-900">Emacs as an amazing LaTeX editor</h1> <!--[--><div class="mt-2 flex items-center gap-4 text-sm text-gray-600"><time datetime="2021-03-17T13:14:00.000Z">March 17, 2021</time> <!--[!--><!--]--></div><!--]--> <!--[--><div class="mt-4 flex flex-wrap gap-2"><!--[--><span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">Productivity</span><!--]--></div><!--]--></header> <!--[!--><!--]--> <!--[!--><!--]--> <div class="prose prose-lg prose-h1:text-4xl prose-h2:text-3xl prose-h3:text-2xl max-w-none"><!----><p>The purpose of this post is to point you towards some great features
+and packages if you’re already using Emacs to edit LaTeX, and to
+make you jealous if you’re using some other editor<sup id="fnref-1"><a href="#fn-1" class="footnote-ref">1</a></sup>.</p> <p>This isn’t a tutorial for Emacs or even a tutorial on how to write LaTeX inside
+Emacs. Rather, it’s supposed to give an idea of what’s possible, either
+as inspiration or to convince you to give Emacs a try. One problem is
+that setting all of this up can be a huge time sink, so you might want
+to use a framework such as <a href="https://github.com/hlissner/doom-emacs" rel="nofollow">Doom</a>, where you just need to enable the LaTeX
+module and get almost everything I describe here.</p> <h2>The basics</h2> <p>Of course you get all the basics you would expect from a LaTeX editor.
+Synctex is supported (meaning you can jump from a certain line in the
+LaTeX code to the corresponding place inside your PDF viewer and the other
+way around), you can compile files from inside emacs, you can jump to
+compilation errors if there are any, there is auto-completion and so on.</p> <h2>Visuals</h2> <p>LaTeX can produce beautiful documents, but the source code isn’t very
+readable when writing mathematical expressions:</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token function selector">\</span>alpha <span class="token function selector">\</span>mapsto <span class="token function selector">\</span>int_<span class="token punctuation">&#123;</span><span class="token function selector">\</span>R<span class="token punctuation">&#125;</span>e^<span class="token punctuation">&#123;</span>-<span class="token function selector">\</span>alpha x^2<span class="token punctuation">&#125;</span><span class="token function selector">\</span>,dx</code><!----></pre> <p>Emacs and AUCTeX (which is the de-facto standard package for using LaTeX inside
+Emacs) have several features that improve this situation:</p> <ul><li><code>preview-latex</code> replaces equations (and other parts of the LaTeX document)
+with images by compiling them. This means they look exactly the same inside
+the editor as they will in the compiled document. When the cursor is on
+an equation, this image preview is automatically replaced by the underlying text so you can
+still easily edit equations. However, this method of course has a noticeable
+delay because it requires a call to the LaTeX compiler.</li> <li>LaTeX superscripts and subscripts are displayed as super-/subscripts inside the editor.
+This is a purely visual feature, editing them doesn’t require “entering” or “exiting”
+the subscript or anything like that.</li> <li><code>prettify-symbols-mode</code> allows you to replace any string with any unicode symbol.
+AUCTeX comes with a fairly comprehensive predefined list, which replaces LaTeX commands
+such as greek letters, arrows and others with symbolic representations. But you
+can also add your own. For example, the example above uses <code>\R</code>, which my custom style
+file defines as <code>\mathbb{R}</code>, and it’s possible to add replacement rules for such custom
+commands (as long as there is a fitting Unicode symbol). This makes the line above
+look like this in my editor: <img src="/_app/immutable/assets/_20210317_140709screenshot.CWqizSxF.png"> When the cursor moves over one of those Unicode symbols, it is expanded to the underlying
+text. And the nice thing about this is that it’s essentially instantaneous because nothing
+needs to be compiled.</li> <li><em>Folding</em> is something similar but more general (though unlike <code>prettify-symbols-mode</code> it’s specific to LaTeX).
+It doesn’t just allow replacing fixed strings but also more complicated
+expressions. By default, this is used for example to display <code>\label{some_label}</code> as <code>[l]</code> (which as always expands when the cursor moves over it). The reasoning here is that
+some elements such as labels are just distractions when reading LaTeX source code.
+But you can also use this to further improve how math is displayed, see <a href="https://tecosaur.github.io/emacs-config/config.html#editor-visuals" rel="nofollow">this config</a> for some ideas (and in general for more ideas on how to
+beautify LaTeX inside Emacs).</li></ul> <h2>Editing</h2> <p>AUCTeX has a couple of nice features that make typing LaTeX a bit easier.
+For example, you can let it automatically insert braces <code>{}</code> when typing <code>_</code> or <code>^</code> inside a math environment, you can let it insert <code>\(\)</code> when typing a dollar sign,
+and even <code>\enquote{}</code> when typing <code>"</code> <sup id="fnref-2"><a href="#fn-2" class="footnote-ref">2</a></sup>.</p> <p>But things get even better with the <a href="https://github.com/iyefrat/evil-tex" rel="nofollow"><code>evil-tex</code></a> package. As the name suggests,
+this is only relevant if you’re using <code>evil-mode</code> (vim keybindings inside emacs),
+but if so, it’s definitely worth trying. Just a few examples of what this allows
+you to do:</p> <ul><li><p>Say you’ve typed</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token equation string">$ax^&#123;2&#125; + b$</span></code><!----></pre> <p>and suddenly realize that this is supposed to go into an exponent. With your cursor
+anywhere on this math environment, type <code>ysim^</code> (“surround everything inside the math
+environment as an exponent”) and you’ll get</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token equation string">$^&#123;ax^&#123;2&#125; + b&#125;$</span></code><!----></pre> <p>with the cursor at the <code>^</code>. Now you just need to enter the base.</p></li> <li><p>Your equations is now</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token equation string">$e^&#123;ax^&#123;2&#125; + b&#125;$</span></code><!----></pre> <p>and you decide that this merits its own displayed rather than
+inline equation. So you type <code>csmee</code> (“change the surrounding math environment
+to <code>equation</code>”) and get</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token function selector">\</span>begin<span class="token punctuation">&#123;</span><span class="token keyword">equation</span><span class="token punctuation">&#125;</span><span class="token equation string">
+e^&#123;ax^&#123;2&#125; + b&#125;
+<span class="token equation-command regex">\</span></span><span class="token function selector">end</span><span class="token punctuation">&#123;</span><span class="token keyword">equation</span><span class="token punctuation">&#125;</span></code><!----></pre></li> <li><p>After a bit more editing, you have (for some reason)</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token function selector">\</span>begin<span class="token punctuation">&#123;</span><span class="token keyword">equation</span><span class="token punctuation">&#125;</span><span class="token equation string">
+<span class="token equation-command regex">\</span>beta(e^&#123;ax^&#123;2&#125; + b&#125; + <span class="token equation-command regex">\</span>frac&#123;1&#125;&#123;x&#125;)
+<span class="token equation-command regex">\</span></span><span class="token function selector">end</span><span class="token punctuation">&#123;</span><span class="token keyword">equation</span><span class="token punctuation">&#125;</span></code><!----></pre> <p>Of course this looks ugly in the compiled document, you need to use <code>\left(</code> and <code>\right)</code>.
+With <code>evil-tex</code>, you can just type <code>mtd</code> (“toggle delimiter”) with the cursor anywhere
+inside the parantheses, and it will add <code>\left</code> and <code>\right</code> for you. Type <code>mtd</code> again to
+go back to just the parantheses.</p></li></ul> <h2>Emacs calc’s embedded mode</h2> <p><code>calc</code> is the built-in calculator for Emacs; though saying “calculator”
+is a bit misleading because it can do symbolic differentiation, unit conversion,
+linear algebra and more. If your press <code>C-x * e</code> with your cursor on any LaTeX equation,
+you will start <code>calc</code> in “embedded mode”. This means that <code>calc</code> will parse the LaTeX
+code and then let you do any calculations you want involving the expression.
+The result will automatically be converted back to LaTeX and written into the
+buffer.</p> <p>For example, say you have</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token equation string">$$
+<span class="token equation-command regex">\</span>sin<span class="token equation-command regex">\</span>left( x^2 + <span class="token equation-command regex">\</span>sqrt&#123;x&#125; <span class="token equation-command regex">\</span>right)
+$$</span></code><!----></pre> <p>and want to know the derivative. You can enter embedded mode and type <code>ad</code> to differentiate,
+then type <code>x</code> when prompted for the variable with respect to which to differentiate.
+And just like that, you will have</p> <pre class="language-latex"><!----><code class="language-latex"><span class="token equation string">$$
+<span class="token equation-command regex">\</span>left( 2 x + <span class="token equation-command regex">\</span>frac&#123;0.5&#125;&#123;<span class="token equation-command regex">\</span>sqrt&#123;x&#125;&#125; <span class="token equation-command regex">\</span>right) <span class="token equation-command regex">\</span>cos<span class="token equation-command regex">\</span>left( x^2 + <span class="token equation-command regex">\</span>sqrt&#123;x&#125; <span class="token equation-command regex">\</span>right)
+$$</span></code><!----></pre> <p>inside your buffer. <code>calc</code> can even parse and output things like <code>\begin{pmatrix}...\end{pmatrix}</code>,
+so you can multiply matrices as well.</p> <h2>And more</h2> <p>I’ve only covered some of my personal favorite features when it comes to
+writing LaTeX inside Emacs, there’s much more. For example, <code>LaTeX-math-mode</code> allows
+you to very quickly enter mathematical symbols and RefTeX as well as other packages
+make handling references, labels and citations very efficient.
+And of course there are a gazillion other packages that can make writing LaTeX
+easier — this is Emacs after all.</p> <p>The downside is of course that there is a pretty steep learning curve.
+But for people who need to write LaTeX documents all the time, I’d argue
+it’s worth it.</p> <div class="footnotes"><hr> <ol><li id="fn-1">Though mostly the first part — I haven’t actually tried many others and they may be just as amazing.<a href="#fnref-1" class="footnote-backref">↩</a></li> <li id="fn-2">Using <code>TeX-electric-sub-and-superscript</code>, <code>TeX-electric-math</code>, and <code>LaTeX-csquotes-open-quote</code> / <code>LaTeX-csquotes-close-quote</code><a href="#fnref-2" class="footnote-backref">↩</a></li></ol></div><!----></div> <div class="mt-12 border-t border-gray-200 pt-8"><div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"><a href="/post" class="inline-flex items-center text-blue-600 hover:text-blue-800"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Back to all posts</a></div></div></article><!----><!----></main><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_6e0cus = {
+						base: new URL("..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../_app/immutable/entry/start.BU4YA098.js"),
+						import("../_app/immutable/entry/app.B4LPIQdn.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 15],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+</body>
+
+</html>
